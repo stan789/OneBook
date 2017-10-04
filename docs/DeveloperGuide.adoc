@@ -781,16 +781,43 @@ Use case ends.
 
 [none]
 *  1a. The given person name is invalid.
-
 +
 Use case ends.
 
 [none]
 *  1a1. Addressbook shows an error message.
-
 +
 Use case ends.
 
+[discrete]
+=== Use case: Add person
+
+*MSS*
+
+1.  User requests to add a person
+2.  AddressBook adds the person
+
+*Extensions*
+
+[none]
+* 1a. The entered person particulars are invalid.
++
+Use case ends.
+
+[none]
+** 1a1. AddressBook shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Help
+
+*MSS*
+
+1. User requests to see usage instructions
+2. AddressBook displays list of usage instructions
++
+Use case ends.
 
 {More to be added}
 
