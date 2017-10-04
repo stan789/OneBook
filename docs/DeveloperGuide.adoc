@@ -767,6 +767,31 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: Find User by name
+
+*MSS*
+
+1.  User requests to find person by name
+2.  Addressbook list the person that corresponds to the name.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+*  1a. The given person name is invalid.
+
++
+Use case ends.
+
+[none]
+*  1a1. Addressbook shows an error message.
+
++
+Use case ends.
+
+
 {More to be added}
 
 [appendix]
