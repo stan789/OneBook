@@ -827,11 +827,21 @@ Use case ends.
 .  Should work on any link:#mainstream-os[mainstream OS] as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  User should have a basic knowledge of how to use a computer.
+.  It should not be difficult to add more features in the future.
+.  AddressBook should be allocated sufficient memory to store contacts
+.  AddressBook should be easy to use for new users.
+.  User should be able to navigate the AddressBook easily.
+.  AddressBook should have a backup in case contacts are accidentally cleared.
+.  AddressBook should be secure so that private information will not be leaked.
+.  AddressBook should respond fast enough to user inputs.
 
 {More to be added}
 
 [appendix]
 == Glossary
+
+
 
 [[mainstream-os]]
 Mainstream OS
