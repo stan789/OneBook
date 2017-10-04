@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= link:#address-book[AddressBook] Level 4 - Developer Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -743,7 +743,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |save the birthdays of my contacts |check my contact's birthday
 
-|`* *` |user |have night mode available |use it comfortably at night
+|`* *` |user |have link:#night-mode[night mode] available |use it comfortably at night
 
 |`* *` |user |have a shortcut for removing contacts |easily remove contacts
 
@@ -777,7 +777,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user |have cloud integration |access contacts from any device
 
-|`*` |user |have quick access widgets |access AddressBook quickly
+|`*` |user |have link:#quick-access-widgets[quick access widgets] |access AddressBook quickly
 
 |`*` |user |know the date of adding a contact |know when I added that contact
 
@@ -893,6 +893,27 @@ Private contact detail
 
 ....
 A contact detail that is not meant to be shared with others
+....
+
+[[address-book]]
+AddressBook
+
+....
+A virtual book used for storing entries of people, including their details
+....
+
+[[night-mode]]
+Night mode
+
+....
+AddressBook is dimmed so that the application will not be too glaring in an environment with less light
+....
+
+[[quick-access-widgets]]
+Quick access widgets
+
+....
+Widgets provide quick access to information without requiring you to open the application
 ....
 
 [appendix]
