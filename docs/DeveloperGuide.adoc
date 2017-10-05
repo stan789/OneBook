@@ -787,7 +787,27 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Address Book` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `OneBook` and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
+=== Use case: Add person
+
+*MSS*
+
+1.  User requests to add a person
+2.  OneBook adds the person
+
+*Extensions*
+
+[none]
+* 1a. The entered person particulars are invalid.
++
+Use case ends.
+
+[none]
+** 1a1. OneBook shows an error message.
++
+Use case ends.
 
 [discrete]
 === Use case: Delete person
@@ -795,9 +815,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 *MSS*
 
 1.  User requests to list persons
-2.  Address Book shows a list of persons
+2.  OneBook shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  Address Book deletes the person
+4.  OneBook deletes the person
 +
 Use case ends.
 
@@ -811,7 +831,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. Address Book shows an error message.
+** 3a1. OneBook shows an error message.
 +
 Use case resumes at step 2.
 
@@ -821,7 +841,7 @@ Use case resumes at step 2.
 *MSS*
 
 1.  User requests to find person by name
-2.  Address Book list the person that corresponds to the name.
+2.  OneBook list the person that corresponds to the name.
 +
 Use case ends.
 
@@ -833,27 +853,7 @@ Use case ends.
 Use case ends.
 
 [none]
-*  1a1. Address Book shows an error message.
-+
-Use case ends.
-
-[discrete]
-=== Use case: Add person
-
-*MSS*
-
-1.  User requests to add a person
-2.  Address Book adds the person
-
-*Extensions*
-
-[none]
-* 1a. The entered person particulars are invalid.
-+
-Use case ends.
-
-[none]
-** 1a1. Address Book shows an error message.
+*  1a1. OneBook shows an error message.
 +
 Use case ends.
 
@@ -863,7 +863,7 @@ Use case ends.
 *MSS*
 
 1. User requests to see usage instructions
-2. Address Book displays list of usage instructions
+2. OneBook displays list of usage instructions
 +
 Use case ends.
 
@@ -879,7 +879,7 @@ Use case ends.
 .  It should not be difficult to add more features in the future.
 .  Address Book should be allocated sufficient memory to store contacts
 .  Address Book should be easy to use for new users.
-.  User should be able to navigate the AddressBook easily.
+.  User should be able to navigate the Address Book easily.
 .  Address Book should have a backup in case contacts are accidentally cleared.
 .  Address Book should be secure so that private information will not be leaked.
 .  Address Book should respond fast enough to user inputs.
