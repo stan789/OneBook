@@ -723,7 +723,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |be able to sort my AddressBook |find my contacts easily
+|`* * *` |user |be able to sort my Address Book |find my contacts easily
 
 |`* * *` |user |undo my action |undo what I have done accidentally
 
@@ -731,7 +731,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add a new person |
 
-|`* * *` |user |merge duplicate contacts |have a cleaner AddressBook
+|`* * *` |user |merge duplicate contacts |have a cleaner Address Book
 
 |`* * *` |user |edit contacts |update contact information
 
@@ -751,17 +751,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |store multiple numbers for a single person |store numbers for friends with multiple numbers
 
-|`* *` |user |change colour scheme/theme |customise the AddressBook to my liking
+|`* *` |user |change colour scheme/theme |customise the Address Book to my liking
 
 |`* *` |new user |import all my contacts from my phone |easily transfer contacts
 
 |`* *` |user |add a profile picture for my contacts |easily identify my contacts
 
-|`* *` |user |add a user login for access to my AddressBook |prevent unauthorised access by other people
+|`* *` |user |add a user login for access to my Address Book |prevent unauthorised access by other people
 
 |`* *` |user |add notes to my contact |store additional information
 
-|`* *` |user |change my display fonts |customise my AddressBook to my liking
+|`* *` |user |change my display fonts |customise my Address Book to my liking
 
 |`* *` |user |find suggested contacts |easily add contacts that I do not have within my social circle
 
@@ -777,7 +777,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user |have cloud integration |access contacts from any device
 
-|`*` |user |have link:#quick-access-widgets[quick access widgets] |access AddressBook quickly
+|`*` |user |have link:#quick-access-widgets[quick access widgets] |access Address Book quickly
 
 |`*` |user |know the date of adding a contact |know when I added that contact
 
@@ -787,7 +787,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Address Book` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
@@ -795,9 +795,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  Address Book shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  Address Book deletes the person
 +
 Use case ends.
 
@@ -811,7 +811,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Address Book shows an error message.
 +
 Use case resumes at step 2.
 
@@ -821,7 +821,7 @@ Use case resumes at step 2.
 *MSS*
 
 1.  User requests to find person by name
-2.  Addressbook list the person that corresponds to the name.
+2.  Address Book list the person that corresponds to the name.
 +
 Use case ends.
 
@@ -833,7 +833,7 @@ Use case ends.
 Use case ends.
 
 [none]
-*  1a1. Addressbook shows an error message.
+*  1a1. Address Book shows an error message.
 +
 Use case ends.
 
@@ -843,7 +843,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to add a person
-2.  AddressBook adds the person
+2.  Address Book adds the person
 
 *Extensions*
 
@@ -853,7 +853,7 @@ Use case ends.
 Use case ends.
 
 [none]
-** 1a1. AddressBook shows an error message.
+** 1a1. Address Book shows an error message.
 +
 Use case ends.
 
@@ -863,7 +863,7 @@ Use case ends.
 *MSS*
 
 1. User requests to see usage instructions
-2. AddressBook displays list of usage instructions
+2. Address Book displays list of usage instructions
 +
 Use case ends.
 
@@ -877,12 +877,12 @@ Use case ends.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  User should have a basic knowledge of how to use a computer.
 .  It should not be difficult to add more features in the future.
-.  AddressBook should be allocated sufficient memory to store contacts
-.  AddressBook should be easy to use for new users.
+.  Address Book should be allocated sufficient memory to store contacts
+.  Address Book should be easy to use for new users.
 .  User should be able to navigate the AddressBook easily.
-.  AddressBook should have a backup in case contacts are accidentally cleared.
-.  AddressBook should be secure so that private information will not be leaked.
-.  AddressBook should respond fast enough to user inputs.
+.  Address Book should have a backup in case contacts are accidentally cleared.
+.  Address Book should be secure so that private information will not be leaked.
+.  Address Book should respond fast enough to user inputs.
 
 {More to be added}
 
@@ -906,7 +906,7 @@ A contact detail that is not meant to be shared with others
 ....
 
 [[address-book]]
-AddressBook
+Address Book
 
 ....
 A virtual book used for storing entries of people, including their details
@@ -916,7 +916,7 @@ A virtual book used for storing entries of people, including their details
 Night mode
 
 ....
-AddressBook is dimmed so that the application will not be too glaring in an environment with less light
+Address Book is dimmed so that the application will not be too glaring in an environment with less light
 ....
 
 [[quick-access-widgets]]
