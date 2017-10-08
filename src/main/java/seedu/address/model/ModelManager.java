@@ -50,6 +50,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void executeSort() {
+        addressBook.executeSort();
+        indicateAddressBookChanged();
+    }
+
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
