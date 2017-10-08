@@ -29,12 +29,12 @@ Responsibilities: Storage
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Gideon Fu
+image::gideonfu.jpg[width="150", align="left"]
+{empty}[http://github.com/gideonfu[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: UI
 
 '''
 
