@@ -4,7 +4,7 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :imagesDir: images
 :stylesDir: stylesheets
 
-OneBook was developed by https://github.com/CS2103-AY1718S1-T17-B4[Team T17-B4], improving on
+OneBook is developed by https://github.com/CS2103-AY1718S1-T17-B4[Team T17-B4], improving on
 AddressBook - Level 4 +
 developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
 We are a team of students from the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
@@ -12,7 +12,7 @@ We are a team of students from the http://www.comp.nus.edu.sg[School of Computin
 == Project Team
 
 === Henry Ang
-image::henry.jpg[width="150", align="left"]
+image::frozventus.jpg[width="150", align="left"]
 {empty}[https://github.com/frozventus[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -20,38 +20,30 @@ Responsibilities: Model
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
-
-'''
-
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Darrin Loh
+image::darrinloh.jpg[width="150", align="left"]
+{empty}[http://github.com/darrinloh[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Storage
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
-
-'''
-
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Gideon Fu
+image::gideonfu.jpg[width="150", align="left"]
+{empty}[http://github.com/gideonfu[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
 
 '''
+
+=== Stanley Guok
+image::stan789.jpg[width="150", align="left"]
+{empty}[http://github.com/stan789[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Logic
+
+'''
+
