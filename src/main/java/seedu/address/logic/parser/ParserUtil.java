@@ -43,6 +43,11 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+    /**
+     * Parses {@code oneBasedIndex} into an {@code Index[]} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws IllegalValueException if the specified index is invalid (not non-zero unsigned integer).
+     */
     public static Index[] parseDeleteIndex(String oneBasedIndex) throws IllegalValueException {
         String[] parts = oneBasedIndex.split(",");
         String[] trimmedIndex = new String[parts.length];
