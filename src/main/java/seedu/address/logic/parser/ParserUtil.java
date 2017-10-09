@@ -43,6 +43,27 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+    public static Index[] parseDeleteIndex(String oneBasedIndex) throws IllegalValueException {
+        String[] parts = oneBasedIndex.split(",");
+        String[] trimmedIndex = new String[parts.length];
+        int[] trimmedIntIndex = new int[parts.length];
+        int i = 0;
+        for(String str : parts) {
+            trimmedIndex[i] = str.trim();
+            if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex[i])) {
+                throw new IllegalValueException(MESSAGE_INVALID_INDEX);
+            }
+            i++;
+        }
+
+        i = 0;
+        for(String str : trimmedIndex) {
+            trimmedIntIndex[i] = Integer.parseInt(str);
+            i++;
+        }
+        return Index.arrayFromOneBased(trimmedIntIndex);
+    }
+
     /**
      * Parses a {@code Optional<String> name} into an {@code Optional<Name>} if {@code name} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
