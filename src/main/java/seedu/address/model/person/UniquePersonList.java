@@ -49,8 +49,20 @@ public class UniquePersonList implements Iterable<Person> {
         internalList.add(new Person(toAdd));
     }
 
-    public void sort() {
-        internalList.sort(Comparator.comparing(p -> p.getName().toString()));
+    /**
+     * Sorts the list by type(name or email) in alphabetical order.
+     */
+    public void sort(String sortType) {
+        switch(sortType){
+
+         case "name":
+            internalList.sort(Comparator.comparing(p -> p.getName().toString()));
+
+         case "email":
+            internalList.sort(Comparator.comparing(p -> p.getEmail().toString()));
+
+         default:
+        }
     }
 
     /**

@@ -50,8 +50,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void executeSort() {
-        addressBook.executeSort();
+    public void executeSort(String sortType) {
+        addressBook.executeSort(sortType);
         indicateAddressBookChanged();
     }
 

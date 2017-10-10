@@ -46,5 +46,5 @@ public interface Model {
     void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate);
 
 
-    void executeSort();
+    void executeSort(String sortType);
 }
