@@ -42,8 +42,11 @@ public class DeleteCommand extends UndoableCommand {
 
         if (targetIndex.length > 1) {
             for(int i=1; i<targetIndex.length; i++) {
-                if(targetIndex[i].getZeroBased() <= targetIndex[i-1].getZeroBased()) {
-                    throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                if(targetIndex[i].getZeroBased() < targetIndex[i-1].getZeroBased()) {
+                    throw new CommandException(Messages.MESSAGE_INVALID_ORDER_PERSONS_INDEX);
+                }
+                else if (targetIndex[i].getZeroBased() == targetIndex[i-1].getZeroBased()) {
+                    throw new CommandException(Messages.MESSAGE_REPEATED_INDEXES);
                 }
             }
         }
