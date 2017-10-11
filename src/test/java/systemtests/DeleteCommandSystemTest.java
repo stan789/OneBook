@@ -167,6 +167,11 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
                 DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
     }
 
+    /**
+     * Deletes the persons at {@code toDelete[]} by creating a default {@code DeleteCommand} using {@code toDelete[]}
+     * and performs the same verification as {@code assertCommandSuccess (String, Model, String)}.
+     * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
+     */
     private void assertCommandSuccess(Index[] toDelete) {
         Model expectedModel = getModel();
         ReadOnlyPerson deletedPerson2 = removePerson(expectedModel, toDelete[1]);
