@@ -25,16 +25,16 @@ public class SortCommandSystemTest extends AddressBookSystemTest {
         } catch (EmptyAddressBookException e) {
             assertCommandFailure(command, MESSAGE_NO_PERSON_TO_SORT, expectedModel);
         }
-        assertCommandSuccess(command,expectedModel);
+        assertCommandSuccess(command, expectedModel);
 
         /* Case: sort the list by email -> sorted */
         command = SortCommand.COMMAND_WORD + " " + SORT_EMAIL;
         try {
             expectedModel.executeSort(SORT_EMAIL);
-        } catch (EmptyAddressBookException e ) {
+        } catch (EmptyAddressBookException e) {
             assertCommandFailure(command, MESSAGE_NO_PERSON_TO_SORT, expectedModel);
         }
-        assertCommandSuccess(command,expectedModel);
+        assertCommandSuccess(command, expectedModel);
 
         /* Case: invalid arguments -> rejected */
         assertCommandFailure(SortCommand.COMMAND_WORD + " 1 abc",
