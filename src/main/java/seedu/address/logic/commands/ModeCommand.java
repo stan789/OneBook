@@ -10,7 +10,7 @@ public class ModeCommand extends Command {
 
 //    StackPane root = new StackPane();
 //    final Scene scene = new Scene(root, 450, 600);
-//    private String theme1Url = getClass().getResource("WhiteTheme.css").toExternalForm();
+//    private String theme1Url = getClass().getResource("LightTheme.css").toExternalForm();
 //    private String theme2Url = getClass().getResource("DarkTheme.css").toExternalForm();
 
     @Override
