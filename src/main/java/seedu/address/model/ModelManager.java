@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.EmptyAddressBookException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
@@ -46,6 +47,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void executeSort(String sortType) throws EmptyAddressBookException {
+        addressBook.executeSort(sortType);
         indicateAddressBookChanged();
     }
 

@@ -14,6 +14,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.EmptyAddressBookException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -72,6 +73,14 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setTags(new HashSet<>(newData.getTagList()));
         syncMasterTagListWith(persons);
+    }
+
+    /**
+     * Sorts the list by type(name or email) in alphabetical order.
+     */
+
+    public void executeSort(String sortType) throws EmptyAddressBookException {
+        persons.sort(sortType);
     }
 
     //// person-level operations
