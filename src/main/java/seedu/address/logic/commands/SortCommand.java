@@ -35,8 +35,7 @@ public class SortCommand extends Command {
         try {
             model.executeSort(sortType);
             return new CommandResult(MESSAGE_SUCCESS);
-        }
-        catch (EmptyAddressBookException e) {
+        } catch (EmptyAddressBookException e) {
             return new CommandResult(MESSAGE_NO_PERSON_TO_SORT);
         }
 

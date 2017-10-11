@@ -56,7 +56,7 @@ public class UniquePersonList implements Iterable<Person> {
      * Sorts the list by type(name or email) in alphabetical order.
      */
     public void sort(String sortType) throws EmptyAddressBookException {
-        if(internalList.isEmpty()) {
+        if (internalList.isEmpty()) {
             throw new EmptyAddressBookException();
         }
 
