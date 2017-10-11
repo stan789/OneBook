@@ -53,20 +53,18 @@ public class ParserUtil {
         String[] parts = oneBasedIndex.split(",");
         String[] trimmedIndex = new String[parts.length];
         int[] trimmedIntIndex = new int[parts.length];
-        int i = 0;
-        for(String str : parts) {
-            trimmedIndex[i] = str.trim();
+
+        for(int i = 0; i < parts.length; i++) {
+            trimmedIndex[i] = parts[i].trim();
             if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex[i])) {
                 throw new IllegalValueException(MESSAGE_INVALID_INDEX);
             }
-            i++;
         }
 
-        i = 0;
-        for(String str : trimmedIndex) {
-            trimmedIntIndex[i] = Integer.parseInt(str);
-            i++;
+        for(int i = 0; i < trimmedIndex.length; i++) {
+            trimmedIntIndex[i] = Integer.parseInt(trimmedIndex[i]);
         }
+
         return Index.arrayFromOneBased(trimmedIntIndex);
     }
 
