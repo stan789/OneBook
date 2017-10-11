@@ -54,14 +54,14 @@ public class ParserUtil {
         String[] trimmedIndex = new String[parts.length];
         int[] trimmedIntIndex = new int[parts.length];
 
-        for(int i = 0; i < parts.length; i++) {
+        for (int i = 0; i < parts.length; i++) {
             trimmedIndex[i] = parts[i].trim();
             if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex[i])) {
                 throw new IllegalValueException(MESSAGE_INVALID_INDEX);
             }
         }
 
-        for(int i = 0; i < trimmedIndex.length; i++) {
+        for (int i = 0; i < trimmedIndex.length; i++) {
             trimmedIntIndex[i] = Integer.parseInt(trimmedIndex[i]);
         }
 

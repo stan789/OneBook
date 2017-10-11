@@ -50,7 +50,7 @@ public class Index {
      */
     public static Index[] arrayFromOneBased(int[] oneBasedIndex) {
         Index[] arrayIndex = new Index[oneBasedIndex.length];
-        for(int i=0; i<oneBasedIndex.length; i++) {
+        for (int i = 0; i < oneBasedIndex.length; i++) {
             arrayIndex[i] = new Index(oneBasedIndex[i] - 1);
         }
         return arrayIndex;

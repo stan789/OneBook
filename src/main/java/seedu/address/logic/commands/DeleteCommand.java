@@ -34,18 +34,17 @@ public class DeleteCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() throws CommandException {
 
         List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
-        for(Index targetIndex : targetIndex) {
+        for (Index targetIndex : targetIndex) {
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
         }
 
         if (targetIndex.length > 1) {
-            for(int i=1; i<targetIndex.length; i++) {
-                if(targetIndex[i].getZeroBased() < targetIndex[i-1].getZeroBased()) {
+            for (int i = 1; i < targetIndex.length; i++) {
+                if (targetIndex[i].getZeroBased() < targetIndex[i - 1].getZeroBased()) {
                     throw new CommandException(Messages.MESSAGE_INVALID_ORDER_PERSONS_INDEX);
-                }
-                else if (targetIndex[i].getZeroBased() == targetIndex[i-1].getZeroBased()) {
+                } else if (targetIndex[i].getZeroBased() == targetIndex[i - 1].getZeroBased()) {
                     throw new CommandException(Messages.MESSAGE_REPEATED_INDEXES);
                 }
             }
@@ -55,7 +54,7 @@ public class DeleteCommand extends UndoableCommand {
         String[] personDeleteMessage = new String[targetIndex.length];
         StringBuilder deleteMessage = new StringBuilder();
 
-        for(int i = (targetIndex.length - 1); i >= 0; i--) {
+        for (int i = (targetIndex.length - 1); i >= 0; i--) {
             int target = targetIndex[i].getZeroBased();
             personToDelete = lastShownList.get(target);
             try {
@@ -65,7 +64,7 @@ public class DeleteCommand extends UndoableCommand {
             }
             personDeleteMessage[i] = MESSAGE_DELETE_PERSON_SUCCESS + personToDelete;
         }
-        
+
         for(String message : personDeleteMessage) {
             deleteMessage.append(message);
             deleteMessage.append("\n");
