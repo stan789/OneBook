@@ -65,7 +65,7 @@ public class DeleteCommand extends UndoableCommand {
             personDeleteMessage[i] = MESSAGE_DELETE_PERSON_SUCCESS + personToDelete;
         }
 
-        for(String message : personDeleteMessage) {
+        for (String message : personDeleteMessage) {
             deleteMessage.append(message);
             deleteMessage.append("\n");
         }
