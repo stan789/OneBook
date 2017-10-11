@@ -59,16 +59,20 @@ public class UniquePersonList implements Iterable<Person> {
         if(internalList.isEmpty()) {
             throw new EmptyAddressBookException();
         }
-        switch(sortType){
 
-         case SORT_NAME:
+        switch(sortType) {
+
+        case SORT_NAME:
             internalList.sort(Comparator.comparing(p -> p.getName().toString()));
+            break;
 
-         case SORT_EMAIL:
+        case SORT_EMAIL:
             internalList.sort(Comparator.comparing(p -> p.getEmail().toString()));
+            break;
 
-         default:
+        default:
         }
+
     }
 
     /**

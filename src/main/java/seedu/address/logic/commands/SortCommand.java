@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-
 import seedu.address.model.person.exceptions.EmptyAddressBookException;
 
 /**
@@ -12,6 +11,10 @@ public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
 
+    public static final String SORT_NAME = "name";
+
+    public static final String SORT_EMAIL = "email";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all persons by name or email.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example for sort by name: " + COMMAND_WORD + " name\n"
@@ -21,13 +24,7 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_NO_PERSON_TO_SORT = "There is no contacts to be sorted";
 
-
-
     public final String sortType;
-
-    public static final String SORT_NAME = "name";
-    public static final String SORT_EMAIL = "email";
-
 
     public SortCommand(String sortType) {
         this.sortType = sortType;
@@ -39,9 +36,10 @@ public class SortCommand extends Command {
             model.executeSort(sortType);
             return new CommandResult(MESSAGE_SUCCESS);
         }
-        catch (EmptyAddressBookException e ) {
+        catch (EmptyAddressBookException e) {
             return new CommandResult(MESSAGE_NO_PERSON_TO_SORT);
         }
+
     }
 
     @Override
