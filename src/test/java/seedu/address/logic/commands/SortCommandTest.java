@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.SortCommand.MESSAGE_NO_PERSON_TO_SORT;
 import static seedu.address.logic.commands.SortCommand.SORT_EMAIL;
 import static seedu.address.logic.commands.SortCommand.SORT_NAME;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -10,6 +11,7 @@ import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -44,9 +46,15 @@ public class SortCommandTest {
         assertCommandSuccess(sortCommand, model, expectedMessage, expectedModel);
     }
 
+    @Test(expected = EmptyAddressBookException.class)
+    public void testEmptyAddressBookException() throws EmptyAddressBookException {
+        model.resetData(new AddressBook());
+        model.executeSort(SORT_NAME);
+
+    }
 
     /**
-     * Generates a new {@code SortCommand} which upon execution, sorts the AddressBook accordingly.
+     * Generates a new {@code SortCommand} which upon execution, sorts the AddressBook.
      */
     private SortCommand prepareCommand(String sortType) {
         SortCommand command = new SortCommand(sortType);
