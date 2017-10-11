@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.SortCommand.SORT_EMAIL;
+import static seedu.address.logic.commands.SortCommand.SORT_NAME;
 
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -15,7 +17,7 @@ public class SortCommandParser implements Parser<SortCommand> {
      */
     public SortCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim().toLowerCase();
-        if (trimmedArgs.isEmpty() || (!trimmedArgs.equals("name") && !trimmedArgs.equals("email"))) {
+        if (trimmedArgs.isEmpty() || (!trimmedArgs.equals(SORT_NAME) && !trimmedArgs.equals(SORT_EMAIL))) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }

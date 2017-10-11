@@ -1,6 +1,8 @@
 package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.SortCommand.SORT_EMAIL;
+import static seedu.address.logic.commands.SortCommand.SORT_NAME;
 
 import java.util.Comparator;
 import java.util.Iterator;
@@ -12,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.EmptyAddressBookException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
@@ -52,13 +55,16 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Sorts the list by type(name or email) in alphabetical order.
      */
-    public void sort(String sortType) {
+    public void sort(String sortType) throws EmptyAddressBookException {
+        if(internalList.isEmpty()) {
+            throw new EmptyAddressBookException();
+        }
         switch(sortType){
 
-         case "name":
+         case SORT_NAME:
             internalList.sort(Comparator.comparing(p -> p.getName().toString()));
 
-         case "email":
+         case SORT_EMAIL:
             internalList.sort(Comparator.comparing(p -> p.getEmail().toString()));
 
          default:
