@@ -33,9 +33,9 @@ public class MainWindow extends UiPart<Region> {
     private static final String FXML = "MainWindow.fxml";
     private static final int MIN_HEIGHT = 600;
     private static final int MIN_WIDTH = 450;
-
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
+    public static Scene scene;
     private Stage primaryStage;
     private Logic logic;
 
@@ -63,6 +63,7 @@ public class MainWindow extends UiPart<Region> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML);
 
@@ -80,9 +81,13 @@ public class MainWindow extends UiPart<Region> {
         Scene scene = new Scene(getRoot());
         primaryStage.setScene(scene);
 
+        this.scene = scene;
+        scene.getStylesheets().add("view/LightTheme.css");
+
         setAccelerators();
         registerAsAnEventHandler(this);
     }
+
 
     public Stage getPrimaryStage() {
         return primaryStage;

@@ -99,7 +99,6 @@ public class UiManager extends ComponentManager implements Ui {
         alert.showAndWait();
     }
 
-
     /**
      * Shows an error alert dialog with {@code title} and error message, {@code e},
      * and exits the application after the user has closed the alert dialog.
