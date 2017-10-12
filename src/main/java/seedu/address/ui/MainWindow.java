@@ -33,9 +33,9 @@ public class MainWindow extends UiPart<Region> {
     private static final String FXML = "MainWindow.fxml";
     private static final int MIN_HEIGHT = 600;
     private static final int MIN_WIDTH = 450;
+    private static Scene scene;
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
-    private static Scene scene;
     private Stage primaryStage;
     private Logic logic;
 
@@ -88,7 +88,7 @@ public class MainWindow extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
-    public static Scene getScene(){
+    public static Scene getScene() {
         return scene;
     }
 
