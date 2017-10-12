@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-
 import javafx.scene.Scene;
 import seedu.address.ui.MainWindow;
 
