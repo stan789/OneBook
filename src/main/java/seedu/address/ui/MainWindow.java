@@ -35,7 +35,7 @@ public class MainWindow extends UiPart<Region> {
     private static final int MIN_WIDTH = 450;
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
-    public static Scene scene;
+    private static Scene scene;
     private Stage primaryStage;
     private Logic logic;
 
@@ -88,6 +88,9 @@ public class MainWindow extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    public static Scene getScene(){
+        return scene;
+    }
 
     public Stage getPrimaryStage() {
         return primaryStage;
