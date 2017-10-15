@@ -82,7 +82,7 @@ public class MainWindow extends UiPart<Region> {
         primaryStage.setScene(scene);
 
         this.scene = scene;
-        scene.getStylesheets().add("view/LightTheme.css");
+        scene.getStylesheets().add("view/DarkTheme.css");
 
         setAccelerators();
         registerAsAnEventHandler(this);
