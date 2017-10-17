@@ -8,7 +8,9 @@ import static seedu.address.logic.commands.SortCommand.SORT_NAME;
 
 import org.junit.Test;
 
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.SortCommand;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.exceptions.EmptyAddressBookException;
 
@@ -43,6 +45,14 @@ public class SortCommandSystemTest extends AddressBookSystemTest {
         /* Case: invalid arguments (no sort type)-> rejected */
         assertCommandFailure(SortCommand.COMMAND_WORD + " ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), expectedModel);
+
+        /* Case: sort from empty address book -> rejected */
+        executeCommand(ClearCommand.COMMAND_WORD);
+        expectedModel.resetData(new AddressBook());
+        assertCommandFailure(SortCommand.COMMAND_WORD + " "+ SORT_NAME,
+                MESSAGE_NO_PERSON_TO_SORT, expectedModel);
+
+
     }
 
     /**
