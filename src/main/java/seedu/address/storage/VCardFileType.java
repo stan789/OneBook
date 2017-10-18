@@ -1,12 +1,12 @@
 package seedu.address.storage;
 /**
- * API of the Storage component
+ * Format of VCard file
  */
 
 public class VCardFileType {
 
     private String name = "FN";
-    private String address= "ADR";
+    private String address = "ADR";
     private String email = "EMAIL";
     private String begin = "BEGIN:VCARD";
     private String end = "END:VCARD";

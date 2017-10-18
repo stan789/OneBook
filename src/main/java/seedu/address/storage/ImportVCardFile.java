@@ -21,8 +21,8 @@ import seedu.address.model.tag.Tag;
 import seedu.address.storage.exceptions.EmptyFileException;
 
 /**
- * Read vCard file from the directory. Check format in file.
- * return a list of persons
+ * Read vCard file from the directory.
+ *
  */
 
 public class ImportVCardFile {
@@ -35,6 +35,10 @@ public class ImportVCardFile {
     private boolean checkEnd = true;
     private boolean checkBegin = false;
 
+    /**
+     * Read vCard file from the directory. Check format in file.
+     * return a list of persons
+     */
 
     public ImportVCardFile(Path fileLocation) {
         this.fileLocation = fileLocation;
@@ -77,8 +81,7 @@ public class ImportVCardFile {
 
             if (!checkEnd) {
                 throw new IOException();
-            }
-            else {
+            } else {
                 vCard = new VCard();
             }
             checkEnd = false;
@@ -89,8 +92,7 @@ public class ImportVCardFile {
             try {
                 if (!checkBegin) {
                     throw new IOException();
-                }
-                else {
+                } else {
                     checkEnd = true;
                     checkBegin = false;
                     person.add(new Person(new Name(vCard.getName()), new Phone(vCard.getPhone()),
@@ -106,25 +108,20 @@ public class ImportVCardFile {
         else {
             String[] contactArray = line.split(":");
 
-            if (contactArray.length==2) {
+            if (contactArray.length == 2) {
                 if ((line.startsWith(vcf.getPhoneFormat2()) || line.startsWith(vcf.getPhoneFormat()))) {
                     String phone = contactArray[1];
-
                     phone = phone.replaceAll("[^0-9.*+]", "");
                     if (vCard.getPhone().isEmpty()) {
                         vCard.setPhone(phone);
                     }
                 }
-
-
                 if (line.startsWith(vcf.getEmail())) {
                     vCard.setEmail(contactArray[1]);
-
                 }
                 if (line.startsWith(vcf.getName())) {
                     String name = contactArray[1];
                     vCard.setName(name);
-
                 }
             }
         }

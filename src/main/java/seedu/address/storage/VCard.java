@@ -7,13 +7,19 @@ package seedu.address.storage;
 
 public class VCard {
 
-    private String phone = "";
-    private String email = "johnd@example.com";
-    private String address = "311, Clementi Ave 2, #02-25";
-    private String birthday = "02-01-1995";
-    private String name = "NO NAME";
+    private String phone;
+    private String email;
+    private String address;
+    private String birthday;
+    private String name;
 
-    public void VCard() {
+    public VCard() {
+        phone = "";
+        email = "johnd@example.com";
+        address = "311, Clementi Ave 2, #02-25";
+        birthday = "02-01-1995";
+        name = "NO NAME";
+
     }
 
     public void setAddress(String address) {

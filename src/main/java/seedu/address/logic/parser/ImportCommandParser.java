@@ -10,15 +10,21 @@ import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Import a VCard file to address book from a valid directory and a valid VCard file.
- *
+ * Parses input arguments and creates a new ImportCommand object
  */
 
 public class ImportCommandParser implements Parser<ImportCommand> {
 
     private Path fileLocation;
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the ImportCommand
+     * and returns an ImportCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+
     public ImportCommand parse(String args) throws ParseException {
+
         String trimmedArgs = args.trim();
 
         if (args.isEmpty()) {
@@ -26,9 +32,9 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         }
             fileLocation = Paths.get(trimmedArgs);
             File file = new File(trimmedArgs);
-        if (!file.isFile()) {
-            throw new ParseException("NO FILE FOUND");
-        }
+            if (!file.isFile()) {
+                throw new ParseException("NO FILE FOUND");
+            }
         String filename = file.getName();
         String extension = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
         if (!extension.equals("vcf")) {
