@@ -12,7 +12,7 @@ endif::[]
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :repoURL: https://github.com/CS2103AUG2017-T17-B4/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103AUG2017 T17-B4`      Since: `Jun 2016`      Licence: `MIT`
 
 == Setting up
 
@@ -363,6 +363,31 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
+
+=== Recycle bin [yellow]#*Coming in v2.0#
+The recycle bin is implemented by having address book store the list of person deleted using a separate list from the main address book list. +
+In this list, the person details is stored along with a date of deletion of the person. +
+Upon every startup of the program, the system time is checked against the date of deletion, and entries that are more than 7 days old will be removed from the list. +
+
+==== Design considerations
+
+**Aspect:** Implementation of `RecycleBin` +
+**Alternative 1 (current choice):** Add a new type of list `RecycleBinList` extending from `UniquePersonsList` +
+**Pros:** We will be able to store additional information in the list such as deletion date. Existing methods for `UniquePersonsList` can still be used. +
+**Cons:** Increases workload as a new class is added. Testing of newly introduced class is also required. +
+**Alternative 2:** Just reuse `UniquePersonsList` to store a separate list for `recycleBin` +
+**Pros:** Does not require alot of code changes. +
+**Cons:** Unable to add additional fields to `recycleBin` entry. Additional features such as automatic removal of entry from list cannot be implemented without changing existing code in `UniquePersonsList`. +
+
+---
+
+**Aspect:** Implementation of commands for `RecycleBin` +
+**Alternative 1 (current choice):** Add a new group of commands specifically for `RecycleBin` usage with `bin` as the first part of each command. +
+**Pros:** Less mixup in command purpose. Commands will look more organized. Existing command naming can be reused. +
+**Cons:** A new parser will have to added that determines the command is for `RecycleBin` before command is to be parsed again to determine usage. +
+**Alternative 2:** Add a new command for each feature of `RecycleBin` usage. +
+**Pros:** Additional parsing of command is unnecessary. +
+**Cons:** Commands will be easily mixed up. Purpose of command will be unintuitive, `clear` may mean to clear recycle or to clear address book. A separate command name for clearing recycle bin need to be thought of (clear can no longer be used). +
 
 == Documentation
 
