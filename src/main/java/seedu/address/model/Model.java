@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -48,4 +50,6 @@ public interface Model {
 
 
     void executeSort(String sortType) throws EmptyAddressBookException;
+
+    Integer importFile(Path fileLocation) throws IOException;
 }

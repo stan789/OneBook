@@ -3,6 +3,9 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -12,10 +15,12 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.EmptyAddressBookException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.storage.ImportVCFFile;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -54,6 +59,19 @@ public class ModelManager extends ComponentManager implements Model {
     public void executeSort(String sortType) throws EmptyAddressBookException {
         addressBook.executeSort(sortType);
         indicateAddressBookChanged();
+    }
+    @Override
+    public Integer importFile(Path fileLocation) throws IOException {
+        ImportVCFFile importFile = new ImportVCFFile(fileLocation);
+        ArrayList<Person> person = importFile.getPersonFromFile();
+        for (Person p : person) {
+            try {
+                addPerson(p);
+            } catch (DuplicatePersonException e) {
+                System.out.println("DuplicatePersonException");
+            }
+        }
+        return person.size();
     }
 
     @Override
