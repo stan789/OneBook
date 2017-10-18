@@ -44,7 +44,7 @@
     </VBox>
       <VBox>
          <children>
-         
+
                  <StackPane fx:id="resultDisplayPlaceholder" maxHeight="150.0" minHeight="150.0" prefHeight="150.0" styleClass="pane-with-border">
              <padding>
                <Insets bottom="5" left="10" right="10" top="5" />
@@ -56,7 +56,7 @@
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding></StackPane>
-            
+
                       <StackPane fx:id="addressPlaceholder" prefWidth="340.0">
                   <padding>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

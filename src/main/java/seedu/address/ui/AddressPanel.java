@@ -26,11 +26,11 @@ public class AddressPanel extends UiPart<Region> {
     public static final String GOOGLE_SEARCH_URL_PREFIX = "https://www.google.com.sg/search?safe=off&q=";
     public static final String GOOGLE_SEARCH_URL_SUFFIX = "&cad=h";
 
+    private ReadOnlyPerson person;
+
     private static final String FXML = "AddressPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
-
-    public ReadOnlyPerson person;
 
     @FXML
     private WebView browser;
@@ -48,6 +48,10 @@ public class AddressPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    /**
+     * Loads the address and webpage of the selected Person
+     * @param person
+     */
     private void loadPersonAddress(ReadOnlyPerson person) {
         loadPage(GOOGLE_SEARCH_URL_PREFIX + person.getName().fullName.replaceAll(" ", "+")
                 + GOOGLE_SEARCH_URL_SUFFIX);

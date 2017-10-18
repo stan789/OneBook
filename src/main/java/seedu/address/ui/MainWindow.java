@@ -22,7 +22,6 @@ import seedu.address.commons.events.commands.DisplayListFilteredEvent;
 import seedu.address.commons.events.commands.DisplayListResetEvent;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
-import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
@@ -208,6 +207,9 @@ public class MainWindow extends UiPart<Region> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    /**
+     * Resets the selected Person on display
+     */
     void reload() {
         personDisplayCard = new PersonDisplayCard();
         detailsPlaceholder.getChildren().add(personDisplayCard.getRoot());
