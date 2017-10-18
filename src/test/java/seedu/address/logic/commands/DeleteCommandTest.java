@@ -18,7 +18,10 @@ import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteCommand}.
@@ -98,6 +101,13 @@ public class DeleteCommandTest {
         // different person -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
+    @Test(expected = PersonNotFoundException.class)
+    public void testPersonNotFoundException() throws PersonNotFoundException {
+        Person alice = new PersonBuilder().withName("Alice").build();
+        model.deletePerson(alice);
+
+    }
+
 
     /**
      * Returns a {@code DeleteCommand} with the parameter {@code index}.
