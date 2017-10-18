@@ -117,13 +117,51 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
+        /* Case: find phone number of person in address book, keyword is substring of number -> 1 person found */
+        String substring = DANIEL.getPhone().value.substring(0, DANIEL.getPhone().value.length() / 2);
+        command = FindCommand.COMMAND_WORD + " phone " + substring;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find phone number of person in address book, number is substring of keyword -> 0 persons found */
+        command = FindCommand.COMMAND_WORD + " phone " + DANIEL.getPhone().value + "123";
+        ModelHelper.setFilteredList(expectedModel);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
         /* Case: find address of person in address book -> 1 person found */
         command = FindCommand.COMMAND_WORD + " address " + DANIEL.getAddress().value;
+        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find address of person in address book, keyword is substring of address -> 1 person found */
+        substring = DANIEL.getAddress().value.substring(0, DANIEL.getAddress().value.length() / 2);
+        command = FindCommand.COMMAND_WORD + " address " + substring;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find address of person in address book, address is substring of keyword -> 0 persons found */
+        command = FindCommand.COMMAND_WORD + " address " + DANIEL.getAddress().value + "123";
+        ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find email of person in address book -> 1 person found */
         command = FindCommand.COMMAND_WORD + " email " + DANIEL.getEmail().value;
+        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find email of person in address book, keyword is substring of email -> 1 person found */
+        substring = DANIEL.getEmail().value.substring(0, DANIEL.getEmail().value.length() / 2);
+        command = FindCommand.COMMAND_WORD + " email " + substring;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find email of person in address book, email is substring of keyword -> 0 persons found */
+        command = FindCommand.COMMAND_WORD + " email " + DANIEL.getEmail().value + "123";
+        ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
