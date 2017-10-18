@@ -16,8 +16,11 @@ public class FindCommand extends Command {
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: [name] [address] [email] [phone] KEYWORD[MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " name " + "alice bob charlie\n"
-            + "Example: " + COMMAND_WORD + " address " + "serangoon geylang\n"
-            + "Example: " + COMMAND_WORD + " phone " + "123456789";
+            + "Example: " + COMMAND_WORD + " address " + "Blk 20 Lorong 1 Serangoon Gardens\n"
+            + "Example: " + COMMAND_WORD + " email " + "example1 example2\n"
+            + "Example: " + COMMAND_WORD + " phone " + "123456789 987654321";
+
+    public static final String MESSAGE_NO_KEYWORD = "At least one keyword must be provided.";
 
     private final ContainsKeywordsPredicate predicate;
 
