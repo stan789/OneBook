@@ -57,7 +57,7 @@ public class ImportCommandTest {
     @Test
     public void execute_importInvalidVCardFileNoBeginCard_importFailure() throws IOException {
 
-        Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts_example.vcf");
+        Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts_without_begin.vcf");
 
         ImportCommand importCommand = prepareCommand(fileLocation);
         String expectedMessage = importCommand.MESSAGE_FILE_INVALID;
