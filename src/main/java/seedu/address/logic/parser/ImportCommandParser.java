@@ -30,11 +30,11 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         if (args.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
         }
-            fileLocation = Paths.get(trimmedArgs);
-            File file = new File(trimmedArgs);
-            if (!file.isFile()) {
-                throw new ParseException("NO FILE FOUND");
-            }
+        fileLocation = Paths.get(trimmedArgs);
+        File file = new File(trimmedArgs);
+        if (!file.isFile()) {
+            throw new ParseException("NO FILE FOUND");
+        }
         String filename = file.getName();
         String extension = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
         if (!extension.equals("vcf")) {

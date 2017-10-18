@@ -36,7 +36,7 @@ public class ImportVCardFile {
     private boolean checkBegin = false;
 
     /**
-     * Read vCard file from the directory. Check format in file.
+     * Read vCard file from the directory.
      * return a list of persons
      */
 
@@ -46,10 +46,15 @@ public class ImportVCardFile {
         vCard = new VCard();
     }
 
+    /**
+     * Read vCard file from the directory. Check format in file.
+     * return a list of persons
+     */
+
     public ArrayList<Person> getPersonFromFile() throws IOException {
 
         File file = new File(fileLocation.toString());
-        if (file.length()==0) {
+        if (file.length() == 0) {
             throw new EmptyFileException();
         }
         BufferedReader br = new BufferedReader(new FileReader(fileLocation.toString()));
@@ -74,7 +79,10 @@ public class ImportVCardFile {
         return person;
     }
 
-
+    /**
+     * Check format in file for each line.
+     * return a person
+     */
     private void sendRequest(String line) throws IOException {
 
         if (line.contains(vcf.getBegin())) {
@@ -86,9 +94,7 @@ public class ImportVCardFile {
             }
             checkEnd = false;
             checkBegin = true;
-        }
-
-        else if (line.contains(vcf.getEnd())) {
+        } else if (line.contains(vcf.getEnd())) {
             try {
                 if (!checkBegin) {
                     throw new IOException();
@@ -104,8 +110,7 @@ public class ImportVCardFile {
                 System.out.println(vCard.getPhone());
                 System.out.println("IllegalValueException");
             }
-        }
-        else {
+        } else {
             String[] contactArray = line.split(":");
 
             if (contactArray.length == 2) {
