@@ -12,7 +12,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103AUG2017-T17-B4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103AUG2017 T17-B4`      Since: `Jun 2016`      Licence: `MIT`
 
 == Quick Start
 
@@ -212,6 +212,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
+
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
@@ -226,6 +227,56 @@ Format: `exit`
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+=== Recycle Bin : `bin list` [yellow]#*Coming in v2.0#
+
+Shows a list of deleted persons. +
+Format: `bin`
+
+****
+* The listing will be replaced with recycle bin entries.
+* Entries listed here will be automatically removed 7 days after deletion
+****
+
+=== Restore entry from recycle bin : `bin restore` [yellow]#*Coming in v2.0#
+
+Restore the specified person from the bin to the address book. +
+Format: `bin restore INDEX`
+
+****
+* Restores the person at the specified `INDEX`.
+* The index refers to the index number shown in the bin listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `bin list` +
+`bin restore 2` +
+Restores the 2nd person in recycle bin to the address book. +
+
+=== Remove entry from recycle bin : `bin delete` [yellow]#*Coming in v2.0#
+
+Restore the specified person from the bin to the address book. +
+Format: `bin remove INDEX`
+
+****
+* Restores the person at the specified `INDEX`.
+* The index refers to the index number shown in the bin listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `bin list` +
+`bin remove 2` +
+Removes the 2nd person in recycle bin. +
+
+=== Remove all entry in recycle bin : `bin clear` [yellow]#*Coming in v2.0#
+
+Clears the recycle bin. +
+Format: `bin clear`
+
 
 == FAQ
 
