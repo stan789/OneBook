@@ -41,8 +41,7 @@ public class ImportVCardFile {
     private Integer indexOne = 1;
     private Integer indexTwo = 2;
     private Integer emptySize = 0;
-    private static final String PHONE_REGEX_1 = "[0-9.+*]\\d{3,}";
-    private static final String PHONE_REGEX_2 = "[0-9.+*]\\d{3,}";
+
 
 
     /**
@@ -125,20 +124,16 @@ public class ImportVCardFile {
             }
         } else {
             String[] contactArray = line.split(":");
-
             if (contactArray.length == indexTwo) {
                 if ((line.startsWith(vcf.getPhoneFormat2()) || line.contains(vcf.getPhoneFormat()))) {
                     String phone = contactArray[indexOne];
-
-                    if (phone.matches(PHONE_REGEX_1) || phone.matches(PHONE_REGEX_2) ) {
+                    if(phone.matches("[^a-zA-Z^.?<>&|!@#$%{}_=][^a-zA-Z^.?<>&|!@#$%{}_=]{3,}")) {
                         phone = phone.replaceAll("[^0-9*+]", "");
-                    }
+                }
                     if (vCard.getPhone().equals("")) {
                         vCard.setPhone(phone);
                     }
                 }
-
-
                 if (line.startsWith(vcf.getEmail())) {
                     vCard.setEmail(contactArray[indexOne]);
                 }
