@@ -39,7 +39,8 @@ public class ImportCommandParserTest {
     @Test
     public void parse_emptyArgs_throwsParserException() {
         String location = "";
-        assertParseFailure(parser, location, String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, location,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
 
     }
 
