@@ -52,28 +52,28 @@ public class AddCommandParser implements Parser<AddCommand> {
         try {
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME)).get();
             Optional<Phone> checkPhone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE));
-            if(checkPhone==null){
+            if(!checkPhone.isPresent()){
                 phone = new Phone(null);
             }
             else{
                 phone = checkPhone.get();
             }
             Optional<Birthday> checkBirthday = ParserUtil.parseBirthday(argMultimap.getValue(PREFIX_BIRTHDAY));
-            if(checkBirthday==null){
+            if(!checkBirthday.isPresent()){
                 birthday = new Birthday(null);
             }
             else{
                 birthday = checkBirthday.get();
             }
             Optional<Email> checkEmail = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL));
-            if(checkEmail==null){
+            if(!checkEmail.isPresent()){
                 email = new Email(null);
             }
             else{
                 email = checkEmail.get();
             }
             Optional<Address> checkAddress = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS));
-            if(checkAddress==null){
+            if(!checkAddress.isPresent()){
                 address = new Address(null);
             }
             else{
