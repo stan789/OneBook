@@ -346,6 +346,13 @@
     -fx-font-size: 15pt;
 }
 
+#listName {
+    -fx-text-fill: white;
+    -fx-fill: white;
+    -fx-font-family: "Arial";
+    -fx-font-size: 15pt;
+}
+
 #commandTextField {
     -fx-background-color: transparent #383838 transparent #383838;
     -fx-background-insets: 0;
