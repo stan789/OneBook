@@ -13,9 +13,17 @@ public class ImportVCardFileTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void getPersonFromFile_throwsIOException() throws IOException {
+    public void getPersonFromFile_withoutBegin_throwsIOException() throws IOException {
         ImportVCardFile importVCardFile= new ImportVCardFile(
                 Paths.get("src/test/data/VCardFileTest/contacts_without_begin.vcf"));
+        thrown.expect(IOException.class);
+        importVCardFile.getPersonFromFile();
+
+    }
+    @Test
+    public void getPersonFromFile_withoutEnd_throwsIOException() throws IOException {
+        ImportVCardFile importVCardFile= new ImportVCardFile(
+                Paths.get("src/test/data/VCardFileTest/contacts_without_end.vcf"));
         thrown.expect(IOException.class);
         importVCardFile.getPersonFromFile();
 
