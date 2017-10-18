@@ -128,23 +128,23 @@ public class ImportVCardFile {
                     String name = contactArray[1];
                     vCard.setName(name);
                 }
-                if(line.startsWith(vcf.getAddress())) {
+                if (line.startsWith(vcf.getAddress())) {
                     String address = "";
                     String spiltAddress = contactArray[1];
                     String[] array = spiltAddress.split(";");
-                    for (int i=0;i<array.length;i++) {
-                        if(array[i].equals("")) {
+                    for (int i = 0; i < array.length ; i++) {
+                        if (array[i].equals("")) {
                             continue;
                         }
                         address = address.concat(array[i]);
-                        if(i != array.length-1){
+                        if (i != array.length - 1) {
                             address = address.concat(", ");
                         }
 
                     }
                     vCard.setAddress(address);
                 }
-                if(line.startsWith(vcf.getBirthday())) {
+                if (line.startsWith(vcf.getBirthday())) {
                     String birthday = contactArray[1];
                     String[] array = birthday.split("-");
                     birthday = array[2] + "-" + array[1] + "-" + array[0];
