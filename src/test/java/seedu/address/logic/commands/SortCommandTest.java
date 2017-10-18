@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.SortCommand.MESSAGE_NO_PERSON_TO_SORT;
 import static seedu.address.logic.commands.SortCommand.SORT_EMAIL;
 import static seedu.address.logic.commands.SortCommand.SORT_NAME;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -47,8 +48,11 @@ public class SortCommandTest {
 
     @Test(expected = EmptyAddressBookException.class)
     public void testEmptyAddressBookException() throws EmptyAddressBookException {
+        SortCommand sortCommand = prepareCommand(SORT_NAME);
         model.resetData(new AddressBook());
-        model.executeSort(SORT_NAME);
+        expectedModel.resetData(new AddressBook());
+        expectedModel.executeSort(SORT_NAME);
+        assertCommandSuccess(sortCommand, model,MESSAGE_NO_PERSON_TO_SORT, expectedModel);
 
     }
 
