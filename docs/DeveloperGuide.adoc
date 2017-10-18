@@ -753,7 +753,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |change colour scheme/theme |customise the Address Book to my liking
 
-|`* *` |new user |import all my contacts from my phone |easily transfer contacts
+|`* *` |new user |import all my contacts from VCard File |easily transfer contacts
+
+|`* *` |user |export all my contacts to VCard File |easily transfer contacts to my phone or google contacts
 
 |`* *` |user |add a profile picture for my contacts |easily identify my contacts
 
