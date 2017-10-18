@@ -1,21 +1,22 @@
 package systemtests;
 
+import static seedu.address.logic.commands.ImportCommand.MESSAGE_FILE_INVALID;
+import static seedu.address.logic.commands.ImportCommand.MESSAGE_SUCCESS;
+
 import org.junit.Test;
+
+import java.io.IOException;
+import java.nio.file.Paths;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 
-import java.io.IOException;
-import java.nio.file.Paths;
-
-import static seedu.address.logic.commands.ImportCommand.MESSAGE_FILE_INVALID;
-import static seedu.address.logic.commands.ImportCommand.MESSAGE_SUCCESS;
 
 public class ImportCommandSystemTest extends AddressBookSystemTest {
 
     @Test
-    public void Import() {
+    public void importing() {
 
         Model expectedModel = getModel();
         Integer count = 0;

@@ -37,9 +37,9 @@ public class ImportVCardFile {
     private boolean checkBegin = false;
     private boolean wrongFormat = false;
     private Integer birthdaySize = 3;
-    private Integer IndexZero = 0;
-    private Integer IndexOne = 1;
-    private Integer IndexTwo = 2;
+    private Integer indexZero = 0;
+    private Integer indexOne = 1;
+    private Integer indexTwo = 2;
     private Integer emptySize = 0;
 
 
@@ -125,24 +125,24 @@ public class ImportVCardFile {
         } else {
             String[] contactArray = line.split(":");
 
-            if (contactArray.length == IndexTwo) {
+            if (contactArray.length == indexTwo) {
                 if ((line.startsWith(vcf.getPhoneFormat2()) || line.contains(vcf.getPhoneFormat()))) {
-                    String phone = contactArray[IndexOne];
+                    String phone = contactArray[indexOne];
                     phone = phone.replaceAll("[^0-9*+]", "");
                     if (vCard.getPhone().equals("")) {
                         vCard.setPhone(phone);
                     }
                 }
                 if (line.startsWith(vcf.getEmail())) {
-                    vCard.setEmail(contactArray[IndexOne]);
+                    vCard.setEmail(contactArray[indexOne]);
                 }
                 if (line.startsWith(vcf.getName())) {
-                    String name = contactArray[IndexOne];
+                    String name = contactArray[indexOne];
                     vCard.setName(name);
                 }
                 if (line.startsWith(vcf.getAddressFormat1()) || line.contains(vcf.getAddressFormat2())) {
                     String address = "";
-                    String spiltAddress = contactArray[IndexOne];
+                    String spiltAddress = contactArray[indexOne];
                     String[] array = spiltAddress.split(";");
                     for (int i = 0; i < array.length; i++) {
                         if (array[i].equals("")) {
@@ -159,8 +159,8 @@ public class ImportVCardFile {
                 if (line.startsWith(vcf.getBirthday())) {
                     String birthday = contactArray[1];
                     String[] array = birthday.split("-");
-                    if (array.length == birthdaySize ) {
-                        birthday = array[IndexTwo] + "-" + array[IndexOne] + "-" + array[IndexZero];
+                    if (array.length == birthdaySize) {
+                        birthday = array[indexTwo] + "-" + array[indexOne] + "-" + array[indexZero];
                     }
                     vCard.setBirthday(birthday);
                 }
