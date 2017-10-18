@@ -52,7 +52,7 @@ public class SortCommandTest {
         model.resetData(new AddressBook());
         expectedModel.resetData(new AddressBook());
         expectedModel.executeSort(SORT_NAME);
-        assertCommandSuccess(sortCommand, model,MESSAGE_NO_PERSON_TO_SORT, expectedModel);
+        assertCommandSuccess(sortCommand, model, MESSAGE_NO_PERSON_TO_SORT, expectedModel);
 
     }
 
