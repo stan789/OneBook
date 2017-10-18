@@ -12,11 +12,14 @@
       <children>
          <SplitPane dividerPositions="0.5" maxHeight="100.0" minHeight="100.0" prefHeight="100.0" prefWidth="200.0">
             <items>
-               <Label maxWidth="110.0" minWidth="110.0" prefWidth="110.0" text="Address :">
+               <Label fx:id="addressHeader" maxWidth="110.0" minWidth="110.0" prefWidth="110.0" text="Address :">
                   <padding>
                      <Insets left="5.0" />
                   </padding></Label>
-               <Label fx:id="address" />
+               <Label fx:id="addressLarge">
+                  <padding>
+                     <Insets left="5.0" />
+                  </padding></Label>
             </items>
          </SplitPane>
         <WebView fx:id="browser" minHeight="-Infinity" minWidth="-Infinity" />
