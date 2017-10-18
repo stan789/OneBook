@@ -7,7 +7,8 @@ import seedu.address.commons.util.StringUtil;
 
 /**
  * Tests that a {@code ReadOnlyPerson}'s {@code Name} or {@code Address} or {@code Email} or {@code Phone}
- * matches any of the keywords given, depending on the main keyword.
+ * contains any or all of the keywords given, depending on the main keyword.
+ * {@code Name}, {@code Email} and {@code Phone} can have any matches. {@code Address} must have all matches.
  */
 public class ContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
     private final List<String> keywords;
@@ -28,10 +29,10 @@ public class ContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
                     .allMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getAddress().value, keyword));
 
             case "email": return keywords.stream()
-                    .allMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getEmail().value, keyword));
+                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getEmail().value, keyword));
 
             case "phone": return keywords.stream()
-                    .allMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().toString(), keyword));
+                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().toString(), keyword));
 
         }
 
