@@ -25,21 +25,21 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        String[] Keywords = trimmedArgs.split("\\s+");
+        String[] keywords = trimmedArgs.split("\\s+");
 
-        String mainKeyword = Keywords[0];
+        String mainKeyword = keywords[0];
         if (!mainKeyword.equals("name") && !mainKeyword.equals("address") && !mainKeyword.equals("email")
                 && !mainKeyword.equals("phone")) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        if (Keywords.length == 1) {
+        if (keywords.length == 1) {
             throw new ParseException(FindCommand.MESSAGE_NO_KEYWORD);
         }
 
-        String[] searchKeywords = new String[Keywords.length - 1];
-        System.arraycopy(Keywords, 1, searchKeywords, 0, Keywords.length - 1);
+        String[] searchKeywords = new String[keywords.length - 1];
+        System.arraycopy(keywords, 1, searchKeywords, 0, keywords.length - 1);
 
         return new FindCommand(new ContainsKeywordsPredicate(Arrays.asList(searchKeywords), mainKeyword));
     }

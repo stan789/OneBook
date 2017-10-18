@@ -22,21 +22,20 @@ public class ContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
     @Override
     public boolean test(ReadOnlyPerson person) {
         switch (mainKeyword) {
-            case "name": return keywords.stream()
-                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
+        case "name": return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
+        case "address": return keywords.stream()
+                .allMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getAddress().value, keyword));
 
-            case "address": return keywords.stream()
-                    .allMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getAddress().value, keyword));
+        case "email": return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getEmail().value, keyword));
 
-            case "email": return keywords.stream()
-                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getEmail().value, keyword));
+        case "phone": return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().toString(), keyword));
 
-            case "phone": return keywords.stream()
-                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().toString(), keyword));
-
+        default : return false;
         }
 
-        return false;
     }
 
     @Override
