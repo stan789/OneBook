@@ -109,8 +109,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_import() throws Exception {
-        assertTrue(parser.parseCommand(ImportCommand.COMMAND_WORD +
-                " src/test/data/VCardFileTest/contacts.vcf") instanceof ImportCommand);
+        assertTrue(parser.parseCommand(ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/contacts.vcf") instanceof ImportCommand);
     }
 
     @Test
