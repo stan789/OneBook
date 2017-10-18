@@ -54,6 +54,14 @@ public class SortCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
+     * Executes {@code command} and verifies that the command box displays an empty string, the result display
+     * box displays {@code MESSAGE_SUCCESS},
+     * and the model related components equal to {@code expectedModel}.
+     * These verifications are done by
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * Also verifies that the status bar remains unchanged, and the command box has the default style class, and the
+     * selected card updated accordingly, depending on {@code cardStatus}.
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         executeCommand(command);
@@ -64,7 +72,13 @@ public class SortCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     *
+     * Executes {@code command} and verifies that the command box displays {@code command}, the result display
+     * box displays {@code expectedResultMessage} and the model related components equal to the current model.
+     * These verifications are done by
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
+     * error style.
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage, Model expectedModel) {
         executeCommand(command);
