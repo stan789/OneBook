@@ -1,14 +1,19 @@
 package seedu.address.storage;
 
+
+/**
+ * Stores the information from VCard file.
+ */
+
 public class VCard {
 
-    private String phone="";
+    private String phone = "";
     private String email = "johnd@example.com";
     private String address = "311, Clementi Ave 2, #02-25";
     private String birthday = "02-01-1995";
-    private String name="NO NAME";
+    private String name = "NO NAME";
 
-    public void VCard(){
+    public void VCard() {
     }
 
     public void setAddress(String address) {

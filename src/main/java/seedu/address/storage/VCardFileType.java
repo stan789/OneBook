@@ -1,4 +1,7 @@
 package seedu.address.storage;
+/**
+ * API of the Storage component
+ */
 
 public class VCardFileType {
 
@@ -11,7 +14,6 @@ public class VCardFileType {
     private String phoneFormat2 = "item1.TEL";
 
     public VCardFileType() {
-
     }
 
     public String getAddress() {
@@ -39,6 +41,6 @@ public class VCardFileType {
     }
 
     public String getPhoneFormat2() {
-        return phoneFormat2 ;
+        return phoneFormat2;
     }
 }

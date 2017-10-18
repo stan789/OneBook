@@ -1,11 +1,15 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.storage.Exceptions.EmptyFileException;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.storage.exceptions.EmptyFileException;
+
+/**
+ * Imports a VCard file to the address book.
+ */
 
 public class ImportCommand extends Command {
 
@@ -24,7 +28,7 @@ public class ImportCommand extends Command {
 
     private Path fileLocation;
 
-    private Integer count=0;
+    private Integer count = 0;
 
     public ImportCommand(Path fileLocation) {
         this.fileLocation = fileLocation;
@@ -38,7 +42,7 @@ public class ImportCommand extends Command {
 
             count = model.importFile(fileLocation);
 
-        } catch (EmptyFileException e){
+        } catch (EmptyFileException e) {
             throw new CommandException(MESSAGE_EMPTY_FILE);
 
         } catch (IOException e) {
