@@ -1,7 +1,8 @@
 BEGIN:VCARD
-VERSION:3.0
+VERSION:4.0
+PRODID:-//BBros.us llc//bvCard.com//EN
+N:Yam;Alex;;;
 FN:Alex Yam
-N:Alex;Yam;;;
-EMAIL;TYPE=INTERNET:alexyam@hotmail.com
+EMAIL:alexyam@hotmail.com
 TEL:98765432
 END:VCARD
