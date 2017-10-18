@@ -132,7 +132,7 @@ public class ImportVCardFile {
                     String address = "";
                     String spiltAddress = contactArray[1];
                     String[] array = spiltAddress.split(";");
-                    for (int i = 0 ; i < array.length ; i++) {
+                    for (int i = 0; i < array.length; i++) {
                         if (array[i].equals("")) {
                             continue;
                         }
