@@ -127,9 +127,9 @@ public class ImportVCardFile {
             if (contactArray.length == indexTwo) {
                 if ((line.startsWith(vcf.getPhoneFormat2()) || line.contains(vcf.getPhoneFormat()))) {
                     String phone = contactArray[indexOne];
-                    if(phone.matches("[^a-zA-Z^.?<>&|!@#$%{}_=][^a-zA-Z^.?<>&|!@#$%{}_=]{3,}")) {
+                    if (phone.matches("[^a-zA-Z^.?<>&|!@#$%{}_=][^a-zA-Z^.?<>&|!@#$%{}_=]{3,}")) {
                         phone = phone.replaceAll("[^0-9*+]", "");
-                }
+                    }
                     if (vCard.getPhone().equals("")) {
                         vCard.setPhone(phone);
                     }
