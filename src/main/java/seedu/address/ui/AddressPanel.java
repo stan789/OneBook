@@ -26,9 +26,9 @@ public class AddressPanel extends UiPart<Region> {
     public static final String GOOGLE_SEARCH_URL_PREFIX = "https://www.google.com.sg/search?safe=off&q=";
     public static final String GOOGLE_SEARCH_URL_SUFFIX = "&cad=h";
 
-    private ReadOnlyPerson person;
-
     private static final String FXML = "AddressPanel.fxml";
+
+    private ReadOnlyPerson person;
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
