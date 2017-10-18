@@ -3,10 +3,11 @@ package systemtests;
 import static seedu.address.logic.commands.ImportCommand.MESSAGE_FILE_INVALID;
 import static seedu.address.logic.commands.ImportCommand.MESSAGE_SUCCESS;
 
-import org.junit.Test;
-
 import java.io.IOException;
 import java.nio.file.Paths;
+
+import org.junit.Test;
+
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.model.AddressBook;
