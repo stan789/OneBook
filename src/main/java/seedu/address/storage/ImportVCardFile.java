@@ -152,7 +152,9 @@ public class ImportVCardFile {
                 if (line.startsWith(vcf.getBirthday())) {
                     String birthday = contactArray[1];
                     String[] array = birthday.split("-");
-                    birthday = array[2] + "-" + array[1] + "-" + array[0];
+                    if (array.length == 2) {
+                        birthday = array[2] + "-" + array[1] + "-" + array[0];
+                    }
                     vCard.setBirthday(birthday);
                 }
             }
