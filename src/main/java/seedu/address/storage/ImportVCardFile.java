@@ -19,6 +19,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.storage.exceptions.EmptyFileException;
+import seedu.address.storage.exceptions.WrongFormatInFileException;
 
 /**
  * Read vCard file from the directory. supports up to VCard Version 3.0
@@ -34,6 +35,7 @@ public class ImportVCardFile {
     private VCard vCard;
     private boolean checkEnd = true;
     private boolean checkBegin = false;
+    private boolean wrongFormat = false;
 
     /**
      * Read vCard file from the directory.
@@ -69,10 +71,13 @@ public class ImportVCardFile {
                 .forEach(line -> {
                     try {
                         sendRequest(line);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    } catch (WrongFormatInFileException e) {
+                        wrongFormat = true;
                     }
                 });
+        if (wrongFormat) {
+            throw new IOException();
+        }
         if (!checkEnd) {
             throw new IOException();
         }
@@ -83,12 +88,12 @@ public class ImportVCardFile {
      * Check format in file for each line.
      * return a person
      */
-    private void sendRequest(String line) throws IOException {
+    private void sendRequest(String line) throws WrongFormatInFileException {
 
         if (line.contains(vcf.getBegin())) {
 
             if (!checkEnd) {
-                throw new IOException();
+                throw new WrongFormatInFileException();
             } else {
                 vCard = new VCard();
             }
@@ -97,7 +102,7 @@ public class ImportVCardFile {
         } else if (line.contains(vcf.getEnd())) {
             try {
                 if (!checkBegin) {
-                    throw new IOException();
+                    throw new WrongFormatInFileException();
                 } else {
                     checkEnd = true;
                     checkBegin = false;

@@ -6,6 +6,8 @@ EMAIL:alexyam@hotmail.com
 ADR:;311 Clementi Ave 2;#02-25;;;;
 TEL:987654
 BDAY:1991-05-15
+END:VCARD
+BEGIN:VCARD
 VERSION:4.0
 N:Sam;:Lim;;;
 FN:Sam Lim
@@ -21,3 +23,4 @@ EMAIL:tomchan@hotmail.com
 ADR:;311 Clementi Ave 2;#02-25;;;;
 TEL:987654
 BDAY:1991-05-15
+END:VCARD
