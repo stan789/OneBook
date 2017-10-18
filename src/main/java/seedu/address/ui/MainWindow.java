@@ -17,7 +17,9 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
@@ -40,13 +42,14 @@ public class MainWindow extends UiPart<Region> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private AddressPanel addressPanel;
     private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
+    private PersonDisplayCard personDisplayCard;
 
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane addressPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -63,6 +66,11 @@ public class MainWindow extends UiPart<Region> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private StackPane detailsPlaceholder;
+
+    @FXML
+    private StackPane notesPlaceholder;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML);
@@ -134,8 +142,8 @@ public class MainWindow extends UiPart<Region> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        addressPanel = new AddressPanel();
+        addressPlaceholder.getChildren().add(addressPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
@@ -148,6 +156,9 @@ public class MainWindow extends UiPart<Region> {
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        personDisplayCard = new PersonDisplayCard();
+        detailsPlaceholder.getChildren().add(personDisplayCard.getRoot());
     }
 
     void hide() {
@@ -191,6 +202,15 @@ public class MainWindow extends UiPart<Region> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    void reload() {
+        personDisplayCard = new PersonDisplayCard();
+        detailsPlaceholder.getChildren().add(personDisplayCard.getRoot());
+        addressPanel = new AddressPanel();
+        addressPlaceholder.getChildren().add(addressPanel.getRoot());
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
     /**
      * Opens the help window.
      */
@@ -217,12 +237,18 @@ public class MainWindow extends UiPart<Region> {
     }
 
     void releaseResources() {
-        browserPanel.freeResources();
+        addressPanel.freeResources();
     }
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        reload();
     }
 }
