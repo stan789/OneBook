@@ -7,6 +7,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -17,6 +18,8 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.commands.DisplayListFilteredEvent;
+import seedu.address.commons.events.commands.DisplayListResetEvent;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
@@ -71,6 +74,9 @@ public class MainWindow extends UiPart<Region> {
 
     @FXML
     private StackPane notesPlaceholder;
+
+    @FXML
+    private Label listName;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML);
@@ -250,5 +256,17 @@ public class MainWindow extends UiPart<Region> {
     private void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         reload();
+    }
+
+    @Subscribe
+    private void handleDisplayListFilteredEvent(DisplayListFilteredEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        listName.textProperty().setValue("Filtered");
+    }
+
+    @Subscribe
+    private void handleDisplayListResetEvent(DisplayListResetEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        listName.textProperty().setValue("List");
     }
 }
