@@ -227,6 +227,42 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the address book. +
 Format: `clear`
 
+=== Locating persons: `sort`
+
+Sorts the list in OneBook according to name or email in alphabetically order. +
+Format: `sort MAIN_KEYWORD KEYWORD [MORE_KEYWORDS]`
+
+****
+* The main keyword determines the search field (i.e. *name*/*email*).
+* At least one contact must be in OneBook before sorting.
+****
+
+Examples:
+
+* `sort name`
+* `sort email`
+
+
+=== Importing a VCard file(.vcf) to OneBook : `import`
+
+Import a VCard file from directory to OneBook +
+Format: `import [file directory]`
+
+****
+* Imports a VCard file from a valid directory.
+* If format in the file follows VCard format, it will import contacts to OneBook.
+* Notify the number of contacts that are succesfully imported.
+****
+
+Examples:
+
+* `add C:/Users/User/Desktop/contacts.vcf` (Windows)
+* `add C:/Users/User/Downloads/contacts.vcf` (Windows)
+* `add /Users/user/Downloads/contacts.vcf` (MAC OSX)
+* `add /Users/user/Desktop/contacts.vcf` (MAC OSX)
+
+
+
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -304,10 +340,16 @@ e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find MAIN_KEYWORD KEYWORD [MORE_KEYWORDS]` +
 e.g. `find name James Jake` +
 e.g. `find phone 123456789`
+* *Import* : `import [file directory]` +
+e.g. `add C:/Users/User/Desktop/contacts.vcf` (Windows) +
+e.g. `add /Users/user/Downloads/contacts.vcf` (MAC OSX)
 * *List* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
+* *Sort* : `sort KEYWORD` +
+e.g. `sort name` +
+e.g. `sort email`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
