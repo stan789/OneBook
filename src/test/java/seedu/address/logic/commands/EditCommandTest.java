@@ -156,7 +156,8 @@ public class EditCommandTest {
         Person alice = new PersonBuilder().withName("Alice").build();
         try {
             model.updatePerson(alice, personInFilteredList);
-        } catch (DuplicatePersonException e){
+        } catch (DuplicatePersonException e) {
+            e.printStackTrace();
 
         }
 
