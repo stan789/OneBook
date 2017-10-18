@@ -208,18 +208,6 @@ public class MainWindow extends UiPart<Region> {
     }
 
     /**
-     * Resets the selected Person on display
-     */
-    void reload() {
-        personDisplayCard = new PersonDisplayCard();
-        detailsPlaceholder.getChildren().add(personDisplayCard.getRoot());
-        addressPanel = new AddressPanel();
-        addressPlaceholder.getChildren().add(addressPanel.getRoot());
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-    }
-
-    /**
      * Opens the help window.
      */
     @FXML
@@ -252,12 +240,6 @@ public class MainWindow extends UiPart<Region> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
-    }
-
-    @Subscribe
-    private void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        reload();
     }
 
     @Subscribe
