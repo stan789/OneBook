@@ -21,7 +21,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.storage.exceptions.EmptyFileException;
 
 /**
- * Read vCard file from the directory.
+ * Read vCard file from the directory. supports up to VCard Version 3.0
  *
  */
 
@@ -127,6 +127,28 @@ public class ImportVCardFile {
                 if (line.startsWith(vcf.getName())) {
                     String name = contactArray[1];
                     vCard.setName(name);
+                }
+                if(line.startsWith(vcf.getAddress())) {
+                    String address = "";
+                    String spiltAddress = contactArray[1];
+                    String[] array = spiltAddress.split(";");
+                    for (int i=0;i<array.length;i++) {
+                        if(array[i].equals("")) {
+                            continue;
+                        }
+                        address = address.concat(array[i]);
+                        if(i != array.length-1){
+                            address = address.concat(", ");
+                        }
+
+                    }
+                    vCard.setAddress(address);
+                }
+                if(line.startsWith(vcf.getBirthday())) {
+                    String birthday = contactArray[1];
+                    String[] array = birthday.split("-");
+                    birthday = array[2] + "-" + array[1] + "-" + array[0];
+                    vCard.setBirthday(birthday);
                 }
             }
         }

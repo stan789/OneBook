@@ -11,7 +11,8 @@ public class VCardFileType {
     private String begin = "BEGIN:VCARD";
     private String end = "END:VCARD";
     private String phoneFormat1 = "TEL";
-    private String phoneFormat2 = "item1.TEL";
+    private String phoneFormat2 = "TEL:";
+    private String birthday = "BDAY";
 
     public VCardFileType() {
     }
@@ -42,5 +43,9 @@ public class VCardFileType {
 
     public String getPhoneFormat2() {
         return phoneFormat2;
+    }
+
+    public String getBirthday() {
+        return birthday;
     }
 }
