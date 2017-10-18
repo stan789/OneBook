@@ -119,10 +119,10 @@ public class ImportVCardFile {
             String[] contactArray = line.split(":");
 
             if (contactArray.length == 2) {
-                if ((line.startsWith(vcf.getPhoneFormat2()) || line.startsWith(vcf.getPhoneFormat()))) {
+                if ((line.startsWith(vcf.getPhoneFormat2()) || line.contains(vcf.getPhoneFormat()))) {
                     String phone = contactArray[1];
-                    phone = phone.replaceAll("[^0-9.*+]", "");
-                    if (vCard.getPhone().isEmpty()) {
+                    phone = phone.replaceAll("[^0-9*+]", "");
+                    if (vCard.getPhone().equals("")) {
                         vCard.setPhone(phone);
                     }
                 }
@@ -133,7 +133,7 @@ public class ImportVCardFile {
                     String name = contactArray[1];
                     vCard.setName(name);
                 }
-                if (line.startsWith(vcf.getAddress())) {
+                if (line.startsWith(vcf.getAddressFormat1()) || line.contains(vcf.getAddressFormat2())) {
                     String address = "";
                     String spiltAddress = contactArray[1];
                     String[] array = spiltAddress.split(";");

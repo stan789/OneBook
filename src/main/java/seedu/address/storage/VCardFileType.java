@@ -6,19 +6,24 @@ package seedu.address.storage;
 public class VCardFileType {
 
     private String name = "FN";
-    private String address = "ADR";
+    private String addressFormat1 = "ADR";
+    private String addressFormat2 = "item1.ADR";
     private String email = "EMAIL";
     private String begin = "BEGIN:VCARD";
     private String end = "END:VCARD";
     private String phoneFormat1 = "TEL";
-    private String phoneFormat2 = "TEL:";
+    private String phoneFormat2 = "item1.TEL";
     private String birthday = "BDAY";
 
     public VCardFileType() {
     }
 
-    public String getAddress() {
-        return address;
+    public String getAddressFormat1() {
+        return addressFormat1;
+    }
+
+    public String getAddressFormat2() {
+        return addressFormat2;
     }
 
     public String getBegin() {
