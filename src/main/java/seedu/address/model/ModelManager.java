@@ -20,7 +20,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.EmptyAddressBookException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.storage.ImportVCFFile;
+import seedu.address.storage.ImportVCardFile;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -62,7 +62,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     @Override
     public Integer importFile(Path fileLocation) throws IOException {
-        ImportVCFFile importFile = new ImportVCFFile(fileLocation);
+        ImportVCardFile importFile = new ImportVCardFile(fileLocation);
         ArrayList<Person> person = importFile.getPersonFromFile();
         for (Person p : person) {
             try {
