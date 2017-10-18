@@ -49,10 +49,8 @@ public class SortCommandSystemTest extends AddressBookSystemTest {
         /* Case: sort from empty address book -> rejected */
         executeCommand(ClearCommand.COMMAND_WORD);
         expectedModel.resetData(new AddressBook());
-        assertCommandFailure(SortCommand.COMMAND_WORD + " "+ SORT_NAME,
+        assertCommandFailure(SortCommand.COMMAND_WORD + " " + SORT_NAME,
                 MESSAGE_NO_PERSON_TO_SORT, expectedModel);
-
-
     }
 
     /**
@@ -76,4 +74,3 @@ public class SortCommandSystemTest extends AddressBookSystemTest {
         assertStatusBarUnchanged();
     }
 }
-
