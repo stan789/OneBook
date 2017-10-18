@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -137,6 +138,12 @@ public class AddCommandTest {
         @Override
         public void executeSort(String sortType) {
             fail("This method should not be called.");
+        }
+
+        @Override
+        public Integer importFile(Path fileLocation) {
+            fail("This method should not be called.");
+            return null;
         }
     }
 
