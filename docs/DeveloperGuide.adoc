@@ -404,6 +404,18 @@ Upon every startup of the program, the system time is checked against the date o
 **Pros:** Additional parsing of command is unnecessary. +
 **Cons:** Commands will be easily mixed up. Purpose of command will be unintuitive, `clear` may mean to clear recycle or to clear address book. A separate command name for clearing recycle bin need to be thought of (clear can no longer be used). +
 
+=== Find mechanism
+
+The `find` function is implemented by `FindCommand`, which updates the list of displayed contacts. It holds a predicate from `ContainsKeywordsPredicate` that runs through each keyword and calls `containsWordIgnoreCase` each time to search for the keyword in the designated field. +
+The designated fields allowed are: +
+
+* `name` +
+* `address` +
+* `email` (each keyword must contain a match) +
+* `phone number` +
+
+This feature is case-insensitive, and an exact match is not required for each keyword. e.g. 'jon' will match 'Jonathan'
+
 == Documentation
 
 We use asciidoc for writing documentation.
