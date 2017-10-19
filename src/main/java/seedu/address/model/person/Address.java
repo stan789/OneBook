@@ -16,7 +16,7 @@ public class Address {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String ADDRESS_VALIDATION_REGEX = "[^\\s].*";
-    public static final String ADDRESS_NOT_ASSIGNED = "";
+    public static final String ADDRESS_NOT_ASSIGNED = "-";
 
     public final String value;
 
@@ -41,7 +41,7 @@ public class Address {
      * Returns true if a given string is a valid person email.
      */
     public static boolean isValidAddress(String test) {
-        return test.matches(ADDRESS_VALIDATION_REGEX);
+        return test.matches(ADDRESS_VALIDATION_REGEX) || test.matches(ADDRESS_NOT_ASSIGNED);
     }
 
     @Override

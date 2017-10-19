@@ -11,7 +11,7 @@ public class Email {
     public static final String MESSAGE_EMAIL_CONSTRAINTS =
             "Person emails should be 2 alphanumeric/period strings separated by '@'";
     public static final String EMAIL_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
-    public static final String EMAIL_NOT_ASSIGNED = "";
+    public static final String EMAIL_NOT_ASSIGNED = "-";
 
     public final String value;
 
@@ -37,7 +37,7 @@ public class Email {
      * Returns if a given string is a valid person email.
      */
     public static boolean isValidEmail(String test) {
-        return test.matches(EMAIL_VALIDATION_REGEX);
+        return test.matches(EMAIL_VALIDATION_REGEX) || test.matches(EMAIL_NOT_ASSIGNED);
     }
 
     @Override

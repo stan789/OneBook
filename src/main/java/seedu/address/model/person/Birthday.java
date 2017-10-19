@@ -12,7 +12,7 @@ public class Birthday {
     public static final String MESSAGE_BIRTHDAY_CONSTRAINTS =
             "Birthday has to be in the format dd-mm-yyyy";
     public static final String BIRTHDAY_VALIDATION_REGEX = "\\d{2}-\\d{2}-\\d{4}";
-    public static final String BIRTHDAY_NOT_ASSIGNED = "";
+    public static final String BIRTHDAY_NOT_ASSIGNED = "-";
     public final String value;
 
     /**
