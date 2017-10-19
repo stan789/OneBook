@@ -13,7 +13,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Birthday;
@@ -38,7 +37,7 @@ public class ImportVCardFile {
     private static final Integer INDEX_TWO = 2;
     private static final Integer EMPTY_SIZE = 0;
     private Path fileLocation;
-    private ArrayList<Person> person = new ArrayList<>();
+    private  ArrayList<Person> person = new ArrayList<>();
     private Set<Tag> tag;
     private VCardFileType vcf;
     private VCard vCard;
