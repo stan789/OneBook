@@ -218,6 +218,21 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== User Interface
+
+The User Interface is implemented using JavaFx. The Ui consists of a `MainWindow` which holds `StackWindow` fields.
+Each of the `StackWindow` is to be filled with the Ui components as listed below.
+
+*Ui components:* +
+
+* `CommandBox` - Input field
+* `PersonListPanel` - Display list of Person
+* `ResultDisplay` - Display response of command
+* `PersonDetailsCard` - Display Details of Person
+* `AddressPanel` - Display Address and shows map of address
+
+The Ui also makes use of `DarkTheme,css` and `LightTheme.css` file to set the color scheme.
+
 // tag::undoredo[]
 === Undo/Redo mechanism
 
@@ -388,6 +403,18 @@ Upon every startup of the program, the system time is checked against the date o
 **Alternative 2:** Add a new command for each feature of `RecycleBin` usage. +
 **Pros:** Additional parsing of command is unnecessary. +
 **Cons:** Commands will be easily mixed up. Purpose of command will be unintuitive, `clear` may mean to clear recycle or to clear address book. A separate command name for clearing recycle bin need to be thought of (clear can no longer be used). +
+
+=== Find mechanism
+
+The `find` function is implemented by `FindCommand`, which updates the list of displayed contacts. It holds a predicate from `ContainsKeywordsPredicate` that runs through each keyword and calls `containsWordIgnoreCase` each time to search for the keyword in the designated field. +
+The designated fields allowed are: +
+
+* `name` +
+* `address` +
+* `email` (each keyword must contain a match) +
+* `phone number` +
+
+This feature is case-insensitive, and an exact match is not required for each keyword. e.g. 'jon' will match 'Jonathan'
 
 == Documentation
 

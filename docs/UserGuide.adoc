@@ -72,6 +72,10 @@ Examples:
 Shows a list of all persons in the address book. +
 Format: `list`
 
+****
+* Upon usage of this command, the top left of the list will be replaced with *List* to indicate that the list displayed is not filtered.
+****
+
 === Editing a person : `edit`
 
 Edits an existing person in the address book. +
@@ -104,6 +108,7 @@ Format: `find MAIN_KEYWORD KEYWORD [MORE_KEYWORDS]`
 * Partial words will still be matched e.g. `name Han` will return `Hans`
 * For *name*, *email*, and *phone*, persons containing at least one keyword will be returned (i.e. `OR` search). e.g. `name Hans Bo` will return `Hans Gruber`, `Bo Yang`
 * For *address*, only persons containing all the keywords will be returned (i.e. `AND` search). e.g. `address Serangoon Street 4` will not return `Serangoon Street 6`
+* Upon usage of this command, the top left of the list will be replaced with *Filtered* to indicate that the list display is filtered.
 ****
 
 Examples:
