@@ -160,7 +160,7 @@ public class ImportVCardFile {
                 if (line.startsWith(vcf.getLabel())) {
                     String label = contactArray[indexOne];
                     List<String> tagList = new ArrayList<String>();
-                    if(label.contains(",")) {
+                    if (label.contains(",")) {
                         tagList.addAll(Arrays.asList(label.split(",")));
                     } else {
                         tagList.add(label);
