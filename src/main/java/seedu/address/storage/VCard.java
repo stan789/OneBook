@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Stores the information from VCard file.
@@ -12,13 +14,12 @@ public class VCard {
     private String address;
     private String birthday;
     private String name;
+    private List<String> tag;
 
     public VCard() {
-        phone = "";
-        email = "johnd@example.com";
-        address = "311, Clementi Ave 2, #02-25";
-        birthday = "02-01-1995";
         name = "NO NAME";
+        tag = new ArrayList<String>();
+
 
     }
 
@@ -42,6 +43,10 @@ public class VCard {
         this.phone = phone;
     }
 
+    public void setTag(List<String> label) {
+        tag = label;
+    }
+
     public String getName() {
         return name;
     }
@@ -60,5 +65,9 @@ public class VCard {
 
     public String getPhone() {
         return phone;
+    }
+
+    public List<String> getTag() {
+        return tag;
     }
 }
