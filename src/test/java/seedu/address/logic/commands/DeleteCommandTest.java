@@ -101,13 +101,6 @@ public class DeleteCommandTest {
         // different person -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
-    @Test(expected = PersonNotFoundException.class)
-    public void testPersonNotFoundException() throws PersonNotFoundException {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        model.deletePerson(alice);
-
-    }
-
 
     /**
      * Returns a {@code DeleteCommand} with the parameter {@code index}.

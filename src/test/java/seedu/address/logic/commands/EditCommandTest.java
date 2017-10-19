@@ -150,19 +150,6 @@ public class EditCommandTest {
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
-    @Test(expected = PersonNotFoundException.class)
-    public void testPersonNotFoundException() throws PersonNotFoundException {
-        ReadOnlyPerson personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person alice = new PersonBuilder().withName("Alice").build();
-        try {
-            model.updatePerson(alice, personInFilteredList);
-        } catch (DuplicatePersonException e) {
-            e.printStackTrace();
-
-        }
-
-    }
-
     @Test
     public void equals() {
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
