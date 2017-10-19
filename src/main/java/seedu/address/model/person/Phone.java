@@ -1,7 +1,5 @@
 package seedu.address.model.person;
 
-import static java.util.Objects.requireNonNull;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
@@ -15,6 +13,7 @@ public class Phone {
             "Phone numbers can only contain numbers and + or *, and should be at least 3 digits long";
     public static final String PHONE_VALIDATION_REGEX = "[0-9.+*]\\d{3,}";
     public static final String PHONE_VALIDATION_REGEX1 = "\\d{3,}";
+    public static final String PHONE_NOT_ASSIGNED = "-";
     public final String value;
 
     /**
@@ -23,19 +22,24 @@ public class Phone {
      * @throws IllegalValueException if given phone string is invalid.
      */
     public Phone(String phone) throws IllegalValueException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!isValidPhone(trimmedPhone)) {
-            throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
+
+        if (phone == null) {
+            this.value = PHONE_NOT_ASSIGNED;
+        } else {
+            String trimmedPhone = phone.trim();
+            if (!isValidPhone(trimmedPhone)) {
+                throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
+            }
+            this.value = trimmedPhone;
         }
-        this.value = trimmedPhone;
     }
 
     /**
      * Returns true if a given string is a valid person phone number.
      */
     public static boolean isValidPhone(String test) {
-        return (test.matches(PHONE_VALIDATION_REGEX) || test.matches(PHONE_VALIDATION_REGEX1));
+        return (test.matches(PHONE_VALIDATION_REGEX) || test.matches(PHONE_VALIDATION_REGEX1)
+                || test.matches(PHONE_NOT_ASSIGNED));
     }
 
     @Override
