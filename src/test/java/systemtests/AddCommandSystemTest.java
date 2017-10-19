@@ -38,10 +38,10 @@ import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
-import static seedu.address.testutil.TypicalPersons.PERSON_WITH_MISSING_PHONE;
+import static seedu.address.testutil.TypicalPersons.PERSON_WITH_MISSING_ADDRESS;
 import static seedu.address.testutil.TypicalPersons.PERSON_WITH_MISSING_BIRTHDAY;
 import static seedu.address.testutil.TypicalPersons.PERSON_WITH_MISSING_EMAIL;
-import static seedu.address.testutil.TypicalPersons.PERSON_WITH_MISSING_ADDRESS;
+import static seedu.address.testutil.TypicalPersons.PERSON_WITH_MISSING_PHONE;
 
 import org.junit.Test;
 
