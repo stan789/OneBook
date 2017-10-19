@@ -1,4 +1,5 @@
 package seedu.address.storage;
+
 /**
  * Format of VCard file
  */
@@ -14,6 +15,7 @@ public class VCardFileType {
     private String phoneFormat1 = "TEL";
     private String phoneFormat2 = "item1.TEL";
     private String birthday = "BDAY";
+    private String label = "CATEGORIES";
 
     public VCardFileType() {
     }
@@ -32,6 +34,10 @@ public class VCardFileType {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getLabel() {
+        return label;
     }
 
     public String getEnd() {

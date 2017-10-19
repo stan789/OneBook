@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Set;
+import java.util.Arrays;
+import java.util.List;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
@@ -17,7 +17,6 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 import seedu.address.storage.exceptions.EmptyFileException;
 import seedu.address.storage.exceptions.WrongFormatInFileException;
 
@@ -29,7 +28,6 @@ import seedu.address.storage.exceptions.WrongFormatInFileException;
 public class ImportVCardFile {
 
     private final Path fileLocation;
-    private Set<Tag> tag = Collections.EMPTY_SET;
     private ArrayList<Person> person = new ArrayList<>();
     private VCardFileType vcf;
     private VCard vCard;
@@ -115,7 +113,7 @@ public class ImportVCardFile {
                     checkBegin = false;
                     person.add(new Person(new Name(vCard.getName()), new Phone(vCard.getPhone()),
                             new Birthday(vCard.getBirthday()), new Email(vCard.getEmail()),
-                            new Address(vCard.getAddress()), tag));
+                            new Address(vCard.getAddress()), vCard.getTag()));
                 }
             } catch (IllegalValueException e) {
                 System.out.println(vCard.getName());
@@ -158,12 +156,22 @@ public class ImportVCardFile {
                     vCard.setAddress(address);
                 }
                 if (line.startsWith(vcf.getBirthday())) {
-                    String birthday = contactArray[1];
+                    String birthday = contactArray[indexOne];
                     String[] array = birthday.split("-");
                     if (array.length == birthdaySize) {
                         birthday = array[indexTwo] + "-" + array[indexOne] + "-" + array[indexZero];
                     }
                     vCard.setBirthday(birthday);
+                }
+                if(line.startsWith(vcf.getLabel())){
+                    String label = contactArray[indexOne];
+                    List<String> tagList = new ArrayList<String>();
+                    if(label.contains(",")) {
+                        tagList.addAll(Arrays.asList(label.split(",")));
+                    } else {
+                        tagList.add(label);
+                    }
+                    vCard.setTag(tagList);
                 }
             }
         }

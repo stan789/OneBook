@@ -1,6 +1,13 @@
 package seedu.address.storage;
 
 
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.tag.Tag;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  * Stores the information from VCard file.
  */
@@ -12,6 +19,7 @@ public class VCard {
     private String address;
     private String birthday;
     private String name;
+    private Set<Tag> tag;
 
     public VCard() {
         phone = "";
@@ -19,6 +27,8 @@ public class VCard {
         address = "311, Clementi Ave 2, #02-25";
         birthday = "02-01-1995";
         name = "NO NAME";
+        tag = new HashSet<>();
+
 
     }
 
@@ -42,6 +52,16 @@ public class VCard {
         this.phone = phone;
     }
 
+    public void setTag(List<String> label) {
+        for(String str: label) {
+            try {
+                tag.add(new Tag(str));
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public String getName() {
         return name;
     }
@@ -61,4 +81,6 @@ public class VCard {
     public String getPhone() {
         return phone;
     }
+
+    public Set<Tag> getTag() { return tag; }
 }
