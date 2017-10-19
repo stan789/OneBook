@@ -31,13 +31,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalPersons.*;
 
 import org.junit.Test;
 
@@ -167,6 +161,18 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + BIRTHDAY_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+
+        /* Case: missing phone -> accepted */
+        assertCommandSuccess(PERSON_WITH_MISSING_PHONE);
+
+        /* Case: missing birthday -> accepted */
+        assertCommandSuccess(PERSON_WITH_MISSING_BIRTHDAY);
+
+        /* Case: missing email -> accepted */
+        assertCommandSuccess(PERSON_WITH_MISSING_EMAIL);
+
+        /* Case: missing address -> accepted */
+        assertCommandSuccess(PERSON_WITH_MISSING_ADDRESS);
 
         /* Case: invalid keyword -> rejected */
         command = "adds " + PersonUtil.getPersonDetails(toAdd);
