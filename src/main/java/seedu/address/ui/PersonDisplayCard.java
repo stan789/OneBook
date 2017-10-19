@@ -28,19 +28,17 @@ public class PersonDisplayCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label nameLarge;
     @FXML
-    private Label id;
+    private Label phoneLarge;
     @FXML
-    private Label phone;
+    private Label birthdayLarge;
     @FXML
-    private Label birthday;
+    private Label notesLarge; // to be added
     @FXML
-    private Label notes; // to be added
+    private Label emailLarge;
     @FXML
-    private Label email;
-    @FXML
-    private FlowPane tags;
+    private FlowPane tagsLarge;
 
     public PersonDisplayCard() {
         super(FXML);
@@ -58,19 +56,19 @@ public class PersonDisplayCard extends UiPart<Region> {
      * so that they will be notified of any changes.
      */
     private void bindListeners(ReadOnlyPerson person) {
-        name.textProperty().bind(Bindings.convert(person.nameProperty()));
-        phone.textProperty().bind(Bindings.convert(person.phoneProperty()));
-        birthday.textProperty().bind(Bindings.convert(person.birthdayProperty()));
-        email.textProperty().bind(Bindings.convert(person.emailProperty()));
+        nameLarge.textProperty().bind(Bindings.convert(person.nameProperty()));
+        phoneLarge.textProperty().bind(Bindings.convert(person.phoneProperty()));
+        birthdayLarge.textProperty().bind(Bindings.convert(person.birthdayProperty()));
+        emailLarge.textProperty().bind(Bindings.convert(person.emailProperty()));
         person.tagProperty().addListener((observable, oldValue, newValue) -> {
-            tags.getChildren().clear();
-            person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+            tagsLarge.getChildren().clear();
+            person.getTags().forEach(tag -> tagsLarge.getChildren().add(new Label(tag.tagName)));
         });
     }
 
     private void initTags(ReadOnlyPerson person) {
-        tags.getChildren().clear();
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        tagsLarge.getChildren().clear();
+        person.getTags().forEach(tag -> tagsLarge.getChildren().add(new Label(tag.tagName)));
     }
 
     @Subscribe

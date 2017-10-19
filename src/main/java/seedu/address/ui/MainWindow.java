@@ -20,7 +20,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.commands.DisplayListFilteredEvent;
 import seedu.address.commons.events.commands.DisplayListResetEvent;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.FxViewUtil;
@@ -208,18 +207,6 @@ public class MainWindow extends UiPart<Region> {
     }
 
     /**
-     * Resets the selected Person on display
-     */
-    void reload() {
-        personDisplayCard = new PersonDisplayCard();
-        detailsPlaceholder.getChildren().add(personDisplayCard.getRoot());
-        addressPanel = new AddressPanel();
-        addressPlaceholder.getChildren().add(addressPanel.getRoot());
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-    }
-
-    /**
      * Opens the help window.
      */
     @FXML
@@ -252,12 +239,6 @@ public class MainWindow extends UiPart<Region> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
-    }
-
-    @Subscribe
-    private void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        reload();
     }
 
     @Subscribe

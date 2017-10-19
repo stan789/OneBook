@@ -36,7 +36,7 @@ public class AddressPanel extends UiPart<Region> {
     private WebView browser;
 
     @FXML
-    private Label address;
+    private Label addressLarge;
 
     public AddressPanel() {
         super(FXML);
@@ -64,7 +64,7 @@ public class AddressPanel extends UiPart<Region> {
      * so that they will be notified of any changes.
      */
     private void bindListeners(ReadOnlyPerson person) {
-        address.textProperty().bind(Bindings.convert(person.addressProperty()));
+        addressLarge.textProperty().bind(Bindings.convert(person.addressProperty()));
     }
 
     public void loadPage(String url) {

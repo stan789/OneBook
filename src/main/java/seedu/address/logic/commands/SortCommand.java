@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.exceptions.EmptyAddressBookException;
 
 /**
@@ -31,12 +32,12 @@ public class SortCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute() throws CommandException {
         try {
             model.executeSort(sortType);
             return new CommandResult(MESSAGE_SUCCESS);
         } catch (EmptyAddressBookException e) {
-            return new CommandResult(MESSAGE_NO_PERSON_TO_SORT);
+            throw new CommandException(MESSAGE_NO_PERSON_TO_SORT);
         }
 
     }
