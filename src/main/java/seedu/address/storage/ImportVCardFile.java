@@ -32,18 +32,18 @@ import seedu.address.storage.exceptions.WrongFormatInFileException;
 
 public class ImportVCardFile {
 
-    private final Path fileLocation;
-    private ArrayList<Person> person = new ArrayList<>();
-    Set<Tag> tag;
+    private Path fileLocation;
+    private  ArrayList<Person> person = new ArrayList<>();
+    private static Set<Tag> tag;
     private VCardFileType vcf;
     private VCard vCard;
     private boolean checkEnd = true;
     private boolean checkBegin = false;
-    private Integer birthdaySize = 3;
-    private Integer indexZero = 0;
-    private Integer indexOne = 1;
-    private Integer indexTwo = 2;
-    private Integer emptySize = 0;
+    private static final Integer birthdaySize = 3;
+    private static final Integer indexZero = 0;
+    private static final Integer indexOne = 1;
+    private static final Integer indexTwo = 2;
+    private static final Integer emptySize = 0;
 
 
 
@@ -130,7 +130,6 @@ public class ImportVCardFile {
 
     /**
      * check the format of the different attributes of Vcard object.
-     * 
      */
     private void vCardFilePart(String line) {
         String[] contactArray = line.split(":");
