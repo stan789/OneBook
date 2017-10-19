@@ -116,9 +116,7 @@ public class ImportVCardFile {
                             new Address(vCard.getAddress()), tag));
                 }
             } catch (IllegalValueException e) {
-                System.out.println(vCard.getName());
-                System.out.println(vCard.getPhone());
-                System.out.println("IllegalValueException");
+                System.out.println("IllegalValueException" + vCard.getName() + " " + vCard.getPhone());
             }
         } else {
             vCardFilePart(line);
