@@ -23,7 +23,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 public class AddressPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
-    public static final String GOOGLE_SEARCH_URL_PREFIX = "https://www.google.com.sg/search?safe=off&q=";
+    public static final String GOOGLE_SEARCH_URL_PREFIX = "https://www.google.com.sg/maps/place/";
     public static final String GOOGLE_SEARCH_URL_SUFFIX = "&cad=h";
 
     private static final String FXML = "AddressPanel.fxml";
@@ -53,8 +53,9 @@ public class AddressPanel extends UiPart<Region> {
      * @param person
      */
     private void loadPersonAddress(ReadOnlyPerson person) {
-        loadPage(GOOGLE_SEARCH_URL_PREFIX + person.getName().fullName.replaceAll(" ", "+")
-                + GOOGLE_SEARCH_URL_SUFFIX);
+
+        loadPage(GOOGLE_SEARCH_URL_PREFIX + person.getAddress().value.replaceAll(" ", "+").replaceAll(",", "")
+            + GOOGLE_SEARCH_URL_SUFFIX);
         this.person = person;
         bindListeners(person);
     }
