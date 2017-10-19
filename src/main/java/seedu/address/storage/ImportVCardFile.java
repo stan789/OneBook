@@ -73,7 +73,7 @@ public class ImportVCardFile {
         for (String str : Files.readAllLines(fileLocation, Charset.defaultCharset())) {
             try {
                 sendRequest(str);
-            } catch (WrongFormatInFileException e){
+            } catch (WrongFormatInFileException e) {
                 throw new IOException();
             }
         }
@@ -157,7 +157,7 @@ public class ImportVCardFile {
                     }
                     vCard.setBirthday(birthday);
                 }
-                if(line.startsWith(vcf.getLabel())){
+                if (line.startsWith(vcf.getLabel())) {
                     String label = contactArray[indexOne];
                     List<String> tagList = new ArrayList<String>();
                     if(label.contains(",")) {
