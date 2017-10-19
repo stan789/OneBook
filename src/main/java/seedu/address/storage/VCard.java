@@ -17,10 +17,6 @@ public class VCard {
     private List<String> tag;
 
     public VCard() {
-        phone = "";
-        email = "johnd@example.com";
-        address = "311, Clementi Ave 2, #02-25";
-        birthday = "02-01-1995";
         name = "NO NAME";
         tag = new ArrayList<String>();
 

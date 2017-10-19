@@ -37,8 +37,7 @@ public class ImportVCardFile {
     private static final Integer INDEX_TWO = 2;
     private static final Integer EMPTY_SIZE = 0;
     private Path fileLocation;
-    private  ArrayList<Person> person = new ArrayList<>();
-    private Set<Tag> tag;
+    private ArrayList<Person> person = new ArrayList<>();
     private VCardFileType vcf;
     private VCard vCard;
     private boolean checkEnd = true;
@@ -108,7 +107,7 @@ public class ImportVCardFile {
                 } else {
                     checkEnd = true;
                     checkBegin = false;
-                    tag = new HashSet<Tag>();
+                    Set<Tag> tag = new HashSet<Tag>();
                     for (String string : vCard.getTag()) {
                         tag.add(new Tag(string));
                     }
@@ -137,7 +136,7 @@ public class ImportVCardFile {
                 if (phone.matches("[^a-zA-Z^.?<>&|!@#$%{}_=][^a-zA-Z^.?<>&|!@#$%{}_=]{3,}")) {
                     phone = phone.replaceAll("[^0-9*+]", "");
                 }
-                if (vCard.getPhone().equals("")) {
+                if (vCard.getPhone() == null) {
                     vCard.setPhone(phone);
                 }
             }
