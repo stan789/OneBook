@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +19,7 @@ public class VCard {
     private String address;
     private String birthday;
     private String name;
-    private Set<Tag> tag;
+    private List<String> tag;
 
     public VCard() {
         phone = "";
@@ -26,7 +27,7 @@ public class VCard {
         address = "311, Clementi Ave 2, #02-25";
         birthday = "02-01-1995";
         name = "NO NAME";
-        tag = new HashSet<>();
+        tag = new ArrayList<String>();
 
 
     }
@@ -52,13 +53,7 @@ public class VCard {
     }
 
     public void setTag(List<String> label) {
-        for (String str : label) {
-            try {
-                tag.add(new Tag(str));
-            } catch (IllegalValueException e) {
-                e.printStackTrace();
-            }
-        }
+        tag = label;
     }
 
     public String getName() {
@@ -81,7 +76,7 @@ public class VCard {
         return phone;
     }
 
-    public Set<Tag> getTag() {
+    public List<String> getTag() {
         return tag;
     }
 }
