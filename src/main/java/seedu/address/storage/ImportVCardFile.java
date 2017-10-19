@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -33,7 +34,6 @@ public class ImportVCardFile {
     private VCard vCard;
     private boolean checkEnd = true;
     private boolean checkBegin = false;
-    private boolean wrongFormat = false;
     private Integer birthdaySize = 3;
     private Integer indexZero = 0;
     private Integer indexOne = 1;
@@ -70,18 +70,12 @@ public class ImportVCardFile {
             throw new IOException();
         }
 
-        Files.lines(fileLocation)
-                .map(line -> line.trim())
-                .filter(line -> !line.isEmpty())
-                .forEach(line -> {
-                    try {
-                        sendRequest(line);
-                    } catch (WrongFormatInFileException e) {
-                        wrongFormat = true;
-                    }
-                });
-        if (wrongFormat) {
-            throw new IOException();
+        for (String str : Files.readAllLines(fileLocation, Charset.defaultCharset())) {
+            try {
+                sendRequest(str);
+            } catch (WrongFormatInFileException e){
+                throw new IOException();
+            }
         }
         if (!checkEnd) {
             throw new IOException();
