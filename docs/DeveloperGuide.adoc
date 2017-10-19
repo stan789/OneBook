@@ -427,6 +427,15 @@ The format in the VCard file is checked to ensure that it is valid before import
 * `phone number` +
 * `birthday` +
 
+=== Add Contact with optional fields
+The `add` function is implemented by `AddCommand`. The `add` function has been enhanced to allow the user to add certain fields into the contact. For the fields that the user does not want to input, no prefixes for the field will be entered. The class `AddCommandParser` will interpret it as a null value and assign the string '-' to the following field. This will represent that the field is not assigned.
+
+The `name` field is compulsory.
+
+The fields that are not compulsory are `phone`, `birthday`, `email`, `address`, and `tags`.
+
+
+
 == Documentation
 
 We use asciidoc for writing documentation.
