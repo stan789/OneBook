@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.FindCommand;
 
 /**
  * Tests that a {@code ReadOnlyPerson}'s {@code Name} or {@code Address} or {@code Email} or {@code Phone}
@@ -22,15 +23,16 @@ public class ContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
     @Override
     public boolean test(ReadOnlyPerson person) {
         switch (mainKeyword) {
-        case "name": return keywords.stream()
+        case FindCommand.KEYWORD_NAME: return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
-        case "address": return keywords.stream()
+
+        case FindCommand.KEYWORD_ADDRESS: return keywords.stream()
                 .allMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getAddress().value, keyword));
 
-        case "email": return keywords.stream()
+        case FindCommand.KEYWORD_EMAIL: return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getEmail().value, keyword));
 
-        case "phone": return keywords.stream()
+        case FindCommand.KEYWORD_PHONE: return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().toString(), keyword));
 
         default : return false;

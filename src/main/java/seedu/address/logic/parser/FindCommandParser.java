@@ -28,8 +28,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         String[] keywords = trimmedArgs.split("\\s+");
 
         String mainKeyword = keywords[0];
-        if (!mainKeyword.equals("name") && !mainKeyword.equals("address") && !mainKeyword.equals("email")
-                && !mainKeyword.equals("phone")) {
+        if (!mainKeyword.equals(FindCommand.KEYWORD_NAME) && !mainKeyword.equals(FindCommand.KEYWORD_ADDRESS) &&
+                !mainKeyword.equals(FindCommand.KEYWORD_EMAIL) && !mainKeyword.equals(FindCommand.KEYWORD_PHONE)) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }

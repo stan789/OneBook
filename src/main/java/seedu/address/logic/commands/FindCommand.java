@@ -24,6 +24,10 @@ public class FindCommand extends Command {
             + "Example: " + COMMAND_WORD + " phone " + "123456789 987654321";
 
     public static final String MESSAGE_NO_KEYWORD = "At least one keyword must be provided.";
+    public static final String KEYWORD_NAME = "name";
+    public static final String KEYWORD_ADDRESS = "address";
+    public static final String KEYWORD_EMAIL = "email";
+    public static final String KEYWORD_PHONE = "phone";
 
     private final ContainsKeywordsPredicate predicate;
 
