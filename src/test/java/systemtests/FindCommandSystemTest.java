@@ -29,8 +29,8 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         /* Case: find multiple persons in address book, command with leading spaces and trailing spaces
          * -> 2 persons found
          */
-        String command = "   " + FindCommand.COMMAND_WORD + " " + FindCommand.KEYWORD_NAME + " " +
-                KEYWORD_MATCHING_MEIER + "   ";
+        String command = "   " + FindCommand.COMMAND_WORD + " " + FindCommand.KEYWORD_NAME + " "
+                + KEYWORD_MATCHING_MEIER + "   ";
         Model expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
         assertCommandSuccess(command, expectedModel);
@@ -68,8 +68,8 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         /* Case: find multiple persons in address book, 2 matching keywords and 1 non-matching keyword
          * -> 2 persons found
          */
-        command = FindCommand.COMMAND_WORD + " " + FindCommand.KEYWORD_NAME + " " +
-                "Daniel Benson NonMatchingKeyWord";
+        command = FindCommand.COMMAND_WORD + " " + FindCommand.KEYWORD_NAME + " "
+                + "Daniel Benson NonMatchingKeyWord";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -144,8 +144,8 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find address of person in address book, address is substring of keyword -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + FindCommand.KEYWORD_ADDRESS + " " +
-                DANIEL.getAddress().value + "123";
+        command = FindCommand.COMMAND_WORD + " " + FindCommand.KEYWORD_ADDRESS + " "
+                + DANIEL.getAddress().value + "123";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();

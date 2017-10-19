@@ -42,8 +42,8 @@ public class FindCommandParserTest {
         assertParseSuccess(parser, FindCommand.KEYWORD_ADDRESS + " Serangoon Geylang", expectedFindCommand);
 
         // find address, multiple whitespaces between keywords
-        assertParseSuccess(parser, FindCommand.KEYWORD_ADDRESS +
-                "\n Serangoon \n \t Geylang  \t", expectedFindCommand);
+        assertParseSuccess(parser, FindCommand.KEYWORD_ADDRESS
+                + "\n Serangoon \n \t Geylang  \t", expectedFindCommand);
 
         // find email, no leading and trailing whitespaces
         expectedFindCommand =
