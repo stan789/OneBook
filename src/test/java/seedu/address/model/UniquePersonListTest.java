@@ -35,6 +35,6 @@ public class UniquePersonListTest {
         thrown.expect(PersonNotFoundException.class);
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("BOB").build();
-        uniquePersonList.setPerson(alice,bob);
+        uniquePersonList.setPerson(alice, bob);
     }
 }
