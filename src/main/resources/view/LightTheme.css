@@ -348,6 +348,7 @@
 }
 
 #listName {
+    -fx-background-color: white;
     -fx-text-fill: black;
     -fx-fill: black;
     -fx-font-family: "Arial";
