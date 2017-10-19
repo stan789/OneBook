@@ -7,6 +7,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -17,6 +18,8 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.commands.DisplayListFilteredEvent;
+import seedu.address.commons.events.commands.DisplayListResetEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.FxViewUtil;
@@ -40,13 +43,14 @@ public class MainWindow extends UiPart<Region> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private AddressPanel addressPanel;
     private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
+    private PersonDisplayCard personDisplayCard;
 
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane addressPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -63,6 +67,14 @@ public class MainWindow extends UiPart<Region> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private StackPane detailsPlaceholder;
+
+    @FXML
+    private StackPane notesPlaceholder;
+
+    @FXML
+    private Label listName;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML);
@@ -134,8 +146,8 @@ public class MainWindow extends UiPart<Region> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        addressPanel = new AddressPanel();
+        addressPlaceholder.getChildren().add(addressPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
@@ -148,6 +160,9 @@ public class MainWindow extends UiPart<Region> {
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        personDisplayCard = new PersonDisplayCard();
+        detailsPlaceholder.getChildren().add(personDisplayCard.getRoot());
     }
 
     void hide() {
@@ -217,12 +232,24 @@ public class MainWindow extends UiPart<Region> {
     }
 
     void releaseResources() {
-        browserPanel.freeResources();
+        addressPanel.freeResources();
     }
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleDisplayListFilteredEvent(DisplayListFilteredEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        listName.textProperty().setValue("Filtered");
+    }
+
+    @Subscribe
+    private void handleDisplayListResetEvent(DisplayListResetEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        listName.textProperty().setValue("List");
     }
 }

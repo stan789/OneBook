@@ -12,7 +12,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103AUG2017-T17-B4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103AUG2017 T17-B4`      Since: `Jun 2016`      Licence: `MIT`
 
 == Quick Start
 
@@ -92,35 +92,41 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by name: `find`
+=== Locating persons: `find`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Finds persons whose names/addresses/emails/phone numbers contain any of the given keywords. +
+Format: `find MAIN_KEYWORD KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The main keyword determines the search field (i.e. *name*/*address*/*email*/*phone*).
+* The search is case insensitive. e.g `name hans` will return `Hans`
+* The order of the keywords does not matter. e.g. `name Hans Bo` will return `Bo Hans`
+* Partial words will still be matched e.g. `name Han` will return `Hans`
+* For *name*, *email*, and *phone*, persons containing at least one keyword will be returned (i.e. `OR` search). e.g. `name Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* For *address*, only persons containing all the keywords will be returned (i.e. `AND` search). e.g. `address Serangoon Street 4` will not return `Serangoon Street 6`
 ****
 
 Examples:
 
-* `find John` +
+* `find name John` +
 Returns `john` and `John Doe`
-* `find Betsy Tim John` +
+* `find name Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
+* `find email johndoe` +
+Returns any person having an email containing `johndoe`
+* `find address Geylang Street 5` +
+Returns only persons having an address containing `Geylang Street 5`
 
 === Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Deletes the specified person(s) from the address book. +
+Format: `delete INDEX, [MORE_INDEXES]`
 
 ****
-* Deletes the person at the specified `INDEX`.
+* Deletes the person(s) at the specified `INDEX`.
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* 1, 2, 3, ...
+* The indexes *must be in ascending order*.
 ****
 
 Examples:
@@ -128,6 +134,9 @@ Examples:
 * `list` +
 `delete 2` +
 Deletes the 2nd person in the address book.
+* `list` +
+`delete 3, 4` +
+Deletes the 3rd and 4th persons in the address book.
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
@@ -212,10 +221,47 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
+
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
 Format: `clear`
+
+=== Locating persons: `sort`
+
+Sorts the list in OneBook according to name or email in alphabetically order. +
+Format: `sort MAIN_KEYWORD KEYWORD [MORE_KEYWORDS]`
+
+****
+* The main keyword determines the search field (i.e. *name*/*email*).
+* At least one contact must be in OneBook before sorting.
+****
+
+Examples:
+
+* `sort name`
+* `sort email`
+
+
+=== Importing a VCard file(.vcf) to OneBook : `import`
+
+Import a VCard file from directory to OneBook +
+Format: `import [file directory]`
+
+****
+* Imports a VCard file from a valid directory.
+* If format in the file follows VCard format, it will import contacts to OneBook.
+* Notify the number of contacts that are succesfully imported.
+****
+
+Examples:
+
+* `add C:/Users/User/Desktop/contacts.vcf` (Windows)
+* `add C:/Users/User/Downloads/contacts.vcf` (Windows)
+* `add /Users/user/Downloads/contacts.vcf` (MAC OSX)
+* `add /Users/user/Desktop/contacts.vcf` (MAC OSX)
+
+
 
 === Exiting the program : `exit`
 
@@ -227,6 +273,56 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+=== Recycle Bin : `bin list` [yellow]#*Coming in v2.0#
+
+Shows a list of deleted persons. +
+Format: `bin`
+
+****
+* The listing will be replaced with recycle bin entries.
+* Entries listed here will be automatically removed 7 days after deletion
+****
+
+=== Restore entry from recycle bin : `bin restore` [yellow]#*Coming in v2.0#
+
+Restore the specified person from the bin to the address book. +
+Format: `bin restore INDEX`
+
+****
+* Restores the person at the specified `INDEX`.
+* The index refers to the index number shown in the bin listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `bin list` +
+`bin restore 2` +
+Restores the 2nd person in recycle bin to the address book. +
+
+=== Remove entry from recycle bin : `bin delete` [yellow]#*Coming in v2.0#
+
+Restore the specified person from the bin to the address book. +
+Format: `bin remove INDEX`
+
+****
+* Restores the person at the specified `INDEX`.
+* The index refers to the index number shown in the bin listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `bin list` +
+`bin remove 2` +
+Removes the 2nd person in recycle bin. +
+
+=== Remove all entry in recycle bin : `bin clear` [yellow]#*Coming in v2.0#
+
+Clears the recycle bin. +
+Format: `bin clear`
+
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -237,16 +333,23 @@ There is no need to save manually.
 * *Add* `add n/NAME p/PHONE_NUMBER b/BIRTHADAY e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 b/18-04-1995 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
+* *Delete* : `delete INDEX, [MORE_INDEXES]` +
+e.g. `delete 3, 4, 5`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [b/BIRTHDAY] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+* *Find* : `find MAIN_KEYWORD KEYWORD [MORE_KEYWORDS]` +
+e.g. `find name James Jake` +
+e.g. `find phone 123456789`
+* *Import* : `import [file directory]` +
+e.g. `add C:/Users/User/Desktop/contacts.vcf` (Windows) +
+e.g. `add /Users/user/Downloads/contacts.vcf` (MAC OSX)
 * *List* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
+* *Sort* : `sort KEYWORD` +
+e.g. `sort name` +
+e.g. `sort email`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`

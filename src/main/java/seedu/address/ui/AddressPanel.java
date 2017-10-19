@@ -6,8 +6,10 @@ import java.util.logging.Logger;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
@@ -18,20 +20,25 @@ import seedu.address.model.person.ReadOnlyPerson;
 /**
  * The Browser Panel of the App.
  */
-public class BrowserPanel extends UiPart<Region> {
+public class AddressPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
     public static final String GOOGLE_SEARCH_URL_PREFIX = "https://www.google.com.sg/search?safe=off&q=";
     public static final String GOOGLE_SEARCH_URL_SUFFIX = "&cad=h";
 
-    private static final String FXML = "BrowserPanel.fxml";
+    private static final String FXML = "AddressPanel.fxml";
+
+    private ReadOnlyPerson person;
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     @FXML
     private WebView browser;
 
-    public BrowserPanel() {
+    @FXML
+    private Label addressLarge;
+
+    public AddressPanel() {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
@@ -41,9 +48,23 @@ public class BrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
-    private void loadPersonPage(ReadOnlyPerson person) {
+    /**
+     * Loads the address and webpage of the selected Person
+     * @param person
+     */
+    private void loadPersonAddress(ReadOnlyPerson person) {
         loadPage(GOOGLE_SEARCH_URL_PREFIX + person.getName().fullName.replaceAll(" ", "+")
                 + GOOGLE_SEARCH_URL_SUFFIX);
+        this.person = person;
+        bindListeners(person);
+    }
+
+    /**
+     * Binds the individual UI elements to observe their respective {@code Person} properties
+     * so that they will be notified of any changes.
+     */
+    private void bindListeners(ReadOnlyPerson person) {
+        addressLarge.textProperty().bind(Bindings.convert(person.addressProperty()));
     }
 
     public void loadPage(String url) {
@@ -68,6 +89,6 @@ public class BrowserPanel extends UiPart<Region> {
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadPersonPage(event.getNewSelection().person);
+        loadPersonAddress(event.getNewSelection().person);
     }
 }
