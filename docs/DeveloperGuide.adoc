@@ -416,6 +416,17 @@ The designated fields allowed are: +
 
 This feature is case-insensitive, and an exact match is not required for each keyword. e.g. 'jon' will match 'Jonathan'
 
+=== Import mechanism
+
+The `import` function is implemented by `ImportCommand`, which imports the contacts in a VCard file to Onebook. It imports a VCard file from a valid directory which the user need to input after keying "import" command in the command box. Inputting a directory is easier than asking the user to put the VCard file in a specfic directory.
+The format in the VCard file is checked to ensure that it is valid before importing it to OneBook. The fields that are currently imported from VCard file are: +
+
+* `name` +
+* `address` +
+* `email` +
+* `phone number` +
+* `birthday` +
+
 == Documentation
 
 We use asciidoc for writing documentation.
