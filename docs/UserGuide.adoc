@@ -54,23 +54,39 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+=== Changing theme: `mode`
+
+Changes the theme of OneBook between default mode and lite mode.
+
+Format: `mode`
+
+
+
 === Adding a person: `add`
 
 Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER b/BIRTHDAY e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `add n/NAME [p/PHONE_NUMBER] [b/BIRTHDAY] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 [TIP]
 A person can have any number of tags (including 0)
+
+[TIP]
+Fields that are enclosed by square brackets are optional.
 
 Examples:
 
 * `add n/John Doe p/98765432 b/21-01-1995 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison b/22-02-1998 p/1234567 t/criminal`
+* `add n/Timothy Smith`
 
 === Listing all persons : `list`
 
 Shows a list of all persons in the address book. +
 Format: `list`
+
+****
+* Upon usage of this command, the top left of the list will be replaced with *List* to indicate that the list displayed is not filtered.
+****
 
 === Editing a person : `edit`
 
@@ -104,6 +120,7 @@ Format: `find MAIN_KEYWORD KEYWORD [MORE_KEYWORDS]`
 * Partial words will still be matched e.g. `name Han` will return `Hans`
 * For *name*, *email*, and *phone*, persons containing at least one keyword will be returned (i.e. `OR` search). e.g. `name Hans Bo` will return `Hans Gruber`, `Bo Yang`
 * For *address*, only persons containing all the keywords will be returned (i.e. `AND` search). e.g. `address Serangoon Street 4` will not return `Serangoon Street 6`
+* Upon usage of this command, the top left of the list will be replaced with *Filtered* to indicate that the list display is filtered.
 ****
 
 Examples:
@@ -330,6 +347,8 @@ Format: `bin clear`
 
 == Command Summary
 
+* *Help* : `help`
+* *Mode* : `mode`
 * *Add* `add n/NAME p/PHONE_NUMBER b/BIRTHADAY e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 b/18-04-1995 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`
@@ -344,7 +363,6 @@ e.g. `find phone 123456789`
 e.g. `add C:/Users/User/Desktop/contacts.vcf` (Windows) +
 e.g. `add /Users/user/Downloads/contacts.vcf` (MAC OSX)
 * *List* : `list`
-* *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
 * *Sort* : `sort KEYWORD` +

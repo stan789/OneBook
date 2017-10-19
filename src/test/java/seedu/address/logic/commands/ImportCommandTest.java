@@ -39,6 +39,18 @@ public class ImportCommandTest {
         assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
     }
 
+    @Test
+    public void execute_importVCardFileWithOneTag_importSuccess() throws IOException {
+
+        Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts_with_one_tag.vcf");
+
+        ImportCommand importCommand = prepareCommand(fileLocation);
+
+        Integer count = expectedModel.importFile(fileLocation);
+        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, count);
+        assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
+    }
+
     @Test(expected = IOException.class)
     public void testFileWithInvalidFormat() throws IOException {
         model.importFile(Paths.get("src/test/data/VCardFileTest/contacts_example.vcf"));
