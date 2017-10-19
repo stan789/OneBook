@@ -1,12 +1,7 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Tag;
 
 /**
  * Stores the information from VCard file.

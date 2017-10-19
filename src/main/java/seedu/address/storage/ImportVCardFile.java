@@ -32,19 +32,18 @@ import seedu.address.storage.exceptions.WrongFormatInFileException;
 
 public class ImportVCardFile {
 
+    private static final Integer BIRTHDAY_SIZE = 3;
+    private static final Integer INDEX_ZERO = 0;
+    private static final Integer INDEX_ONE = 1;
+    private static final Integer INDEX_TWO = 2;
+    private static final Integer EMPTY_SIZE = 0;
     private Path fileLocation;
-    private  ArrayList<Person> person = new ArrayList<>();
-    private static Set<Tag> tag;
+    private ArrayList<Person> person = new ArrayList<>();
+    private Set<Tag> tag;
     private VCardFileType vcf;
     private VCard vCard;
     private boolean checkEnd = true;
     private boolean checkBegin = false;
-    private static final Integer birthdaySize = 3;
-    private static final Integer indexZero = 0;
-    private static final Integer indexOne = 1;
-    private static final Integer indexTwo = 2;
-    private static final Integer emptySize = 0;
-
 
 
     /**
@@ -66,7 +65,7 @@ public class ImportVCardFile {
     public ArrayList<Person> getPersonFromFile() throws IOException {
 
         File file = new File(fileLocation.toString());
-        if (file.length() == emptySize) {
+        if (file.length() == EMPTY_SIZE) {
             throw new EmptyFileException();
         }
         BufferedReader br = new BufferedReader(new FileReader(fileLocation.toString()));
@@ -133,9 +132,9 @@ public class ImportVCardFile {
      */
     private void vCardFilePart(String line) {
         String[] contactArray = line.split(":");
-        if (contactArray.length == indexTwo) {
+        if (contactArray.length == INDEX_TWO) {
             if ((line.startsWith(vcf.getPhoneFormat2()) || line.contains(vcf.getPhoneFormat()))) {
-                String phone = contactArray[indexOne];
+                String phone = contactArray[INDEX_ONE];
                 if (phone.matches("[^a-zA-Z^.?<>&|!@#$%{}_=][^a-zA-Z^.?<>&|!@#$%{}_=]{3,}")) {
                     phone = phone.replaceAll("[^0-9*+]", "");
                 }
@@ -144,15 +143,15 @@ public class ImportVCardFile {
                 }
             }
             if (line.startsWith(vcf.getEmail())) {
-                vCard.setEmail(contactArray[indexOne]);
+                vCard.setEmail(contactArray[INDEX_ONE]);
             }
             if (line.startsWith(vcf.getName())) {
-                String name = contactArray[indexOne];
+                String name = contactArray[INDEX_ONE];
                 vCard.setName(name);
             }
             if (line.startsWith(vcf.getAddressFormat1()) || line.contains(vcf.getAddressFormat2())) {
                 String address = "";
-                String spiltAddress = contactArray[indexOne];
+                String spiltAddress = contactArray[INDEX_ONE];
                 String[] array = spiltAddress.split(";");
                 for (int i = 0; i < array.length; i++) {
                     if (array[i].equals("")) {
@@ -167,15 +166,15 @@ public class ImportVCardFile {
                 vCard.setAddress(address);
             }
             if (line.startsWith(vcf.getBirthday())) {
-                String birthday = contactArray[indexOne];
+                String birthday = contactArray[INDEX_ONE];
                 String[] array = birthday.split("-");
-                if (array.length == birthdaySize) {
-                    birthday = array[indexTwo] + "-" + array[indexOne] + "-" + array[indexZero];
+                if (array.length == BIRTHDAY_SIZE) {
+                    birthday = array[INDEX_TWO] + "-" + array[INDEX_ONE] + "-" + array[INDEX_ZERO];
                 }
                 vCard.setBirthday(birthday);
             }
             if (line.startsWith(vcf.getLabel())) {
-                String label = contactArray[indexOne];
+                String label = contactArray[INDEX_ONE];
                 List<String> tagList = new ArrayList<String>();
                 if (label.contains(",")) {
                     tagList.addAll(Arrays.asList(label.split(",")));
