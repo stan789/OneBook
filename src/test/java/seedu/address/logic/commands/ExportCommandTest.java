@@ -30,10 +30,9 @@ public class ExportCommandTest {
     @Test
     public void execute_exportVCardFile_importSuccess() throws IOException {
 
-        String fileLocation = "src/test/data/VCardFileTest/";
+        String fileLocation = "src/test/data/VCardFileTest/OneBook.vcf";
 
         ExportCommand exportCommand = prepareCommand(fileLocation);
-
         expectedModel.exportFile(fileLocation);
         String expectedMessage = ExportCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(exportCommand, model, expectedMessage, expectedModel);
