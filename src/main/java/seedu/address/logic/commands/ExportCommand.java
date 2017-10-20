@@ -31,7 +31,7 @@ public class ExportCommand extends Command {
     @Override
     public CommandResult execute() throws CommandException {
 
-        try{
+        try {
             model.exportFile(fileLocation);
 
         } catch (IOException e) {
