@@ -147,9 +147,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public Integer exportFile(Path fileLocation) {
+        public void exportFile(Path fileLocation) {
             fail("This method should not be called.");
-            return null;
         }
     }
 
