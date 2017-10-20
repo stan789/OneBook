@@ -34,6 +34,13 @@ public class ExportCommandParserTest {
     }
 
     @Test
+    public void parse_invalidArgsWrongFileNameFormat_throwsParserException() {
+        String location = "src/test/data/VCardFileTest/!new.txt";
+        assertParseFailure(parser, location, "Format for file name is invalid.");
+
+    }
+
+    @Test
     public void parse_emptyArgs_throwsParserException() {
         String location = "";
         assertParseFailure(parser, location,

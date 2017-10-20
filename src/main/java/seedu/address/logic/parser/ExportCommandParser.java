@@ -27,10 +27,15 @@ public class ExportCommandParser implements Parser<ExportCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
         }
         String directory = trimmedArgs.substring(0, trimmedArgs.lastIndexOf("/") + 1);
-        System.out.println(directory);
         File dir = new File(directory);
         if (!dir.isDirectory()) {
             throw new ParseException("Invalid Directory.");
+        }
+
+        String fileName = trimmedArgs.substring(trimmedArgs.lastIndexOf("/") + 1, trimmedArgs.lastIndexOf("."));
+        System.out.println(fileName);
+        if (!fileName.matches("[A-Za-z0-9.-_]+")) {
+            throw new ParseException("Format for file name is invalid.");
         }
 
         String extension = trimmedArgs.substring(trimmedArgs.lastIndexOf(".") + 1, trimmedArgs.length());
