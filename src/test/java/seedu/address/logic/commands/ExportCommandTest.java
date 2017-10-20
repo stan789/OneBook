@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -42,6 +43,16 @@ public class ExportCommandTest {
     public void tearDown() {
         File file = new File("src/test/data/VCardFileTest/OneBook.vcf");
         file.delete();
+    }
+
+    @Test
+    public void execute_exportEmptyString_exportFailure() throws IOException {
+
+        String fileLocation = "";
+
+        ExportCommand exportCommand = prepareCommand(fileLocation);
+        String expectedMessage = exportCommand.MESSAGE_WRITE_ERROR;
+        assertCommandFailure(exportCommand, model, expectedMessage);
     }
 
     /**
