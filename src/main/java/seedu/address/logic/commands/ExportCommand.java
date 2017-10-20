@@ -5,8 +5,6 @@ import java.nio.file.Path;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 
-import static seedu.address.logic.commands.ImportCommand.MESSAGE_FILE_INVALID;
-
 /**
  * Exports OneBook to a VCard File.
  */
@@ -33,8 +31,8 @@ public class ExportCommand extends Command {
     @Override
     public CommandResult execute() throws CommandException {
 
-        try {
-             model.exportFile(fileLocation);
+        try{
+            model.exportFile(fileLocation);
 
         } catch (IOException e) {
             throw new CommandException(MESSAGE_WRITE_ERROR);

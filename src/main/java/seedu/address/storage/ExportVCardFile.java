@@ -1,13 +1,18 @@
 package seedu.address.storage;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.file.Path;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.tag.Tag;
 
-import java.io.*;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+/**
+ * write vCard file from the directory. supports up to VCard Version 3.0
+ */
 
 public class ExportVCardFile {
 
@@ -18,12 +23,15 @@ public class ExportVCardFile {
     private Path fileLocation;
     private VCardFileType vcf;
 
-    public ExportVCardFile(Path fileLocation){
+    public ExportVCardFile(Path fileLocation) {
 
         this.fileLocation = fileLocation;
         vcf = new VCardFileType();
     }
 
+    /**
+     * write vCard file from the directory. supports up to VCard Version 3.0
+     */
     public void createVCardFile(ObservableList<ReadOnlyPerson> person) throws IOException {
 
         try {
@@ -31,7 +39,7 @@ public class ExportVCardFile {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-8");
             BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
 
-            for(ReadOnlyPerson p: person) {
+            for (ReadOnlyPerson p: person) {
                 bufferedWriter.write(vcf.getBegin());
                 bufferedWriter.newLine();
 
@@ -51,12 +59,12 @@ public class ExportVCardFile {
                     bufferedWriter.newLine();
                 }
 
-                if(!p.getTags().isEmpty()) {
+                if (!p.getTags().isEmpty()) {
                     String tag = p.getTags().toString();
-                    if(tag.contains("[")) {
-                        tag = tag.replaceAll("[\\[\\]]","");
+                    if (tag.contains("[")) {
+                        tag = tag.replaceAll("[\\[\\]]", "");
                     }
-                    bufferedWriter.write(vcf.getLabel() + ":" + tag);//set of tags
+                    bufferedWriter.write(vcf.getLabel() + ":" + tag);
                     System.out.println(p.getTags().toString());
                     bufferedWriter.newLine();
                 }
