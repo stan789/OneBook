@@ -16,6 +16,7 @@ public class VCardFileType {
     private static final String phoneFormat2 = "item1.TEL";
     private static final String birthday = "BDAY";
     private static final String label = "CATEGORIES";
+    private static final String version = "Version 3.0";
 
     public VCardFileType() {
     }
@@ -58,5 +59,9 @@ public class VCardFileType {
 
     public String getBirthday() {
         return birthday;
+    }
+
+    public String getVersion() {
+        return version;
     }
 }

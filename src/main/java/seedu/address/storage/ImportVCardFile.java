@@ -26,7 +26,6 @@ import seedu.address.storage.exceptions.WrongFormatInFileException;
 
 /**
  * Read vCard file from the directory. supports up to VCard Version 3.0
- *
  */
 
 public class ImportVCardFile {
@@ -112,8 +111,8 @@ public class ImportVCardFile {
                         tag.add(new Tag(string));
                     }
                     person.add(new Person(new Name(vCard.getName()), new Phone(vCard.getPhone()),
-                            new Birthday(vCard.getBirthday()), new Email(vCard.getEmail()),
-                            new Address(vCard.getAddress()), tag));
+                        new Birthday(vCard.getBirthday()), new Email(vCard.getEmail()),
+                        new Address(vCard.getAddress()), tag));
                 }
             } catch (IllegalValueException e) {
                 System.out.println("IllegalValueException" + vCard.getName() + " " + vCard.getPhone());
@@ -131,7 +130,7 @@ public class ImportVCardFile {
         if (contactArray.length == INDEX_TWO) {
             if ((line.startsWith(vcf.getPhoneFormat2()) || line.contains(vcf.getPhoneFormat()))) {
                 String phone = contactArray[INDEX_ONE];
-                if (phone.matches("[^a-zA-Z^.?<>&|!@#$%{}_=][^a-zA-Z^.?<>&|!@#$%{}_=]{3,}")) {
+                if (phone.matches("[^a-zA-Z^.,?<>&|!@#$%{}#\\[\\]/_=][^a-zA-Z^.,?<>&|!@#$%{}#\\[\\]/_=]{3,}")) {
                     phone = phone.replaceAll("[^0-9*+]", "");
                 }
                 if (vCard.getPhone() == null) {
