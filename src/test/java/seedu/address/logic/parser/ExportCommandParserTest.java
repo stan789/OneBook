@@ -27,6 +27,13 @@ public class ExportCommandParserTest {
     }
 
     @Test
+    public void parse_invalidArgsWrongFileFormat_throwsParserException() {
+        String location = "src/test/data/VCardFileTest/new.txt";
+        assertParseFailure(parser, location, "File created should end with .vcf");
+
+    }
+
+    @Test
     public void parse_emptyArgs_throwsParserException() {
         String location = "";
         assertParseFailure(parser, location,

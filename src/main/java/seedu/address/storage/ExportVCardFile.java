@@ -34,7 +34,7 @@ public class ExportVCardFile {
     public void createVCardFile(ObservableList<ReadOnlyPerson> person) throws IOException {
 
         try {
-            FileOutputStream outputStream = new FileOutputStream(new File(fileLocation + "OneBook.vcf"));
+            FileOutputStream outputStream = new FileOutputStream(new File(fileLocation));
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-8");
             BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
 

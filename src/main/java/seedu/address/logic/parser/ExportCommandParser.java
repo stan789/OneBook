@@ -3,8 +3,6 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -12,7 +10,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new ExportCommand object
  */
-
 
 public class ExportCommandParser implements Parser<ExportCommand> {
 
@@ -29,10 +26,16 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         if (args.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
         }
-
-        File dir = new File(trimmedArgs);
+        String directory = trimmedArgs.substring(0, trimmedArgs.lastIndexOf("/") + 1);
+        System.out.println(directory);
+        File dir = new File(directory);
         if (!dir.isDirectory()) {
             throw new ParseException("Invalid Directory.");
+        }
+
+        String extension = trimmedArgs.substring(trimmedArgs.lastIndexOf(".") + 1, trimmedArgs.length());
+        if (!extension.equals("vcf")) {
+            throw new ParseException("File created should end with .vcf");
         }
 
         return new ExportCommand(trimmedArgs);
