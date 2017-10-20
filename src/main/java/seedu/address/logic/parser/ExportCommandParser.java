@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -13,9 +14,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 
 
-public class ExportCommandParser {
+public class ExportCommandParser implements Parser<ExportCommand> {
 
-    private Path fileLocation;
 
     /**
      * Parses the given {@code String} of arguments in the context of the ExportCommand
@@ -30,8 +30,12 @@ public class ExportCommandParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
         }
 
-        fileLocation = Paths.get(trimmedArgs);
+        File dir = new File(trimmedArgs);
+        if (!dir.isDirectory()) {
+            throw new ParseException("Invalid Directory.");
+        }
 
-        return new ExportCommand(fileLocation);
+        return new ExportCommand(trimmedArgs);
     }
 }
+

@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import java.io.IOException;
-import java.nio.file.Path;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 
@@ -18,12 +17,12 @@ public class ExportCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "OneBook has been exported to VCard file successfully.";
 
-    public static final String MESSAGE_WRITE_ERROR = "The file cannot be exported. Please try again.";
+    public static final String MESSAGE_WRITE_ERROR = "The file cannot be exported.";
 
 
-    private Path fileLocation;
+    private String fileLocation;
 
-    public ExportCommand(Path fileLocation) {
+    public ExportCommand(String fileLocation) {
         this.fileLocation = fileLocation;
     }
 

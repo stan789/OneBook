@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -20,10 +19,10 @@ public class ExportVCardFile {
     private static final Integer INDEX_ZERO = 0;
     private static final Integer INDEX_ONE = 1;
     private static final Integer INDEX_TWO = 2;
-    private Path fileLocation;
+    private String fileLocation;
     private VCardFileType vcf;
 
-    public ExportVCardFile(Path fileLocation) {
+    public ExportVCardFile(String fileLocation) {
 
         this.fileLocation = fileLocation;
         vcf = new VCardFileType();
@@ -35,7 +34,7 @@ public class ExportVCardFile {
     public void createVCardFile(ObservableList<ReadOnlyPerson> person) throws IOException {
 
         try {
-            FileOutputStream outputStream = new FileOutputStream(new File(fileLocation.toString()));
+            FileOutputStream outputStream = new FileOutputStream(new File(fileLocation + "OneBook.vcf"));
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-8");
             BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
 
@@ -65,7 +64,6 @@ public class ExportVCardFile {
                         tag = tag.replaceAll("[\\[\\]]", "");
                     }
                     bufferedWriter.write(vcf.getLabel() + ":" + tag);
-                    System.out.println(p.getTags().toString());
                     bufferedWriter.newLine();
                 }
 

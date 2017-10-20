@@ -77,7 +77,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void exportFile(Path fileLocation) throws IOException {
+    public void exportFile(String fileLocation) throws IOException {
         ObservableList<ReadOnlyPerson> person = getFilteredPersonList();
         ExportVCardFile exportVCardFile = new ExportVCardFile(fileLocation);
         exportVCardFile.createVCardFile(person);

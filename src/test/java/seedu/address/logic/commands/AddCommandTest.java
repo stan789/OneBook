@@ -147,7 +147,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void exportFile(Path fileLocation) {
+        public void exportFile(String fileLocation) {
             fail("This method should not be called.");
         }
     }
