@@ -68,7 +68,7 @@ public class ModelManager extends ComponentManager implements Model {
             try {
                 addPerson(p);
             } catch (DuplicatePersonException e) {
-                System.out.println("DuplicatePersonException");
+                System.out.println("DuplicatePersonException" + p.getName());
             }
         }
         return person.size();

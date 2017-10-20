@@ -4,10 +4,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -28,20 +31,17 @@ import seedu.address.storage.exceptions.WrongFormatInFileException;
 
 public class ImportVCardFile {
 
-    private final Path fileLocation;
-    private Set<Tag> tag = Collections.EMPTY_SET;
+    private static final Integer BIRTHDAY_SIZE = 3;
+    private static final Integer INDEX_ZERO = 0;
+    private static final Integer INDEX_ONE = 1;
+    private static final Integer INDEX_TWO = 2;
+    private static final Integer EMPTY_SIZE = 0;
+    private Path fileLocation;
     private ArrayList<Person> person = new ArrayList<>();
     private VCardFileType vcf;
     private VCard vCard;
     private boolean checkEnd = true;
     private boolean checkBegin = false;
-    private boolean wrongFormat = false;
-    private Integer birthdaySize = 3;
-    private Integer indexZero = 0;
-    private Integer indexOne = 1;
-    private Integer indexTwo = 2;
-    private Integer emptySize = 0;
-
 
 
     /**
@@ -63,7 +63,7 @@ public class ImportVCardFile {
     public ArrayList<Person> getPersonFromFile() throws IOException {
 
         File file = new File(fileLocation.toString());
-        if (file.length() == emptySize) {
+        if (file.length() == EMPTY_SIZE) {
             throw new EmptyFileException();
         }
         BufferedReader br = new BufferedReader(new FileReader(fileLocation.toString()));
@@ -72,18 +72,12 @@ public class ImportVCardFile {
             throw new IOException();
         }
 
-        Files.lines(fileLocation)
-                .map(line -> line.trim())
-                .filter(line -> !line.isEmpty())
-                .forEach(line -> {
-                    try {
-                        sendRequest(line);
-                    } catch (WrongFormatInFileException e) {
-                        wrongFormat = true;
-                    }
-                });
-        if (wrongFormat) {
-            throw new IOException();
+        for (String str : Files.readAllLines(fileLocation, Charset.defaultCharset())) {
+            try {
+                sendRequest(str);
+            } catch (WrongFormatInFileException e) {
+                throw new IOException();
+            }
         }
         if (!checkEnd) {
             throw new IOException();
@@ -113,61 +107,79 @@ public class ImportVCardFile {
                 } else {
                     checkEnd = true;
                     checkBegin = false;
+                    Set<Tag> tag = new HashSet<Tag>();
+                    for (String string : vCard.getTag()) {
+                        tag.add(new Tag(string));
+                    }
                     person.add(new Person(new Name(vCard.getName()), new Phone(vCard.getPhone()),
                             new Birthday(vCard.getBirthday()), new Email(vCard.getEmail()),
                             new Address(vCard.getAddress()), tag));
                 }
             } catch (IllegalValueException e) {
-                System.out.println(vCard.getName());
-                System.out.println(vCard.getPhone());
-                System.out.println("IllegalValueException");
+                System.out.println("IllegalValueException" + vCard.getName() + " " + vCard.getPhone());
             }
         } else {
-            String[] contactArray = line.split(":");
-            if (contactArray.length == indexTwo) {
-                if ((line.startsWith(vcf.getPhoneFormat2()) || line.contains(vcf.getPhoneFormat()))) {
-                    String phone = contactArray[indexOne];
-                    if (phone.matches("[^a-zA-Z^.?<>&|!@#$%{}_=][^a-zA-Z^.?<>&|!@#$%{}_=]{3,}")) {
-                        phone = phone.replaceAll("[^0-9*+]", "");
-                    }
-                    if (vCard.getPhone().equals("")) {
-                        vCard.setPhone(phone);
-                    }
-                }
-                if (line.startsWith(vcf.getEmail())) {
-                    vCard.setEmail(contactArray[indexOne]);
-                }
-                if (line.startsWith(vcf.getName())) {
-                    String name = contactArray[indexOne];
-                    vCard.setName(name);
-                }
-                if (line.startsWith(vcf.getAddressFormat1()) || line.contains(vcf.getAddressFormat2())) {
-                    String address = "";
-                    String spiltAddress = contactArray[indexOne];
-                    String[] array = spiltAddress.split(";");
-                    for (int i = 0; i < array.length; i++) {
-                        if (array[i].equals("")) {
-                            continue;
-                        }
-                        address = address.concat(array[i]);
-                        if (i != array.length - 1) {
-                            address = address.concat(", ");
-                        }
+            vCardFilePart(line);
+        }
+    }
 
-                    }
-                    vCard.setAddress(address);
+    /**
+     * check the format of the different attributes of Vcard object.
+     */
+    private void vCardFilePart(String line) {
+        String[] contactArray = line.split(":");
+        if (contactArray.length == INDEX_TWO) {
+            if ((line.startsWith(vcf.getPhoneFormat2()) || line.contains(vcf.getPhoneFormat()))) {
+                String phone = contactArray[INDEX_ONE];
+                if (phone.matches("[^a-zA-Z^.?<>&|!@#$%{}_=][^a-zA-Z^.?<>&|!@#$%{}_=]{3,}")) {
+                    phone = phone.replaceAll("[^0-9*+]", "");
                 }
-                if (line.startsWith(vcf.getBirthday())) {
-                    String birthday = contactArray[1];
-                    String[] array = birthday.split("-");
-                    if (array.length == birthdaySize) {
-                        birthday = array[indexTwo] + "-" + array[indexOne] + "-" + array[indexZero];
-                    }
-                    vCard.setBirthday(birthday);
+                if (vCard.getPhone() == null) {
+                    vCard.setPhone(phone);
                 }
             }
-        }
+            if (line.startsWith(vcf.getEmail())) {
+                vCard.setEmail(contactArray[INDEX_ONE]);
+            }
+            if (line.startsWith(vcf.getName())) {
+                String name = contactArray[INDEX_ONE];
+                vCard.setName(name);
+            }
+            if (line.startsWith(vcf.getAddressFormat1()) || line.contains(vcf.getAddressFormat2())) {
+                String address = "";
+                String spiltAddress = contactArray[INDEX_ONE];
+                String[] array = spiltAddress.split(";");
+                for (int i = 0; i < array.length; i++) {
+                    if (array[i].equals("")) {
+                        continue;
+                    }
+                    address = address.concat(array[i]);
+                    if (i != array.length - 1) {
+                        address = address.concat(", ");
+                    }
 
+                }
+                vCard.setAddress(address);
+            }
+            if (line.startsWith(vcf.getBirthday())) {
+                String birthday = contactArray[INDEX_ONE];
+                String[] array = birthday.split("-");
+                if (array.length == BIRTHDAY_SIZE) {
+                    birthday = array[INDEX_TWO] + "-" + array[INDEX_ONE] + "-" + array[INDEX_ZERO];
+                }
+                vCard.setBirthday(birthday);
+            }
+            if (line.startsWith(vcf.getLabel())) {
+                String label = contactArray[INDEX_ONE];
+                List<String> tagList = new ArrayList<String>();
+                if (label.contains(",")) {
+                    tagList.addAll(Arrays.asList(label.split(",")));
+                } else {
+                    tagList.add(label);
+                }
+                vCard.setTag(tagList);
+            }
+        }
     }
 
 }

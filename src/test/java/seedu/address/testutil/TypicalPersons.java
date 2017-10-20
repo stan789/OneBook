@@ -50,6 +50,15 @@ public class TypicalPersons {
             .withBirthday("08-08-1998").withEmail("stefan@example.com").withAddress("little india").build();
     public static final ReadOnlyPerson IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
             .withBirthday("09-09-1999").withEmail("hans@example.com").withAddress("chicago ave").build();
+    public static final ReadOnlyPerson PERSON_WITH_MISSING_PHONE = new PersonBuilder().withName("Jake")
+            .withBirthday("07-01-1995").withEmail("personmissingphone@example.com").withAddress("Chinatown").build();
+    public static final ReadOnlyPerson PERSON_WITH_MISSING_BIRTHDAY = new PersonBuilder().withName("Jim")
+            .withPhone("98591122").withEmail("person1@example.com").withAddress("Jurong Island").build();
+    public static final ReadOnlyPerson PERSON_WITH_MISSING_EMAIL = new PersonBuilder().withName("Tommy")
+            .withPhone("84291010").withBirthday("14-01-1995").withAddress("Kent Ridge Hill").build();
+    public static final ReadOnlyPerson PERSON_WITH_MISSING_ADDRESS = new PersonBuilder().withName("Joel")
+            .withPhone("81010101").withBirthday("25-01-1995").withEmail("person1@example.com").build();
+
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final ReadOnlyPerson AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)

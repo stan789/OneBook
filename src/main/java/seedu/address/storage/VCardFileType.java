@@ -1,19 +1,21 @@
 package seedu.address.storage;
+
 /**
  * Format of VCard file
  */
 
 public class VCardFileType {
 
-    private String name = "FN";
-    private String addressFormat1 = "ADR";
-    private String addressFormat2 = "item1.ADR";
-    private String email = "EMAIL";
-    private String begin = "BEGIN:VCARD";
-    private String end = "END:VCARD";
-    private String phoneFormat1 = "TEL";
-    private String phoneFormat2 = "item1.TEL";
-    private String birthday = "BDAY";
+    private static final String name = "FN";
+    private static final String addressFormat1 = "ADR";
+    private static final String addressFormat2 = "item1.ADR";
+    private static final String email = "EMAIL";
+    private static final String begin = "BEGIN:VCARD";
+    private static final String end = "END:VCARD";
+    private static final String phoneFormat1 = "TEL";
+    private static final String phoneFormat2 = "item1.TEL";
+    private static final String birthday = "BDAY";
+    private static final String label = "CATEGORIES";
 
     public VCardFileType() {
     }
@@ -32,6 +34,10 @@ public class VCardFileType {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getLabel() {
+        return label;
     }
 
     public String getEnd() {
