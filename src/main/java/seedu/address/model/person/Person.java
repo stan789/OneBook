@@ -127,7 +127,7 @@ public class Person implements ReadOnlyPerson {
     }
 
     @Override
-    public ObjectProperty<Organisation> organisationObjectProperty() {
+    public ObjectProperty<Organisation> organisationProperty() {
         return organisation;
     }
 
