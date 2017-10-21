@@ -29,7 +29,8 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         String mainKeyword = keywords[0];
         if (!mainKeyword.equals(FindCommand.KEYWORD_NAME) && !mainKeyword.equals(FindCommand.KEYWORD_ADDRESS)
-                && !mainKeyword.equals(FindCommand.KEYWORD_EMAIL) && !mainKeyword.equals(FindCommand.KEYWORD_PHONE)) {
+                && !mainKeyword.equals(FindCommand.KEYWORD_EMAIL) && !mainKeyword.equals(FindCommand.KEYWORD_PHONE)
+                && !mainKeyword.equals(FindCommand.KEYWORD_BIRTHDAY) && !mainKeyword.equals(FindCommand.KEYWORD_TAG)) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
@@ -40,6 +41,14 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         String[] searchKeywords = new String[keywords.length - 1];
         System.arraycopy(keywords, 1, searchKeywords, 0, keywords.length - 1);
+
+        if (mainKeyword.equals(FindCommand.KEYWORD_BIRTHDAY)) {
+            for (String keyword : searchKeywords) {
+                if (!keyword.matches("(0[1-9]|1[0-2])")) {
+                    throw new ParseException(FindCommand.MESSAGE_INVALID_BIRTHDAY_MONTH);
+                }
+            }
+        }
 
         return new FindCommand(new ContainsKeywordsPredicate(Arrays.asList(searchKeywords), mainKeyword));
     }
