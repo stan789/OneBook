@@ -33,7 +33,14 @@ public class ContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getEmail().value, keyword));
 
         case FindCommand.KEYWORD_PHONE: return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().toString(), keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().value, keyword));
+
+        case FindCommand.KEYWORD_BIRTHDAY: return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getBirthday().getMonth(), keyword));
+
+        case FindCommand.KEYWORD_TAG: return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getTags().toString(), keyword));
+
 
         default : return false;
         }
