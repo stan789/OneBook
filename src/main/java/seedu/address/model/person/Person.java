@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
+import com.sun.org.apache.xpath.internal.operations.Or;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.model.tag.Tag;
@@ -23,19 +24,22 @@ public class Person implements ReadOnlyPerson {
     private ObjectProperty<Birthday> birthday;
     private ObjectProperty<Email> email;
     private ObjectProperty<Address> address;
+    private ObjectProperty<Organisation> organisation;
 
     private ObjectProperty<UniqueTagList> tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Birthday birthday, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, birthday, email, address, tags);
+    public Person(Name name, Phone phone, Birthday birthday, Email email, Address address, Organisation organisation,
+                  Set<Tag> tags) {
+        requireAllNonNull(name, phone, birthday, email, address, organisation, tags);
         this.name = new SimpleObjectProperty<>(name);
         this.phone = new SimpleObjectProperty<>(phone);
         this.birthday = new SimpleObjectProperty<>(birthday);
         this.email = new SimpleObjectProperty<>(email);
         this.address = new SimpleObjectProperty<>(address);
+        this.organisation = new SimpleObjectProperty<>(organisation);
         // protect internal tags from changes in the arg list
         this.tags = new SimpleObjectProperty<>(new UniqueTagList(tags));
     }
@@ -45,7 +49,7 @@ public class Person implements ReadOnlyPerson {
      */
     public Person(ReadOnlyPerson source) {
         this(source.getName(), source.getPhone(), source.getBirthday(), source.getEmail(), source.getAddress(),
-                source.getTags());
+                source.getOrganisation(), source.getTags());
     }
 
     public void setName(Name name) {
@@ -118,6 +122,20 @@ public class Person implements ReadOnlyPerson {
         return address.get();
     }
 
+    public void setOrganisation(Organisation organisation) {
+        this.organisation.set(organisation);
+    }
+
+    @Override
+    public ObjectProperty<Organisation> organisationObjectProperty() {
+        return organisation;
+    }
+
+    @Override
+    public Organisation getOrganisation() {
+        return organisation.get();
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -148,7 +166,7 @@ public class Person implements ReadOnlyPerson {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, organisation, tags);
     }
 
     @Override
