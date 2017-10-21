@@ -24,7 +24,8 @@ public class StatusBarFooterTest extends GuiUnitTest {
     private static final String STUB_SAVE_LOCATION = "Stub";
     private static final String RELATIVE_PATH = "./";
 
-    private static final AddressBookChangedEvent EVENT_STUB = new AddressBookChangedEvent(new AddressBook());
+    private static final AddressBookChangedEvent EVENT_STUB = new AddressBookChangedEvent(new AddressBook(),
+                                                                                          new AddressBook());
 
     private static final Clock originalClock = StatusBarFooter.getClock();
     private static final Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
