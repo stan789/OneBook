@@ -7,6 +7,9 @@ import static seedu.address.logic.commands.SortCommand.MESSAGE_SUCCESS;
 import static seedu.address.logic.commands.SortCommand.SORT_EMAIL;
 import static seedu.address.logic.commands.SortCommand.SORT_NAME;
 
+import java.io.IOException;
+import java.nio.file.Paths;
+
 import org.junit.Test;
 
 import seedu.address.logic.commands.ClearCommand;
@@ -15,10 +18,6 @@ import seedu.address.logic.commands.SortCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.exceptions.EmptyAddressBookException;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 
 public class SortCommandSystemTest extends AddressBookSystemTest {
