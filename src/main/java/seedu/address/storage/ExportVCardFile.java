@@ -74,6 +74,18 @@ public class ExportVCardFile {
                     bufferedWriter.write(vcf.getBirthday() + ":" + birthday);
                     bufferedWriter.newLine();
                 }
+                if (!p.getAddress().toString().equals("-")) {
+                    String address = p.getAddress().toString();
+                    for (int count = 0; count < 6; count++) {
+                        if (address.contains(",")) {
+                            address = address.replace(",", ";");
+                        } else {
+                            address = address.concat(";");
+                        }
+                    }
+                    bufferedWriter.write(vcf.getAddressFormat1() + ":" + address);
+                    bufferedWriter.newLine();
+                }
 
                 bufferedWriter.write(vcf.getEnd());
                 bufferedWriter.newLine();

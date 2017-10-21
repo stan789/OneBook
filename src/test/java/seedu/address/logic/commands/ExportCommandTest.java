@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.ExportCommand.MESSAGE_WRITE_ERROR;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.File;
@@ -51,8 +52,7 @@ public class ExportCommandTest {
         String fileLocation = "";
 
         ExportCommand exportCommand = prepareCommand(fileLocation);
-        String expectedMessage = exportCommand.MESSAGE_WRITE_ERROR;
-        assertCommandFailure(exportCommand, model, expectedMessage);
+        assertCommandFailure(exportCommand, model, MESSAGE_WRITE_ERROR);
     }
 
     /**

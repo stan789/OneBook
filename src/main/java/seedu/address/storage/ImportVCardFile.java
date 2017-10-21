@@ -154,7 +154,7 @@ public class ImportVCardFile {
                     }
                     address = address.concat(array[i]);
                     if (i != array.length - 1) {
-                        address = address.concat(", ");
+                        address = address.concat(",");
                     }
 
                 }

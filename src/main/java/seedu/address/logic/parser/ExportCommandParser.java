@@ -33,7 +33,6 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         }
 
         String fileName = trimmedArgs.substring(trimmedArgs.lastIndexOf("/") + 1, trimmedArgs.lastIndexOf("."));
-        System.out.println(fileName);
         if (!fileName.matches("[A-Za-z0-9.-_]+")) {
             throw new ParseException("Format for file name is invalid.");
         }
