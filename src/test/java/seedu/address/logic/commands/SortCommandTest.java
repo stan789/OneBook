@@ -13,6 +13,7 @@ import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.RecycleBin;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.exceptions.EmptyAddressBookException;
 
@@ -23,8 +24,8 @@ public class SortCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), new RecycleBin(), new UserPrefs());
+        expectedModel = new ModelManager(getTypicalAddressBook(), new RecycleBin(), new UserPrefs());
     }
 
     @Test
