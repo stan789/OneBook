@@ -30,34 +30,39 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private final RecycleBin recycleBin;
     private final FilteredList<ReadOnlyPerson> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyAddressBook recycleBin, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(recycleBin, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.recycleBin = new RecycleBin(recycleBin);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new RecycleBin(), new UserPrefs());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyAddressBook newData, ReadOnlyAddressBook newBin) {
         addressBook.resetData(newData);
+        recycleBin.resetData(newBin);
         indicateAddressBookChanged();
     }
 
     @Override
     public void executeSort(String sortType) throws EmptyAddressBookException {
         addressBook.executeSort(sortType);
+        recycleBin.executeSort(sortType);
         indicateAddressBookChanged();
     }
     @Override
@@ -77,6 +82,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
+    }
+
+    @Override
+    public ReadOnlyAddressBook getRecycleBin() {
+        return recycleBin;
     }
 
     /** Raises an event to indicate the model has changed */
