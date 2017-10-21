@@ -36,20 +36,19 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyAddressBook recycleBin, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, recycleBin, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
-        this.recycleBin = new RecycleBin(addressBook);
+        this.recycleBin = new RecycleBin(recycleBin);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new AddressBook(), new UserPrefs());
     }
 
     @Override
@@ -62,7 +61,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void executeSort(String sortType) throws EmptyAddressBookException {
         addressBook.executeSort(sortType);
-        recycleBin.executeSort(sortType);
         indicateAddressBookChanged();
     }
     @Override

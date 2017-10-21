@@ -17,11 +17,6 @@ public class AddressBookData {
         recycleBin = new RecycleBin();
     }
 
-    public AddressBookData(ReadOnlyAddressBook addressBook) {
-        this();
-        this.addressBook = addressBook;
-    }
-
     public AddressBookData(ReadOnlyAddressBook addressBook, ReadOnlyAddressBook recycleBin) {
         this();
         this.addressBook = addressBook;

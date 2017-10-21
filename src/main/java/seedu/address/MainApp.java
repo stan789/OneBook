@@ -20,6 +20,7 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -92,14 +93,12 @@ public class MainApp extends Application {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
-            if (addressBookOptional.isPresent()) {
-                initialData = addressBookOptional.get();
+                ReadOnlyAddressBook addressBook = SampleDataUtil.getSampleAddressBook();
+                AddressBookData data = new AddressBookData(addressBook, new AddressBook());
+                initialData = data;
             }
             else {
-                ReadOnlyAddressBook addressBook = SampleDataUtil.getSampleAddressBook();
-                AddressBookData data = new AddressBookData(addressBook);
-                initialData = data;
+                initialData = addressBookOptional.get();
             }
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
@@ -109,7 +108,7 @@ public class MainApp extends Application {
             initialData = new AddressBookData();
         }
 
-        return new ModelManager(initialData.getAddressBook(), userPrefs);
+        return new ModelManager(initialData.getAddressBook(), initialData.getRecycleBin(), userPrefs);
     }
 
     private void initLogging(Config config) {
