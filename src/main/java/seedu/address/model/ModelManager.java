@@ -36,26 +36,26 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyAddressBook recycleBin, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
-        requireAllNonNull(recycleBin, userPrefs);
+        requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
-        this.recycleBin = new RecycleBin(recycleBin);
+        this.recycleBin = new RecycleBin(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new RecycleBin(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData, ReadOnlyAddressBook newBin) {
+    public void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
-        recycleBin.resetData(newBin);
+        recycleBin.resetData(newData);
         indicateAddressBookChanged();
     }
 
