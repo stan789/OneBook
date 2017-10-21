@@ -18,6 +18,7 @@ import org.junit.Test;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.AddressBook;
+import seedu.address.model.RecycleBin;
 
 public class StatusBarFooterTest extends GuiUnitTest {
 
@@ -25,7 +26,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
     private static final String RELATIVE_PATH = "./";
 
     private static final AddressBookChangedEvent EVENT_STUB = new AddressBookChangedEvent(new AddressBook(),
-                                                                                          new AddressBook());
+                                                                                          new RecycleBin());
 
     private static final Clock originalClock = StatusBarFooter.getClock();
     private static final Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());

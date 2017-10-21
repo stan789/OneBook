@@ -31,7 +31,12 @@ public class XmlSerializableAddressBookCombined {
     public XmlSerializableAddressBookCombined(ReadOnlyAddressBook addressBook) {
         this();
         this.addressBook = new XmlSerializableAddressBook(addressBook);
-        this.recycleBin = new XmlSerializableAddressBook(addressBook);
+    }
+
+    public XmlSerializableAddressBookCombined(ReadOnlyAddressBook addressBook, ReadOnlyAddressBook recycleBin) {
+        this();
+        this.addressBook = new XmlSerializableAddressBook(addressBook);
+        this.recycleBin = new XmlSerializableAddressBook(recycleBin);
     }
 
     public XmlSerializableAddressBook getAddressBook () {
