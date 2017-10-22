@@ -224,9 +224,14 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         /* Case: mixed case command word -> rejected */
         command = "FiNd" + " " + FindCommand.KEYWORD_NAME + " " + "Meier";
         assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
+
+        /* Case: find without main keyword -> rejected */
+        command = "find" + " " + KEYWORD_MATCHING_MEIER;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+
     }
 
-    /**
+     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
      * box displays {@code Messages#MESSAGE_PERSONS_LISTED_OVERVIEW} with the number of people in the filtered list,
      * and the model related components equal to {@code expectedModel}.
