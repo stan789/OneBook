@@ -66,16 +66,6 @@ public class ImportCommandTest {
         assertCommandFailure(importCommand, model, expectedMessage);
     }
 
-    @Test
-    public void execute_importInvalidVCardFileNoBeginCard_importFailure() throws IOException {
-
-        Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts_without_begin.vcf");
-
-        ImportCommand importCommand = prepareCommand(fileLocation);
-        String expectedMessage = importCommand.MESSAGE_FILE_INVALID;
-        assertCommandFailure(importCommand, model, expectedMessage);
-    }
-
     /**
      * Generates a new {@code ImportCommand} which upon execution, sorts the AddressBook.
      */

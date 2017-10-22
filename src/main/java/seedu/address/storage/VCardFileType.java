@@ -13,10 +13,12 @@ public class VCardFileType {
     private static final String begin = "BEGIN:VCARD";
     private static final String end = "END:VCARD";
     private static final String phoneFormat1 = "TEL";
-    private static final String phoneFormat2 = "item1.TEL";
+    private static final String phoneFormat2 = ".TEL";
     private static final String birthday = "BDAY";
     private static final String label = "CATEGORIES";
     private static final String version = "Version 3.0";
+    private static final String organization = "ORG";
+    private static final String notes = "NOTE";
 
     public VCardFileType() {
     }
@@ -63,5 +65,13 @@ public class VCardFileType {
 
     public String getVersion() {
         return version;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public String getNotes() {
+        return notes;
     }
 }
