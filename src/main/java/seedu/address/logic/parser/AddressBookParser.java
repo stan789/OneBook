@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.BinListCommand;
+import seedu.address.logic.commands.BinSortCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -76,11 +77,17 @@ public class AddressBookParser {
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
 
+        case BinSortCommand.COMMAND_WORD:
+            return new BinSortCommandParser().parse(arguments);
+
         case ModeCommand.COMMAND_WORD:
             return new ModeCommand();
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case BinListCommand.COMMAND_WORD:
+            return new BinListCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
@@ -96,9 +103,6 @@ public class AddressBookParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
-
-        case BinListCommand.COMMAND_WORD:
-            return new BinListCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

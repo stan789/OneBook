@@ -67,6 +67,13 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.executeSort(sortType);
         indicateAddressBookChanged();
     }
+
+    @Override
+    public void executeBinSort(String sortType) throws EmptyAddressBookException {
+        recycleBin.executeSort(sortType);
+        indicateAddressBookChanged();
+    }
+
     @Override
     public Integer importFile(Path fileLocation) throws IOException {
         ImportVCardFile importFile = new ImportVCardFile(fileLocation);
