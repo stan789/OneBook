@@ -27,11 +27,14 @@ public interface Model {
     /** Returns the RecycleBin */
     ReadOnlyAddressBook getRecycleBin();
 
-    /** Deletes the given person. */
-    void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException;
+    /** Deletes the given person */
+    void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException, DuplicatePersonException;
 
     /** Adds the given person */
     void addPerson(ReadOnlyPerson person) throws DuplicatePersonException;
+
+    /** Restores the given person from recycle bin */
+    void restorePerson(ReadOnlyPerson target) throws PersonNotFoundException, DuplicatePersonException;
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.

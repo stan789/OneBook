@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.function.Predicate;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
@@ -104,13 +103,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
+    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException,
+                                                                        DuplicatePersonException {
         addressBook.removePerson(target);
-        try {
-            recycleBin.addPerson(target);
-        } catch (DuplicatePersonException e) {
-            logger.log(Level.INFO, target.getName() + " added to RecycleBin");
-        }
+        recycleBin.addPerson(target);
         indicateAddressBookChanged();
     }
 
@@ -118,6 +114,14 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addPerson(ReadOnlyPerson person) throws DuplicatePersonException {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void restorePerson(ReadOnlyPerson target) throws PersonNotFoundException,
+                                                                         DuplicatePersonException {
+        addressBook.addPerson(target);
+        recycleBin.removePerson(target);
         indicateAddressBookChanged();
     }
 

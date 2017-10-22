@@ -13,20 +13,20 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 /**
  * Deletes a person identified using it's last displayed index from the address book.
  */
-public class DeleteCommand extends UndoableCommand {
+public class RestoreCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "restore";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the persons identified by the index number used in the last person listing.\n"
+            + ": Restores the persons identified by the index number used in the last bin listing.\n"
             + "Parameters: INDEX (must be positive integers in ascending order, separated by a comma)\n"
             + "Example: " + COMMAND_WORD + " 1, 3";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: ";
+    public static final String MESSAGE_RESTORE_PERSON_SUCCESS = "Restored Person: ";
 
     private final Index[] targetIndex;
 
-    public DeleteCommand(Index... targetIndex) {
+    public RestoreCommand (Index... targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -34,7 +34,7 @@ public class DeleteCommand extends UndoableCommand {
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
 
-        List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
+        List<ReadOnlyPerson> lastShownList = model.getFilteredBinList();
         for (Index targetIndex : targetIndex) {
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -51,35 +51,35 @@ public class DeleteCommand extends UndoableCommand {
             }
         }
 
-        ReadOnlyPerson personToDelete;
-        String[] personDeleteMessage = new String[targetIndex.length];
-        StringBuilder deleteMessage = new StringBuilder();
+        ReadOnlyPerson personToRestore;
+        String[] personRestoredMessage = new String[targetIndex.length];
+        StringBuilder restoreMessage = new StringBuilder();
 
         for (int i = (targetIndex.length - 1); i >= 0; i--) {
             int target = targetIndex[i].getZeroBased();
-            personToDelete = lastShownList.get(target);
+            personToRestore = lastShownList.get(target);
             try {
-                model.deletePerson(personToDelete);
+                model.restorePerson(personToRestore);
             } catch (PersonNotFoundException pnfe) {
                 assert false : "The target person cannot be missing";
             } catch (DuplicatePersonException dpe) {
-                assert false : "Duplicate person will not be added to Recycle Bin";
+                throw new CommandException(AddCommand.MESSAGE_DUPLICATE_PERSON);
             }
-            personDeleteMessage[i] = MESSAGE_DELETE_PERSON_SUCCESS + personToDelete;
+            personRestoredMessage[i] = MESSAGE_RESTORE_PERSON_SUCCESS + personToRestore;
         }
 
-        for (String message : personDeleteMessage) {
-            deleteMessage.append(message);
-            deleteMessage.append("\n");
+        for (String message : personRestoredMessage) {
+            restoreMessage.append(message);
+            restoreMessage.append("\n");
         }
 
-        return new CommandResult(deleteMessage.toString().trim());
+        return new CommandResult(restoreMessage.toString().trim());
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && Arrays.equals(this.targetIndex, ((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof RestoreCommand // instanceof handles nulls
+                && Arrays.equals(this.targetIndex, ((RestoreCommand) other).targetIndex)); // state check
     }
 }
