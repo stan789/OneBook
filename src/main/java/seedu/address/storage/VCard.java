@@ -44,7 +44,9 @@ public class VCard {
         this.phone = phone;
     }
 
-    public void setOrganisation(String organisation) { this.organisation = organisation; } //to be added
+    public void setOrganisation(String organisation) {
+        this.organisation = organisation;
+    }
 
     public void setTag(List<String> label) {
         tag = label;
@@ -68,7 +70,7 @@ public class VCard {
 
     public String getPhone() { return phone; }
 
-    public String getOrganisation() {return organisation; }
+    public String getOrganisation() { return organisation; }
 
     public List<String> getTag() {
         return tag;

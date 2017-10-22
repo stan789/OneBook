@@ -110,7 +110,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Optional<String> organisation} into an {@code Optional<Organisation>} if {@code email} is present.
+     * Parses a {@code Optional<String> organisation} into an {@code Optional<Organisation>}
+     * if {@code email} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
      */
     public static Optional<Organisation> parseOrganisation(Optional<String> organisation) throws IllegalValueException {
