@@ -14,6 +14,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.RecycleBin;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 public class UndoableCommandTest {
@@ -61,6 +62,8 @@ public class UndoableCommandTest {
                 model.deletePerson(personToDelete);
             } catch (PersonNotFoundException pnfe) {
                 fail("Impossible: personToDelete was retrieved from model.");
+            } catch (DuplicatePersonException dpe) {
+                assert false : "Duplicate person will not be added to RecycleBin.";
             }
             return new CommandResult("");
         }

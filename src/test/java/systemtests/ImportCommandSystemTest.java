@@ -12,6 +12,8 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.RecycleBin;
+import seedu.address.storage.AddressBookData;
 
 
 public class ImportCommandSystemTest extends AddressBookSystemTest {
@@ -32,7 +34,7 @@ public class ImportCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: import VCard file with valid format to empty address book -> import successful */
         executeCommand(ClearCommand.COMMAND_WORD);
-        expectedModel.resetData(new AddressBook());
+        expectedModel.resetData(new AddressBookData(new AddressBook(), new RecycleBin()));
         command = ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/contacts.vcf";
         try {
             count = expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"));

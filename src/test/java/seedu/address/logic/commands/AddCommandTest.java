@@ -21,10 +21,13 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.RecycleBin;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.EmptyAddressBookException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.storage.AddressBookData;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -103,7 +106,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void resetData(ReadOnlyAddressBook newData) {
+        public void resetData(AddressBookData newData) {
             fail("This method should not be called.");
         }
 
@@ -120,7 +123,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
+        public void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException, DuplicatePersonException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void restorePerson(ReadOnlyPerson target) throws PersonNotFoundException, DuplicatePersonException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void deleteFromBin(ReadOnlyPerson target) throws PersonNotFoundException {
             fail("This method should not be called.");
         }
 
@@ -142,10 +155,25 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<ReadOnlyPerson> getFilteredBinList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public void updateFilteredBinList(Predicate<ReadOnlyPerson> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
         public void executeSort(String sortType) {
             fail("This method should not be called.");
         }
 
+        @Override
+        public void executeBinSort(String sortType) throws EmptyAddressBookException {
+            fail("This method should not be called.");
+        }
         @Override
         public Integer importFile(Path fileLocation) {
             fail("This method should not be called.");
@@ -166,6 +194,11 @@ public class AddCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
+
+        @Override
+        public ReadOnlyAddressBook getRecycleBin() {
+            return new RecycleBin();
+        }
     }
 
     /**
@@ -182,6 +215,11 @@ public class AddCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+
+        @Override
+        public ReadOnlyAddressBook getRecycleBin() {
+            return new RecycleBin();
         }
     }
 

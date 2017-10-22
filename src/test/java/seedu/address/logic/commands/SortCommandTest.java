@@ -16,6 +16,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.RecycleBin;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.exceptions.EmptyAddressBookException;
+import seedu.address.storage.AddressBookData;
 
 public class SortCommandTest {
 
@@ -48,7 +49,7 @@ public class SortCommandTest {
 
     @Test(expected = EmptyAddressBookException.class)
     public void testEmptyAddressBookException() throws EmptyAddressBookException {
-        model.resetData(new AddressBook());
+        model.resetData(new AddressBookData(new AddressBook(), new RecycleBin()));
         model.executeSort(SORT_NAME);
 
     }

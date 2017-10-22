@@ -253,21 +253,27 @@ public class MainWindow extends UiPart<Region> {
 
     @Subscribe
     private void handleDisplayListFilteredEvent(DisplayListFilteredEvent event) {
-        setListDisplay();
+        if (listName.textProperty().get().equals("Bin")) {
+            setListDisplay();
+        };
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         listName.textProperty().setValue("Filtered");
     }
 
     @Subscribe
     private void handleDisplayListResetEvent(DisplayListResetEvent event) {
-        setListDisplay();
+        if (listName.textProperty().get().equals("Bin")) {
+            setListDisplay();
+        }
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         listName.textProperty().setValue("List");
     }
 
     @Subscribe
     private void handleDisplayBinEvent(DisplayBinEvent event) {
-        setBinDisplay();
+        if (listName.textProperty().get().equals("Filtered") || listName.textProperty().get().equals("List")) {
+            setBinDisplay();
+        }
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         listName.textProperty().setValue("Bin");
     }

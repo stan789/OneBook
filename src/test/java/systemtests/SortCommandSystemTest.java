@@ -12,7 +12,9 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.RecycleBin;
 import seedu.address.model.person.exceptions.EmptyAddressBookException;
+import seedu.address.storage.AddressBookData;
 
 public class SortCommandSystemTest extends AddressBookSystemTest {
 
@@ -48,7 +50,7 @@ public class SortCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: sort from empty address book -> rejected */
         executeCommand(ClearCommand.COMMAND_WORD);
-        expectedModel.resetData(new AddressBook());
+        expectedModel.resetData(new AddressBookData(new AddressBook(), new RecycleBin()));
         assertCommandFailure(SortCommand.COMMAND_WORD + " " + SORT_NAME,
                 MESSAGE_NO_PERSON_TO_SORT, expectedModel);
     }
