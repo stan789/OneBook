@@ -32,6 +32,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final AddressBook addressBook;
     private final RecycleBin recycleBin;
     private final FilteredList<ReadOnlyPerson> filteredPersons;
+    private final FilteredList<ReadOnlyPerson> filteredBin;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -45,6 +46,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.recycleBin = new RecycleBin(recycleBin);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredBin = new FilteredList<>(this.recycleBin.getPersonList());
     }
 
     public ModelManager() {
@@ -131,6 +133,23 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //=========== Filtered Bin List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the bin list of {@code ReadOnlyPerson} backed by the internal bin list of
+     * {@code addressBook}
+     */
+    @Override
+    public ObservableList<ReadOnlyPerson> getFilteredBinList() {
+        return FXCollections.unmodifiableObservableList(filteredBin);
+    }
+
+    @Override
+    public void updateFilteredBinList(Predicate<ReadOnlyPerson> predicate) {
+        requireNonNull(predicate);
+        filteredBin.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -146,7 +165,8 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredBin.equals(other.filteredBin);
     }
 
 }

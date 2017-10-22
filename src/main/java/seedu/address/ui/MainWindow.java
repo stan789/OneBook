@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.commands.DisplayBinEvent;
 import seedu.address.commons.events.commands.DisplayListFilteredEvent;
 import seedu.address.commons.events.commands.DisplayListResetEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
@@ -173,6 +174,15 @@ public class MainWindow extends UiPart<Region> {
         primaryStage.setTitle(appTitle);
     }
 
+    private void setListDisplay() {
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
+    private void setBinDisplay() {
+        personListPanel = new PersonListPanel(logic.getFilteredBinList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
     /**
      * Sets the given image as the icon of the main window.
      * @param iconSource e.g. {@code "/images/help_icon.png"}
@@ -243,13 +253,22 @@ public class MainWindow extends UiPart<Region> {
 
     @Subscribe
     private void handleDisplayListFilteredEvent(DisplayListFilteredEvent event) {
+        setListDisplay();
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         listName.textProperty().setValue("Filtered");
     }
 
     @Subscribe
     private void handleDisplayListResetEvent(DisplayListResetEvent event) {
+        setListDisplay();
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         listName.textProperty().setValue("List");
+    }
+
+    @Subscribe
+    private void handleDisplayBinEvent(DisplayBinEvent event) {
+        setBinDisplay();
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        listName.textProperty().setValue("Bin");
     }
 }
