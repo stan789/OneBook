@@ -67,7 +67,8 @@ public class CommandTestUtil {
     public static final String INVALID_BIRTHDAY_DESC = " " + PREFIX_BIRTHDAY + "01011995"; // '-' is required
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_ORGANISATION_DESC = " " + PREFIX_ORGANISATION; //empty string not allowed for addresses
+    public static final String INVALID_ORGANISATION_DESC = " " + PREFIX_ORGANISATION;
+    //empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
@@ -76,7 +77,8 @@ public class CommandTestUtil {
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withBirthday(VALID_BIRTHDAY_AMY).withEmail(VALID_EMAIL_AMY)
-                .withAddress(VALID_ADDRESS_AMY).withOrganisation(VALID_ORGANISATION_AMY).withTags(VALID_TAG_FRIEND).build();
+                .withAddress(VALID_ADDRESS_AMY).withOrganisation(VALID_ORGANISATION_AMY)
+                .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withBirthday(VALID_BIRTHDAY_BOB).withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB).withOrganisation(VALID_ORGANISATION_BOB)

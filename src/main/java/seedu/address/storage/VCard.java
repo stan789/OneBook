@@ -68,9 +68,13 @@ public class VCard {
         return birthday;
     }
 
-    public String getPhone() { return phone; }
+    public String getPhone() {
+        return phone;
+    }
 
-    public String getOrganisation() { return organisation; }
+    public String getOrganisation() {
+        return organisation;
+    }
 
     public List<String> getTag() {
         return tag;

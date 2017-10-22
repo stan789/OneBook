@@ -20,7 +20,9 @@ public class VCardFileType {
     public VCardFileType() {
     }
 
-    public String getAddressFormat1() { return addressFormat1; }
+    public String getAddressFormat1() {
+        return addressFormat1;
+    }
 
     public String getAddressFormat2() {
         return addressFormat2;
