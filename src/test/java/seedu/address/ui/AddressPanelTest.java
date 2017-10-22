@@ -4,6 +4,8 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.ui.AddressPanel.DEFAULT_PAGE;
 import static seedu.address.ui.AddressPanel.GOOGLE_SEARCH_URL_PREFIX;
 import static seedu.address.ui.AddressPanel.GOOGLE_SEARCH_URL_SUFFIX;
@@ -26,7 +28,7 @@ public class AddressPanelTest extends GuiUnitTest {
 
     @Before
     public void setUp() {
-        selectionChangedEventStub = new PersonPanelSelectionChangedEvent(new PersonCard(ALICE, 0));
+        selectionChangedEventStub = new PersonPanelSelectionChangedEvent(new PersonCard(CARL, 0));
 
         guiRobot.interact(() -> addressPanel = new AddressPanel());
         uiPartRule.setUiPart(addressPanel);
@@ -43,7 +45,7 @@ public class AddressPanelTest extends GuiUnitTest {
         // associated web page of a person
         postNow(selectionChangedEventStub);
         URL expectedPersonUrl = new URL(GOOGLE_SEARCH_URL_PREFIX
-                + ALICE.getName().fullName.replaceAll(" ", "+") + GOOGLE_SEARCH_URL_SUFFIX);
+                + CARL.getAddress().value.replaceAll(" ", "+") + GOOGLE_SEARCH_URL_SUFFIX);
 
         waitUntilBrowserLoaded(addressPanelHandle);
         assertEquals(expectedPersonUrl, addressPanelHandle.getLoadedUrl());
