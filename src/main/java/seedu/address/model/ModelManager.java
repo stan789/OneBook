@@ -126,6 +126,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public synchronized void deleteFromBin(ReadOnlyPerson target) throws PersonNotFoundException {
+        recycleBin.removePerson(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
     public void updatePerson(ReadOnlyPerson target, ReadOnlyPerson editedPerson)
             throws DuplicatePersonException, PersonNotFoundException {
         requireAllNonNull(target, editedPerson);
