@@ -24,7 +24,7 @@ public class AddressPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
     public static final String GOOGLE_SEARCH_URL_PREFIX = "https://www.google.com.sg/maps/place/";
-    public static final String GOOGLE_SEARCH_URL_SUFFIX = "&cad=h";
+    public static final String GOOGLE_SEARCH_URL_SUFFIX = ",+?dg=dbrw&newdg=1";
 
     private static final String FXML = "AddressPanel.fxml";
 
