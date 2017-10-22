@@ -11,7 +11,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -67,12 +66,13 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+    public void saveAddressBook(AddressBookData addressBook) throws IOException {
         saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
+    public void saveAddressBook(AddressBookData addressBook, String filePath)
+            throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
@@ -83,7 +83,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.addressBook);
+            saveAddressBook(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

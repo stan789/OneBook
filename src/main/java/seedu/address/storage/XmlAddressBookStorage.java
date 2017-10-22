@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.model.ReadOnlyAddressBook;
 
 /**
  * A class to access AddressBook data stored as an xml file on the hard disk.
@@ -56,21 +55,23 @@ public class XmlAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+    public void saveAddressBook(AddressBookData addressBook) throws IOException {
         saveAddressBook(addressBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}
+     * Similar to {@link #saveAddressBook(AddressBookData)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
+    public void saveAddressBook(AddressBookData addressBook, String filePath)
+            throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new XmlSerializableAddressBookCombined(addressBook));
+        XmlFileStorage.saveDataToFile(file, new XmlSerializableAddressBookCombined(addressBook.getAddressBook(),
+                                                                                   addressBook.getRecycleBin()));
     }
 
 }
