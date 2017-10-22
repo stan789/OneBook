@@ -9,6 +9,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.EmptyAddressBookException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.storage.AddressBookData;
 
 /**
  * The API of the Model component.
@@ -18,7 +19,7 @@ public interface Model {
     Predicate<ReadOnlyPerson> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(AddressBookData newData);
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
