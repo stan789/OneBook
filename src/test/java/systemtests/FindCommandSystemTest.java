@@ -197,7 +197,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-         /* Case: find tags of person in address book, tag is substring of keyword -> 0 person found */
+        /* Case: find tags of person in address book, tag is substring of keyword -> 0 person found */
         command = FindCommand.COMMAND_WORD + " " + FindCommand.KEYWORD_TAG + " " + tags.get(0).tagName + "123";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
