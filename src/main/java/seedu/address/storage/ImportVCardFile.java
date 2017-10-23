@@ -146,11 +146,6 @@ public class ImportVCardFile {
                 tagSection(contactArray[INDEX_ONE]);
             }
 
-            if (line.startsWith(vcf.getNotes())) {
-                String note = contactArray[INDEX_ONE];
-                vCard.setNote(note);
-            }
-
             if (line.startsWith(vcf.getOrganization())) {
                 vCard.setOrganisation(contactArray[INDEX_ONE]);
             }

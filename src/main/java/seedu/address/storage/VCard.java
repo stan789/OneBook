@@ -16,7 +16,6 @@ public class VCard {
     private String name;
     private String organisation;
     private List<String> tag;
-    private String note;
 
     public VCard() {
         name = "";
@@ -53,11 +52,6 @@ public class VCard {
         tag = label;
     }
 
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
     public String getName() {
         return name;
     }
@@ -84,9 +78,5 @@ public class VCard {
 
     public String getOrganisation() {
         return organisation;
-    }
-
-    public String getNote() {
-        return note;
     }
 }
