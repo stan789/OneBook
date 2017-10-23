@@ -432,7 +432,7 @@ The `add` function is implemented by `AddCommand`. The `add` function has been e
 
 The `name` field is compulsory.
 
-The fields that are not compulsory are `phone`, `birthday`, `email`, `address`, and `tags`.
+The fields that are not compulsory are `phone`, `birthday`, `email`, `address`, `organisation`, and `tags`.
 
 
 
