@@ -18,6 +18,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Organisation;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
@@ -201,13 +202,13 @@ public class ImportVCardFile {
             } else {
                 checkEnd = true;
                 checkBegin = false;
-                Set<Tag> tag = new HashSet<Tag>();
+                Set<Tag> tag = new HashSet<>();
                 for (String string : vCard.getTag()) {
                     tag.add(new Tag(string));
                 }
                 person.add(new Person(new Name(vCard.getName()), new Phone(vCard.getPhone()),
                         new Birthday(vCard.getBirthday()), new Email(vCard.getEmail()),
-                        new Address(vCard.getAddress()), tag));
+                        new Address(vCard.getAddress()), new Organisation(vCard.getOrganization()), tag));
             }
         } catch (IllegalValueException e) {
             System.out.println("IllegalValueException" + vCard.getName() + " " + vCard.getPhone());
