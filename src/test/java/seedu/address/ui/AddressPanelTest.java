@@ -4,8 +4,6 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.ui.AddressPanel.DEFAULT_PAGE;
 import static seedu.address.ui.AddressPanel.GOOGLE_SEARCH_URL_PREFIX;
 import static seedu.address.ui.AddressPanel.GOOGLE_SEARCH_URL_SUFFIX;
