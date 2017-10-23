@@ -46,8 +46,8 @@ import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalPersons.PERSON_WITH_MISSING_ADDRESS;
 import static seedu.address.testutil.TypicalPersons.PERSON_WITH_MISSING_BIRTHDAY;
 import static seedu.address.testutil.TypicalPersons.PERSON_WITH_MISSING_EMAIL;
-import static seedu.address.testutil.TypicalPersons.PERSON_WITH_MISSING_PHONE;
 import static seedu.address.testutil.TypicalPersons.PERSON_WITH_MISSING_ORGANISATION;
+import static seedu.address.testutil.TypicalPersons.PERSON_WITH_MISSING_PHONE;
 
 import org.junit.Test;
 
@@ -81,8 +81,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          */
         ReadOnlyPerson toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + BIRTHDAY_DESC_AMY + " "  + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + ORGANISATION_DESC_AMY + " "
-                + TAG_DESC_FRIEND + " ";
+                + BIRTHDAY_DESC_AMY + " "  + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   "
+                + ORGANISATION_DESC_AMY + " " + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
