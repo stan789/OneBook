@@ -126,8 +126,7 @@ public class ImportVCardFile {
             }
 
             if (line.startsWith(vcf.getName())) {
-                String name = contactArray[INDEX_ONE];
-                vCard.setName(name);
+                vCard.setName(contactArray[INDEX_ONE]);
             }
 
             if (line.startsWith(vcf.getAddressFormat1()) || line.contains(vcf.getAddressFormat2())) {
@@ -153,8 +152,7 @@ public class ImportVCardFile {
             }
 
             if (line.startsWith(vcf.getOrganization())) {
-                String org = contactArray[INDEX_ONE];
-                vCard.setOrganization(org);
+                vCard.setOrganisation(contactArray[INDEX_ONE]);
             }
         }
     }
@@ -208,7 +206,7 @@ public class ImportVCardFile {
                 }
                 person.add(new Person(new Name(vCard.getName()), new Phone(vCard.getPhone()),
                         new Birthday(vCard.getBirthday()), new Email(vCard.getEmail()),
-                        new Address(vCard.getAddress()), new Organisation(vCard.getOrganization()), tag));
+                        new Address(vCard.getAddress()), new Organisation(vCard.getOrganisation()), tag));
             }
         } catch (IllegalValueException e) {
             System.out.println("IllegalValueException" + vCard.getName() + " " + vCard.getPhone());

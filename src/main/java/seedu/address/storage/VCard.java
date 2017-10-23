@@ -14,7 +14,7 @@ public class VCard {
     private String address;
     private String birthday;
     private String name;
-    private String organization;
+    private String organisation;
     private List<String> tag;
     private String note;
 
@@ -45,8 +45,8 @@ public class VCard {
         this.phone = phone;
     }
 
-    public void setOrganization(String organization) {
-        this.organization = organization;
+    public void setOrganisation(String organisation) {
+        this.organisation = organisation;
     }
 
     public void setTag(List<String> label) {
@@ -82,8 +82,8 @@ public class VCard {
         return tag;
     }
 
-    public String getOrganization() {
-        return organization;
+    public String getOrganisation() {
+        return organisation;
     }
 
     public String getNote() {

@@ -86,6 +86,11 @@ public class ExportVCardFile {
                     bufferedWriter.write(vcf.getAddressFormat1() + ":" + address);
                     bufferedWriter.newLine();
                 }
+                if (!p.getOrganisation().toString().equals("-")) {
+                    String org = p.getOrganisation().toString();
+                    bufferedWriter.write(vcf.getOrganization() + ":" + org);
+                    bufferedWriter.newLine();
+                }
 
                 bufferedWriter.write(vcf.getEnd());
                 bufferedWriter.newLine();
