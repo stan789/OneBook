@@ -25,6 +25,7 @@ public class AddressPanel extends UiPart<Region> {
     public static final String DEFAULT_PAGE = "default.html";
     public static final String GOOGLE_SEARCH_URL_PREFIX = "https://www.google.com.sg/maps/place/";
     public static final String GOOGLE_SEARCH_URL_SUFFIX = ",+?dg=dbrw&newdg=1";
+    public static final String UNIT_NUMBER_REGEX = "#\\d+-\\d+";
 
     private static final String FXML = "AddressPanel.fxml";
 
@@ -54,8 +55,9 @@ public class AddressPanel extends UiPart<Region> {
      */
     private void loadPersonAddress(ReadOnlyPerson person) {
 
-        loadPage(GOOGLE_SEARCH_URL_PREFIX + person.getAddress().value.replaceAll(" ", "+").replaceAll(",", "")
-            + GOOGLE_SEARCH_URL_SUFFIX);
+        loadPage(GOOGLE_SEARCH_URL_PREFIX
+                + person.getAddress().value.replaceAll(" ", "+").replaceAll(UNIT_NUMBER_REGEX, "")
+                + GOOGLE_SEARCH_URL_SUFFIX);
         this.person = person;
         bindListeners(person);
     }
