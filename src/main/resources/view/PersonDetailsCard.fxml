@@ -64,6 +64,20 @@
               </items>
             </SplitPane>
             <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0">
+               <items>
+                  <Label fx:id="organisationHeader" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Organisation :">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="organisationLarge">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+               </items>
+            </SplitPane>
+            <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0">
               <items>
                   <Label fx:id="tagsHeader" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Tags :">
                      <padding>
