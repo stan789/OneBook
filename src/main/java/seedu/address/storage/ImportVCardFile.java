@@ -114,10 +114,7 @@ public class ImportVCardFile {
         if (contactArray.length == INDEX_TWO) {
             if ((line.startsWith(vcf.getPhoneFormat2()) || line.contains(vcf.getPhoneFormat()))) {
                 String phone = contactArray[INDEX_ONE];
-                if (phone.matches("[^a-zA-Z^.,?<>&|!@#$%{}#()\\[\\]/_= ][^a-zA-Z^.,?<>&|!@#$%{}#\\[\\]/_()= ]{3,}")) {
-                    //cant use [\\s] as certain whitespaces from VCard contact imported from iCloud cannot be replaced.
-                    phone = phone.replaceAll("[^\\-0-9*+]", "");
-                }
+                phone = phone.replaceAll("[^\\p{Graph}]", " ");
                 if (vCard.getPhone() == null) {
                     vCard.setPhone(phone);
                 }
