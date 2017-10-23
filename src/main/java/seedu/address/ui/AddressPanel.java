@@ -55,9 +55,13 @@ public class AddressPanel extends UiPart<Region> {
      */
     private void loadPersonAddress(ReadOnlyPerson person) {
 
-        loadPage(GOOGLE_SEARCH_URL_PREFIX
-                + person.getAddress().value.replaceAll(" ", "+").replaceAll(UNIT_NUMBER_REGEX, "")
-                + GOOGLE_SEARCH_URL_SUFFIX);
+        if (person.getAddress().value.equals("-")) {
+            loadDefaultPage();
+        } else {
+            loadPage(GOOGLE_SEARCH_URL_PREFIX
+                    + person.getAddress().value.replaceAll(" ", "+").replaceAll(UNIT_NUMBER_REGEX, "")
+                    + GOOGLE_SEARCH_URL_SUFFIX);
+        }
         this.person = person;
         bindListeners(person);
     }
