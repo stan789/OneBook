@@ -62,7 +62,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /* Case: Select a person without an address -> selected */
         executeCommand(AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + BIRTHDAY_DESC_AMY
                 + EMAIL_DESC_AMY + ORGANISATION_DESC_AMY);
-        Index lastIndex = Index.fromOneBased(personCount.getOneBased() + 1);
+        Index lastIndex = Index.fromOneBased(getModel().getFilteredPersonList().size());
         command = SelectCommand.COMMAND_WORD + " " + lastIndex.getOneBased();
         assertCommandSuccess(command, lastIndex);
 
