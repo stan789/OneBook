@@ -332,7 +332,8 @@
     -fx-border-width: 1;
 }
 
-#nameHeader, #phoneHeader, #birthdayHeader, #emailHeader, #notesHeader, #addressHeader, #tagsHeader {
+#nameHeader, #phoneHeader, #birthdayHeader, #emailHeader, #notesHeader, #addressHeader, #organisationHeader,
+#tagsHeader {
     -fx-text-fill: white;
     -fx-fill: white;
     -fx-font-weight: bold;
@@ -340,7 +341,7 @@
     -fx-font-size: 15pt;
 }
 
-#nameLarge, #phoneLarge, #birthdayLarge, #emailLarge, #notesLarge, #addressLarge {
+#nameLarge, #phoneLarge, #birthdayLarge, #emailLarge, #notesLarge, #addressLarge, #organisationLarge {
     -fx-text-fill: white;
     -fx-fill: white;
     -fx-font-family: "Segoe UI Light";
