@@ -9,11 +9,11 @@
 
 <StackPane alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox fx:id="detailsPane" prefWidth="100.0">
+      <VBox fx:id="detailsPane" prefWidth="150.0">
          <children>
             <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0">
               <items>
-                  <Label fx:id="nameHeader" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Name :">
+                  <Label fx:id="nameHeader" maxWidth="150.0" minWidth="100.0" prefWidth="150.0" text="Name :">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
@@ -26,7 +26,7 @@
             </SplitPane>
             <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0">
               <items>
-                  <Label fx:id="phoneHeader" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Phone :">
+                  <Label fx:id="phoneHeader" maxWidth="150.0" minWidth="100.0" prefWidth="150.0" text="Phone :">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
@@ -39,7 +39,7 @@
             </SplitPane>
             <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0">
               <items>
-                  <Label fx:id="birthdayHeader" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Birthday :">
+                  <Label fx:id="birthdayHeader" maxWidth="150.0" minWidth="100.0" prefWidth="150.0" text="Birthday :">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
@@ -52,7 +52,7 @@
             </SplitPane>
             <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0">
               <items>
-                  <Label fx:id="emailHeader" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Email :">
+                  <Label fx:id="emailHeader" maxWidth="150.0" minWidth="100.0" prefWidth="150.0" text="Email :">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
@@ -65,7 +65,7 @@
             </SplitPane>
             <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0">
                <items>
-                  <Label fx:id="organisationHeader" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Organisation :">
+                  <Label fx:id="organisationHeader" maxWidth="150.0" minWidth="100.0" prefWidth="150.0" text="Organisation :">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
@@ -79,7 +79,7 @@
             </SplitPane>
             <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0">
               <items>
-                  <Label fx:id="tagsHeader" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Tags :">
+                  <Label fx:id="tagsHeader" maxWidth="150.0" minWidth="100.0" prefWidth="150.0" text="Tags :">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
@@ -92,7 +92,7 @@
             </SplitPane>
             <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0">
               <items>
-                  <Label fx:id="notesHeader" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Notes :">
+                  <Label fx:id="notesHeader" maxWidth="150.0" minWidth="100.0" prefWidth="150.0" text="Notes :">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
