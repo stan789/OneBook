@@ -36,6 +36,8 @@ public class PersonDisplayCard extends UiPart<Region> {
     @FXML
     private Label notesLarge; // to be added
     @FXML
+    private Label organisationLarge;
+    @FXML
     private Label emailLarge;
     @FXML
     private FlowPane tagsLarge;
@@ -60,6 +62,7 @@ public class PersonDisplayCard extends UiPart<Region> {
         phoneLarge.textProperty().bind(Bindings.convert(person.phoneProperty()));
         birthdayLarge.textProperty().bind(Bindings.convert(person.birthdayProperty()));
         emailLarge.textProperty().bind(Bindings.convert(person.emailProperty()));
+        organisationLarge.textProperty().bind(Bindings.convert(person.organisationProperty()));
         person.tagProperty().addListener((observable, oldValue, newValue) -> {
             tagsLarge.getChildren().clear();
             person.getTags().forEach(tag -> tagsLarge.getChildren().add(new Label(tag.tagName)));
