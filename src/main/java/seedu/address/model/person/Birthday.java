@@ -1,5 +1,8 @@
 package seedu.address.model.person;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
@@ -11,7 +14,7 @@ public class Birthday {
 
     public static final String MESSAGE_BIRTHDAY_CONSTRAINTS =
             "Birthday has to be in the format dd-mm-yyyy";
-    public static final String BIRTHDAY_VALIDATION_REGEX = "\\d{2}-\\d{2}-\\d{4}";
+    public static final String BIRTHDAY_VALIDATION_REGEX = "(0[1-9]|[12]\\d|3[01])[-](0[1-9]|1[0-2])[-]\\d{4}";
     public static final String BIRTHDAY_NOT_ASSIGNED = "-";
     public final String value;
 
@@ -26,6 +29,16 @@ public class Birthday {
             this.value = BIRTHDAY_NOT_ASSIGNED;
         } else {
             String trimmedBirthday = birthday.trim();
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            dateFormat.setLenient(false);
+
+            try {
+                dateFormat.parse(trimmedBirthday);
+            } catch (ParseException e) {
+                throw new IllegalValueException(MESSAGE_BIRTHDAY_CONSTRAINTS);
+            }
+
             if (!isValidBirthday(trimmedBirthday)) {
                 throw new IllegalValueException(MESSAGE_BIRTHDAY_CONSTRAINTS);
             }
@@ -38,6 +51,12 @@ public class Birthday {
      */
     public static boolean isValidBirthday(String test) {
         return test.matches(BIRTHDAY_VALIDATION_REGEX) || test.matches(BIRTHDAY_NOT_ASSIGNED);
+    }
+
+    public String getMonth() {
+        String[] args = value.split("-");
+
+        return args[1];
     }
 
     @Override

@@ -110,16 +110,18 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 
 === Locating persons: `find`
 
-Finds persons whose names/addresses/emails/phone numbers contain any of the given keywords. +
+Finds persons whose particular field contain any of the given keywords. +
 Format: `find MAIN_KEYWORD KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The main keyword determines the search field (i.e. *name*/*address*/*email*/*phone*).
+* The main keyword determines the search field.
+* Accepted main keywords: *name* / *address* / *email* / *phone* / *birthday* / *tag* / *org* (organisation).
 * The search is case insensitive. e.g `name hans` will return `Hans`
 * The order of the keywords does not matter. e.g. `name Hans Bo` will return `Bo Hans`
 * Partial words will still be matched e.g. `name Han` will return `Hans`
-* For *name*, *email*, and *phone*, persons containing at least one keyword will be returned (i.e. `OR` search). e.g. `name Hans Bo` will return `Hans Gruber`, `Bo Yang`
-* For *address*, only persons containing all the keywords will be returned (i.e. `AND` search). e.g. `address Serangoon Street 4` will not return `Serangoon Street 6`
+* *name* / *email* / *phone* / *tag*: Persons containing at least one keyword will be returned (i.e. `OR` search). e.g. `name Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* *address* / *org*: Persons containing all the keywords will be returned (i.e. `AND` search). e.g. `address Serangoon Street 4` will not return `Serangoon Street 6`
+* *birthday*: Keywords are expected to be in the format '`mm`', a 2 digit number indicating the month.
 * Upon usage of this command, the top left of the list will be replaced with *Filtered* to indicate that the list display is filtered.
 ****
 
@@ -164,7 +166,7 @@ Selects the person identified by the index number used in the last person listin
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
+* Selects and loads the address of the person at the specified `INDEX` in Google Maps.
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
