@@ -33,8 +33,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final RecycleBin recycleBin;
-    private final FilteredList<ReadOnlyPerson> filteredPersons;
+    private FilteredList<ReadOnlyPerson> filteredPersons;
     private final FilteredList<ReadOnlyPerson> filteredBin;
+    private final FilteredList<ReadOnlyPerson> filteredAddresses;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -47,8 +48,9 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.recycleBin = new RecycleBin(recycleBin);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredAddresses = new FilteredList<>(this.addressBook.getPersonList());
         filteredBin = new FilteredList<>(this.recycleBin.getPersonList());
+        filteredPersons = filteredAddresses;
     }
 
     public ModelManager() {
@@ -166,21 +168,14 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
-    //=========== Filtered Bin List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the bin list of {@code ReadOnlyPerson} backed by the internal bin list of
-     * {@code addressBook}
-     */
     @Override
-    public ObservableList<ReadOnlyPerson> getFilteredBinList() {
-        return FXCollections.unmodifiableObservableList(filteredBin);
+    public void setListDisplay() {
+        this.filteredPersons = filteredAddresses;
     }
 
     @Override
-    public void updateFilteredBinList(Predicate<ReadOnlyPerson> predicate) {
-        requireNonNull(predicate);
-        filteredBin.setPredicate(predicate);
+    public void setBinDisplay() {
+        this.filteredPersons = filteredBin;
     }
 
     @Override

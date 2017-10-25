@@ -58,14 +58,16 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate);
 
-    /** Returns an unmodifiable view of the filtered bin list */
-    ObservableList<ReadOnlyPerson> getFilteredBinList();
+    /** Toggle display to show list */
+    void setListDisplay();
+
+    /** Toggle display to show bin */
+    void setBinDisplay();
 
     /**
      * Updates the filter of the filtered bin list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredBinList(Predicate<ReadOnlyPerson> predicate);
 
     void executeSort(String sortType) throws EmptyAddressBookException;
 

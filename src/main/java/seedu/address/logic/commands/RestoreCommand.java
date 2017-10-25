@@ -34,7 +34,7 @@ public class RestoreCommand extends UndoableCommand {
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
 
-        List<ReadOnlyPerson> lastShownList = model.getFilteredBinList();
+        List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
         for (Index targetIndex : targetIndex) {
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

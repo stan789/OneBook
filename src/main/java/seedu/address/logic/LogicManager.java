@@ -51,8 +51,13 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<ReadOnlyPerson> getFilteredBinList() {
-        return model.getFilteredBinList();
+    public void setListDisplay() {
+        this.model.setListDisplay();
+    }
+
+    @Override
+    public void setBinDisplay() {
+        this.model.setBinDisplay();
     }
 
     @Override
