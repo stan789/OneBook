@@ -24,7 +24,6 @@ public class ImportCommand extends Command {
 
     public static final String MESSAGE_FILE_INVALID = "The file is invalid";
 
-
     private Path fileLocation;
 
     private Integer count = 0;

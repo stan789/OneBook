@@ -275,12 +275,28 @@ Format: `import [file directory]`
 
 Examples:
 
-* `add C:/Users/User/Desktop/contacts.vcf` (Windows)
-* `add C:/Users/User/Downloads/contacts.vcf` (Windows)
-* `add /Users/user/Downloads/contacts.vcf` (MAC OSX)
-* `add /Users/user/Desktop/contacts.vcf` (MAC OSX)
+* `import C:/Users/User/Desktop/contacts.vcf` (Windows)
+* `import C:/Users/User/Downloads/contacts.vcf` (Windows)
+* `import /Users/user/Downloads/contacts.vcf` (MAC OSX)
+* `import /Users/user/Desktop/contacts.vcf` (MAC OSX)
 
+=== Exporting a VCard file(.vcf) from OneBook : `export`
 
+Create a VCard file and export from OneBook to directory +
+Format: `export [file directory]`
+
+****
+* Exports a VCard file to a valid directory.
+* The created file must end with VCard extension(.vcf).
+* The user can choose the name for the created file.
+****
+
+Examples:
+
+* `export C:/Users/User/Desktop/contacts.vcf` (Windows)
+* `export C:/Users/User/Downloads/OneBook.vcf` (Windows)
+* `export /Users/user/Downloads/contacts.vcf` (MAC OSX)
+* `export/Users/user/Desktop/OneBook.vcf` (MAC OSX)
 
 === Exiting the program : `exit`
 
@@ -362,8 +378,11 @@ e.g. `edit 2 n/James Lee e/jameslee@example.com`
 e.g. `find name James Jake` +
 e.g. `find phone 123456789`
 * *Import* : `import [file directory]` +
-e.g. `add C:/Users/User/Desktop/contacts.vcf` (Windows) +
-e.g. `add /Users/user/Downloads/contacts.vcf` (MAC OSX)
+e.g. `import C:/Users/User/Desktop/contacts.vcf` (Windows) +
+e.g. `import /Users/user/Downloads/contacts.vcf` (MAC OSX)
+* *Export* : `import [file directory]` +
+e.g. `export C:/Users/User/Desktop/contacts.vcf` (Windows) +
+e.g. `export /Users/user/Downloads/contacts.vcf` (MAC OSX)
 * *List* : `list`
 * *Select* : `select INDEX` +
 e.g.`select 2`

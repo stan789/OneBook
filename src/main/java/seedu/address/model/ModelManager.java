@@ -20,6 +20,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.EmptyAddressBookException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.storage.ExportVCardFile;
 import seedu.address.storage.ImportVCardFile;
 
 /**
@@ -60,6 +61,7 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.executeSort(sortType);
         indicateAddressBookChanged();
     }
+
     @Override
     public Integer importFile(Path fileLocation) throws IOException {
         ImportVCardFile importFile = new ImportVCardFile(fileLocation);
@@ -72,6 +74,14 @@ public class ModelManager extends ComponentManager implements Model {
             }
         }
         return person.size();
+    }
+
+    @Override
+    public void exportFile(String fileLocation) throws IOException {
+        ObservableList<ReadOnlyPerson> person = getFilteredPersonList();
+        ExportVCardFile exportVCardFile = new ExportVCardFile(fileLocation);
+        exportVCardFile.createVCardFile(person);
+
     }
 
     @Override
