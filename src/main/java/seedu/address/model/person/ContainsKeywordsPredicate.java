@@ -41,6 +41,8 @@ public class ContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
         case FindCommand.KEYWORD_TAG: return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getTags().toString(), keyword));
 
+        case FindCommand.KEYWORD_ORGANISATION: return keywords.stream()
+                .allMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getOrganisation().value, keyword));
 
         default : return false;
         }
