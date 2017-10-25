@@ -260,8 +260,7 @@ public class MainWindow extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         if (listName.textProperty().get().equals("List")) {
             listName.textProperty().setValue("Filtered List");
-        }
-        else if (listName.textProperty().get().equals("Bin")) {
+        } else if (listName.textProperty().get().equals("Bin")) {
             listName.textProperty().setValue("Filtered Bin");
         }
     }

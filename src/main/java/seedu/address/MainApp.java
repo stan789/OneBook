@@ -96,8 +96,7 @@ public class MainApp extends Application {
                 ReadOnlyAddressBook addressBook = SampleDataUtil.getSampleAddressBook();
                 AddressBookData data = new AddressBookData(addressBook, new AddressBook());
                 initialData = data;
-            }
-            else {
+            } else {
                 initialData = addressBookOptional.get();
             }
         } catch (DataConversionException e) {

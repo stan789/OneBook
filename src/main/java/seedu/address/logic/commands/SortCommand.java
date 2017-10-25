@@ -36,8 +36,7 @@ public class SortCommand extends Command {
         try {
             if (this.binMode) {
                 model.executeBinSort(sortType);
-            }
-            else {
+            } else {
                 model.executeSort(sortType);
             }
             return new CommandResult(MESSAGE_SUCCESS);
