@@ -30,13 +30,15 @@ public class Birthday {
         } else {
             String trimmedBirthday = birthday.trim();
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            dateFormat.setLenient(false);
+            if (!trimmedBirthday.equals(BIRTHDAY_NOT_ASSIGNED)) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                dateFormat.setLenient(false);
 
-            try {
-                dateFormat.parse(trimmedBirthday);
-            } catch (ParseException e) {
-                throw new IllegalValueException(MESSAGE_BIRTHDAY_CONSTRAINTS);
+                try {
+                    dateFormat.parse(trimmedBirthday);
+                } catch (ParseException e) {
+                    throw new IllegalValueException(MESSAGE_BIRTHDAY_CONSTRAINTS);
+                }
             }
 
             if (!isValidBirthday(trimmedBirthday)) {
