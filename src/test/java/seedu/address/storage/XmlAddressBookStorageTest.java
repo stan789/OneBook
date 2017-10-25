@@ -85,7 +85,8 @@ public class XmlAddressBookStorageTest {
 
         //Save and read without specifying file path
         original.addPerson(new Person(IDA));
-        xmlAddressBookStorage.saveAddressBook(new AddressBookData(original, new RecycleBin())); //file path not specified
+        //file path not specified
+        xmlAddressBookStorage.saveAddressBook(new AddressBookData(original, new RecycleBin()));
         readBack = xmlAddressBookStorage.readAddressBook().get().getAddressBook(); //file path not specified
         assertEquals(original, new AddressBook(readBack));
 

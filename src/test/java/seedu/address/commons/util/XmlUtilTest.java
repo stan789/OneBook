@@ -56,8 +56,8 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
 
-        XmlSerializableAddressBookCombined dataFromFile
-                = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBookCombined.class);
+        XmlSerializableAddressBookCombined dataFromFile =
+                XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBookCombined.class);
         assertEquals(9, dataFromFile.getAddressBook().getPersonList().size());
         assertEquals(0, dataFromFile.getAddressBook().getTagList().size());
         assertEquals(1, dataFromFile.getRecycleBin().getPersonList().size());
@@ -87,10 +87,10 @@ public class XmlUtilTest {
         TEMP_FILE.createNewFile();
         XmlSerializableAddressBookCombined dataToWrite = new XmlSerializableAddressBookCombined(new AddressBook());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        XmlSerializableAddressBookCombined dataFromFile
-                = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBookCombined.class);
-        assertEquals((new AddressBook(dataToWrite.getAddressBook())).toString(),
-                     (new AddressBook(dataFromFile.getAddressBook())).toString());
+        XmlSerializableAddressBookCombined dataFromFile =
+                XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBookCombined.class);
+        assertEquals((new AddressBook(dataToWrite.getAddressBook())).toString(), (
+                new AddressBook(dataFromFile.getAddressBook())).toString());
         //TODO: use equality instead of string comparisons
 
         AddressBookBuilder builder = new AddressBookBuilder(new AddressBook());
@@ -99,7 +99,7 @@ public class XmlUtilTest {
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBookCombined.class);
-        assertEquals((new AddressBook(dataToWrite.getAddressBook())).toString(),
-                     (new AddressBook(dataFromFile.getAddressBook())).toString());
+        assertEquals((new AddressBook(dataToWrite.getAddressBook())).toString(), (
+                new AddressBook(dataFromFile.getAddressBook())).toString());
     }
 }
