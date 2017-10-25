@@ -1,14 +1,19 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.ImportCommand.MESSAGE_FILE_INVALID;
 import static seedu.address.logic.commands.SortCommand.MESSAGE_NO_PERSON_TO_SORT;
 import static seedu.address.logic.commands.SortCommand.MESSAGE_SUCCESS;
 import static seedu.address.logic.commands.SortCommand.SORT_EMAIL;
 import static seedu.address.logic.commands.SortCommand.SORT_NAME;
 
+import java.io.IOException;
+import java.nio.file.Paths;
+
 import org.junit.Test;
 
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -16,14 +21,28 @@ import seedu.address.model.RecycleBin;
 import seedu.address.model.person.exceptions.EmptyAddressBookException;
 import seedu.address.storage.AddressBookData;
 
+
 public class SortCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void sort() {
         Model expectedModel = getModel();
 
-        /* Case: sort the list by name -> sorted */
+        /* Case: import to existing address book and sort -> sorted  */
+        executeCommand(ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/contacts.vcf");
         String command = SortCommand.COMMAND_WORD + " " + SORT_NAME;
+        try {
+            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"));
+            expectedModel.executeSort(SORT_NAME);
+        } catch (EmptyAddressBookException e) {
+            assertCommandFailure(command, MESSAGE_NO_PERSON_TO_SORT, expectedModel);
+        } catch (IOException e) {
+            assertCommandFailure(command, MESSAGE_FILE_INVALID, expectedModel);
+        }
+        assertCommandSuccess(command, expectedModel);
+
+        /* Case: sort the list by name -> sorted */
+        command = SortCommand.COMMAND_WORD + " " + SORT_NAME;
         try {
             expectedModel.executeSort(SORT_NAME);
         } catch (EmptyAddressBookException e) {
@@ -53,6 +72,7 @@ public class SortCommandSystemTest extends AddressBookSystemTest {
         expectedModel.resetData(new AddressBookData(new AddressBook(), new RecycleBin()));
         assertCommandFailure(SortCommand.COMMAND_WORD + " " + SORT_NAME,
                 MESSAGE_NO_PERSON_TO_SORT, expectedModel);
+
     }
 
     /**

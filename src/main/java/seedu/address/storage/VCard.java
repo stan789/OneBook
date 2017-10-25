@@ -14,10 +14,11 @@ public class VCard {
     private String address;
     private String birthday;
     private String name;
+    private String organisation;
     private List<String> tag;
 
     public VCard() {
-        name = "NO NAME";
+        name = "";
         tag = new ArrayList<String>();
 
 
@@ -41,6 +42,10 @@ public class VCard {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public void setOrganisation(String organisation) {
+        this.organisation = organisation;
     }
 
     public void setTag(List<String> label) {
@@ -69,5 +74,9 @@ public class VCard {
 
     public List<String> getTag() {
         return tag;
+    }
+
+    public String getOrganisation() {
+        return organisation;
     }
 }

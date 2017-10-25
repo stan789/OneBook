@@ -72,4 +72,6 @@ public interface Model {
     void executeBinSort(String sortType) throws EmptyAddressBookException;
 
     Integer importFile(Path fileLocation) throws IOException;
+
+    void exportFile(String fileLocation) throws IOException;
 }
