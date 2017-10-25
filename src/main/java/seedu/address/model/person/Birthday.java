@@ -30,7 +30,7 @@ public class Birthday {
         } else {
             String trimmedBirthday = birthday.trim();
 
-            if(!trimmedBirthday.equals(BIRTHDAY_NOT_ASSIGNED)) {
+            if (!trimmedBirthday.equals(BIRTHDAY_NOT_ASSIGNED)) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 dateFormat.setLenient(false);
 
