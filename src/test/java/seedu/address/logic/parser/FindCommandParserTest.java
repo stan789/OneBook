@@ -37,13 +37,13 @@ public class FindCommandParserTest {
 
         // find address, no leading and trailing whitespaces
         expectedFindCommand =
-                new FindCommand(new ContainsKeywordsPredicate(Arrays.asList("Serangoon", "Geylang"),
+                new FindCommand(new ContainsKeywordsPredicate(Arrays.asList("Serangoon"),
                         FindCommand.KEYWORD_ADDRESS));
-        assertParseSuccess(parser, FindCommand.KEYWORD_ADDRESS + " Serangoon Geylang", expectedFindCommand);
+        assertParseSuccess(parser, FindCommand.KEYWORD_ADDRESS + " Serangoon", expectedFindCommand);
 
         // find address, multiple whitespaces between keywords
         assertParseSuccess(parser, FindCommand.KEYWORD_ADDRESS
-                + "\n Serangoon \n \t Geylang  \t", expectedFindCommand);
+                + "\n Serangoon \n  \t", expectedFindCommand);
 
         // find email, no leading and trailing whitespaces
         expectedFindCommand =
@@ -60,7 +60,16 @@ public class FindCommandParserTest {
         assertParseSuccess(parser, FindCommand.KEYWORD_PHONE + " 123456789", expectedFindCommand);
 
         // find phone, multiple whitespaces between keywords
-        assertParseSuccess(parser, FindCommand.KEYWORD_NAME + "\n 123456789  \t", expectedFindCommand);
+        assertParseSuccess(parser, FindCommand.KEYWORD_PHONE + "\n 123456789  \t", expectedFindCommand);
+
+        // find organisation, no leading and trailing whitespaces
+        expectedFindCommand =
+                new FindCommand(
+                        new ContainsKeywordsPredicate(Arrays.asList("Apple"), FindCommand.KEYWORD_ORGANISATION));
+        assertParseSuccess(parser, FindCommand.KEYWORD_ORGANISATION + " Apple", expectedFindCommand);
+
+        // find phone, multiple whitespaces between keywords
+        assertParseSuccess(parser, FindCommand.KEYWORD_ORGANISATION + "\n Apple  \t", expectedFindCommand);
     }
 
 }

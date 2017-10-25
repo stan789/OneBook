@@ -201,6 +201,25 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         command = FindCommand.COMMAND_WORD + " " + FindCommand.KEYWORD_TAG + " " + tags.get(0).tagName + "123";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
+
+        /* Case: find organisation of person in address book -> 1 person found */
+        command = FindCommand.COMMAND_WORD + " " + FindCommand.KEYWORD_ORGANISATION
+                + " " + DANIEL.getOrganisation().value;
+        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find organisation of person in address book, keyword is substring of tag -> 6 persons found */
+        substring = DANIEL.getOrganisation().value.substring(0, DANIEL.getOrganisation().value.length() / 2);
+        command = FindCommand.COMMAND_WORD + " " + FindCommand.KEYWORD_ORGANISATION + " " + substring;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find organisation of person in address book, organisation is substring of keyword -> 0 person found */
+        command = FindCommand.COMMAND_WORD + " " + FindCommand.KEYWORD_ORGANISATION + " "
+                + DANIEL.getOrganisation().value + "123";
+        ModelHelper.setFilteredList(expectedModel);
+        assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find while a person is selected -> selected card deselected */
