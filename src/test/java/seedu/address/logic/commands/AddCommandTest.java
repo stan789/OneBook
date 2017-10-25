@@ -155,13 +155,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<ReadOnlyPerson> getFilteredBinList() {
+        public void setListDisplay() {
             fail("This method should not be called.");
-            return null;
         }
 
         @Override
-        public void updateFilteredBinList(Predicate<ReadOnlyPerson> predicate) {
+        public void setBinDisplay() {
             fail("This method should not be called.");
         }
 
