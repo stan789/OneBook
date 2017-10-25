@@ -33,7 +33,7 @@ public class ImportCommandSystemTest extends AddressBookSystemTest {
         String command = ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/OneBook.vcf";
         executeCommand(ExportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/OneBook.vcf");
         executeCommand(ClearCommand.COMMAND_WORD);
-        expectedModel.resetData(new AddressBook());
+        expectedModel.resetData(new AddressBookData(new AddressBook(), new RecycleBin()));
         try {
             count = expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/OneBook.vcf"));
         } catch (IOException e) {

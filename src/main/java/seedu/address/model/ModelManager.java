@@ -52,7 +52,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new RecycleBin(), new UserPrefs());
     }
 
     @Override
