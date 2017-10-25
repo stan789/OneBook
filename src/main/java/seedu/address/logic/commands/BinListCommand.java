@@ -12,7 +12,7 @@ public class BinListCommand extends Command {
 
     public static final String COMMAND_WORD = "bin";
 
-    public static final String MESSAGE_SUCCESS = "Listed all persons";
+    public static final String MESSAGE_SUCCESS = "Listed all deleted persons";
 
 
     @Override
