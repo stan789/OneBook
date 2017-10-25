@@ -34,7 +34,12 @@ public class SortCommand extends Command {
     @Override
     public CommandResult execute() throws CommandException {
         try {
-            model.executeSort(sortType);
+            if (this.binMode) {
+                model.executeBinSort(sortType);
+            }
+            else {
+                model.executeSort(sortType);
+            }
             return new CommandResult(MESSAGE_SUCCESS);
         } catch (EmptyAddressBookException e) {
             throw new CommandException(MESSAGE_NO_PERSON_TO_SORT);
