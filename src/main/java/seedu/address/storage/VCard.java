@@ -18,7 +18,7 @@ public class VCard {
     private List<String> tag;
 
     public VCard() {
-        name = "NO NAME";
+        name = "";
         tag = new ArrayList<String>();
 
 
@@ -72,11 +72,11 @@ public class VCard {
         return phone;
     }
 
-    public String getOrganisation() {
-        return organisation;
-    }
-
     public List<String> getTag() {
         return tag;
+    }
+
+    public String getOrganisation() {
+        return organisation;
     }
 }

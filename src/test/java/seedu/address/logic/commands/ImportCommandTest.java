@@ -77,7 +77,7 @@ public class ImportCommandTest {
     }
 
     /**
-     * Generates a new {@code SortCommand} which upon execution, sorts the AddressBook.
+     * Generates a new {@code ImportCommand} which upon execution, sorts the AddressBook.
      */
     private ImportCommand prepareCommand(Path fileLocation) {
         ImportCommand command = new ImportCommand(fileLocation);
