@@ -61,7 +61,7 @@ public class ExportCommandTest {
      */
     private ExportCommand prepareCommand(String fileLocation) {
         ExportCommand command = new ExportCommand(fileLocation);
-        command.setData(model, new CommandHistory(), new UndoRedoStack());
+        command.setData(model, new CommandHistory(), new UndoRedoStack(), false);
         return command;
     }
 }

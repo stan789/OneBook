@@ -59,7 +59,7 @@ public class SortCommandTest {
      */
     private SortCommand prepareCommand(String sortType) {
         SortCommand command = new SortCommand(sortType);
-        command.setData(model, new CommandHistory(), new UndoRedoStack());
+        command.setData(model, new CommandHistory(), new UndoRedoStack(), false);
         return command;
     }
 }

@@ -29,7 +29,7 @@ public class ListCommandTest {
         expectedModel = new ModelManager(model.getAddressBook(), model.getRecycleBin(), new UserPrefs());
 
         listCommand = new ListCommand();
-        listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        listCommand.setData(model, new CommandHistory(), new UndoRedoStack(), false);
     }
 
     @Test

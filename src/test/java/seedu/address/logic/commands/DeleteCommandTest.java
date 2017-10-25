@@ -106,7 +106,7 @@ public class DeleteCommandTest {
      */
     private DeleteCommand prepareCommand(Index index) {
         DeleteCommand deleteCommand = new DeleteCommand(index);
-        deleteCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        deleteCommand.setData(model, new CommandHistory(), new UndoRedoStack(), false);
         return deleteCommand;
     }
 

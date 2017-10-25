@@ -78,7 +78,7 @@ public class FindCommandTest {
     private FindCommand prepareCommand(String userInput) {
         FindCommand command =
                 new FindCommand(new ContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")), "name"));
-        command.setData(model, new CommandHistory(), new UndoRedoStack());
+        command.setData(model, new CommandHistory(), new UndoRedoStack(), false);
         return command;
     }
 

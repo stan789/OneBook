@@ -30,8 +30,8 @@ public class RedoCommandTest {
 
     @Before
     public void setUp() {
-        deleteCommandOne.setData(model, EMPTY_COMMAND_HISTORY, EMPTY_STACK);
-        deleteCommandTwo.setData(model, EMPTY_COMMAND_HISTORY, EMPTY_STACK);
+        deleteCommandOne.setData(model, EMPTY_COMMAND_HISTORY, EMPTY_STACK, false);
+        deleteCommandTwo.setData(model, EMPTY_COMMAND_HISTORY, EMPTY_STACK, false);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class RedoCommandTest {
         UndoRedoStack undoRedoStack = prepareStack(
                 Collections.emptyList(), Arrays.asList(deleteCommandTwo, deleteCommandOne));
         RedoCommand redoCommand = new RedoCommand();
-        redoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack);
+        redoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack, false);
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new RecycleBin(), new UserPrefs());
 
         // multiple commands in redoStack

@@ -30,8 +30,8 @@ public class UndoCommandTest {
 
     @Before
     public void setUp() {
-        deleteCommandOne.setData(model, EMPTY_COMMAND_HISTORY, EMPTY_STACK);
-        deleteCommandTwo.setData(model, EMPTY_COMMAND_HISTORY, EMPTY_STACK);
+        deleteCommandOne.setData(model, EMPTY_COMMAND_HISTORY, EMPTY_STACK, false);
+        deleteCommandTwo.setData(model, EMPTY_COMMAND_HISTORY, EMPTY_STACK, false);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class UndoCommandTest {
         UndoRedoStack undoRedoStack = prepareStack(
                 Arrays.asList(deleteCommandOne, deleteCommandTwo), Collections.emptyList());
         UndoCommand undoCommand = new UndoCommand();
-        undoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack);
+        undoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack, false);
         deleteCommandOne.execute();
         deleteCommandTwo.execute();
 
