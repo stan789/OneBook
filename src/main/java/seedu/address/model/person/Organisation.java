@@ -16,7 +16,7 @@ public class Organisation {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String ORGANISATION_VALIDATION_REGEX = "[^\\s].*";
-    public static final String ORGANISATION_NOT_ASSIGNED = "-";
+    public static final String ORGANISATION_NOT_ASSIGNED = "~";
 
     public final String value;
 

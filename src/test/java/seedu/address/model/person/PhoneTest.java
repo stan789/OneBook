@@ -17,7 +17,7 @@ public class PhoneTest {
         assertFalse(Phone.isValidPhone("931!21534")); // special characters within digits
 
         // valid phone numbers
-        assertTrue(Phone.isValidPhone("-")); // there is no input for phone number field
+        assertTrue(Phone.isValidPhone("~")); // there is no input for phone number field
         assertTrue(Phone.isValidPhone("9111")); // exactly 3 numbers
         assertTrue(Phone.isValidPhone("93121534"));
         assertTrue(Phone.isValidPhone("124293842033123")); // long phone numbers

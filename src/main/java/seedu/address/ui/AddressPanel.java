@@ -55,7 +55,7 @@ public class AddressPanel extends UiPart<Region> {
      */
     private void loadPersonAddress(ReadOnlyPerson person) {
 
-        if (person.getAddress().value.equals("-")) {
+        if (person.getAddress().value.equals("~")) {
             loadDefaultPage();
         } else {
             loadPage(GOOGLE_SEARCH_URL_PREFIX

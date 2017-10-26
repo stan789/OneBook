@@ -17,7 +17,7 @@ public class BirthdayTest {
         assertFalse(Birthday.isValidBirthday("01-01")); // missing year
 
         // valid Birthday
-        assertTrue(Birthday.isValidBirthday("-")); // there is no input for birthday field
+        assertTrue(Birthday.isValidBirthday("~")); // there is no input for birthday field
         assertTrue(Birthday.isValidBirthday("02-03-1995"));
         assertTrue(Birthday.isValidBirthday("12-12-1999"));
         assertTrue(Birthday.isValidBirthday("05-07-2005"));
