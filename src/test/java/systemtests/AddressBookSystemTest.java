@@ -171,7 +171,6 @@ public abstract class AddressBookSystemTest {
      * @see AddressPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
-        assertFalse(getAddressPanel().isUrlChanged());
         assertFalse(getPersonListPanel().isAnyCardSelected());
     }
 
@@ -202,11 +201,7 @@ public abstract class AddressBookSystemTest {
      */
 
     protected void assertSelectedCardUnchanged() {
-
-        /* stub
-        assertFalse(getAddressPanel().isUrlChanged());
         assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
-    */
     }
 
     /**

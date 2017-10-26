@@ -116,8 +116,6 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
      */
 
     public boolean isSelectedPersonCardChanged() {
-        return true;
-        /* stub
         List<PersonCard> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
@@ -126,7 +124,6 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
             return !lastRememberedSelectedPersonCard.isPresent()
                     || !lastRememberedSelectedPersonCard.get().equals(selectedItems.get(0));
         }
-        */
     }
 
     /**

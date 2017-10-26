@@ -20,7 +20,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.commands.DisplayListFilteredEvent;
 import seedu.address.commons.events.commands.DisplayListResetEvent;
-import seedu.address.commons.events.commands.PersonDeletedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.FxViewUtil;
@@ -221,15 +220,6 @@ public class MainWindow extends UiPart<Region> {
     }
 
     /**
-     * Resets the selection upon being called
-     */
-    public void updateListView() {
-        personDisplayCard = new PersonDisplayCard();
-        detailsPlaceholder.getChildren().add(personDisplayCard.getRoot());
-        addressPanel = new AddressPanel();
-        addressPlaceholder.getChildren().add(addressPanel.getRoot());
-    }
-    /**
      * Closes the application.
      */
     @FXML
@@ -254,14 +244,7 @@ public class MainWindow extends UiPart<Region> {
     @Subscribe
     private void handleDisplayListFilteredEvent(DisplayListFilteredEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        updateListView();
         listName.textProperty().setValue("Filtered");
-    }
-
-    @Subscribe
-    private void handlePersonDeletedEvent(PersonDeletedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        updateListView();
     }
 
     @Subscribe

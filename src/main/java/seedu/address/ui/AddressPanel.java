@@ -14,6 +14,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.commands.PersonDeletedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.ReadOnlyPerson;
 
@@ -67,6 +68,15 @@ public class AddressPanel extends UiPart<Region> {
     }
 
     /**
+     * Resets details shown
+     */
+    private void resetPersonDetails() {
+        loadDefaultPage();
+        addressLarge.textProperty().unbind();
+        addressLarge.textProperty().setValue("");
+    }
+
+    /**
      * Binds the individual UI elements to observe their respective {@code Person} properties
      * so that they will be notified of any changes.
      */
@@ -97,5 +107,11 @@ public class AddressPanel extends UiPart<Region> {
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonAddress(event.getNewSelection().person);
+    }
+
+    @Subscribe
+    public void handlePersonDeletedEvent(PersonDeletedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        resetPersonDetails();
     }
 }
