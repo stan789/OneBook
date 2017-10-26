@@ -48,12 +48,12 @@ public class ExportVCardFile {
                 bufferedWriter.write(vcf.getName() + ":" + p.getName());
                 bufferedWriter.newLine();
 
-                if (!p.getEmail().toString().equals("-")) {
+                if (!p.getEmail().toString().equals("~")) {
                     bufferedWriter.write(vcf.getEmail() + ":" + p.getEmail());
                     bufferedWriter.newLine();
                 }
 
-                if (!p.getPhone().toString().equals("-")) {
+                if (!p.getPhone().toString().equals("~")) {
                     bufferedWriter.write(vcf.getPhoneFormat() + ":" + p.getPhone());
                     bufferedWriter.newLine();
                 }
@@ -67,14 +67,14 @@ public class ExportVCardFile {
                     bufferedWriter.newLine();
                 }
 
-                if (!p.getBirthday().toString().equals("-")) {
+                if (!p.getBirthday().toString().equals("~")) {
                     String birthday = p.getBirthday().toString();
                     String[] array = birthday.split("-");
                     birthday = array[INDEX_TWO] + "-" + array[INDEX_ONE] + "-" + array[INDEX_ZERO];
                     bufferedWriter.write(vcf.getBirthday() + ":" + birthday);
                     bufferedWriter.newLine();
                 }
-                if (!p.getAddress().toString().equals("-")) {
+                if (!p.getAddress().toString().equals("~")) {
                     String address = p.getAddress().toString();
                     for (int count = 0; count < 6; count++) {
                         if (address.contains(",")) {
@@ -86,7 +86,7 @@ public class ExportVCardFile {
                     bufferedWriter.write(vcf.getAddressFormat1() + ":" + address);
                     bufferedWriter.newLine();
                 }
-                if (!p.getOrganisation().toString().equals("-")) {
+                if (!p.getOrganisation().toString().equals("~")) {
                     String org = p.getOrganisation().toString();
                     bufferedWriter.write(vcf.getOrganization() + ":" + org);
                     bufferedWriter.newLine();
