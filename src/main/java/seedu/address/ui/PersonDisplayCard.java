@@ -11,6 +11,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.commands.PersonDeletedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.ReadOnlyPerson;
 
@@ -54,6 +55,23 @@ public class PersonDisplayCard extends UiPart<Region> {
     }
 
     /**
+     * Resets details shown
+     */
+    private void resetPersonDetails() {
+        nameLarge.textProperty().unbind();
+        nameLarge.textProperty().setValue("");
+        phoneLarge.textProperty().unbind();
+        phoneLarge.textProperty().setValue("");
+        birthdayLarge.textProperty().unbind();
+        birthdayLarge.textProperty().setValue("");
+        emailLarge.textProperty().unbind();
+        emailLarge.textProperty().setValue("");
+        organisationLarge.textProperty().unbind();
+        organisationLarge.textProperty().setValue("");
+        tagsLarge.getChildren().clear();
+    }
+
+    /**
      * Binds the individual UI elements to observe their respective {@code Person} properties
      * so that they will be notified of any changes.
      */
@@ -78,5 +96,11 @@ public class PersonDisplayCard extends UiPart<Region> {
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonDetails(event.getNewSelection().person);
+    }
+
+    @Subscribe
+    private void handlePersonDeletedEvent(PersonDeletedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        resetPersonDetails();
     }
 }
