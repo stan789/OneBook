@@ -14,6 +14,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.commands.PersonDeletedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.ReadOnlyPerson;
 
@@ -55,7 +56,7 @@ public class AddressPanel extends UiPart<Region> {
      */
     private void loadPersonAddress(ReadOnlyPerson person) {
 
-        if (person.getAddress().value.equals("-")) {
+        if (person.getAddress().value.equals("~")) {
             loadDefaultPage();
         } else {
             loadPage(GOOGLE_SEARCH_URL_PREFIX
@@ -64,6 +65,15 @@ public class AddressPanel extends UiPart<Region> {
         }
         this.person = person;
         bindListeners(person);
+    }
+
+    /**
+     * Resets details shown
+     */
+    private void resetPersonDetails() {
+        loadDefaultPage();
+        addressLarge.textProperty().unbind();
+        addressLarge.textProperty().setValue("");
     }
 
     /**
@@ -97,5 +107,11 @@ public class AddressPanel extends UiPart<Region> {
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonAddress(event.getNewSelection().person);
+    }
+
+    @Subscribe
+    public void handlePersonDeletedEvent(PersonDeletedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        resetPersonDetails();
     }
 }

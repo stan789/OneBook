@@ -14,6 +14,18 @@ endif::[]
 
 By: `CS2103AUG2017 T17-B4`      Since: `Jun 2016`      Licence: `MIT`
 
+== Product Overview
+
+=== Introduction
+
+OneBook is a desktop Address Book application. OneBook uses a Graphical User Interface (GUI) but most of the interactions happen using Command Line Interface (CLI).
+
+OneBook is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
+
+=== About
+
+OneBook User Guide contains a detailed manual for using the application. The step-by-step instructions in this User Guide will assist you when using OneBook.
+
 == Quick Start
 
 .  Ensure you have Java version `1.8.0_60` or later installed in your Computer.
@@ -362,6 +374,12 @@ Format: `bin clear`
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+
+*Q*: Why do I keep getting unknown command when typing a command?
+*A*: The command typed is invalid. Refer to Command Summary section for all the commands.
+
+*Q*: After entering list command, why do I not get any contact list?
+*A*: You might not have added at least one person to Onebook. Add at least one person to Onebook and try running the command again.
 
 == Command Summary
 

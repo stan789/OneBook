@@ -64,11 +64,11 @@ public class UniquePersonList implements Iterable<Person> {
         switch(sortType) {
 
         case SORT_NAME:
-            internalList.sort(Comparator.comparing(p -> p.getName().toString()));
+            internalList.sort(Comparator.comparing(p -> p.getName().toString().toLowerCase()));
             break;
 
         case SORT_EMAIL:
-            internalList.sort(Comparator.comparing(p -> p.getEmail().toString()));
+            internalList.sort(Comparator.comparing(p -> p.getEmail().toString().toLowerCase()));
             break;
 
         default:
