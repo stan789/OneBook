@@ -220,6 +220,15 @@ public class MainWindow extends UiPart<Region> {
     }
 
     /**
+     * Resets the selection upon being called
+     */
+    public void updateListView() {
+        personDisplayCard = new PersonDisplayCard();
+        detailsPlaceholder.getChildren().add(personDisplayCard.getRoot());
+        addressPanel = new AddressPanel();
+        addressPlaceholder.getChildren().add(addressPanel.getRoot());
+    }
+    /**
      * Closes the application.
      */
     @FXML
@@ -244,6 +253,7 @@ public class MainWindow extends UiPart<Region> {
     @Subscribe
     private void handleDisplayListFilteredEvent(DisplayListFilteredEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        updateListView();
         listName.textProperty().setValue("Filtered");
     }
 
