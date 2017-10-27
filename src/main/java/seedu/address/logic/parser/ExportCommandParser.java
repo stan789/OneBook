@@ -38,11 +38,11 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         }
 
         String extension = trimmedArgs.substring(trimmedArgs.lastIndexOf(".") + 1, trimmedArgs.length());
-        if (!extension.equals("vcf")) {
-            throw new ParseException("File created should end with .vcf");
+        if (!extension.equals("vcf") && !extension.equals("csv")) {
+            throw new ParseException("File created should end with .vcf or .csv");
         }
 
-        return new ExportCommand(trimmedArgs);
+        return new ExportCommand(trimmedArgs, fileName, extension);
     }
 }
 
