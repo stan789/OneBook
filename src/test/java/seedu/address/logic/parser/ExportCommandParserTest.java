@@ -14,8 +14,10 @@ public class ExportCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsExportCommand() {
+        String extension = "vcf";
         String location = "src/test/data/VCardFileTest/new.vcf";
-        assertParseSuccess(parser, location, new ExportCommand(location));
+        String fileName = "new";
+        assertParseSuccess(parser, location, new ExportCommand(location , fileName, extension));
 
     }
 
@@ -29,7 +31,7 @@ public class ExportCommandParserTest {
     @Test
     public void parse_invalidArgsWrongFileFormat_throwsParserException() {
         String location = "src/test/data/VCardFileTest/new.txt";
-        assertParseFailure(parser, location, "File created should end with .vcf");
+        assertParseFailure(parser, location, "File created should end with .vcf or .csv");
 
     }
 

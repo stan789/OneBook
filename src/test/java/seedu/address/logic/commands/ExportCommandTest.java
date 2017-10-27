@@ -33,33 +33,52 @@ public class ExportCommandTest {
     public void execute_exportVCardFile_importSuccess() throws IOException {
 
         String fileLocation = "src/test/data/VCardFileTest/OneBook.vcf";
+        String extension = "vcf";
+        String fileName = "OneBook";
 
-        ExportCommand exportCommand = prepareCommand(fileLocation);
-        expectedModel.exportFile(fileLocation);
-        String expectedMessage = ExportCommand.MESSAGE_SUCCESS;
+        ExportCommand exportCommand = prepareCommand(fileLocation, fileName, extension);
+        expectedModel.exportFile(fileLocation,extension);
+        String expectedMessage = String.format(ExportCommand.MESSAGE_SUCCESS, fileName);
+        assertCommandSuccess(exportCommand, model, expectedMessage, expectedModel);
+    }
+    @Test
+    public void execute_exportCsvFile_importSuccess() throws IOException {
+
+        String fileLocation = "src/test/data/VCardFileTest/OneBook.csv";
+        String extension = "csv";
+        String fileName = "OneBook";
+
+        ExportCommand exportCommand = prepareCommand(fileLocation, fileName, extension);
+        expectedModel.exportFile(fileLocation,extension);
+        String expectedMessage = String.format(ExportCommand.MESSAGE_SUCCESS, fileName);
         assertCommandSuccess(exportCommand, model, expectedMessage, expectedModel);
     }
 
     @After
     public void tearDown() {
-        File file = new File("src/test/data/VCardFileTest/OneBook.vcf");
-        file.delete();
+        File fileVcard = new File("src/test/data/VCardFileTest/OneBook.vcf");
+        fileVcard.delete();
+        File fileCsv = new File("src/test/data/VCardFileTest/OneBook.csv");
+        fileCsv.delete();
     }
+
 
     @Test
     public void execute_exportEmptyString_exportFailure() throws IOException {
 
         String fileLocation = "";
+        String extension= "";
+        String fileName = "";
 
-        ExportCommand exportCommand = prepareCommand(fileLocation);
+        ExportCommand exportCommand = prepareCommand(fileLocation, fileName, extension);
         assertCommandFailure(exportCommand, model, MESSAGE_WRITE_ERROR);
     }
 
     /**
      * Generates a new {@code ExportCommand} which upon execution, sorts the AddressBook.
      */
-    private ExportCommand prepareCommand(String fileLocation) {
-        ExportCommand command = new ExportCommand(fileLocation);
+    private ExportCommand prepareCommand(String fileLocation, String fileName, String extension) {
+        ExportCommand command = new ExportCommand(fileLocation,fileName, extension);
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
     }

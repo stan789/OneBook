@@ -53,5 +53,5 @@ public interface Model {
 
     Integer importFile(Path fileLocation) throws IOException;
 
-    void exportFile(String fileLocation) throws IOException;
+    void exportFile(String fileLocation, String extension) throws IOException;
 }

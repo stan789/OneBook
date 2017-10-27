@@ -20,6 +20,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.EmptyAddressBookException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.storage.ExportCsvFile;
 import seedu.address.storage.ExportVCardFile;
 import seedu.address.storage.ImportVCardFile;
 
@@ -77,10 +78,15 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void exportFile(String fileLocation) throws IOException {
+    public void exportFile(String fileLocation, String extension) throws IOException {
         ObservableList<ReadOnlyPerson> person = getFilteredPersonList();
-        ExportVCardFile exportVCardFile = new ExportVCardFile(fileLocation);
-        exportVCardFile.createVCardFile(person);
+        if (extension.equals("vcf")) {
+            ExportVCardFile exportVCardFile = new ExportVCardFile(fileLocation);
+            exportVCardFile.createVCardFile(person);
+        } else {
+            ExportCsvFile exportCsvFile = new ExportCsvFile(fileLocation);
+            exportCsvFile.createCsvFile(person);
+        }
 
     }
 
