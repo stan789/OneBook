@@ -73,6 +73,16 @@ public class ExportCommandTest {
         ExportCommand exportCommand = prepareCommand(fileLocation, fileName, extension);
         assertCommandFailure(exportCommand, model, MESSAGE_WRITE_ERROR);
     }
+    @Test(expected = IOException.class)
+    public void emptyFileDirectoryVcardIOException() throws IOException {
+        model.exportFile("","vcf");
+
+    }
+    @Test(expected = IOException.class)
+    public void emptyFileDirectoryCsvIOException() throws IOException {
+        model.exportFile("","csv");
+
+    }
 
     /**
      * Generates a new {@code ExportCommand} which upon execution, sorts the AddressBook.
