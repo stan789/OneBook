@@ -21,6 +21,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Organisation;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 import seedu.address.storage.exceptions.EmptyFileException;
 import seedu.address.storage.exceptions.WrongFormatInFileException;
@@ -201,7 +202,8 @@ public class ImportVCardFile {
                 }
                 person.add(new Person(new Name(vCard.getName()), new Phone(vCard.getPhone()),
                         new Birthday(vCard.getBirthday()), new Email(vCard.getEmail()),
-                        new Address(vCard.getAddress()), new Organisation(vCard.getOrganisation()), tag));
+                        new Address(vCard.getAddress()), new Organisation(vCard.getOrganisation()),
+                        new Remark((vCard.getRemark())), tag));
             }
         } catch (IllegalValueException e) {
             System.out.println("IllegalValueException" + vCard.getName() + " " + vCard.getPhone());
