@@ -24,6 +24,8 @@ public interface ReadOnlyPerson {
     Address getAddress();
     ObjectProperty<Organisation> organisationProperty();
     Organisation getOrganisation();
+    ObjectProperty<Remark> remarkProperty();
+    Remark getRemark();
     ObjectProperty<UniqueTagList> tagProperty();
     Set<Tag> getTags();
 
@@ -38,7 +40,8 @@ public interface ReadOnlyPerson {
                 && other.getBirthday().equals(this.getBirthday())
                 && other.getEmail().equals(this.getEmail())
                 && other.getAddress().equals(this.getAddress())
-                && other.getOrganisation().equals(this.getOrganisation()));
+                && other.getOrganisation().equals(this.getOrganisation())
+                && other.getRemark().equals(this.getRemark()));
     }
 
     /**
@@ -57,6 +60,8 @@ public interface ReadOnlyPerson {
                 .append(getAddress())
                 .append(" Organisation: ")
                 .append(getOrganisation())
+                .append(" Remark: ")
+                .append(getRemark())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
