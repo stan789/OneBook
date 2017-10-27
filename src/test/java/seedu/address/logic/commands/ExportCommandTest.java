@@ -75,12 +75,12 @@ public class ExportCommandTest {
     }
     @Test(expected = IOException.class)
     public void emptyFileDirectoryVcardIOException() throws IOException {
-        model.exportFile("","vcf");
+        model.exportFile("", "vcf");
 
     }
     @Test(expected = IOException.class)
     public void emptyFileDirectoryCsvIOException() throws IOException {
-        model.exportFile("","csv");
+        model.exportFile("", "csv");
 
     }
 
