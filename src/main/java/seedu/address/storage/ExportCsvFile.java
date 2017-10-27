@@ -35,49 +35,42 @@ public class ExportCsvFile {
             for (ReadOnlyPerson p: person) {
                 String[] name = p.getName().toString().split(" ", 2);
                 bufferedWriter.write(name[0]);
-                if (name.length == 2) {
-                    bufferedWriter.write("," + name[1]);
-                } else {
-                    bufferedWriter.write(",");
-                }
+                bufferedWriter.write(",");
 
+                if (name.length == 2) {
+                    bufferedWriter.write(name[1]);
+                }
+                bufferedWriter.write(",");
 
                 if (!p.getOrganisation().toString().equals("~")) {
-                    bufferedWriter.write("," + p.getOrganisation().toString());
-                } else {
-                    bufferedWriter.write(",");
+                    bufferedWriter.write(p.getOrganisation().toString());
                 }
+                bufferedWriter.write(",");
 
                 if (!p.getAddress().toString().equals("~")) {
                     String address = p.getAddress().toString();
                     address = address.replaceAll(",", "");
-                    bufferedWriter.write("," + address);
-                } else {
-                    bufferedWriter.write(",");
+                    bufferedWriter.write(address);
                 }
+                bufferedWriter.write(",");
 
                 if (!p.getPhone().toString().equals("~")) {
                     bufferedWriter.write("," + p.getPhone().toString());
-                } else {
-                    bufferedWriter.write(",");
                 }
+                bufferedWriter.write(",");
 
 
                 if (!p.getBirthday().toString().equals("~")) {
                     String birthday = p.getBirthday().toString();
                     birthday = birthday.replaceAll("-", "/");
-                    bufferedWriter.write("," + birthday);
-                } else {
-                    bufferedWriter.write(",");
+                    bufferedWriter.write(birthday);
                 }
+                bufferedWriter.write(",");
 
                 if (!p.getEmail().toString().equals("~")) {
-                    bufferedWriter.write("," + p.getEmail().toString());
-                    bufferedWriter.newLine();
-                } else {
-                    bufferedWriter.write(",");
-                    bufferedWriter.newLine();
+                    bufferedWriter.write(p.getEmail().toString());
                 }
+                bufferedWriter.newLine();
 
             }
             bufferedWriter.close();

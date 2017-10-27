@@ -60,24 +60,22 @@ public class ImportCommandSystemTest extends AddressBookSystemTest {
         }
         assertCommandSuccess(command, count, expectedModel);
 
-        /* Case: import VCard file with name only and export it to .csv file -> import successful */
+        /* Case: import VCard file with name only -> import successful */
+        executeCommand(ClearCommand.COMMAND_WORD);
+        expectedModel.resetData(new AddressBook());
         command = ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/name_only.vcf";
         try {
             count = expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/name_only.vcf"));
         } catch (IOException e) {
             assertCommandFailure(command, MESSAGE_FILE_INVALID, expectedModel);
         }
-        executeCommand(ExportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/name_only.csv");
         assertCommandSuccess(command, count, expectedModel);
-
     }
 
     @After
     public void tearDown() {
-        File file1 = new File("src/test/data/VCardFileTest/OneBook.vcf");
-        file1.delete();
-        File file2 = new File("src/test/data/VCardFileTest/name_only.csv");
-        file2.delete();
+        File file = new File("src/test/data/VCardFileTest/OneBook.vcf");
+        file.delete();
     }
 
     /**
