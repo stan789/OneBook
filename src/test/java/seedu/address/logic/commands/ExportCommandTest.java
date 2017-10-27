@@ -37,7 +37,7 @@ public class ExportCommandTest {
         String fileName = "OneBook";
 
         ExportCommand exportCommand = prepareCommand(fileLocation, fileName, extension);
-        expectedModel.exportFile(fileLocation,extension);
+        expectedModel.exportFile(fileLocation, extension);
         String expectedMessage = String.format(ExportCommand.MESSAGE_SUCCESS, fileName);
         assertCommandSuccess(exportCommand, model, expectedMessage, expectedModel);
     }
@@ -49,7 +49,7 @@ public class ExportCommandTest {
         String fileName = "OneBook";
 
         ExportCommand exportCommand = prepareCommand(fileLocation, fileName, extension);
-        expectedModel.exportFile(fileLocation,extension);
+        expectedModel.exportFile(fileLocation, extension);
         String expectedMessage = String.format(ExportCommand.MESSAGE_SUCCESS, fileName);
         assertCommandSuccess(exportCommand, model, expectedMessage, expectedModel);
     }
@@ -67,7 +67,7 @@ public class ExportCommandTest {
     public void execute_exportEmptyString_exportFailure() throws IOException {
 
         String fileLocation = "";
-        String extension= "";
+        String extension = "";
         String fileName = "";
 
         ExportCommand exportCommand = prepareCommand(fileLocation, fileName, extension);
@@ -78,7 +78,7 @@ public class ExportCommandTest {
      * Generates a new {@code ExportCommand} which upon execution, sorts the AddressBook.
      */
     private ExportCommand prepareCommand(String fileLocation, String fileName, String extension) {
-        ExportCommand command = new ExportCommand(fileLocation,fileName, extension);
+        ExportCommand command = new ExportCommand(fileLocation, fileName, extension);
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
     }
