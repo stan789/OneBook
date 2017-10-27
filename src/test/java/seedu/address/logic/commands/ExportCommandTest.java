@@ -74,12 +74,12 @@ public class ExportCommandTest {
         assertCommandFailure(exportCommand, model, MESSAGE_WRITE_ERROR);
     }
     @Test(expected = IOException.class)
-    public void emptyFileDirectoryVcardIOException() throws IOException {
+    public void emptyFileDirectoryVcardIoException() throws IOException {
         model.exportFile("", "vcf");
 
     }
     @Test(expected = IOException.class)
-    public void emptyFileDirectoryCsvIOException() throws IOException {
+    public void emptyFileDirectoryCsvIoException() throws IOException {
         model.exportFile("", "csv");
 
     }
