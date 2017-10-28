@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showFirstPersonOnly;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalRecycleBin;
 
 import org.junit.Test;
 
@@ -26,7 +26,7 @@ import seedu.address.model.person.ReadOnlyPerson;
  */
 public class BinDeleteCommandTest {
 
-    private Model model = new ModelManager(new AddressBook(), getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(new AddressBook(), getTypicalRecycleBin(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
