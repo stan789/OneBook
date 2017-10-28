@@ -4,6 +4,7 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalRecycleBin;
 
 import java.io.IOException;
 
@@ -63,9 +64,12 @@ public class StorageManagerTest {
          * More extensive testing of UserPref saving/reading is done in {@link XmlAddressBookStorageTest} class.
          */
         AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(new AddressBookData(original, new RecycleBin()));
+        RecycleBin bin = getTypicalRecycleBin();
+        storageManager.saveAddressBook(new AddressBookData(original, bin));
         ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get().getAddressBook();
+        ReadOnlyAddressBook retrievedBin = storageManager.readAddressBook().get().getRecycleBin();
         assertEquals(original, new AddressBook(retrieved));
+        assertEquals(bin, new RecycleBin(retrievedBin));
     }
 
     @Test
