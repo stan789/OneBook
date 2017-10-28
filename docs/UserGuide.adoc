@@ -130,6 +130,7 @@ Format: `find MAIN_KEYWORD KEYWORD [MORE_KEYWORDS]`
 * Accepted main keywords: *name* / *address* / *email* / *phone* / *birthday* / *tag* / *org* (organisation).
 * The search is case insensitive. e.g `name hans` will return `Hans`
 * The order of the keywords does not matter. e.g. `name Hans Bo` will return `Bo Hans`
+* The search filter applies to the current list displayed
 * Partial words will still be matched e.g. `name Han` will return `Hans`
 * *name* / *email* / *phone* / *tag*: Persons containing at least one keyword will be returned (i.e. `OR` search). e.g. `name Hans Bo` will return `Hans Gruber`, `Bo Yang`
 * *address* / *org*: Persons containing all the keywords will be returned (i.e. `AND` search). e.g. `address Serangoon Street 4` will not return `Serangoon Street 6`
@@ -147,6 +148,9 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 Returns any person having an email containing `johndoe`
 * `find address Geylang Street 5` +
 Returns only persons having an address containing `Geylang Street 5`
+* `bin` +
+`find name Jake` +
+Returns any person with the name `Jake`
 
 === Deleting a person : `delete`
 
@@ -178,7 +182,7 @@ Selects the person identified by the index number used in the last person listin
 Format: `select INDEX`
 
 ****
-* Selects and loads the address of the person at the specified `INDEX` in Google Maps.
+* Selects and loads the details and address of the person at the specified `INDEX` in Google Maps.
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -191,6 +195,9 @@ Selects the 2nd person in the address book.
 * `find Betsy` +
 `select 1` +
 Selects the 1st person in the results of the `find` command.
+* `bin` +
+`select 2` +
+Selects the 2nd person in the recycle bin.
 
 === Listing entered commands : `history`
 
@@ -266,12 +273,16 @@ Format: `sort MAIN_KEYWORD KEYWORD [MORE_KEYWORDS]`
 ****
 * The main keyword determines the search field (i.e. *name*/*email*).
 * At least one contact must be in OneBook before sorting.
+* The sort applies to the current listing displayed.
 ****
 
 Examples:
 
 * `sort name`
 * `sort email`
+* `bin` +
+`sort name` +
+Sorts the recycle bin entries in alphabetical order of their name.
 
 
 === Importing a VCard file(.vcf) to OneBook : `import`
@@ -310,6 +321,49 @@ Examples:
 * `export /Users/user/Downloads/contacts.vcf` (MAC OSX)
 * `export/Users/user/Desktop/OneBook.vcf` (MAC OSX)
 
+=== Recycle Bin : `bin`
+
+Shows a list of deleted persons. +
+Format: `bin`
+
+****
+* The listing will be replaced with recycle bin entries.
+****
+
+=== Restore entry from recycle bin : `restore`
+
+Restore the specified person from the bin to the address book. +
+Format: `restore INDEX`
+
+****
+* Restores the person at the specified `INDEX`.
+* The index refers to the index number shown in the bin listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `bin` +
+`restore 2` +
+Restores the 2nd person in recycle bin to the address book. +
+
+=== Remove entry from recycle bin : `bindelete`
+
+Restore the specified person from the bin to the address book. +
+Format: `bindelete INDEX`
+
+****
+* Restores the person at the specified `INDEX`.
+* The index refers to the index number shown in the bin listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `bin` +
+`bindelete 2` +
+Removes the 2nd person in recycle bin. +
+
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -320,54 +374,10 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-=== Recycle Bin : `bin list` [yellow]#*Coming in v2.0#
-
-Shows a list of deleted persons. +
-Format: `bin`
-
-****
-* The listing will be replaced with recycle bin entries.
-* Entries listed here will be automatically removed 7 days after deletion
-****
-
-=== Restore entry from recycle bin : `bin restore` [yellow]#*Coming in v2.0#
-
-Restore the specified person from the bin to the address book. +
-Format: `bin restore INDEX`
-
-****
-* Restores the person at the specified `INDEX`.
-* The index refers to the index number shown in the bin listing.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `bin list` +
-`bin restore 2` +
-Restores the 2nd person in recycle bin to the address book. +
-
-=== Remove entry from recycle bin : `bin delete` [yellow]#*Coming in v2.0#
-
-Restore the specified person from the bin to the address book. +
-Format: `bin remove INDEX`
-
-****
-* Restores the person at the specified `INDEX`.
-* The index refers to the index number shown in the bin listing.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `bin list` +
-`bin remove 2` +
-Removes the 2nd person in recycle bin. +
-
 === Remove all entry in recycle bin : `bin clear` [yellow]#*Coming in v2.0#
 
 Clears the recycle bin. +
-Format: `bin clear`
+Format: `binclear`
 
 
 == FAQ
