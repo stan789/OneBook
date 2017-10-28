@@ -37,10 +37,10 @@ public class XmlAddressBookStorageTest {
         readAddressBook(null);
     }
 
-    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<AddressBookData> readAddressBook(String filePath) throws Exception {
         Optional<AddressBookData> data = new XmlAddressBookStorage(filePath)
                                             .readAddressBook(addToTestDataPathIfNotNull(filePath));
-        return data.isPresent() ? Optional.of(data.get().getAddressBook()) : Optional.empty();
+        return data.isPresent() ? Optional.of(data.get()) : Optional.empty();
     }
 
     private String addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
