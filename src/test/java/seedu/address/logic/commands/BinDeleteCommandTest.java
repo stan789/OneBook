@@ -23,7 +23,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteCommand}.
+ * Contains integration tests (interaction with the Model) and unit tests for {@code BinDeleteCommand}.
  */
 public class BinDeleteCommandTest {
 
@@ -110,7 +110,7 @@ public class BinDeleteCommandTest {
     }
 
     /**
-     * Returns a {@code DeleteCommand} with the parameter {@code index}.
+     * Returns a {@code BinDeleteCommand} with the parameter {@code index}.
      */
     private BinDeleteCommand prepareCommand(Index index) {
         BinDeleteCommand binDeleteCommand = new BinDeleteCommand(index);

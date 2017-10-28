@@ -23,7 +23,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteCommand}.
+ * Contains integration tests (interaction with the Model) and unit tests for {@code RestoreCommand}.
  */
 public class RestoreCommandTest {
 
@@ -110,7 +110,7 @@ public class RestoreCommandTest {
     }
 
     /**
-     * Returns a {@code DeleteCommand} with the parameter {@code index}.
+     * Returns a {@code RestoreCommand} with the parameter {@code index}.
      */
     private RestoreCommand prepareCommand(Index index) {
         RestoreCommand restoreCommand = new RestoreCommand(index);

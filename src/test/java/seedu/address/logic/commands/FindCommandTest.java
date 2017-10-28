@@ -73,7 +73,7 @@ public class FindCommandTest {
     public void execute_zeroKeywords_noPersonFound_binMode() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         FindCommand command = prepareCommandBinMode(" ");
-        assertCommandSuccess_binMode(command, expectedMessage, Collections.emptyList());
+        assertCommandSuccess(command, expectedMessage, Collections.emptyList());
     }
 
     @Test
@@ -87,7 +87,7 @@ public class FindCommandTest {
     public void execute_multipleKeywords_multiplePersonsFound_binMode() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         FindCommand command = prepareCommandBinMode("Best Elle Kunz");
-        assertCommandSuccess_binMode(command, expectedMessage, Arrays.asList(ELLE, FIONA, GEORGE));
+        assertCommandSuccess(command, expectedMessage, Arrays.asList(ELLE, FIONA, GEORGE));
     }
 
     /**
@@ -117,25 +117,12 @@ public class FindCommandTest {
      */
     private void assertCommandSuccess(FindCommand command, String expectedMessage, List<ReadOnlyPerson> expectedList) {
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
-        CommandResult commandResult = command.execute();
-
-        assertEquals(expectedMessage, commandResult.feedbackToUser);
-        assertEquals(expectedList, model.getFilteredPersonList());
-        assertEquals(expectedAddressBook, model.getAddressBook());
-    }
-
-    /**
-     * Asserts that {@code command} is successfully executed, and<br>
-     *     - the command feedback is equal to {@code expectedMessage}<br>
-     *     - the {@code FilteredList<ReadOnlyPerson>} is equal to {@code expectedList}<br>
-     *     - the {@code AddressBook} in model remains the same after executing the {@code command}
-     */
-    private void assertCommandSuccess_binMode(FindCommand command, String expectedMessage, List<ReadOnlyPerson> expectedList) {
         RecycleBin expectedRecycleBin = new RecycleBin(model.getRecycleBin());
         CommandResult commandResult = command.execute();
 
         assertEquals(expectedMessage, commandResult.feedbackToUser);
         assertEquals(expectedList, model.getFilteredPersonList());
+        assertEquals(expectedAddressBook, model.getAddressBook());
         assertEquals(expectedRecycleBin, model.getRecycleBin());
     }
 }

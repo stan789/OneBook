@@ -127,7 +127,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the first person in the {@code model}'s address book.
+     * Updates {@code model}'s filtered list to show only the first person in the {@code model}'s address book / bin
      */
     public static void showFirstPersonOnly(Model model, boolean binMode) {
         ReadOnlyPerson person = (binMode) ? model.getRecycleBin().getPersonList().get(0)
