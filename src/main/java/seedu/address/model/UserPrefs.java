@@ -38,14 +38,6 @@ public class UserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
-    public String getRecycleBinFilePath () {
-        return recycleBinFilePath;
-    }
-
-    public void setRecycleBinFilePath (String recycleBinFilePath) {
-        this.recycleBinFilePath = recycleBinFilePath;
-    }
-
     public String getAddressBookName() {
         return addressBookName;
     }
@@ -73,7 +65,7 @@ public class UserPrefs {
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, recycleBinFilePath, addressBookName);
+        return Objects.hash(guiSettings, addressBookFilePath, addressBookName);
     }
 
     @Override
