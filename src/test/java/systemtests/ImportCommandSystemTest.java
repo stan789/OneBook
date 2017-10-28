@@ -18,7 +18,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.RecycleBin;
 import seedu.address.storage.AddressBookData;
-import seedu.address.testutil.TypicalPersons;
 
 
 public class ImportCommandSystemTest extends AddressBookSystemTest {

@@ -6,7 +6,6 @@ import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.MainWindowHandle;
 import seedu.address.TestApp;
-import seedu.address.storage.AddressBookData;
 import seedu.address.testutil.TypicalPersons;
 
 /**

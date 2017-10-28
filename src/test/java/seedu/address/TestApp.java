@@ -14,7 +14,6 @@ import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.RecycleBin;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.AddressBookData;
@@ -48,9 +47,9 @@ public class TestApp extends MainApp {
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-                createDataFileWithData(new XmlSerializableAddressBookCombined(
-                        this.initialDataSupplier.get().getAddressBook(),
-                        this.initialDataSupplier.get().getRecycleBin()), this.saveFileLocation);
+            createDataFileWithData(new XmlSerializableAddressBookCombined(
+                    this.initialDataSupplier.get().getAddressBook(),
+                    this.initialDataSupplier.get().getRecycleBin()), this.saveFileLocation);
         }
     }
 

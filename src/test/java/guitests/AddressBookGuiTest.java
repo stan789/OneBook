@@ -19,8 +19,6 @@ import guitests.guihandles.StatusBarFooterHandle;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.model.AddressBook;
-import seedu.address.model.RecycleBin;
 import seedu.address.storage.AddressBookData;
 import seedu.address.testutil.TypicalPersons;
 
