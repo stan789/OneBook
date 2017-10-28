@@ -129,8 +129,9 @@ public class CommandTestUtil {
     /**
      * Updates {@code model}'s filtered list to show only the first person in the {@code model}'s address book.
      */
-    public static void showFirstPersonOnly(Model model) {
-        ReadOnlyPerson person = model.getAddressBook().getPersonList().get(0);
+    public static void showFirstPersonOnly(Model model, boolean binMode) {
+        ReadOnlyPerson person = (binMode) ? model.getRecycleBin().getPersonList().get(0)
+                                          : model.getAddressBook().getPersonList().get(0);
         final String[] splitName = person.getName().fullName.split("\\s+");
         model.updateFilteredPersonList(new ContainsKeywordsPredicate(Arrays.asList(splitName[0]), "name"));
 

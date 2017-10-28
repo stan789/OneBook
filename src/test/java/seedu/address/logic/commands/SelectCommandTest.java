@@ -58,14 +58,14 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showFirstPersonOnly(model);
+        showFirstPersonOnly(model, false);
 
         assertExecutionSuccess(INDEX_FIRST_PERSON);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_failure() {
-        showFirstPersonOnly(model);
+        showFirstPersonOnly(model, false);
 
         Index outOfBoundsIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list

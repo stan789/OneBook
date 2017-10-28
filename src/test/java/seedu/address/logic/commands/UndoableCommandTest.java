@@ -29,7 +29,7 @@ public class UndoableCommandTest {
         deleteFirstPerson(expectedModel);
         assertEquals(expectedModel, model);
 
-        showFirstPersonOnly(model);
+        showFirstPersonOnly(model, false);
 
         // undo() should cause the model's filtered list to show all persons
         dummyCommand.undo();
@@ -39,7 +39,7 @@ public class UndoableCommandTest {
 
     @Test
     public void redo() {
-        showFirstPersonOnly(model);
+        showFirstPersonOnly(model, false);
 
         // redo() should cause the model's filtered list to show all persons
         dummyCommand.redo();

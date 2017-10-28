@@ -15,98 +15,103 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.RecycleBin;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteCommand}.
  */
-public class DeleteCommandTest {
+public class BinDeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new RecycleBin(), new UserPrefs());
+    private Model model = new ModelManager(new AddressBook(), getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
+        model.setBinDisplay();
         ReadOnlyPerson personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_PERSON);
+        BinDeleteCommand binDeleteCommand = prepareCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS + personToDelete;
+        String expectedMessage = BinDeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS + personToDelete;
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getRecycleBin(), new UserPrefs());
-        expectedModel.deletePerson(personToDelete);
+        expectedModel.setBinDisplay();
+        expectedModel.deleteFromBin(personToDelete);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(binDeleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() throws Exception {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
+        BinDeleteCommand binDeleteCommand = prepareCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(binDeleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validIndexFilteredList_success() throws Exception {
-        showFirstPersonOnly(model, false);
+        model.setBinDisplay();
+        showFirstPersonOnly(model, true);
 
         ReadOnlyPerson personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_PERSON);
+        BinDeleteCommand binDeleteCommand = prepareCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS + personToDelete;
+        String expectedMessage = BinDeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS + personToDelete;
 
         Model expectedModel = new ModelManager(model.getAddressBook(), model.getRecycleBin(), new UserPrefs());
-        expectedModel.deletePerson(personToDelete);
+        expectedModel.setBinDisplay();
+        expectedModel.deleteFromBin(personToDelete);
         showNoPerson(expectedModel);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(binDeleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showFirstPersonOnly(model, false);
+        model.setBinDisplay();
+        showFirstPersonOnly(model, true);
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getRecycleBin().getPersonList().size());
 
-        DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
+        BinDeleteCommand binDeleteCommand = prepareCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(binDeleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_PERSON);
+        BinDeleteCommand binDeleteFirstCommand = new BinDeleteCommand(INDEX_FIRST_PERSON);
+        BinDeleteCommand binDeleteSecondCommand = new BinDeleteCommand(INDEX_SECOND_PERSON);
 
         // same object -> returns true
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
+        assertTrue(binDeleteFirstCommand.equals(binDeleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_PERSON);
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+        BinDeleteCommand deleteFirstCommandCopy = new BinDeleteCommand(INDEX_FIRST_PERSON);
+        assertTrue(binDeleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(deleteFirstCommand.equals(1));
+        assertFalse(binDeleteFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(deleteFirstCommand.equals(null));
+        assertFalse(binDeleteFirstCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+        assertFalse(binDeleteFirstCommand.equals(binDeleteSecondCommand));
     }
 
     /**
      * Returns a {@code DeleteCommand} with the parameter {@code index}.
      */
-    private DeleteCommand prepareCommand(Index index) {
-        DeleteCommand deleteCommand = new DeleteCommand(index);
-        deleteCommand.setData(model, new CommandHistory(), new UndoRedoStack(), false);
-        return deleteCommand;
+    private BinDeleteCommand prepareCommand(Index index) {
+        BinDeleteCommand binDeleteCommand = new BinDeleteCommand(index);
+        binDeleteCommand.setData(model, new CommandHistory(), new UndoRedoStack(), true);
+        return binDeleteCommand;
     }
 
     /**
