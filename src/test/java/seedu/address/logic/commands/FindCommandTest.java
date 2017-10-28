@@ -10,6 +10,8 @@ import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.GEORGE;
+import static seedu.address.testutil.TypicalPersons.JEAN;
+import static seedu.address.testutil.TypicalPersons.KEN;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalRecycleBin;
 
@@ -79,15 +81,15 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-        FindCommand command = prepareCommand("Kurz Elle Meier");
-        assertCommandSuccess(command, expectedMessage, Arrays.asList(BENSON, CARL, DANIEL));
+        FindCommand command = prepareCommand("Kurz Elle Kunz");
+        assertCommandSuccess(command, expectedMessage, Arrays.asList(CARL, ELLE, FIONA));
     }
 
     @Test
     public void execute_multipleKeywords_multiplePersonsFoundBinMode() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-        FindCommand command = prepareCommandBinMode("Best Elle Kunz");
-        assertCommandSuccess(command, expectedMessage, Arrays.asList(ELLE, FIONA, GEORGE));
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+        FindCommand command = prepareCommandBinMode("Ken Meier Kunz");
+        assertCommandSuccess(command, expectedMessage, Arrays.asList(JEAN, KEN));
     }
 
     /**
