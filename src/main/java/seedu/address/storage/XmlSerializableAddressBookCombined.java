@@ -28,10 +28,6 @@ public class XmlSerializableAddressBookCombined {
     /**
      * Conversion
      */
-    public XmlSerializableAddressBookCombined(ReadOnlyAddressBook addressBook) {
-        this();
-        this.addressBook = new XmlSerializableAddressBook(addressBook);
-    }
 
     public XmlSerializableAddressBookCombined(ReadOnlyAddressBook addressBook, ReadOnlyAddressBook recycleBin) {
         this();

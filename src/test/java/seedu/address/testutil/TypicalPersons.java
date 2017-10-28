@@ -23,6 +23,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.RecycleBin;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.storage.AddressBookData;
 
 
 /**
@@ -130,6 +131,10 @@ public class TypicalPersons {
 
     public static List<ReadOnlyPerson> getTypicalPersonsForBin() {
         return new ArrayList<>(Arrays.asList(JEAN, KEN));
+    }
+
+    public static AddressBookData getTypicalData() {
+        return new AddressBookData(getTypicalAddressBook(), getTypicalRecycleBin());
     }
 
 }

@@ -15,7 +15,9 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.RecycleBin;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.AddressBookData;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlSerializableAddressBookCombined;
 import seedu.address.testutil.TestUtil;
@@ -33,21 +35,22 @@ public class TestApp extends MainApp {
     protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     protected static final String ADDRESS_BOOK_NAME = "Test";
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
+    protected Supplier<AddressBookData> initialDataSupplier = () -> null;
     protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, String saveFileLocation) {
+    public TestApp(Supplier<AddressBookData> initialDataSupplier, String saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            createDataFileWithData(new XmlSerializableAddressBookCombined(this.initialDataSupplier.get()),
-                    this.saveFileLocation);
+                createDataFileWithData(new XmlSerializableAddressBookCombined(
+                        this.initialDataSupplier.get().getAddressBook(),
+                        this.initialDataSupplier.get().getRecycleBin()), this.saveFileLocation);
         }
     }
 
@@ -78,6 +81,19 @@ public class TestApp extends MainApp {
             return new AddressBook(storage.readAddressBook().get().getAddressBook());
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the AddressBook format.");
+        } catch (IOException ioe) {
+            throw new AssertionError("Storage file cannot be found.");
+        }
+    }
+
+    /**
+     * Returns a defensive copy of the recycle bin data stored inside the storage file.
+     */
+    public RecycleBin readStorageRecycleBin() {
+        try {
+            return new RecycleBin(storage.readAddressBook().get().getRecycleBin());
+        } catch (DataConversionException dce) {
+            throw new AssertionError("Data is not in the RecycleBin format.");
         } catch (IOException ioe) {
             throw new AssertionError("Storage file cannot be found.");
         }
