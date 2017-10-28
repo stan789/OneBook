@@ -64,6 +64,12 @@ public interface Model {
     /** Toggle display to show bin */
     void setBinDisplay();
 
+    /** Returns an unmodifiable view of the address book person list */
+    ObservableList<ReadOnlyPerson> getAddressBookList();
+
+    /** Returns an unmodifiable view of the recycle bin list */
+    ObservableList<ReadOnlyPerson> getRecycleBinList();
+
     /**
      * Updates the filter of the filtered bin list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.

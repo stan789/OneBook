@@ -171,11 +171,23 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void setListDisplay() {
         this.filteredPersons = filteredAddresses;
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
     public void setBinDisplay() {
         this.filteredPersons = filteredBin;
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public ObservableList<ReadOnlyPerson> getAddressBookList() {
+        return filteredAddresses;
+    }
+
+    @Override
+    public ObservableList<ReadOnlyPerson> getRecycleBinList() {
+        return filteredBin;
     }
 
     @Override
@@ -193,8 +205,8 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-                && filteredPersons.equals(other.filteredPersons)
-                && filteredBin.equals(other.filteredBin);
+                && recycleBin.equals(other.recycleBin)
+                && filteredPersons.equals(other.filteredPersons);
     }
 
 }
