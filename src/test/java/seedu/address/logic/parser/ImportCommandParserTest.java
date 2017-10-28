@@ -33,7 +33,7 @@ public class ImportCommandParserTest {
     @Test
     public void parse_invalidArgsCreateWrongFileFormat_throwsParserException() {
         String location = "src/test/data/ConfigUtilTest/TypicalConfig.json";
-        assertParseFailure(parser, location, ImportCommandParser.FILE_WRONG_ROMAT);
+        assertParseFailure(parser, location, ImportCommandParser.FILE_WRONG_FORMAT);
 
     }
     @Test
