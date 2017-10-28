@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -29,7 +30,7 @@ import seedu.address.model.person.ReadOnlyPerson;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new RecycleBin(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -66,9 +67,23 @@ public class FindCommandTest {
     }
 
     @Test
+    public void execute_zeroKeywords_noPersonFound_BinMode() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        FindCommand command = prepareCommandBinMode(" ");
+        assertCommandSuccess(command, expectedMessage, Collections.emptyList());
+    }
+
+    @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         FindCommand command = prepareCommand("Kurz Elle Kunz");
+        assertCommandSuccess(command, expectedMessage, Arrays.asList(CARL, ELLE, FIONA));
+    }
+
+    @Test
+    public void execute_multipleKeywords_multiplePersonsFound_BinMode() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+        FindCommand command = prepareCommandBinMode("Kurz Elle Kunz");
         assertCommandSuccess(command, expectedMessage, Arrays.asList(CARL, ELLE, FIONA));
     }
 
@@ -78,7 +93,16 @@ public class FindCommandTest {
     private FindCommand prepareCommand(String userInput) {
         FindCommand command =
                 new FindCommand(new ContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")), "name"));
+        model.setListDisplay();
         command.setData(model, new CommandHistory(), new UndoRedoStack(), false);
+        return command;
+    }
+
+    private FindCommand prepareCommandBinMode(String userInput) {
+        FindCommand command =
+                new FindCommand(new ContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s")), "name"));
+        model.setBinDisplay();
+        command.setData(model, new CommandHistory(), new UndoRedoStack(), true);
         return command;
     }
 
