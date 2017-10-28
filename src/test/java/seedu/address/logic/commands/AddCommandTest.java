@@ -155,6 +155,18 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<ReadOnlyPerson> getAddressBookList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public ObservableList<ReadOnlyPerson> getRecycleBinList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
         public void setListDisplay() {
             fail("This method should not be called.");
         }
