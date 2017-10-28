@@ -40,7 +40,7 @@ public class SortCommandTest {
     }
 
     @Test
-    public void execute_sortByName_sortSuccess_binMode() throws EmptyAddressBookException {
+    public void execute_sortByName_sortSuccessBinMode() throws EmptyAddressBookException {
         SortCommand sortCommand = prepareCommand_binMode(SORT_NAME);
 
         String expectedMessage = SortCommand.MESSAGE_SUCCESS;
@@ -59,7 +59,7 @@ public class SortCommandTest {
     }
 
     @Test
-    public void execute_sortByEmail_sortSuccess_binMode() throws EmptyAddressBookException {
+    public void execute_sortByEmail_sortSuccessBinMode() throws EmptyAddressBookException {
         SortCommand sortCommand = prepareCommand_binMode(SORT_EMAIL);
 
         String expectedMessage = SortCommand.MESSAGE_SUCCESS;
@@ -85,6 +85,9 @@ public class SortCommandTest {
         return command;
     }
 
+    /**
+     * Generates a new {@code SortCommand} which upon execution, sorts the AddressBook, used for when bin is displayed
+     */
     private SortCommand prepareCommand_binMode(String sortType) {
         SortCommand command = new SortCommand(sortType);
         model.setBinDisplay();

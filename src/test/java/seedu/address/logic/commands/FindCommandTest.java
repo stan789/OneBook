@@ -70,7 +70,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound_binMode() {
+    public void execute_zeroKeywords_noPersonFoundBinMode() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         FindCommand command = prepareCommandBinMode(" ");
         assertCommandSuccess(command, expectedMessage, Collections.emptyList());
@@ -84,7 +84,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound_binMode() {
+    public void execute_multipleKeywords_multiplePersonsFoundBinMode() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         FindCommand command = prepareCommandBinMode("Best Elle Kunz");
         assertCommandSuccess(command, expectedMessage, Arrays.asList(ELLE, FIONA, GEORGE));
@@ -101,6 +101,10 @@ public class FindCommandTest {
         return command;
     }
 
+
+    /**
+     * Parses {@code userInput} into a {@code FindCommand}, used for when bin is displayed
+     */
     private FindCommand prepareCommandBinMode(String userInput) {
         FindCommand command =
                 new FindCommand(new ContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s")), "name"));
