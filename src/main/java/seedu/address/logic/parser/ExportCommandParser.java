@@ -13,6 +13,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 public class ExportCommandParser implements Parser<ExportCommand> {
 
+    public  static final String INVALID_DIRECTORY = "The directory given is invalid.";
+    public  static final String INVALID_FILE_NAME = "The format for the file name is invalid.";
+    public static final String VCF_EXTENSION = "vcf";
+    public static final String CSV_EXTENSION = "csv";
+    public static final String INVALID_EXTENSION = "File created should end with .vcf or .csv extension.";
+
+
 
     /**
      * Parses the given {@code String} of arguments in the context of the ExportCommand
@@ -29,17 +36,17 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         String directory = trimmedArgs.substring(0, trimmedArgs.lastIndexOf("/") + 1);
         File dir = new File(directory);
         if (!dir.isDirectory()) {
-            throw new ParseException("Invalid Directory.");
+            throw new ParseException(INVALID_DIRECTORY);
         }
 
         String fileName = trimmedArgs.substring(trimmedArgs.lastIndexOf("/") + 1, trimmedArgs.lastIndexOf("."));
         if (!fileName.matches("[A-Za-z0-9.-_]+")) {
-            throw new ParseException("Format for file name is invalid.");
+            throw new ParseException(INVALID_FILE_NAME);
         }
 
         String extension = trimmedArgs.substring(trimmedArgs.lastIndexOf(".") + 1, trimmedArgs.length());
-        if (!extension.equals("vcf") && !extension.equals("csv")) {
-            throw new ParseException("File created should end with .vcf or .csv");
+        if (!extension.equals(VCF_EXTENSION) && !extension.equals(CSV_EXTENSION)) {
+            throw new ParseException(INVALID_EXTENSION);
         }
 
         return new ExportCommand(trimmedArgs, fileName, extension);
