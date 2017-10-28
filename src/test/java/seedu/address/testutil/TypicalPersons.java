@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.RecycleBin;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
@@ -103,6 +104,26 @@ public class TypicalPersons {
     }
 
     public static List<ReadOnlyPerson> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL));
     }
+
+    /**
+     * Returns a {@code RecycleBin} with all the typical persons.
+     */
+    public static RecycleBin getTypicalRecycleBin() {
+        RecycleBin rb = new RecycleBin();
+        for (ReadOnlyPerson person : getTypicalPersonsForBin()) {
+            try {
+                rb.addPerson(person);
+            } catch (DuplicatePersonException e) {
+                assert false : "not possible";
+            }
+        }
+        return rb;
+    }
+
+    public static List<ReadOnlyPerson> getTypicalPersonsForBin() {
+        return new ArrayList<>(Arrays.asList(ELLE, FIONA, GEORGE));
+    }
+
 }
