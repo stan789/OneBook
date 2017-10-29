@@ -18,9 +18,11 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.BinListCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
@@ -247,6 +249,23 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         /* Case: find without main keyword -> rejected */
         command = "find" + " " + KEYWORD_MATCHING_MEIER;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+
+        /* Case: switch to bin display and filter -> switch to bin display -> 1 person found */
+        executeCommand(BinListCommand.COMMAND_WORD);
+        expectedModel.setBinDisplay();
+        command = "find" + " " + FindCommand.KEYWORD_NAME + " " + "Ken";
+        assertCommandSuccess(command, expectedModel);
+
+        /* Case: switch back to list mode and find -> 0 persons found*/
+        executeCommand(ListCommand.COMMAND_WORD);
+        executeCommand(ClearCommand.COMMAND_WORD);
+        assert getModel().getAddressBook().getPersonList().size() == 0;
+        command = FindCommand.COMMAND_WORD + " " + FindCommand.KEYWORD_NAME + " " + KEYWORD_MATCHING_MEIER;
+        expectedModel = getModel();
+        expectedModel.setListDisplay();
+        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
     }
 

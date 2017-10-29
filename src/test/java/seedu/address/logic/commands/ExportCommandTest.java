@@ -16,6 +16,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.RecycleBin;
 import seedu.address.model.UserPrefs;
 
 public class ExportCommandTest {
@@ -25,8 +26,8 @@ public class ExportCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), new RecycleBin(), new UserPrefs());
+        expectedModel = new ModelManager(getTypicalAddressBook(), new RecycleBin(), new UserPrefs());
     }
 
     @Test
@@ -60,7 +61,7 @@ public class ExportCommandTest {
      */
     private ExportCommand prepareCommand(String fileLocation) {
         ExportCommand command = new ExportCommand(fileLocation);
-        command.setData(model, new CommandHistory(), new UndoRedoStack());
+        command.setData(model, new CommandHistory(), new UndoRedoStack(), false);
         return command;
     }
 }

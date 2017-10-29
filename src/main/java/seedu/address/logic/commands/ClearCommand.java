@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.commands.PersonDeletedEvent;
 import seedu.address.model.AddressBook;
+import seedu.address.model.RecycleBin;
+import seedu.address.storage.AddressBookData;
 
 /**
  * Clears the address book.
@@ -18,7 +20,7 @@ public class ClearCommand extends UndoableCommand {
     @Override
     public CommandResult executeUndoableCommand() {
         requireNonNull(model);
-        model.resetData(new AddressBook());
+        model.resetData(new AddressBookData(new AddressBook(), new RecycleBin()));
         EventsCenter.getInstance().post(new PersonDeletedEvent());
         return new CommandResult(MESSAGE_SUCCESS);
     }

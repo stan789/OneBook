@@ -20,8 +20,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.RecycleBin;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.storage.AddressBookData;
 
 
 /**
@@ -60,6 +62,12 @@ public class TypicalPersons {
     public static final ReadOnlyPerson IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
             .withBirthday("09-09-1999").withEmail("hans@example.com").withAddress("chicago ave")
             .withOrganisation("P&G").build();
+    public static final ReadOnlyPerson JEAN = new PersonBuilder().withName("Jean Meier").withPhone("8481313")
+            .withBirthday("10-10-2000").withEmail("jumpy@example.com").withAddress("little japan")
+            .withOrganisation("Unilever").build();
+    public static final ReadOnlyPerson KEN = new PersonBuilder().withName("Ken Mueller").withPhone("8483737")
+            .withBirthday("11-11-2001").withEmail("kitkat@example.com").withAddress("beansprout ave")
+            .withOrganisation("P&G").build();
     public static final ReadOnlyPerson PERSON_WITH_MISSING_PHONE = new PersonBuilder().withName("Jake")
             .withBirthday("07-01-1995").withEmail("personmissingphone@example.com").withAddress("Chinatown")
             .withOrganisation("Ernst & Young").build();
@@ -88,7 +96,7 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code AddressBook} with four of the typical persons.
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
@@ -105,4 +113,28 @@ public class TypicalPersons {
     public static List<ReadOnlyPerson> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
+
+    /**
+     * Returns a {@code RecycleBin} with three of the typical persons.
+     */
+    public static RecycleBin getTypicalRecycleBin() {
+        RecycleBin rb = new RecycleBin();
+        for (ReadOnlyPerson person : getTypicalPersonsForBin()) {
+            try {
+                rb.addPerson(person);
+            } catch (DuplicatePersonException e) {
+                assert false : "not possible";
+            }
+        }
+        return rb;
+    }
+
+    public static List<ReadOnlyPerson> getTypicalPersonsForBin() {
+        return new ArrayList<>(Arrays.asList(JEAN, KEN));
+    }
+
+    public static AddressBookData getTypicalData() {
+        return new AddressBookData(getTypicalAddressBook(), getTypicalRecycleBin());
+    }
+
 }

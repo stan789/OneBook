@@ -20,6 +20,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.EmptyAddressBookException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.storage.AddressBookData;
 import seedu.address.storage.ExportVCardFile;
 import seedu.address.storage.ImportVCardFile;
 
@@ -31,34 +32,47 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final FilteredList<ReadOnlyPerson> filteredPersons;
+    private final RecycleBin recycleBin;
+    private FilteredList<ReadOnlyPerson> filteredPersons;
+    private final FilteredList<ReadOnlyPerson> filteredBin;
+    private final FilteredList<ReadOnlyPerson> filteredAddresses;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyAddressBook recycleBin, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, recycleBin, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.recycleBin = new RecycleBin(recycleBin);
+        filteredAddresses = new FilteredList<>(this.addressBook.getPersonList());
+        filteredBin = new FilteredList<>(this.recycleBin.getPersonList());
+        filteredPersons = filteredAddresses;
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new RecycleBin(), new UserPrefs());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        addressBook.resetData(newData);
+    public void resetData(AddressBookData newData) {
+        addressBook.resetData(newData.getAddressBook());
+        recycleBin.resetData(newData.getRecycleBin());
         indicateAddressBookChanged();
     }
 
     @Override
     public void executeSort(String sortType) throws EmptyAddressBookException {
         addressBook.executeSort(sortType);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void executeBinSort(String sortType) throws EmptyAddressBookException {
+        recycleBin.executeSort(sortType);
         indicateAddressBookChanged();
     }
 
@@ -89,14 +103,21 @@ public class ModelManager extends ComponentManager implements Model {
         return addressBook;
     }
 
+    @Override
+    public ReadOnlyAddressBook getRecycleBin() {
+        return recycleBin;
+    }
+
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(addressBook));
+        raise(new AddressBookChangedEvent(new AddressBookData(addressBook, recycleBin)));
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
+    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException,
+                                                                        DuplicatePersonException {
         addressBook.removePerson(target);
+        recycleBin.addPerson(target);
         indicateAddressBookChanged();
     }
 
@@ -104,6 +125,20 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addPerson(ReadOnlyPerson person) throws DuplicatePersonException {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void restorePerson(ReadOnlyPerson target) throws PersonNotFoundException,
+                                                                         DuplicatePersonException {
+        addressBook.addPerson(target);
+        recycleBin.removePerson(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void deleteFromBin(ReadOnlyPerson target) throws PersonNotFoundException {
+        recycleBin.removePerson(target);
         indicateAddressBookChanged();
     }
 
@@ -134,6 +169,28 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void setListDisplay() {
+        this.filteredPersons = filteredAddresses;
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void setBinDisplay() {
+        this.filteredPersons = filteredBin;
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public ObservableList<ReadOnlyPerson> getAddressBookList() {
+        return filteredAddresses;
+    }
+
+    @Override
+    public ObservableList<ReadOnlyPerson> getRecycleBinList() {
+        return filteredBin;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -148,6 +205,7 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
+                && recycleBin.equals(other.recycleBin)
                 && filteredPersons.equals(other.filteredPersons);
     }
 
