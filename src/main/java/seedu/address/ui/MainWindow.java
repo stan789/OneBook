@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.commands.DisplayBinEvent;
 import seedu.address.commons.events.commands.DisplayListFilteredEvent;
 import seedu.address.commons.events.commands.DisplayListResetEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
@@ -173,6 +174,19 @@ public class MainWindow extends UiPart<Region> {
         primaryStage.setTitle(appTitle);
     }
 
+    private void setListDisplay() {
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
+    private void switchListDisplay() {
+        logic.setListDisplay();
+    }
+
+    private void switchBinDisplay() {
+        logic.setBinDisplay();
+    }
+
     /**
      * Sets the given image as the icon of the main window.
      * @param iconSource e.g. {@code "/images/help_icon.png"}
@@ -244,12 +258,30 @@ public class MainWindow extends UiPart<Region> {
     @Subscribe
     private void handleDisplayListFilteredEvent(DisplayListFilteredEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        listName.textProperty().setValue("Filtered");
+        if (listName.textProperty().get().equals("List")) {
+            listName.textProperty().setValue("Filtered List");
+        } else if (listName.textProperty().get().equals("Bin")) {
+            listName.textProperty().setValue("Filtered Bin");
+        }
     }
 
     @Subscribe
     private void handleDisplayListResetEvent(DisplayListResetEvent event) {
+        if (listName.textProperty().get().equals("Bin") || listName.textProperty().get().equals("Filtered Bin")) {
+            switchListDisplay();
+            setListDisplay();
+        }
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         listName.textProperty().setValue("List");
+    }
+
+    @Subscribe
+    private void handleDisplayBinEvent(DisplayBinEvent event) {
+        if (listName.textProperty().get().equals("Filtered List") || listName.textProperty().get().equals("List")) {
+            switchBinDisplay();
+            setListDisplay();
+        }
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        listName.textProperty().setValue("Bin");
     }
 }

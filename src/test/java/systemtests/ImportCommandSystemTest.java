@@ -16,6 +16,8 @@ import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.RecycleBin;
+import seedu.address.storage.AddressBookData;
 
 
 public class ImportCommandSystemTest extends AddressBookSystemTest {
@@ -31,7 +33,8 @@ public class ImportCommandSystemTest extends AddressBookSystemTest {
         String command = ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/OneBook.vcf";
         executeCommand(ExportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/OneBook.vcf");
         executeCommand(ClearCommand.COMMAND_WORD);
-        expectedModel.resetData(new AddressBook());
+        model.resetData(new AddressBookData(model.getAddressBook(), new RecycleBin()));
+        expectedModel.resetData(new AddressBookData(new AddressBook(), new RecycleBin()));
         try {
             count = expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/OneBook.vcf"));
         } catch (IOException e) {
@@ -51,7 +54,7 @@ public class ImportCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: import VCard file with valid format to empty address book -> import successful */
         executeCommand(ClearCommand.COMMAND_WORD);
-        expectedModel.resetData(new AddressBook());
+        expectedModel.resetData(new AddressBookData(new AddressBook(), new RecycleBin()));
         command = ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/contacts.vcf";
         try {
             count = expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"));
@@ -60,6 +63,16 @@ public class ImportCommandSystemTest extends AddressBookSystemTest {
         }
         assertCommandSuccess(command, count, expectedModel);
 
+        /* Case: import VCard file with name only -> import successful */
+        executeCommand(ClearCommand.COMMAND_WORD);
+        expectedModel.resetData(new AddressBookData());
+        command = ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/name_only.vcf";
+        try {
+            count = expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/name_only.vcf"));
+        } catch (IOException e) {
+            assertCommandFailure(command, MESSAGE_FILE_INVALID, expectedModel);
+        }
+        assertCommandSuccess(command, count, expectedModel);
     }
 
     @After
