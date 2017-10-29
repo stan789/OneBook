@@ -90,6 +90,7 @@ public class ExportCommandTest {
      */
     private ExportCommand prepareCommand(String fileLocation, String fileName, String extension) {
         ExportCommand command = new ExportCommand(fileLocation, fileName, extension);
-        command.setData(model, new CommandHistory(), new UndoRedoStack());
+        command.setData(model, new CommandHistory(), new UndoRedoStack(), false);
+        return command;
     }
 }

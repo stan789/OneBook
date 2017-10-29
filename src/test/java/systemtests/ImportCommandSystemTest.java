@@ -65,7 +65,7 @@ public class ImportCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: import VCard file with name only -> import successful */
         executeCommand(ClearCommand.COMMAND_WORD);
-        expectedModel.resetData(new AddressBook());
+        expectedModel.resetData(new AddressBookData());
         command = ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/name_only.vcf";
         try {
             count = expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/name_only.vcf"));
