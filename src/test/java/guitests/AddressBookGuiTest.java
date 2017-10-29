@@ -19,7 +19,7 @@ import guitests.guihandles.StatusBarFooterHandle;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.model.AddressBook;
+import seedu.address.storage.AddressBookData;
 import seedu.address.testutil.TypicalPersons;
 
 /**
@@ -63,8 +63,10 @@ public abstract class AddressBookGuiTest {
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
-    protected AddressBook getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+    protected AddressBookData getInitialData() {
+        AddressBookData data = new AddressBookData(TypicalPersons.getTypicalAddressBook(),
+                                                   TypicalPersons.getTypicalRecycleBin());
+        return data;
     }
 
     protected CommandBoxHandle getCommandBox() {
