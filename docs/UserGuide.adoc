@@ -305,7 +305,7 @@ Examples:
 
 === Exporting from OneBook to VCard file(.vcf) or CSV file(.csv) : `export`
 
-Create a VCard file and export from OneBook to directory +
+Create a VCard file or CSV File and export from OneBook to the file directory +
 Format: `export [file directory]`
 
 ****
