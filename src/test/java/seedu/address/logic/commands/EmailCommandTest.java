@@ -1,7 +1,17 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static seedu.address.logic.commands.CommandTestUtil.showFirstPersonOnly;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -14,16 +24,6 @@ import seedu.address.model.UserPrefs;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static seedu.address.logic.commands.CommandTestUtil.showFirstPersonOnly;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-
 public class EmailCommandTest {
 
     private Model model;
