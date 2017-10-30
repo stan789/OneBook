@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -117,6 +118,7 @@ public class XmlAddressBookStorageTest {
      */
     private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
         try {
+            requireNonNull(addressBook);
             new XmlAddressBookStorage(filePath)
                     .saveAddressBook(new AddressBookData(addressBook, new RecycleBin()),
                                                          addToTestDataPathIfNotNull(filePath));
