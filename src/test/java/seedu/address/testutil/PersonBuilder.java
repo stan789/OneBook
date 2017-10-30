@@ -11,6 +11,7 @@ import seedu.address.model.person.Organisation;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -25,6 +26,7 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_ORGANISATION = "Microsoft Corporation";
+    public static final String DEFAULT_REMARK = "Meeting for dinner at 6pm Nex";
     public static final String DEFAULT_TAGS = "friends";
 
     private Person person;
@@ -37,9 +39,10 @@ public class PersonBuilder {
             Email defaultEmail = new Email(DEFAULT_EMAIL);
             Address defaultAddress = new Address(DEFAULT_ADDRESS);
             Organisation defaultOrganisation = new Organisation(DEFAULT_ORGANISATION);
+            Remark defaultRemark = new Remark(DEFAULT_REMARK);
             Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
             this.person = new Person(defaultName, defaultPhone, defaultBirthday, defaultEmail, defaultAddress,
-                                     defaultOrganisation, defaultTags);
+                                     defaultOrganisation, defaultRemark, defaultTags);
         } catch (IllegalValueException ive) {
             throw new AssertionError("Default person's values are invalid.");
         }
@@ -132,6 +135,18 @@ public class PersonBuilder {
             this.person.setOrganisation(new Organisation(organisation));
         } catch (IllegalValueException ive) {
             throw new IllegalArgumentException("organisation is expected to be unique.");
+        }
+        return this;
+    }
+
+    /**
+     * Sets the {@code Remark} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withRemark(String remark) {
+        try {
+            this.person.setRemark(new Remark(remark));
+        } catch (IllegalValueException ive) {
+            throw new IllegalArgumentException("remark is expected to be unique.");
         }
         return this;
     }

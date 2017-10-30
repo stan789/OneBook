@@ -24,6 +24,8 @@ public interface ReadOnlyPerson {
     Address getAddress();
     ObjectProperty<Organisation> organisationProperty();
     Organisation getOrganisation();
+    ObjectProperty<Remark> remarkProperty();
+    Remark getRemark();
     ObjectProperty<UniqueTagList> tagProperty();
     Set<Tag> getTags();
 
@@ -57,6 +59,8 @@ public interface ReadOnlyPerson {
                 .append(getAddress())
                 .append(" Organisation: ")
                 .append(getOrganisation())
+                .append(" Remark: ")
+                .append(getRemark())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
