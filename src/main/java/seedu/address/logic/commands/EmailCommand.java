@@ -59,14 +59,18 @@ public class EmailCommand extends Command {
         }
 
         try {
-            Desktop desktop = getDesktop();
-            desktop.mail(new URI("mailto:" + personToEmail.getEmail().toString()));
+            desktopEmail(personToEmail.getEmail().toString());
         } catch (URISyntaxException e) {
             throw new CommandException(MESSAGE_INVALID_EMAIL);
         } catch (IOException e) {
             throw new CommandException(MESSAGE_EMAIL_FAIL);
         }
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    public void desktopEmail(String email) throws IOException, URISyntaxException {
+        Desktop desktop = getDesktop();
+        desktop.mail(new URI("mailto:" + email));
     }
 
     @Override
