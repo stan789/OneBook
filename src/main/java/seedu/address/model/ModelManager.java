@@ -93,7 +93,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void exportFile(String fileLocation, String extension) throws IOException {
-        ObservableList<ReadOnlyPerson> person = getFilteredPersonList();
+        ObservableList<ReadOnlyPerson> person = getAddressBook().getPersonList();
         if (extension.equals("vcf")) {
             ExportVCardFile exportVCardFile = new ExportVCardFile(fileLocation);
             exportVCardFile.createVCardFile(person);
