@@ -9,6 +9,9 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,8 +25,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.RecycleBin;
 import seedu.address.model.UserPrefs;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 public class EmailCommandTest {
 
     private Model model;
