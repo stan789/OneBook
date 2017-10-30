@@ -303,14 +303,14 @@ Examples:
 * `import /Users/user/Downloads/contacts.vcf` (MAC OSX)
 * `import /Users/user/Desktop/contacts.vcf` (MAC OSX)
 
-=== Exporting a VCard file(.vcf) from OneBook : `export`
+=== Exporting from OneBook to VCard file(.vcf) or CSV file(.csv) : `export`
 
-Create a VCard file and export from OneBook to directory +
+Create a VCard file or CSV File and export from OneBook to the file directory +
 Format: `export [file directory]`
 
 ****
 * Exports a VCard file to a valid directory.
-* The created file must end with VCard extension(.vcf).
+* The created file must end with VCard extension(.vcf) or CSV file(.csv).
 * The user can choose the name for the created file.
 ****
 
@@ -320,6 +320,8 @@ Examples:
 * `export C:/Users/User/Downloads/OneBook.vcf` (Windows)
 * `export /Users/user/Downloads/contacts.vcf` (MAC OSX)
 * `export/Users/user/Desktop/OneBook.vcf` (MAC OSX)
+* `export C:/Users/User/Downloads/OneBook.csv` (Windows)
+* `export /Users/user/Downloads/contacts.csv` (MAC OSX)
 
 === Recycle Bin : `bin`
 
@@ -410,7 +412,9 @@ e.g. `import C:/Users/User/Desktop/contacts.vcf` (Windows) +
 e.g. `import /Users/user/Downloads/contacts.vcf` (MAC OSX)
 * *Export* : `import [file directory]` +
 e.g. `export C:/Users/User/Desktop/contacts.vcf` (Windows) +
-e.g. `export /Users/user/Downloads/contacts.vcf` (MAC OSX)
+e.g. `export /Users/user/Downloads/contacts.vcf` (MAC OSX) +
+e.g. `export C:/Users/User/Desktop/contacts.csv` (Windows) +
+e.g. `export /Users/user/Downloads/contacts.csv` (MAC OSX)
 * *List* : `list`
 * *Select* : `select INDEX` +
 e.g.`select 2`

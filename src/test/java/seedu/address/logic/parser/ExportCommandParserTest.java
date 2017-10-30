@@ -14,29 +14,31 @@ public class ExportCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsExportCommand() {
+        String extension = ExportCommandParser.VCF_EXTENSION;
         String location = "src/test/data/VCardFileTest/new.vcf";
-        assertParseSuccess(parser, location, new ExportCommand(location));
+        String fileName = "new";
+        assertParseSuccess(parser, location, new ExportCommand(location , fileName, extension));
 
     }
 
     @Test
     public void parse_invalidArgs_throwsParserException() {
         String location = "hshhsvdsjbdjsbd";
-        assertParseFailure(parser, location, "Invalid Directory.");
+        assertParseFailure(parser, location, ExportCommandParser.INVALID_DIRECTORY);
 
     }
 
     @Test
     public void parse_invalidArgsWrongFileFormat_throwsParserException() {
         String location = "src/test/data/VCardFileTest/new.txt";
-        assertParseFailure(parser, location, "File created should end with .vcf");
+        assertParseFailure(parser, location, ExportCommandParser.INVALID_EXTENSION);
 
     }
 
     @Test
     public void parse_invalidArgsWrongFileNameFormat_throwsParserException() {
         String location = "src/test/data/VCardFileTest/!new.txt";
-        assertParseFailure(parser, location, "Format for file name is invalid.");
+        assertParseFailure(parser, location, ExportCommandParser.INVALID_FILE_NAME);
 
     }
 

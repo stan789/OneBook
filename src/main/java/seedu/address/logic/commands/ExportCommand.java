@@ -11,19 +11,25 @@ import seedu.address.logic.commands.exceptions.CommandException;
 public class ExportCommand extends Command {
     public static final String COMMAND_WORD = "export";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": export contacts from vcard file.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": export contacts to VCard file or csv file.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example for export by name: " + COMMAND_WORD + " C:/desktop/add.vcf\n";
+            + "Example for export to VCard file: " + COMMAND_WORD + " C:/desktop/add.vcf\n"
+            + "Example for export to CSV file: " + COMMAND_WORD + " C:/desktop/add.csv";
 
-    public static final String MESSAGE_SUCCESS = "OneBook has been exported to VCard file successfully.";
+    public static final String MESSAGE_SUCCESS = "OneBook has been exported to %1$s file successfully.";
 
     public static final String MESSAGE_WRITE_ERROR = "The file cannot be exported.";
 
 
     private String fileLocation;
+    private String fileName;
+    private String extension;
 
-    public ExportCommand(String fileLocation) {
+    public ExportCommand(String fileLocation, String fileName, String extension) {
+
         this.fileLocation = fileLocation;
+        this.fileName = fileName;
+        this.extension = extension;
     }
 
 
@@ -31,13 +37,13 @@ public class ExportCommand extends Command {
     public CommandResult execute() throws CommandException {
 
         try {
-            model.exportFile(fileLocation);
+            model.exportFile(fileLocation, extension);
 
         } catch (IOException e) {
             throw new CommandException(MESSAGE_WRITE_ERROR);
         }
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, fileName));
     }
 
     @Override

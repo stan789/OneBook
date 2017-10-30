@@ -192,7 +192,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void exportFile(String fileLocation) {
+        public void exportFile(String fileLocation, String extension) {
             fail("This method should not be called.");
         }
     }
