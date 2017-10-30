@@ -150,6 +150,9 @@ public class ImportVCardFile {
             if (line.startsWith(vcf.getOrganization())) {
                 vCard.setOrganisation(contactArray[INDEX_ONE]);
             }
+            if (line.startsWith(vcf.getNotes())) {
+                vCard.setRemark(contactArray[INDEX_ONE]);
+            }
         }
     }
 

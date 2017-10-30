@@ -91,6 +91,11 @@ public class ExportVCardFile {
                     bufferedWriter.write(vcf.getOrganization() + ":" + org);
                     bufferedWriter.newLine();
                 }
+                if (!p.getRemark().toString().equals("~")) {
+                    String remark = p.getRemark().toString();
+                    bufferedWriter.write(vcf.getNotes() + ":" + remark);
+                    bufferedWriter.newLine();
+                }
 
                 bufferedWriter.write(vcf.getEnd());
                 bufferedWriter.newLine();
