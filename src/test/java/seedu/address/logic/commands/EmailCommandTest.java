@@ -67,6 +67,12 @@ public class EmailCommandTest {
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
+
+    @Test(expected = URISyntaxException.class)
+    public void emptyEmailAddressUriSyntaxException() throws URISyntaxException , IOException {
+        EmailCommand emailCommand = new EmailCommand(INDEX_FIRST_PERSON);
+        emailCommand.desktopEmail("%");
+    }
     /**
      * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
      * is raised with the correct index.
@@ -83,14 +89,8 @@ public class EmailCommandTest {
 
     }
 
-    @Test(expected = URISyntaxException.class)
-    public void emptyEmailAddressUriSyntaxException() throws URISyntaxException , IOException {
-        EmailCommand emailCommand = new EmailCommand(INDEX_FIRST_PERSON);
-        emailCommand.desktopEmail("");
-    }
-
     /**
-     * Executes a {@code SelectCommand} with the given {@code index}, and checks that a {@code CommandException}
+     * Executes a {@code EmailCommand} with the given {@code index}, and checks that a {@code CommandException}
      * is thrown with the {@code expectedMessage}.
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
@@ -105,7 +105,7 @@ public class EmailCommandTest {
     }
 
     /**
-     * Returns a {@code SelectCommand} with parameters {@code index}.
+     * Returns a {@code EmailCommand} with parameters {@code index}.
      */
     private EmailCommandStub prepareCommand(Index index) {
         EmailCommandStub emailCommand = new EmailCommandStub(index);

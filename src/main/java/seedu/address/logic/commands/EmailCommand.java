@@ -62,7 +62,7 @@ public class EmailCommand extends Command {
             desktopEmail(personToEmail.getEmail().toString());
         } catch (URISyntaxException e) {
             throw new CommandException(MESSAGE_INVALID_EMAIL);
-        } catch (IOException e) {
+        } catch (IOException | SecurityException e) {
             throw new CommandException(MESSAGE_EMAIL_FAIL);
         }
         return new CommandResult(MESSAGE_SUCCESS);
