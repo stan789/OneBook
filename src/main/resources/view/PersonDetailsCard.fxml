@@ -9,7 +9,7 @@
 
 <StackPane alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox fx:id="detailsPane" prefWidth="150.0">
+      <VBox fx:id="detailsPane" prefWidth="160.0">
          <children>
             <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0">
               <items>
