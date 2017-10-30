@@ -16,6 +16,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Organisation;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -111,12 +112,22 @@ public class ParserUtil {
 
     /**
      * Parses a {@code Optional<String> organisation} into an {@code Optional<Organisation>}
-     * if {@code email} is present.
+     * if {@code organisation} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
      */
     public static Optional<Organisation> parseOrganisation(Optional<String> organisation) throws IllegalValueException {
         return organisation.isPresent() ? Optional.of(new Organisation(organisation.get())) : Optional.empty();
     }
+
+    /**
+     * Parses a {@code Optional<String> remark} into an {@code Optional<Remark>}
+     * if {@code remark} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<Remark> parseRemark(Optional<String> remark) throws IllegalValueException {
+        return remark.isPresent() ? Optional.of(new Remark(remark.get())) : Optional.empty();
+    }
+
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
