@@ -15,6 +15,7 @@ public interface AddressBookStorage {
      * Returns the file path of the data file.
      */
     String getAddressBookFilePath();
+    String getBackUpAddressBookFilePath();
 
     /**
      * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
@@ -23,6 +24,8 @@ public interface AddressBookStorage {
      * @throws IOException if there was any problem when reading from the storage.
      */
     Optional<AddressBookData> readAddressBook() throws DataConversionException, IOException;
+
+    Optional<AddressBookData> readBackUpAddressBook() throws DataConversionException, IOException;
 
     /**
      * @see #getAddressBookFilePath()

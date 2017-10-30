@@ -23,7 +23,13 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     String getAddressBookFilePath();
 
     @Override
+    String getBackUpAddressBookFilePath();
+
+    @Override
     Optional<AddressBookData> readAddressBook() throws DataConversionException, IOException;
+
+    @Override
+    Optional<AddressBookData> readBackUpAddressBook() throws DataConversionException, IOException;
 
     @Override
     void saveAddressBook(AddressBookData addressBook) throws IOException;

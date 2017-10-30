@@ -71,6 +71,16 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
+    public String getBackUpAddressBookFilePath() {
+        return addressBookStorage.getAddressBookFilePath() + "-backup.xml";
+    }
+
+    @Override
+    public Optional<AddressBookData> readBackUpAddressBook() throws DataConversionException, IOException {
+        return readAddressBook(addressBookStorage.getAddressBookFilePath() + "-backup.xml");
+    }
+
+    @Override
     public Optional<AddressBookData> readAddressBook() throws DataConversionException, IOException {
         return readAddressBook(addressBookStorage.getAddressBookFilePath());
     }
