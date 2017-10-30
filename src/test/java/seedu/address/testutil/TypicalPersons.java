@@ -63,7 +63,7 @@ public class TypicalPersons {
             .withOrganisation("Unilever").withRemark("Meet for dinner?").build();
     public static final ReadOnlyPerson IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
             .withBirthday("09-09-1999").withEmail("hans@example.com").withAddress("chicago ave")
-            .withOrganisation("P&G").withRemark("Owe $5").build()
+            .withOrganisation("P&G").withRemark("Owe $5").build();
     public static final ReadOnlyPerson JEAN = new PersonBuilder().withName("Jean Meier").withPhone("8481313")
             .withBirthday("10-10-2000").withEmail("jumpy@example.com").withAddress("little japan")
             .withOrganisation("Unilever").withRemark("Movie at 6pm").build();
