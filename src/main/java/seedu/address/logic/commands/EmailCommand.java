@@ -29,6 +29,8 @@ public class EmailCommand extends Command {
 
     public static final String MESSAGE_EMAIL_FAIL = "Desktop default email application not found or cant be opened.";
 
+    public static final String MESSAGE_NOT_SUPPORTED = "Platform is not supported";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Email to the person identified by the index number used in the last person listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
@@ -50,6 +52,10 @@ public class EmailCommand extends Command {
         ReadOnlyPerson personToEmail = lastShownList.get(targetIndex.getZeroBased());
         if (personToEmail.getEmail().toString().equals("~")) {
             throw new CommandException(MESSAGE_EMPTY_EMAIL);
+        }
+
+        if (!Desktop.isDesktopSupported()) {
+            throw new CommandException(MESSAGE_NOT_SUPPORTED);
         }
 
         try {
