@@ -34,6 +34,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
         descriptor.setOrganisation(person.getOrganisation());
+        descriptor.setRemark(person.getRemark());
         descriptor.setTags(person.getTags());
     }
 
@@ -105,6 +106,18 @@ public class EditPersonDescriptorBuilder {
             ParserUtil.parseOrganisation(Optional.of(organisation)).ifPresent(descriptor::setOrganisation);
         } catch (IllegalValueException ive) {
             throw new IllegalArgumentException("organisation is expected to be unique.");
+        }
+        return this;
+    }
+
+    /**
+     * Sets the {@code Remark} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withRemark(String remark) {
+        try {
+            ParserUtil.parseRemark(Optional.of(remark)).ifPresent(descriptor::setRemark);
+        } catch (IllegalValueException ive) {
+            throw new IllegalArgumentException("remark is expected to be unique.");
         }
         return this;
     }
