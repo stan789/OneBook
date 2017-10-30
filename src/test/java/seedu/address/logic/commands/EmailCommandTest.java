@@ -76,14 +76,18 @@ public class EmailCommandTest {
 
         try {
             CommandResult commandResult = emailCommand.execute();
-            assertEquals(EmailCommand.MESSAGE_SUCCESS,
-                    commandResult.feedbackToUser);
+            assertEquals(EmailCommand.MESSAGE_SUCCESS, commandResult.feedbackToUser);
         } catch (CommandException ce) {
             throw new IllegalArgumentException("Execution of command should not fail.", ce);
         }
 
     }
 
+    @Test(expected = URISyntaxException.class)
+    public void emptyEmailAddressUriSyntaxException() throws URISyntaxException , IOException {
+       EmailCommand emailCommand = new EmailCommand(INDEX_FIRST_PERSON);
+       emailCommand.desktopEmail("");
+    }
 
     /**
      * Executes a {@code SelectCommand} with the given {@code index}, and checks that a {@code CommandException}
