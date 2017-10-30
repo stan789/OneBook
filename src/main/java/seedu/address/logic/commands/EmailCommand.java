@@ -14,7 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
- * Email to a specfic contacts
+ * Email to a specific contacts
  */
 
 public class EmailCommand extends Command {
@@ -68,7 +68,10 @@ public class EmailCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-    public void desktopEmail(String email) throws IOException, URISyntaxException {
+    /**
+     * redirects user to their desktop's default email application.
+     */
+    protected void desktopEmail(String email) throws IOException, URISyntaxException {
         Desktop desktop = getDesktop();
         desktop.mail(new URI("mailto:" + email));
     }

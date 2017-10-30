@@ -117,6 +117,6 @@ class EmailCommandStub extends EmailCommand {
     }
 
     @Override
-    public void desktopEmail(String email) throws IOException, URISyntaxException {
+    protected void desktopEmail(String email) throws IOException, URISyntaxException {
     }
 }
