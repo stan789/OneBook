@@ -47,6 +47,21 @@ public class ContainsKeywordsPredicateTest {
         ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(Collections.singletonList("Alice"), "name");
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
+        predicate = new ContainsKeywordsPredicate(Collections.singletonList("Serangoon"), "address");
+        assertTrue(predicate.test(new PersonBuilder().withAddress("Serangoon Street 30").build()));
+
+        predicate = new ContainsKeywordsPredicate(Collections.singletonList("example"), "email");
+        assertTrue(predicate.test(new PersonBuilder().withEmail("example@123.com").build()));
+
+        predicate = new ContainsKeywordsPredicate(Collections.singletonList("1234567"), "phone");
+        assertTrue(predicate.test(new PersonBuilder().withPhone("123456789").build()));
+
+        predicate = new ContainsKeywordsPredicate(Collections.singletonList("10"), "birthday");
+        assertTrue(predicate.test(new PersonBuilder().withBirthday("01-10-1995").build()));
+
+        predicate = new ContainsKeywordsPredicate(Collections.singletonList("friend"), "tag");
+        assertTrue(predicate.test(new PersonBuilder().withTags("friends" + "colleagues").build()));
+
         // Multiple keywords
         predicate = new ContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"), "name");
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));

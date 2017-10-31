@@ -15,8 +15,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 public class ImportCommandParser implements Parser<ImportCommand> {
 
+    public static final String NO_FILE_FOUND = "NO FILE FOUND";
+    public static final String FILE_WRONG_FORMAT = "FILE IN WRONG FORMAT. FILE SHOULD BE in .vcf FORMAT";
+    public static final String VCF_EXTENSION = "vcf";
     private Path fileLocation;
-
     /**
      * Parses the given {@code String} of arguments in the context of the ImportCommand
      * and returns an ImportCommand object for execution.
@@ -33,12 +35,12 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         fileLocation = Paths.get(trimmedArgs);
         File file = new File(trimmedArgs);
         if (!file.isFile()) {
-            throw new ParseException("NO FILE FOUND");
+            throw new ParseException(NO_FILE_FOUND);
         }
         String filename = file.getName();
         String extension = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
-        if (!extension.equals("vcf")) {
-            throw new ParseException("FILE IN WRONG FORMAT. FILE SHOULD BE in .vcf FORMAT");
+        if (!extension.equals(VCF_EXTENSION)) {
+            throw new ParseException(FILE_WRONG_FORMAT);
         }
         return new ImportCommand(fileLocation);
     }

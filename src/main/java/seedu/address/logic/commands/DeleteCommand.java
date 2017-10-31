@@ -3,10 +3,13 @@ package seedu.address.logic.commands;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.commands.PersonDeletedEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
@@ -33,7 +36,7 @@ public class DeleteCommand extends UndoableCommand {
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
 
-        List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
+        List<ReadOnlyPerson> lastShownList = model.getAddressBookList();
         for (Index targetIndex : targetIndex) {
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -61,6 +64,8 @@ public class DeleteCommand extends UndoableCommand {
                 model.deletePerson(personToDelete);
             } catch (PersonNotFoundException pnfe) {
                 assert false : "The target person cannot be missing";
+            } catch (DuplicatePersonException dpe) {
+                assert false : "Duplicate person will not be added to Recycle Bin";
             }
             personDeleteMessage[i] = MESSAGE_DELETE_PERSON_SUCCESS + personToDelete;
         }
@@ -69,7 +74,7 @@ public class DeleteCommand extends UndoableCommand {
             deleteMessage.append(message);
             deleteMessage.append("\n");
         }
-
+        EventsCenter.getInstance().post(new PersonDeletedEvent());
         return new CommandResult(deleteMessage.toString().trim());
     }
 

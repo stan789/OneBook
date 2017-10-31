@@ -24,16 +24,16 @@ public class ImportCommandParserTest {
     }
 
     @Test
-    public void parse_invalidArgs_throwsParserException() {
+    public void parse_invalidArgsInvalidDirectory_throwsParserException() {
         String location = "hshhsvdsjbdjsbd";
-        assertParseFailure(parser, location, "NO FILE FOUND");
+        assertParseFailure(parser, location, ImportCommandParser.NO_FILE_FOUND);
 
     }
 
     @Test
-    public void parse_invalidArgsWrongFileFormat_throwsParserException() {
+    public void parse_invalidArgsCreateWrongFileFormat_throwsParserException() {
         String location = "src/test/data/ConfigUtilTest/TypicalConfig.json";
-        assertParseFailure(parser, location, "FILE IN WRONG FORMAT. FILE SHOULD BE in .vcf FORMAT");
+        assertParseFailure(parser, location, ImportCommandParser.FILE_WRONG_FORMAT);
 
     }
     @Test

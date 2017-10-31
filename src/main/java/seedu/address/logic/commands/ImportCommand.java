@@ -14,16 +14,15 @@ public class ImportCommand extends Command {
 
     public static final String COMMAND_WORD = "import";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": import contacts from vcard file.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": import contacts from VCard file.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example for import by name: " + COMMAND_WORD + " C:/desktop/add.vcf\n";
+            + "Example for import from VCard file: " + COMMAND_WORD + " C:/desktop/add.vcf\n";
 
     public static final String MESSAGE_SUCCESS = "%1$s contacts have been imported successfully";
 
     public static final String MESSAGE_EMPTY_FILE = "The file is empty";
 
     public static final String MESSAGE_FILE_INVALID = "The file is invalid";
-
 
     private Path fileLocation;
 

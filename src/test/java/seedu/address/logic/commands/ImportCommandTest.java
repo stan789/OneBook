@@ -15,6 +15,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.RecycleBin;
 import seedu.address.model.UserPrefs;
 
 public class ImportCommandTest {
@@ -23,8 +24,8 @@ public class ImportCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), new RecycleBin(), new UserPrefs());
+        expectedModel = new ModelManager(getTypicalAddressBook(), new RecycleBin(), new UserPrefs());
     }
 
     @Test
@@ -77,11 +78,11 @@ public class ImportCommandTest {
     }
 
     /**
-     * Generates a new {@code SortCommand} which upon execution, sorts the AddressBook.
+     * Generates a new {@code ImportCommand} which upon execution, sorts the AddressBook.
      */
     private ImportCommand prepareCommand(Path fileLocation) {
         ImportCommand command = new ImportCommand(fileLocation);
-        command.setData(model, new CommandHistory(), new UndoRedoStack());
+        command.setData(model, new CommandHistory(), new UndoRedoStack(), false);
         return command;
     }
 }

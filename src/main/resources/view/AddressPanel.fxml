@@ -22,7 +22,7 @@
                   </padding></Label>
             </items>
          </SplitPane>
-        <WebView fx:id="browser" minHeight="-Infinity" minWidth="-Infinity" />
+        <WebView fx:id="browser" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS" />
       </children>
    </VBox>
 </StackPane>
