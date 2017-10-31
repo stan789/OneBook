@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.SortCommand.MESSAGE_NO_PERSON_TO_SORT;
 import static seedu.address.logic.commands.SortCommand.SORT_EMAIL;
 import static seedu.address.logic.commands.SortCommand.SORT_NAME;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
