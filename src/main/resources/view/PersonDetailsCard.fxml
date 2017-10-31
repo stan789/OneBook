@@ -92,12 +92,12 @@
             </SplitPane>
             <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0">
               <items>
-                  <Label fx:id="notesHeader" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Notes :">
+                  <Label fx:id="remarkHeader" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Remarks :">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="notesLarge">
+                  <Label fx:id="remarkLarge">
                      <padding>
                         <Insets left="5.0" />
                      </padding></Label>
