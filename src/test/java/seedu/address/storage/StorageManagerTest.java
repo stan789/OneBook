@@ -41,6 +41,10 @@ public class StorageManagerTest {
         return testFolder.getRoot().getPath() + fileName;
     }
 
+    @Test
+    public void getUserPrefsFilePathTest() {
+        assertEquals(getTempFilePath("prefs"), storageManager.getUserPrefsFilePath());
+    }
 
     @Test
     public void prefsReadSave() throws Exception {
