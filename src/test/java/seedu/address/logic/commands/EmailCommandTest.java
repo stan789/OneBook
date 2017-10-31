@@ -70,6 +70,7 @@ public class EmailCommandTest {
 
     @Test(expected = URISyntaxException.class)
     public void testEmptyAddressBookException() throws URISyntaxException, IOException {
+        System.setProperty("java.awt.headless","false");
         EmailCommand emailCommand = new EmailCommand(INDEX_FIRST_PERSON);
         emailCommand.desktopEmail(" ");
     }
