@@ -101,16 +101,16 @@ public class MainApp extends Application {
             }
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will start backup file");
-            try{
+            try {
                 addressBookOptional = storage.readBackUpAddressBook();
                 initialData = addressBookOptional.get();
-            }
-            catch (DataConversionException f) {
-                logger.warning("Backup file is not in the correct format. Will be starting with an empty AddressBook");
+            } catch (DataConversionException f) {
+                logger.warning("Backup file is not in the correct format." +
+                        "Will be starting with an empty AddressBook");
                 initialData = new AddressBookData();
-            }
-            catch (IOException f) {
-                logger.warning("Problem while reading from the backup file. Will be starting with an empty AddressBook");
+            } catch (IOException f) {
+                logger.warning("Problem while reading from the backup file." +
+                        "Will be starting with an empty AddressBook");
                 initialData = new AddressBookData();
             }
         } catch (IOException e) {

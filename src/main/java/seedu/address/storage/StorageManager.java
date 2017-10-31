@@ -107,7 +107,7 @@ public class StorageManager extends ComponentManager implements Storage {
         saveAddressBook(addressBook, getLocalBackUpAddressBookFilePath());
     }
 
-    public String getLocalBackUpAddressBookFilePath(){
+    public String getLocalBackUpAddressBookFilePath() {
         return addressBookStorage.getAddressBookFilePath() + "-backup.xml";
     }
 
