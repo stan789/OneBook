@@ -69,10 +69,9 @@ public class EmailCommandTest {
     }
 
     @Test(expected = URISyntaxException.class)
-    public void testEmptyAddressBookException() throws URISyntaxException,IOException {
+    public void testEmptyAddressBookException() throws URISyntaxException, IOException {
         EmailCommand emailCommand = new EmailCommand(INDEX_FIRST_PERSON);
         emailCommand.desktopEmail(" ");
-
     }
 
     /**
