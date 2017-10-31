@@ -79,8 +79,6 @@ public class StorageManagerTest {
         assertEquals(expectedURL,actualURL);
     }
 
-   @Test
-
     @Test
     public void getAddressBookFilePath() {
         assertNotNull(storageManager.getAddressBookFilePath());
