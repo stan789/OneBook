@@ -376,6 +376,12 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+=== Backup data
+
+Address book will back up data when OneBook is launched. This will prevent loss of total data if the files are corrupted on the latest use. +
+Back up file will automatically overwrite the main file if the main file is corrupted.
+
+
 === Remove all entry in recycle bin : `bin clear` [yellow]#*Coming in v2.0#
 
 Clears the recycle bin. +
