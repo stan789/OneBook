@@ -68,6 +68,13 @@ public class EmailCommandTest {
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    @Test(expected = URISyntaxException.class)
+    public void testEmptyAddressBookException() throws URISyntaxException,IOException {
+        EmailCommand emailCommand = new EmailCommand(INDEX_FIRST_PERSON);
+        emailCommand.desktopEmail(" ");
+
+    }
+
     /**
      * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
      * is raised with the correct index.
