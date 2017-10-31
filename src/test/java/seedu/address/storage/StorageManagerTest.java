@@ -72,12 +72,14 @@ public class StorageManagerTest {
         assertEquals(bin, new RecycleBin(retrievedBin));
     }
 
-   @Test
-   public void backupAddressBookUrlTest() {
+    @Test
+    public void backupAddressBookUrlTest() {
         String expectedURL = storageManager.getAddressBookFilePath() + "-backup.xml";
         String actualURL = storageManager.getBackUpAddressBookFilePath();
         assertEquals(expectedURL,actualURL);
-   }
+    }
+
+   @Test
 
     @Test
     public void getAddressBookFilePath() {
