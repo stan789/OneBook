@@ -76,7 +76,7 @@ public class StorageManagerTest {
     public void backupAddressBookUrlTest() {
         String expectedUrl = storageManager.getAddressBookFilePath() + "-backup.xml";
         String actualUrl = storageManager.getBackUpAddressBookFilePath();
-        assertEquals(expectedUrl,actualUrl);
+        assertEquals(expectedUrl, actualUrl);
     }
 
     @Test
