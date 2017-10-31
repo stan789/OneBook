@@ -54,10 +54,6 @@ public class EmailCommand extends Command {
             throw new CommandException(MESSAGE_EMPTY_EMAIL);
         }
 
-        if (!Desktop.isDesktopSupported()) {
-            throw new CommandException(MESSAGE_NOT_SUPPORTED);
-        }
-
         try {
             desktopEmail(personToEmail.getEmail().toString());
         } catch (URISyntaxException e) {
