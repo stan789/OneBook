@@ -80,7 +80,7 @@ public class EmailCommandTest {
             throw new IllegalArgumentException("Execution of command should not fail.", e);
         }
         Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
-        assertExecutionFailure(lastPersonIndex,EmailCommand.MESSAGE_EMPTY_EMAIL);
+        assertExecutionFailure(lastPersonIndex, EmailCommand.MESSAGE_EMPTY_EMAIL);
     }
     /**
      * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
