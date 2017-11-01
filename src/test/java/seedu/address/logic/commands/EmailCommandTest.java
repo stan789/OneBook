@@ -24,6 +24,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RecycleBin;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.testutil.PersonBuilder;
 
 public class EmailCommandTest {
 
@@ -68,6 +71,17 @@ public class EmailCommandTest {
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    @Test
+    public void emptyEmail_failure() {
+        Person person = new PersonBuilder().withName("ALICE").withEmail(null).build();
+        try {
+            model.addPerson(person);
+        } catch (DuplicatePersonException e) {
+            throw new IllegalArgumentException("Execution of command should not fail.", e);
+        }
+        Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
+        assertExecutionFailure(lastPersonIndex,EmailCommand.MESSAGE_EMPTY_EMAIL);
+    }
     /**
      * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
      * is raised with the correct index.
