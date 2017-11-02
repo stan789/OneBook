@@ -32,7 +32,7 @@ public class DeleteCommand extends UndoableCommand {
         this.targetIndex = targetIndex;
     }
 
-
+    //@@author Gideonfu
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
 
@@ -77,6 +77,7 @@ public class DeleteCommand extends UndoableCommand {
         EventsCenter.getInstance().post(new PersonDeletedEvent());
         return new CommandResult(deleteMessage.toString().trim());
     }
+    //@@author
 
     @Override
     public boolean equals(Object other) {
