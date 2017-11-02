@@ -15,6 +15,7 @@ public class BinListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all deleted persons";
 
 
+    //@@author frozventus-reused
     @Override
     public CommandResult execute() {
         EventsCenter.getInstance().post(new DisplayBinEvent());

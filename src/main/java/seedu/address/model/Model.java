@@ -24,6 +24,7 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
+    //@@author frozventus
     /** Returns the RecycleBin */
     ReadOnlyAddressBook getRecycleBin();
 
@@ -33,9 +34,11 @@ public interface Model {
     /** Adds the given person to addressbook */
     void addPerson(ReadOnlyPerson person) throws DuplicatePersonException;
 
+    //@@author frozventus
     /** Restores the given person from recycle bin */
     void restorePerson(ReadOnlyPerson target) throws PersonNotFoundException, DuplicatePersonException;
 
+    //@@author frozventus
     /** Deletes the given person from bin */
     void deleteFromBin(ReadOnlyPerson target) throws PersonNotFoundException;
 
@@ -58,15 +61,19 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate);
 
+    //@@author frozventus
     /** Toggle display to show list */
     void setListDisplay();
 
+    //@@author frozventus
     /** Toggle display to show bin */
     void setBinDisplay();
 
+    //@@author frozventus
     /** Returns an unmodifiable view of the address book person list */
     ObservableList<ReadOnlyPerson> getAddressBookList();
 
+    //@@author frozventus
     /** Returns an unmodifiable view of the recycle bin list */
     ObservableList<ReadOnlyPerson> getRecycleBinList();
 
@@ -77,6 +84,7 @@ public interface Model {
 
     void executeSort(String sortType) throws EmptyAddressBookException;
 
+    //@@author frozventus-reused
     void executeBinSort(String sortType) throws EmptyAddressBookException;
 
     Integer importFile(Path fileLocation) throws IOException;

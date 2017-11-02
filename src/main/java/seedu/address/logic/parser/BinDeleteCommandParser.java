@@ -12,6 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class BinDeleteCommandParser implements Parser<BinDeleteCommand> {
 
+    //@@author frozventus-reused
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns an DeleteCommand object for execution.

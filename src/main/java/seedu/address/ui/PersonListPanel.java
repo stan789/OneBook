@@ -52,6 +52,7 @@ public class PersonListPanel extends UiPart<Region> {
                 });
     }
 
+    //@@author frozventus
     private void resetSelection() {
         personListView.getSelectionModel().clearSelection();
     }
@@ -72,6 +73,7 @@ public class PersonListPanel extends UiPart<Region> {
         scrollTo(event.targetIndex);
     }
 
+    //@@author frozventus
     @Subscribe
     private void handlePersonDeletedEvent(PersonDeletedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

@@ -24,6 +24,7 @@ public class XmlFileStorage {
         }
     }
 
+    //@@author frozventus
     /**
      * Returns address book in the file or an empty address book
      */
