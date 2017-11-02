@@ -323,6 +323,24 @@ Examples:
 * `export C:/Users/User/Downloads/OneBook.csv` (Windows)
 * `export /Users/user/Downloads/contacts.csv` (MAC OSX)
 
+=== Email to a person from Onebook contact list : `email`
+
+Emails to the person selected from Onebook contact list +
+Format: `email [Index]`
+
+****
+* Email to the person from the specified `INDEX`.
+* The index refers to the index number shown in the most recent listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+* The selected person's email address must not be empty.
+* The command will open user's desktop default mail application. Users need to sign in to the mail application if they havent before they can send an email to the recipent(selected person).
+****
+
+Examples:
+
+* `email 1`
+* `email 3`
+
 === Recycle Bin : `bin`
 
 Shows a list of deleted persons. +
@@ -421,6 +439,8 @@ e.g. `export C:/Users/User/Desktop/contacts.vcf` (Windows) +
 e.g. `export /Users/user/Downloads/contacts.vcf` (MAC OSX) +
 e.g. `export C:/Users/User/Desktop/contacts.csv` (Windows) +
 e.g. `export /Users/user/Downloads/contacts.csv` (MAC OSX)
+* *Email* : `email INDEX` +
+e.g.`email 2`
 * *List* : `list`
 * *Select* : `select INDEX` +
 e.g.`select 2`
