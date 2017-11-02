@@ -16,7 +16,7 @@ import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
- * The Browser Panel of the App.
+ * The Display Panel of the App.
  */
 public class PersonDisplayCard extends UiPart<Region> {
 
@@ -48,12 +48,14 @@ public class PersonDisplayCard extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    //@@author frozventus-reused
     private void loadPersonDetails(ReadOnlyPerson person) {
         this.person = person;
         initTags(person);
         bindListeners(person);
     }
 
+    //@@author frozventus
     /**
      * Resets details shown
      */
@@ -73,6 +75,7 @@ public class PersonDisplayCard extends UiPart<Region> {
         tagsLarge.getChildren().clear();
     }
 
+    //@@author frozventus-reused
     /**
      * Binds the individual UI elements to observe their respective {@code Person} properties
      * so that they will be notified of any changes.
@@ -90,17 +93,20 @@ public class PersonDisplayCard extends UiPart<Region> {
         });
     }
 
+    //@@author frozventus-reused
     private void initTags(ReadOnlyPerson person) {
         tagsLarge.getChildren().clear();
         person.getTags().forEach(tag -> tagsLarge.getChildren().add(new Label(tag.tagName)));
     }
 
+    //@@author frozventus
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonDetails(event.getNewSelection().person);
     }
 
+    //@@author frozventus
     @Subscribe
     private void handlePersonDeletedEvent(PersonDeletedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

@@ -67,6 +67,7 @@ public class AddressPanel extends UiPart<Region> {
         bindListeners(person);
     }
 
+    //@@author frozventus
     /**
      * Resets details shown
      */
@@ -76,6 +77,7 @@ public class AddressPanel extends UiPart<Region> {
         addressLarge.textProperty().setValue("");
     }
 
+    //@@author frozventus
     /**
      * Binds the individual UI elements to observe their respective {@code Person} properties
      * so that they will be notified of any changes.
@@ -109,6 +111,7 @@ public class AddressPanel extends UiPart<Region> {
         loadPersonAddress(event.getNewSelection().person);
     }
 
+    //@@author frozventus
     @Subscribe
     public void handlePersonDeletedEvent(PersonDeletedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

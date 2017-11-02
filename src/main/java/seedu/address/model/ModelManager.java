@@ -58,6 +58,7 @@ public class ModelManager extends ComponentManager implements Model {
         this(new AddressBook(), new RecycleBin(), new UserPrefs());
     }
 
+    //@@author frozventus
     @Override
     public void resetData(AddressBookData newData) {
         addressBook.resetData(newData.getAddressBook());
@@ -71,6 +72,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author frozventus-reused
     @Override
     public void executeBinSort(String sortType) throws EmptyAddressBookException {
         recycleBin.executeSort(sortType);
@@ -109,16 +111,19 @@ public class ModelManager extends ComponentManager implements Model {
         return addressBook;
     }
 
+    //@@author frozventus
     @Override
     public ReadOnlyAddressBook getRecycleBin() {
         return recycleBin;
     }
 
+    //@@author frozventus
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(new AddressBookData(addressBook, recycleBin)));
     }
 
+    //@@author frozventus
     @Override
     public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException,
                                                                         DuplicatePersonException {
@@ -134,6 +139,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author frozventus
     @Override
     public synchronized void restorePerson(ReadOnlyPerson target) throws PersonNotFoundException,
                                                                          DuplicatePersonException {
@@ -142,6 +148,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author frozventus
     @Override
     public synchronized void deleteFromBin(ReadOnlyPerson target) throws PersonNotFoundException {
         recycleBin.removePerson(target);
@@ -174,23 +181,27 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //@@author frozventus
     @Override
     public void setListDisplay() {
         this.filteredPersons = filteredAddresses;
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
+    //@@author frozventus
     @Override
     public void setBinDisplay() {
         this.filteredPersons = filteredBin;
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
+    //@@author frozventus
     @Override
     public ObservableList<ReadOnlyPerson> getAddressBookList() {
         return filteredAddresses;
     }
 
+    //@@author frozventus
     @Override
     public ObservableList<ReadOnlyPerson> getRecycleBinList() {
         return filteredBin;
