@@ -56,6 +56,12 @@ public class TypicalPersons {
     public static final ReadOnlyPerson GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
             .withBirthday("07-07-1997").withEmail("anna@example.com").withAddress("4th street")
             .withOrganisation("Pan Pacific Ltd.").withRemark("Return borrowed pen").build();
+    public static final ReadOnlyPerson JEAN = new PersonBuilder().withName("Jean Meier").withPhone("8481313")
+            .withBirthday("10-10-2000").withEmail("jumpy@example.com").withAddress("little japan")
+            .withOrganisation("Unilever").withRemark("Movie at 6pm").build();
+    public static final ReadOnlyPerson KEN = new PersonBuilder().withName("Ken Mueller").withPhone("8483737")
+            .withBirthday("11-11-2001").withEmail("kitkat@example.com").withAddress("beansprout ave")
+            .withOrganisation("P&G").withRemark("Need to plan holiday").build();
 
     // Manually added
     public static final ReadOnlyPerson HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
@@ -64,12 +70,6 @@ public class TypicalPersons {
     public static final ReadOnlyPerson IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
             .withBirthday("09-09-1999").withEmail("hans@example.com").withAddress("chicago ave")
             .withOrganisation("P&G").withRemark("Owe $5").build();
-    public static final ReadOnlyPerson JEAN = new PersonBuilder().withName("Jean Meier").withPhone("8481313")
-            .withBirthday("10-10-2000").withEmail("jumpy@example.com").withAddress("little japan")
-            .withOrganisation("Unilever").withRemark("Movie at 6pm").build();
-    public static final ReadOnlyPerson KEN = new PersonBuilder().withName("Ken Mueller").withPhone("8483737")
-            .withBirthday("11-11-2001").withEmail("kitkat@example.com").withAddress("beansprout ave")
-            .withOrganisation("P&G").withRemark("Need to plan holiday").build();
     public static final ReadOnlyPerson PERSON_WITH_MISSING_PHONE = new PersonBuilder().withName("Jake")
             .withBirthday("07-01-1995").withEmail("personmissingphone@example.com").withAddress("Chinatown")
             .withOrganisation("Ernst & Young").withRemark("Owe me $5").build();
@@ -121,6 +121,7 @@ public class TypicalPersons {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 
+    //@@author frozventus-reused
     /**
      * Returns a {@code RecycleBin} with three of the typical persons.
      */
@@ -136,10 +137,12 @@ public class TypicalPersons {
         return rb;
     }
 
+    //@@author frozventus
     public static List<ReadOnlyPerson> getTypicalPersonsForBin() {
         return new ArrayList<>(Arrays.asList(JEAN, KEN));
     }
 
+    //@@author frozventus
     public static AddressBookData getTypicalData() {
         return new AddressBookData(getTypicalAddressBook(), getTypicalRecycleBin());
     }

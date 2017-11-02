@@ -68,6 +68,7 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         saveAddressBook(addressBook, filePath);
     }
 
+    //@@author frozventus
     /**
      * Similar to {@link #saveAddressBook(AddressBookData)}
      * @param filePath location of the data. Cannot be null

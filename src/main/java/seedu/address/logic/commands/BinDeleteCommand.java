@@ -29,7 +29,7 @@ public class BinDeleteCommand extends UndoableCommand {
         this.targetIndex = targetIndex;
     }
 
-
+    //@@author frozventus-reused
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
 
