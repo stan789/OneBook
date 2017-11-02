@@ -19,6 +19,8 @@ public class ImportCommandParser implements Parser<ImportCommand> {
     public static final String FILE_WRONG_FORMAT = "FILE IN WRONG FORMAT. FILE SHOULD BE in .vcf FORMAT";
     public static final String VCF_EXTENSION = "vcf";
     private Path fileLocation;
+
+    //@@author stan789
     /**
      * Parses the given {@code String} of arguments in the context of the ImportCommand
      * and returns an ImportCommand object for execution.

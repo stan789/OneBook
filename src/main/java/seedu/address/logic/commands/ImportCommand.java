@@ -32,7 +32,7 @@ public class ImportCommand extends Command {
         this.fileLocation = fileLocation;
     }
 
-
+    //@@author stan789
     @Override
     public CommandResult execute() throws CommandException {
 
@@ -50,6 +50,7 @@ public class ImportCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, count));
     }
 
+    //@@author stan789
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

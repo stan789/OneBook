@@ -13,6 +13,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 public class EmailCommandParser implements Parser<EmailCommand> {
 
+    //@@author stan789
     /**
      * Parses the given {@code String} of arguments in the context of the EmailCommand
      * and returns an EmailCommand object for execution.

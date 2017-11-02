@@ -12,12 +12,14 @@ public class SortCommandParserTest {
 
     private SortCommandParser parser = new SortCommandParser();
 
+    //@@author stan789
     @Test
     public void parse_validArgs_returnsSortCommand() {
         assertParseSuccess(parser, "name", new SortCommand(SortCommand.SORT_NAME));
         assertParseSuccess(parser, "email", new SortCommand(SortCommand.SORT_EMAIL));
     }
 
+    //@@author stan789
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));

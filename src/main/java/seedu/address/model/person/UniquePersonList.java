@@ -53,6 +53,7 @@ public class UniquePersonList implements Iterable<Person> {
         internalList.add(new Person(toAdd));
     }
 
+    //@@author stan789
     /**
      * Sorts the list by type(name or email) in alphabetical order.
      */

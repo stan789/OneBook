@@ -66,6 +66,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author stan789
     @Override
     public void executeSort(String sortType) throws EmptyAddressBookException {
         addressBook.executeSort(sortType);
@@ -79,6 +80,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author stan789
     @Override
     public Integer importFile(Path fileLocation) throws IOException {
         ImportVCardFile importFile = new ImportVCardFile(fileLocation);
@@ -93,6 +95,7 @@ public class ModelManager extends ComponentManager implements Model {
         return person.size();
     }
 
+    //@@author stan789
     @Override
     public void exportFile(String fileLocation, String extension) throws IOException {
         ObservableList<ReadOnlyPerson> person = getAddressBook().getPersonList();

@@ -1,5 +1,5 @@
 # Gideonfu
-###### \java\seedu\address\model\person\RemarkTest.java
+###### /java/seedu/address/model/person/RemarkTest.java
 ``` java
     @Test
     public void isValidRemark() {

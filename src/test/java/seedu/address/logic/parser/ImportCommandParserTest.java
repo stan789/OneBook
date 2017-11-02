@@ -15,6 +15,7 @@ public class ImportCommandParserTest {
 
     private ImportCommandParser parser = new ImportCommandParser();
 
+    //@@author stan789
     @Test
     public void parse_validArgs_returnsImportCommand() {
         String location = "src/test/data/VCardFileTest/contacts.vcf";
@@ -23,6 +24,7 @@ public class ImportCommandParserTest {
 
     }
 
+    //@@author stan789
     @Test
     public void parse_invalidArgsInvalidDirectory_throwsParserException() {
         String location = "hshhsvdsjbdjsbd";
@@ -30,12 +32,15 @@ public class ImportCommandParserTest {
 
     }
 
+    //@@author stan789
     @Test
     public void parse_invalidArgsCreateWrongFileFormat_throwsParserException() {
         String location = "src/test/data/ConfigUtilTest/TypicalConfig.json";
         assertParseFailure(parser, location, ImportCommandParser.FILE_WRONG_FORMAT);
 
     }
+
+    //@@author stan789
     @Test
     public void parse_emptyArgs_throwsParserException() {
         String location = "";

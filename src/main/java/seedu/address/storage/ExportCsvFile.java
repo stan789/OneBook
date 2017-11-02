@@ -20,8 +20,9 @@ public class ExportCsvFile {
         this.fileLocation = fileLocation;
     }
 
+    //@@author stan789
     /**
-     * Read csv file from the directory.
+     * Create a csv file to the directory.
      */
     public void createCsvFile(ObservableList<ReadOnlyPerson> person) throws IOException {
 
