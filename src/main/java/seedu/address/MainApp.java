@@ -86,6 +86,8 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
+
+    //@@author darrinloh
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<AddressBookData> addressBookOptional;
         AddressBookData initialData;
@@ -120,6 +122,8 @@ public class MainApp extends Application {
 
         return new ModelManager(initialData.getAddressBook(), initialData.getRecycleBin(), userPrefs);
     }
+    //@@author darrinloh
+
 
     private void initLogging(Config config) {
         LogsCenter.init(config);
