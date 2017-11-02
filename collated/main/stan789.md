@@ -254,8 +254,8 @@ case EmailCommand.COMMAND_WORD:
 case ImportCommand.COMMAND_WORD:
             return new ImportCommandParser().parse(arguments);
 case ExportCommand.COMMAND_WORD:
-            return new ExportCommandParser().parse(arguments);
-```            
+            return new ExportCommandParser().parse(arguments); 
+```
 ###### \java\seedu\address\model\Model.java
 ``` java
 //sort
@@ -299,45 +299,37 @@ void exportFile(String fileLocation, String extension) throws IOException;
             indicateAddressBookChanged();
         }
  ```
- ###### \java\seedu\address\storage\ExportCsvFile.java  
+ ###### \java\seedu\address\storage\ExportCsvFile.java
   ``` java
   public void createCsvFile(ObservableList<ReadOnlyPerson> person) throws IOException {
-  
           try {
               FileOutputStream outputStream = new FileOutputStream(new File(fileLocation));
               OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-8");
               BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
-  
               bufferedWriter.write("First Name,Last Name,Company,Home Street,Other Phone,Birthday,E-mail Address");
               bufferedWriter.newLine();
               for (ReadOnlyPerson p: person) {
                   String[] name = p.getName().toString().split(" ", 2);
                   bufferedWriter.write(name[0]);
                   bufferedWriter.write(",");
-  
                   if (name.length == 2) {
                       bufferedWriter.write(name[1]);
                   }
                   bufferedWriter.write(",");
-  
                   if (!p.getOrganisation().toString().equals("~")) {
                       bufferedWriter.write(p.getOrganisation().toString());
                   }
                   bufferedWriter.write(",");
-  
                   if (!p.getAddress().toString().equals("~")) {
                       String address = p.getAddress().toString();
                       address = address.replaceAll(",", "");
                       bufferedWriter.write(address);
                   }
                   bufferedWriter.write(",");
-  
                   if (!p.getPhone().toString().equals("~")) {
                       bufferedWriter.write("," + p.getPhone().toString());
                   }
                   bufferedWriter.write(",");
-  
-  
                   if (!p.getBirthday().toString().equals("~")) {
                       String birthday = p.getBirthday().toString();
                       birthday = birthday.replaceAll("-", "/");
@@ -349,16 +341,14 @@ void exportFile(String fileLocation, String extension) throws IOException;
                       bufferedWriter.write(p.getEmail().toString());
                   }
                   bufferedWriter.newLine();
-  
               }
               bufferedWriter.close();
           } catch (IOException e) {
               throw new IOException();
           }
-  
       }
 ```
-  ###### \java\seedu\address\storage\ExportVCardFile.java  
+  ###### \java\seedu\address\storage\ExportVCardFile.java
 ``` java   
 /**
      * write vCard file from the directory. supports up to VCard Version 3.0
@@ -438,19 +428,17 @@ void exportFile(String fileLocation, String extension) throws IOException;
         }
     }
 ```
-  ###### \java\seedu\address\storage\ImportVCardFile.java  
-``` java 
+  ###### \java\seedu\address\storage\ImportVCardFile.java
+``` java
 **
      * Read vCard file from the directory.
      * return a list of persons
      */
-
     public ImportVCardFile(Path fileLocation) {
         this.fileLocation = fileLocation;
         vcf = new VCardFileType();
         vCard = new VCard();
     }
-
     /**
      * Read vCard file from the directory. Check format in file.
      * return a list of persons
@@ -607,9 +595,9 @@ void exportFile(String fileLocation, String extension) throws IOException;
             System.out.println("IllegalValueException" + vCard.getName() + " " + vCard.getPhone());
         }
     }
-```   
-###### \java\seedu\address\storage\VCard.java  
-``` java 
+```
+###### \java\seedu\address\storage\VCard.java
+``` java
 **
  * Stores the information from VCard file.
  */
@@ -696,15 +684,13 @@ public class VCard {
         return remark;
     }
 }
-```   
-###### \java\seedu\address\storage\VCardFileType.java  
-``` java 
+```
+###### \java\seedu\address\storage\VCardFileType.java
+``` java
 /**
  * Format of VCard file
  */
-
 public class VCardFileType {
-
     private static final String name = "FN";
     private static final String addressFormat1 = "ADR";
     private static final String addressFormat2 = "item1.ADR";
@@ -774,10 +760,10 @@ public class VCardFileType {
         return notes;
     }
 }
-```   
-###### \java\seedu\address\storage\exceptions\EmptyFileException.java  
+```
+###### \java\seedu\address\storage\exceptions\EmptyFileException.java
 ``` java 
 public class EmptyFileException extends IOException {
     public EmptyFileException() {
     }
-```       
+```
