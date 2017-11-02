@@ -15,6 +15,7 @@ public interface AddressBookStorage {
      * Returns the file path of the data file.
      */
     String getAddressBookFilePath();
+    String getBackUpAddressBookFilePath();
 
     /**
      * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
@@ -28,6 +29,14 @@ public interface AddressBookStorage {
      * @see #getAddressBookFilePath()
      */
     Optional<AddressBookData> readAddressBook(String filePath) throws DataConversionException, IOException;
+
+    /**
+     * Returns AddressBook back up data as a {@link ReadOnlyAddressBook}.
+     *  Returns {@code Optional.empty()} if storage file is not found.
+     *  @throws DataConversionException if the data in storage is not in the expected format.
+     *  @throws IOException if there was any problem when reading from the stoage.
+     */
+    Optional<AddressBookData> readBackUpAddressBook() throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link AddressBookData} to the storage.

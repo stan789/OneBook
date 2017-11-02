@@ -29,6 +29,15 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         return filePath;
     }
 
+    public String getBackUpAddressBookFilePath() {
+        return filePath;
+    }
+
+    @Override
+    public Optional<AddressBookData> readBackUpAddressBook() throws DataConversionException, IOException {
+        return readAddressBook(filePath);
+    }
+
     @Override
     public Optional<AddressBookData> readAddressBook() throws DataConversionException, IOException {
         return readAddressBook(filePath);
