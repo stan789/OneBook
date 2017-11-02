@@ -27,6 +27,22 @@ public class StorageManager extends ComponentManager implements Storage {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+
+        Optional<AddressBookData> addressBookOptional;
+        try {
+            addressBookOptional = addressBookStorage.readAddressBook();
+            if (addressBookOptional.isPresent()) {
+                backUpAddressBook(addressBookOptional.get());
+                logger.info("AddressBook found, backup initiated.");
+            } else {
+                logger.warning("AddressBook not found, backup will not initiate.");
+            }
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Backup will not initiate.");
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Backup will not initiate.");
+        }
+
     }
 
     // ================ UserPrefs methods ==============================
@@ -55,6 +71,16 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
+    public String getBackUpAddressBookFilePath() {
+        return addressBookStorage.getAddressBookFilePath() + "-backup.xml";
+    }
+
+    @Override
+    public Optional<AddressBookData> readBackUpAddressBook() throws DataConversionException, IOException {
+        return readAddressBook(addressBookStorage.getAddressBookFilePath() + "-backup.xml");
+    }
+
+    @Override
     public Optional<AddressBookData> readAddressBook() throws DataConversionException, IOException {
         return readAddressBook(addressBookStorage.getAddressBookFilePath());
     }
@@ -75,6 +101,14 @@ public class StorageManager extends ComponentManager implements Storage {
             throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, filePath);
+    }
+
+    private void backUpAddressBook(AddressBookData addressBook) throws IOException {
+        saveAddressBook(addressBook, getLocalBackUpAddressBookFilePath());
+    }
+
+    public String getLocalBackUpAddressBookFilePath() {
+        return addressBookStorage.getAddressBookFilePath() + "-backup.xml";
     }
 
 

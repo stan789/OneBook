@@ -41,6 +41,10 @@ public class StorageManagerTest {
         return testFolder.getRoot().getPath() + fileName;
     }
 
+    @Test
+    public void getUserPrefsFilePathTest() {
+        assertEquals(getTempFilePath("prefs"), storageManager.getUserPrefsFilePath());
+    }
 
     @Test
     public void prefsReadSave() throws Exception {
@@ -70,6 +74,13 @@ public class StorageManagerTest {
         ReadOnlyAddressBook retrievedBin = storageManager.readAddressBook().get().getRecycleBin();
         assertEquals(original, new AddressBook(retrieved));
         assertEquals(bin, new RecycleBin(retrievedBin));
+    }
+
+    @Test
+    public void backupAddressBookUrlTest() {
+        String expectedUrl = storageManager.getAddressBookFilePath() + "-backup.xml";
+        String actualUrl = storageManager.getBackUpAddressBookFilePath();
+        assertEquals(expectedUrl, actualUrl);
     }
 
     @Test
