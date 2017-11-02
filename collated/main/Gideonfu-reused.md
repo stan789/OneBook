@@ -1,5 +1,25 @@
 # Gideonfu-reused
-###### \java\seedu\address\logic\parser\DeleteCommandParser.java
+###### /java/seedu/address/ui/AddressPanel.java
+``` java
+    /**
+     * Loads the address in Google Maps of the selected Person
+     * @param person
+     */
+    private void loadPersonAddress(ReadOnlyPerson person) {
+
+        if (person.getAddress().value.equals("~")) {
+            loadDefaultPage();
+        } else {
+            loadPage(GOOGLE_SEARCH_URL_PREFIX
+                    + person.getAddress().value.replaceAll(" ", "+").replaceAll(UNIT_NUMBER_REGEX, "")
+                    + GOOGLE_SEARCH_URL_SUFFIX);
+        }
+        this.person = person;
+        bindListeners(person);
+    }
+
+```
+###### /java/seedu/address/logic/parser/DeleteCommandParser.java
 ``` java
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
@@ -18,7 +38,7 @@
 
 }
 ```
-###### \java\seedu\address\model\person\ContainsKeywordsPredicate.java
+###### /java/seedu/address/model/person/ContainsKeywordsPredicate.java
 ``` java
     @Override
     public boolean test(ReadOnlyPerson person) {
@@ -48,24 +68,4 @@
         }
 
     }
-```
-###### \java\seedu\address\ui\AddressPanel.java
-``` java
-    /**
-     * Loads the address in Google Maps of the selected Person
-     * @param person
-     */
-    private void loadPersonAddress(ReadOnlyPerson person) {
-
-        if (person.getAddress().value.equals("~")) {
-            loadDefaultPage();
-        } else {
-            loadPage(GOOGLE_SEARCH_URL_PREFIX
-                    + person.getAddress().value.replaceAll(" ", "+").replaceAll(UNIT_NUMBER_REGEX, "")
-                    + GOOGLE_SEARCH_URL_SUFFIX);
-        }
-        this.person = person;
-        bindListeners(person);
-    }
-
 ```

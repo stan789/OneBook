@@ -12,6 +12,7 @@ public class ExportCommandParserTest {
 
     private ExportCommandParser parser = new ExportCommandParser();
 
+    //@@author stan789
     @Test
     public void parse_validArgs_returnsExportCommand() {
         String extension = ExportCommandParser.VCF_EXTENSION;
@@ -21,6 +22,7 @@ public class ExportCommandParserTest {
 
     }
 
+    //@@author stan789
     @Test
     public void parse_invalidArgs_throwsParserException() {
         String location = "hshhsvdsjbdjsbd";
@@ -28,6 +30,7 @@ public class ExportCommandParserTest {
 
     }
 
+    //@@author stan789
     @Test
     public void parse_invalidArgsWrongFileFormat_throwsParserException() {
         String location = "src/test/data/VCardFileTest/new.txt";
@@ -35,6 +38,7 @@ public class ExportCommandParserTest {
 
     }
 
+    //@@author stan789
     @Test
     public void parse_invalidArgsWrongFileNameFormat_throwsParserException() {
         String location = "src/test/data/VCardFileTest/!new.txt";
@@ -42,6 +46,7 @@ public class ExportCommandParserTest {
 
     }
 
+    //@@author stan789
     @Test
     public void parse_emptyArgs_throwsParserException() {
         String location = "";

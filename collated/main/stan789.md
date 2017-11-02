@@ -1,99 +1,105 @@
 # stan789
-###### \java\seedu\address\commands\SortCommand.java
+###### /java/seedu/address/logic/parser/ImportCommandParser.java
 ``` java
-public SortCommand(String sortType) {
-        this.sortType = sortType;
-    }
+    /**
+     * Parses the given {@code String} of arguments in the context of the ImportCommand
+     * and returns an ImportCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
 
-    @Override
-    public CommandResult execute() throws CommandException {
-        try {
-            if (this.binMode) {
-                model.executeBinSort(sortType);
-            } else {
-                model.executeSort(sortType);
-            }
-            return new CommandResult(MESSAGE_SUCCESS);
-        } catch (EmptyAddressBookException e) {
-            throw new CommandException(MESSAGE_NO_PERSON_TO_SORT);
+    public ImportCommand parse(String args) throws ParseException {
+
+        String trimmedArgs = args.trim();
+
+        if (args.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
+        }
+        fileLocation = Paths.get(trimmedArgs);
+        File file = new File(trimmedArgs);
+        if (!file.isFile()) {
+            throw new ParseException(NO_FILE_FOUND);
+        }
+        String filename = file.getName();
+        String extension = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
+        if (!extension.equals(VCF_EXTENSION)) {
+            throw new ParseException(FILE_WRONG_FORMAT);
+        }
+        return new ImportCommand(fileLocation);
+    }
+}
+```
+###### /java/seedu/address/logic/parser/ExportCommandParser.java
+``` java
+    /**
+     * Parses the given {@code String} of arguments in the context of the ExportCommand
+     * and returns an ExportCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+
+    public ExportCommand parse(String args) throws ParseException {
+
+        String trimmedArgs = args.trim();
+        if (args.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+        }
+        String directory = trimmedArgs.substring(0, trimmedArgs.lastIndexOf("/") + 1);
+        File dir = new File(directory);
+        if (!dir.isDirectory()) {
+            throw new ParseException(INVALID_DIRECTORY);
         }
 
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof SortCommand // instanceof handles nulls
-                && this.sortType.equals(((SortCommand) other).sortType)); // state check
-    }
-```
-###### \java\seedu\address\commands\ImportCommand.java
-``` java
-public ImportCommand(Path fileLocation) {
-        this.fileLocation = fileLocation;
-    }
-
-
-    @Override
-    public CommandResult execute() throws CommandException {
-
-        try {
-
-            count = model.importFile(fileLocation);
-
-        } catch (EmptyFileException e) {
-            throw new CommandException(MESSAGE_EMPTY_FILE);
-
-        } catch (IOException e) {
-            throw new CommandException(MESSAGE_FILE_INVALID);
+        String fileName = trimmedArgs.substring(trimmedArgs.lastIndexOf("/") + 1, trimmedArgs.lastIndexOf("."));
+        if (!fileName.matches("[A-Za-z0-9.-_]+")) {
+            throw new ParseException(INVALID_FILE_NAME);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, count));
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ImportCommand // instanceof handles nulls
-                && this.fileLocation.equals(((ImportCommand) other).fileLocation)); // state check
-    }
-```
-###### \java\seedu\address\commands\ExportCommand.java
-``` java
-public ExportCommand(String fileLocation, String fileName, String extension) {
-
-        this.fileLocation = fileLocation;
-        this.fileName = fileName;
-        this.extension = extension;
-    }
-
-
-    @Override
-    public CommandResult execute() throws CommandException {
-
-        try {
-            model.exportFile(fileLocation, extension);
-
-        } catch (IOException e) {
-            throw new CommandException(MESSAGE_WRITE_ERROR);
+        String extension = trimmedArgs.substring(trimmedArgs.lastIndexOf(".") + 1, trimmedArgs.length());
+        if (!extension.equals(VCF_EXTENSION) && !extension.equals(CSV_EXTENSION)) {
+            throw new ParseException(INVALID_EXTENSION);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, fileName));
+        return new ExportCommand(trimmedArgs, fileName, extension);
     }
+}
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ExportCommand // instanceof handles nulls
-                && this.fileLocation.equals(((ExportCommand) other).fileLocation)); // state check
-    }
 ```
-###### \java\seedu\address\commands\EmailCommand.java
+###### /java/seedu/address/logic/parser/EmailCommandParser.java
 ``` java
-public EmailCommand (Index targetIndex) {
-        this.targetIndex = targetIndex;
+    /**
+     * Parses the given {@code String} of arguments in the context of the EmailCommand
+     * and returns an EmailCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public EmailCommand parse(String args) throws ParseException {
+        try {
+            Index index = ParserUtil.parseIndex(args);
+            return new EmailCommand(index);
+        } catch (IllegalValueException ive) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmailCommand.MESSAGE_USAGE));
+        }
     }
-
+}
+```
+###### /java/seedu/address/logic/parser/SortCommandParser.java
+``` java
+    /**
+     * Parses the given {@code String} of arguments in the context of the SortCommand
+     * and returns an SortCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public SortCommand parse(String args) throws ParseException {
+        String trimmedArgs = args.trim().toLowerCase();
+        if (trimmedArgs.isEmpty() || (!trimmedArgs.equals(SORT_NAME) && !trimmedArgs.equals(SORT_EMAIL))) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+        }
+        return new SortCommand(trimmedArgs);
+    }
+}
+```
+###### /java/seedu/address/logic/commands/EmailCommand.java
+``` java
     @Override
     public CommandResult execute() throws CommandException {
 
@@ -127,230 +133,191 @@ public EmailCommand (Index targetIndex) {
         desktop.mail(new URI("mailto:" + email));
     }
 
+```
+###### /java/seedu/address/logic/commands/EmailCommand.java
+``` java
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EmailCommand // instanceof handles nulls
                 && this.targetIndex.equals(((EmailCommand) other).targetIndex)); // state check
     }
+}
 ```
-###### \java\seedu\address\parser\EmailCommandParser.java
+###### /java/seedu/address/logic/commands/ExportCommand.java
 ``` java
-/**
- * Parses input arguments and creates a new EmailCommand object
- */
+    @Override
+    public CommandResult execute() throws CommandException {
 
-public class EmailCommandParser implements Parser<EmailCommand> {
-
-    /**
-     * Parses the given {@code String} of arguments in the context of the EmailCommand
-     * and returns an EmailCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    public EmailCommand parse(String args) throws ParseException {
         try {
-            Index index = ParserUtil.parseIndex(args);
-            return new EmailCommand(index);
-        } catch (IllegalValueException ive) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmailCommand.MESSAGE_USAGE));
+            model.exportFile(fileLocation, extension);
+
+        } catch (IOException e) {
+            throw new CommandException(MESSAGE_WRITE_ERROR);
         }
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, fileName));
+    }
+
+```
+###### /java/seedu/address/logic/commands/ExportCommand.java
+``` java
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ExportCommand // instanceof handles nulls
+                && this.fileLocation.equals(((ExportCommand) other).fileLocation)); // state check
     }
 }
 ```
-###### \java\seedu\address\parser\EmailCommandParser.java
+###### /java/seedu/address/logic/commands/SortCommand.java
 ``` java
-/**
- * Parses input arguments and creates a new ExportCommand object
- */
-
-public class ExportCommandParser implements Parser<ExportCommand> {
-
-    public  static final String INVALID_DIRECTORY = "The directory given is invalid.";
-    public  static final String INVALID_FILE_NAME = "The format for the file name is invalid.";
-    public static final String VCF_EXTENSION = "vcf";
-    public static final String CSV_EXTENSION = "csv";
-    public static final String INVALID_EXTENSION = "File created should end with .vcf or .csv extension.";
-
-
-
-    /**
-     * Parses the given {@code String} of arguments in the context of the ExportCommand
-     * and returns an ExportCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     */
-
-    public ExportCommand parse(String args) throws ParseException {
-
-        String trimmedArgs = args.trim();
-        if (args.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
-        }
-        String directory = trimmedArgs.substring(0, trimmedArgs.lastIndexOf("/") + 1);
-        File dir = new File(directory);
-        if (!dir.isDirectory()) {
-            throw new ParseException(INVALID_DIRECTORY);
-        }
-
-        String fileName = trimmedArgs.substring(trimmedArgs.lastIndexOf("/") + 1, trimmedArgs.lastIndexOf("."));
-        if (!fileName.matches("[A-Za-z0-9.-_]+")) {
-            throw new ParseException(INVALID_FILE_NAME);
-        }
-
-        String extension = trimmedArgs.substring(trimmedArgs.lastIndexOf(".") + 1, trimmedArgs.length());
-        if (!extension.equals(VCF_EXTENSION) && !extension.equals(CSV_EXTENSION)) {
-            throw new ParseException(INVALID_EXTENSION);
-        }
-
-        return new ExportCommand(trimmedArgs, fileName, extension);
-    }
-}
-```
-###### \java\seedu\address\parser\EmailCommandParser.java
-``` java
-**
- * Parses input arguments and creates a new ImportCommand object
- */
-
-public class ImportCommandParser implements Parser<ImportCommand> {
-
-    public static final String NO_FILE_FOUND = "NO FILE FOUND";
-    public static final String FILE_WRONG_FORMAT = "FILE IN WRONG FORMAT. FILE SHOULD BE in .vcf FORMAT";
-    public static final String VCF_EXTENSION = "vcf";
-    private Path fileLocation;
-    /**
-     * Parses the given {@code String} of arguments in the context of the ImportCommand
-     * and returns an ImportCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     */
-
-    public ImportCommand parse(String args) throws ParseException {
-
-        String trimmedArgs = args.trim();
-
-        if (args.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
-        }
-        fileLocation = Paths.get(trimmedArgs);
-        File file = new File(trimmedArgs);
-        if (!file.isFile()) {
-            throw new ParseException(NO_FILE_FOUND);
-        }
-        String filename = file.getName();
-        String extension = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
-        if (!extension.equals(VCF_EXTENSION)) {
-            throw new ParseException(FILE_WRONG_FORMAT);
-        }
-        return new ImportCommand(fileLocation);
-    }
-}
-```
-###### \java\seedu\address\parser\AddressBookParser.java
-``` java
-case SortCommand.COMMAND_WORD:
-            return new SortCommandParser().parse(arguments);
-case EmailCommand.COMMAND_WORD:
-            return new EmailCommandParser().parse(arguments);
-case ImportCommand.COMMAND_WORD:
-            return new ImportCommandParser().parse(arguments);
-case ExportCommand.COMMAND_WORD:
-            return new ExportCommandParser().parse(arguments); 
-```
-###### \java\seedu\address\model\Model.java
-``` java
-//sort
-void executeSort(String sortType) throws EmptyAddressBookException;
-//import VCard file
-Integer importFile(Path fileLocation) throws IOException;
-//export file
-void exportFile(String fileLocation, String extension) throws IOException;
-```
-###### \java\seedu\address\model\ModelManager.java
-``` java
-@Override
-    public Integer importFile(Path fileLocation) throws IOException {
-        ImportVCardFile importFile = new ImportVCardFile(fileLocation);
-        ArrayList<Person> person = importFile.getPersonFromFile();
-        for (Person p : person) {
-            try {
-                addPerson(p);
-            } catch (DuplicatePersonException e) {
-                System.out.println("DuplicatePersonException" + p.getName());
+    @Override
+    public CommandResult execute() throws CommandException {
+        try {
+            if (this.binMode) {
+                model.executeBinSort(sortType);
+            } else {
+                model.executeSort(sortType);
             }
-        }
-        return person.size();
-    }
-
-    @Override
-    public void exportFile(String fileLocation, String extension) throws IOException {
-        ObservableList<ReadOnlyPerson> person = getAddressBook().getPersonList();
-        if (extension.equals("vcf")) {
-            ExportVCardFile exportVCardFile = new ExportVCardFile(fileLocation);
-            exportVCardFile.createVCardFile(person);
-        } else {
-            ExportCsvFile exportCsvFile = new ExportCsvFile(fileLocation);
-            exportCsvFile.createCsvFile(person);
+            return new CommandResult(MESSAGE_SUCCESS);
+        } catch (EmptyAddressBookException e) {
+            throw new CommandException(MESSAGE_NO_PERSON_TO_SORT);
         }
 
     }
-    @Override
-        public void executeSort(String sortType) throws EmptyAddressBookException {
-            addressBook.executeSort(sortType);
-            indicateAddressBookChanged();
-        }
- ```
- ###### \java\seedu\address\storage\ExportCsvFile.java
-  ``` java
-  public void createCsvFile(ObservableList<ReadOnlyPerson> person) throws IOException {
-          try {
-              FileOutputStream outputStream = new FileOutputStream(new File(fileLocation));
-              OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-8");
-              BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
-              bufferedWriter.write("First Name,Last Name,Company,Home Street,Other Phone,Birthday,E-mail Address");
-              bufferedWriter.newLine();
-              for (ReadOnlyPerson p: person) {
-                  String[] name = p.getName().toString().split(" ", 2);
-                  bufferedWriter.write(name[0]);
-                  bufferedWriter.write(",");
-                  if (name.length == 2) {
-                      bufferedWriter.write(name[1]);
-                  }
-                  bufferedWriter.write(",");
-                  if (!p.getOrganisation().toString().equals("~")) {
-                      bufferedWriter.write(p.getOrganisation().toString());
-                  }
-                  bufferedWriter.write(",");
-                  if (!p.getAddress().toString().equals("~")) {
-                      String address = p.getAddress().toString();
-                      address = address.replaceAll(",", "");
-                      bufferedWriter.write(address);
-                  }
-                  bufferedWriter.write(",");
-                  if (!p.getPhone().toString().equals("~")) {
-                      bufferedWriter.write("," + p.getPhone().toString());
-                  }
-                  bufferedWriter.write(",");
-                  if (!p.getBirthday().toString().equals("~")) {
-                      String birthday = p.getBirthday().toString();
-                      birthday = birthday.replaceAll("-", "/");
-                      bufferedWriter.write(birthday);
-                  }
-                  bufferedWriter.write(",");
-  
-                  if (!p.getEmail().toString().equals("~")) {
-                      bufferedWriter.write(p.getEmail().toString());
-                  }
-                  bufferedWriter.newLine();
-              }
-              bufferedWriter.close();
-          } catch (IOException e) {
-              throw new IOException();
-          }
-      }
+
 ```
-  ###### \java\seedu\address\storage\ExportVCardFile.java
-``` java   
+###### /java/seedu/address/logic/commands/SortCommand.java
+``` java
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortCommand // instanceof handles nulls
+                && this.sortType.equals(((SortCommand) other).sortType)); // state check
+    }
+}
+```
+###### /java/seedu/address/logic/commands/ImportCommand.java
+``` java
+    @Override
+    public CommandResult execute() throws CommandException {
+
+        try {
+
+            count = model.importFile(fileLocation);
+
+        } catch (EmptyFileException e) {
+            throw new CommandException(MESSAGE_EMPTY_FILE);
+
+        } catch (IOException e) {
+            throw new CommandException(MESSAGE_FILE_INVALID);
+        }
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, count));
+    }
+
+```
+###### /java/seedu/address/logic/commands/ImportCommand.java
+``` java
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ImportCommand // instanceof handles nulls
+                && this.fileLocation.equals(((ImportCommand) other).fileLocation)); // state check
+    }
+}
+```
+###### /java/seedu/address/storage/ExportCsvFile.java
+``` java
+    /**
+     * Create a csv file to the directory.
+     */
+    public void createCsvFile(ObservableList<ReadOnlyPerson> person) throws IOException {
+
+        try {
+            FileOutputStream outputStream = new FileOutputStream(new File(fileLocation));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-8");
+            BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
+
+            bufferedWriter.write("First Name,Last Name,Company,Home Street,Other Phone,Birthday,E-mail Address");
+            bufferedWriter.newLine();
+            for (ReadOnlyPerson p: person) {
+                String[] name = p.getName().toString().split(" ", 2);
+                bufferedWriter.write(name[0]);
+                bufferedWriter.write(",");
+
+                if (name.length == 2) {
+                    bufferedWriter.write(name[1]);
+                }
+                bufferedWriter.write(",");
+
+                if (!p.getOrganisation().toString().equals("~")) {
+                    bufferedWriter.write(p.getOrganisation().toString());
+                }
+                bufferedWriter.write(",");
+
+                if (!p.getAddress().toString().equals("~")) {
+                    String address = p.getAddress().toString();
+                    address = address.replaceAll(",", "");
+                    bufferedWriter.write(address);
+                }
+                bufferedWriter.write(",");
+
+                if (!p.getPhone().toString().equals("~")) {
+                    bufferedWriter.write(p.getPhone().toString());
+                }
+                bufferedWriter.write(",");
+
+
+                if (!p.getBirthday().toString().equals("~")) {
+                    String birthday = p.getBirthday().toString();
+                    birthday = birthday.replaceAll("-", "/");
+                    bufferedWriter.write(birthday);
+                }
+                bufferedWriter.write(",");
+
+                if (!p.getEmail().toString().equals("~")) {
+                    bufferedWriter.write(p.getEmail().toString());
+                }
+                bufferedWriter.newLine();
+
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new IOException();
+        }
+
+    }
+}
+```
+###### /java/seedu/address/storage/exceptions/WrongFormatInFileException.java
+``` java
 /**
+ * Signals that the format in the file is wrong.
+ */
+
+public class WrongFormatInFileException extends IOException {
+    public WrongFormatInFileException() {
+
+    }
+}
+```
+###### /java/seedu/address/storage/exceptions/EmptyFileException.java
+``` java
+/**
+ * Signals that the file read is an empty file.
+ */
+
+public class EmptyFileException extends IOException {
+    public EmptyFileException() {
+
+    }
+}
+```
+###### /java/seedu/address/storage/ExportVCardFile.java
+``` java
+    /**
      * write vCard file from the directory. supports up to VCard Version 3.0
      */
     public void createVCardFile(ObservableList<ReadOnlyPerson> person) throws IOException {
@@ -427,18 +394,10 @@ void exportFile(String fileLocation, String extension) throws IOException;
             throw new IOException();
         }
     }
+}
 ```
-  ###### \java\seedu\address\storage\ImportVCardFile.java
+###### /java/seedu/address/storage/ImportVCardFile.java
 ``` java
-**
-     * Read vCard file from the directory.
-     * return a list of persons
-     */
-    public ImportVCardFile(Path fileLocation) {
-        this.fileLocation = fileLocation;
-        vcf = new VCardFileType();
-        vCard = new VCard();
-    }
     /**
      * Read vCard file from the directory. Check format in file.
      * return a list of persons
@@ -469,6 +428,9 @@ void exportFile(String fileLocation, String extension) throws IOException;
         return person;
     }
 
+```
+###### /java/seedu/address/storage/ImportVCardFile.java
+``` java
     /**
      * Check format in file for each line.
      * return a person
@@ -491,6 +453,9 @@ void exportFile(String fileLocation, String extension) throws IOException;
         }
     }
 
+```
+###### /java/seedu/address/storage/ImportVCardFile.java
+``` java
     /**
      * check the format of the different attributes of VCard object.
      */
@@ -539,6 +504,9 @@ void exportFile(String fileLocation, String extension) throws IOException;
         }
     }
 
+```
+###### /java/seedu/address/storage/ImportVCardFile.java
+``` java
     /**
      * change format of VCard address to OneBook address format
      */
@@ -558,6 +526,9 @@ void exportFile(String fileLocation, String extension) throws IOException;
         vCard.setAddress(address);
     }
 
+```
+###### /java/seedu/address/storage/ImportVCardFile.java
+``` java
     /**
      * create a list of tags from VCard file tags.
      */
@@ -571,6 +542,9 @@ void exportFile(String fileLocation, String extension) throws IOException;
         vCard.setTag(tagList);
     }
 
+```
+###### /java/seedu/address/storage/ImportVCardFile.java
+``` java
     /**
      * add a new person to Arraylist if a person's format is correct and start with begin VCard and
      * end VCard statement.
@@ -595,175 +569,316 @@ void exportFile(String fileLocation, String extension) throws IOException;
             System.out.println("IllegalValueException" + vCard.getName() + " " + vCard.getPhone());
         }
     }
+
+}
 ```
-###### \java\seedu\address\storage\VCard.java
+###### /java/seedu/address/model/person/UniquePersonList.java
 ``` java
-**
- * Stores the information from VCard file.
- */
+    /**
+     * Sorts the list by type(name or email) in alphabetical order.
+     */
+    public void sort(String sortType) throws EmptyAddressBookException {
+        if (internalList.isEmpty()) {
+            throw new EmptyAddressBookException();
+        }
 
-public class VCard {
+        switch(sortType) {
 
-    private String phone;
-    private String email;
-    private String address;
-    private String birthday;
-    private String name;
-    private String organisation;
-    private String remark;
-    private List<String> tag;
+        case SORT_NAME:
+            internalList.sort(Comparator.comparing(p -> p.getName().toString().toLowerCase()));
+            break;
 
-    public VCard() {
-        name = "";
-        tag = new ArrayList<String>();
+        case SORT_EMAIL:
+            internalList.sort(Comparator.comparing(p -> p.getEmail().toString().toLowerCase()));
+            break;
 
+        default:
+        }
 
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    /**
+     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     *
+     * @throws DuplicatePersonException if the replacement is equivalent to another existing person in the list.
+     * @throws PersonNotFoundException if {@code target} could not be found in the list.
+     */
+    public void setPerson(ReadOnlyPerson target, ReadOnlyPerson editedPerson)
+            throws DuplicatePersonException, PersonNotFoundException {
+        requireNonNull(editedPerson);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new PersonNotFoundException();
+        }
+
+        if (!target.equals(editedPerson) && internalList.contains(editedPerson)) {
+            throw new DuplicatePersonException();
+        }
+
+        internalList.set(index, new Person(editedPerson));
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    /**
+     * Removes the equivalent person from the list.
+     *
+     * @throws PersonNotFoundException if no such person could be found in the list.
+     */
+    public ReadOnlyPerson remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
+        requireNonNull(toRemove);
+        final boolean personFoundAndDeleted = internalList.remove(toRemove);
+        if (!personFoundAndDeleted) {
+            throw new PersonNotFoundException();
+        }
+        return toRemove;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPersons(UniquePersonList replacement) {
+        this.internalList.setAll(replacement.internalList);
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPersons(List<? extends ReadOnlyPerson> persons) throws DuplicatePersonException {
+        final UniquePersonList replacement = new UniquePersonList();
+        for (final ReadOnlyPerson person : persons) {
+            replacement.add(new Person(person));
+        }
+        setPersons(replacement);
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<ReadOnlyPerson> asObservableList() {
+        return FXCollections.unmodifiableObservableList(mappedList);
     }
 
-    public void setOrganisation(String organisation) {
-        this.organisation = organisation;
+
+    @Override
+    public Iterator<Person> iterator() {
+        return internalList.iterator();
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UniquePersonList // instanceof handles nulls
+                        && this.internalList.equals(((UniquePersonList) other).internalList));
     }
 
-    public void setTag(List<String> label) {
-        tag = label;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public List<String> getTag() {
-        return tag;
-    }
-
-    public String getOrganisation() {
-        return organisation;
-    }
-
-    public String getRemark() {
-        return remark;
+    @Override
+    public int hashCode() {
+        return internalList.hashCode();
     }
 }
 ```
-###### \java\seedu\address\storage\VCardFileType.java
+###### /java/seedu/address/model/person/exceptions/EmptyAddressBookException.java
 ``` java
 /**
- * Format of VCard file
+ * Signals that the operation will result in executing an empty address.
  */
-public class VCardFileType {
-    private static final String name = "FN";
-    private static final String addressFormat1 = "ADR";
-    private static final String addressFormat2 = "item1.ADR";
-    private static final String email = "EMAIL";
-    private static final String begin = "BEGIN:VCARD";
-    private static final String end = "END:VCARD";
-    private static final String phoneFormat1 = "TEL";
-    private static final String phoneFormat2 = ".TEL";
-    private static final String birthday = "BDAY";
-    private static final String label = "CATEGORIES";
-    private static final String version = "Version 3.0";
-    private static final String organization = "ORG";
-    private static final String notes = "NOTE";
 
-    public VCardFileType() {
-    }
-
-    public String getAddressFormat1() {
-        return addressFormat1;
-    }
-
-    public String getAddressFormat2() {
-        return addressFormat2;
-    }
-
-    public String getBegin() {
-        return begin;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public String getEnd() {
-        return end;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPhoneFormat() {
-        return phoneFormat1;
-    }
-
-    public String getPhoneFormat2() {
-        return phoneFormat2;
-    }
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public String getOrganization() {
-        return organization;
-    }
-
-    public String getNotes() {
-        return notes;
+public class EmptyAddressBookException extends Exception {
+    public EmptyAddressBookException() {
     }
 }
 ```
-###### \java\seedu\address\storage\exceptions\EmptyFileException.java
-``` java 
-public class EmptyFileException extends IOException {
-    public EmptyFileException() {
+###### /java/seedu/address/model/AddressBook.java
+``` java
+    /**
+     * Sorts the list by type(name or email) in alphabetical order.
+     */
+
+    public void executeSort(String sortType) throws EmptyAddressBookException {
+        persons.sort(sortType);
     }
+
+    //// person-level operations
+
+    /**
+     * Adds a person to the address book.
+     * Also checks the new person's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the person to point to those in {@link #tags}.
+     *
+     * @throws DuplicatePersonException if an equivalent person already exists.
+     */
+    public void addPerson(ReadOnlyPerson p) throws DuplicatePersonException {
+        Person newPerson = new Person(p);
+        syncMasterTagListWith(newPerson);
+        // TODO: the tags master list will be updated even though the below line fails.
+        // This can cause the tags master list to have additional tags that are not tagged to any person
+        // in the person list.
+        persons.add(newPerson);
+    }
+
+    /**
+     * Replaces the given person {@code target} in the list with {@code editedReadOnlyPerson}.
+     * {@code AddressBook}'s tag list will be updated with the tags of {@code editedReadOnlyPerson}.
+     *
+     * @throws DuplicatePersonException if updating the person's details causes the person to be equivalent to
+     *      another existing person in the list.
+     * @throws PersonNotFoundException if {@code target} could not be found in the list.
+     *
+     * @see #syncMasterTagListWith(Person)
+     */
+    public void updatePerson(ReadOnlyPerson target, ReadOnlyPerson editedReadOnlyPerson)
+            throws DuplicatePersonException, PersonNotFoundException {
+        requireNonNull(editedReadOnlyPerson);
+
+        Person editedPerson = new Person(editedReadOnlyPerson);
+        syncMasterTagListWith(editedPerson);
+        // TODO: the tags master list will be updated even though the below line fails.
+        // This can cause the tags master list to have additional tags that are not tagged to any person
+        // in the person list.
+        persons.setPerson(target, editedPerson);
+    }
+
+    /**
+     * Ensures that every tag in this person:
+     *  - exists in the master list {@link #tags}
+     *  - points to a Tag object in the master list
+     */
+    private void syncMasterTagListWith(Person person) {
+        final UniqueTagList personTags = new UniqueTagList(person.getTags());
+        tags.mergeFrom(personTags);
+
+        // Create map with values = tag object references in the master list
+        // used for checking person tag references
+        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
+        tags.forEach(tag -> masterTagObjects.put(tag, tag));
+
+        // Rebuild the list of person tags to point to the relevant tags in the master tag list.
+        final Set<Tag> correctTagReferences = new HashSet<>();
+        personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
+        person.setTags(correctTagReferences);
+    }
+
+    /**
+     * Ensures that every tag in these persons:
+     *  - exists in the master list {@link #tags}
+     *  - points to a Tag object in the master list
+     *  @see #syncMasterTagListWith(Person)
+     */
+    protected void syncMasterTagListWith(UniquePersonList persons) {
+        persons.forEach(this::syncMasterTagListWith);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
+     */
+    public ReadOnlyPerson removePerson(ReadOnlyPerson key) throws PersonNotFoundException {
+        ReadOnlyPerson deletedPerson = persons.remove(key);
+        if (deletedPerson != null) {
+            return deletedPerson;
+        } else {
+            throw new PersonNotFoundException();
+        }
+    }
+
+    //// tag-level operations
+
+    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
+        tags.add(t);
+    }
+
+    //// util methods
+
+    @Override
+    public String toString() {
+        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() +  " tags";
+        // TODO: refine later
+    }
+
+    @Override
+    public ObservableList<ReadOnlyPerson> getPersonList() {
+        return persons.asObservableList();
+    }
+
+    @Override
+    public ObservableList<Tag> getTagList() {
+        return tags.asObservableList();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddressBook // instanceof handles nulls
+                && this.persons.equals(((AddressBook) other).persons)
+                && this.tags.equalsOrderInsensitive(((AddressBook) other).tags));
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(persons, tags);
+    }
+}
+```
+###### /java/seedu/address/model/ModelManager.java
+``` java
+    @Override
+    public void executeSort(String sortType) throws EmptyAddressBookException {
+        addressBook.executeSort(sortType);
+        indicateAddressBookChanged();
+    }
+
+```
+###### /java/seedu/address/model/ModelManager.java
+``` java
+    @Override
+    public Integer importFile(Path fileLocation) throws IOException {
+        ImportVCardFile importFile = new ImportVCardFile(fileLocation);
+        ArrayList<Person> person = importFile.getPersonFromFile();
+        for (Person p : person) {
+            try {
+                addPerson(p);
+            } catch (DuplicatePersonException e) {
+                System.out.println("DuplicatePersonException" + p.getName());
+            }
+        }
+        return person.size();
+    }
+
+```
+###### /java/seedu/address/model/ModelManager.java
+``` java
+    @Override
+    public void exportFile(String fileLocation, String extension) throws IOException {
+        ObservableList<ReadOnlyPerson> person = getAddressBook().getPersonList();
+        if (extension.equals("vcf")) {
+            ExportVCardFile exportVCardFile = new ExportVCardFile(fileLocation);
+            exportVCardFile.createVCardFile(person);
+        } else {
+            ExportCsvFile exportCsvFile = new ExportCsvFile(fileLocation);
+            exportCsvFile.createCsvFile(person);
+        }
+
+    }
+
+    @Override
+    public ReadOnlyAddressBook getAddressBook() {
+        return addressBook;
+    }
+
+```
+###### /java/seedu/address/model/Model.java
+``` java
+    /**
+     * Updates the filter of the filtered bin list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void executeSort(String sortType) throws EmptyAddressBookException;
+
+```
+###### /java/seedu/address/model/Model.java
+``` java
+    /** Returns an integer which is the number of persons that are succcessfully imported*/
+    Integer importFile(Path fileLocation) throws IOException;
+
+```
+###### /java/seedu/address/model/Model.java
+``` java
+    /** Exports the current contacts in OneBook to VCard or Csv file*/
+    void exportFile(String fileLocation, String extension) throws IOException;
+}
 ```

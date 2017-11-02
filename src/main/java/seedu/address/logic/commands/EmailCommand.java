@@ -42,6 +42,7 @@ public class EmailCommand extends Command {
         this.targetIndex = targetIndex;
     }
 
+    //@@author stan789
     @Override
     public CommandResult execute() throws CommandException {
 
@@ -75,6 +76,7 @@ public class EmailCommand extends Command {
         desktop.mail(new URI("mailto:" + email));
     }
 
+    //@@author stan789
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

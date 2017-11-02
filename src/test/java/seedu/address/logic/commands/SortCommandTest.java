@@ -30,6 +30,7 @@ public class SortCommandTest {
         expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalRecycleBin(), new UserPrefs());
     }
 
+    //@@author stan789
     @Test
     public void execute_sortByName_sortSuccess() throws EmptyAddressBookException {
         SortCommand sortCommand = prepareCommand(SORT_NAME);
@@ -39,6 +40,7 @@ public class SortCommandTest {
         assertCommandSuccess(sortCommand, model, expectedMessage, expectedModel);
     }
 
+    //@@author stan789
     @Test
     public void execute_sortByName_sortSuccessBinMode() throws EmptyAddressBookException {
         SortCommand sortCommand = prepareCommand_binMode(SORT_NAME);
@@ -49,6 +51,7 @@ public class SortCommandTest {
         assertCommandSuccess(sortCommand, model, expectedMessage, expectedModel);
     }
 
+    //@@author stan789
     @Test
     public void execute_sortByEmail_sortSuccess() throws EmptyAddressBookException {
         SortCommand sortCommand = prepareCommand(SORT_EMAIL);
@@ -58,6 +61,7 @@ public class SortCommandTest {
         assertCommandSuccess(sortCommand, model, expectedMessage, expectedModel);
     }
 
+    //@@author stan789
     @Test
     public void execute_sortByEmail_sortSuccessBinMode() throws EmptyAddressBookException {
         SortCommand sortCommand = prepareCommand_binMode(SORT_EMAIL);
@@ -68,6 +72,7 @@ public class SortCommandTest {
         assertCommandSuccess(sortCommand, model, expectedMessage, expectedModel);
     }
 
+    //@@author stan789
     @Test(expected = EmptyAddressBookException.class)
     public void testEmptyAddressBookException() throws EmptyAddressBookException {
         model.resetData(new AddressBookData(new AddressBook(), new RecycleBin()));
@@ -75,6 +80,7 @@ public class SortCommandTest {
 
     }
 
+    //@@author stan789-reused
     /**
      * Generates a new {@code SortCommand} which upon execution, sorts the AddressBook.
      */

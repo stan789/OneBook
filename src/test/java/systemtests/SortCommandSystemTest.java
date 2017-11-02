@@ -24,6 +24,7 @@ import seedu.address.storage.AddressBookData;
 
 public class SortCommandSystemTest extends AddressBookSystemTest {
 
+    //@@author stan789
     @Test
     public void sort() {
         Model expectedModel = getModel();
@@ -75,6 +76,7 @@ public class SortCommandSystemTest extends AddressBookSystemTest {
 
     }
 
+    //@@author stan789-reused
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
      * box displays {@code MESSAGE_SUCCESS},
@@ -93,6 +95,7 @@ public class SortCommandSystemTest extends AddressBookSystemTest {
         assertStatusBarUnchangedExceptSyncStatus();
     }
 
+    //@@author stan789-reused
     /**
      * Executes {@code command} and verifies that the command box displays {@code command}, the result display
      * box displays {@code expectedResultMessage} and the model related components equal to the current model.
