@@ -68,6 +68,9 @@ public class EmailCommand extends Command {
      * redirects user to their desktop's default email application.
      */
     protected void desktopEmail(String email) throws IOException, URISyntaxException {
+        if (!Desktop.isDesktopSupported()) {
+            throw new IOException();
+        }
         Desktop desktop = getDesktop();
         desktop.mail(new URI("mailto:" + email));
     }
