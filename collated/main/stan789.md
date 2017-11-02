@@ -134,6 +134,128 @@ public EmailCommand (Index targetIndex) {
                 && this.targetIndex.equals(((EmailCommand) other).targetIndex)); // state check
     }
 ```
+###### \java\seedu\address\parser\EmailCommandParser.java
+``` java
+/**
+ * Parses input arguments and creates a new EmailCommand object
+ */
+
+public class EmailCommandParser implements Parser<EmailCommand> {
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the EmailCommand
+     * and returns an EmailCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public EmailCommand parse(String args) throws ParseException {
+        try {
+            Index index = ParserUtil.parseIndex(args);
+            return new EmailCommand(index);
+        } catch (IllegalValueException ive) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmailCommand.MESSAGE_USAGE));
+        }
+    }
+}
+```
+###### \java\seedu\address\parser\EmailCommandParser.java
+``` java
+/**
+ * Parses input arguments and creates a new ExportCommand object
+ */
+
+public class ExportCommandParser implements Parser<ExportCommand> {
+
+    public  static final String INVALID_DIRECTORY = "The directory given is invalid.";
+    public  static final String INVALID_FILE_NAME = "The format for the file name is invalid.";
+    public static final String VCF_EXTENSION = "vcf";
+    public static final String CSV_EXTENSION = "csv";
+    public static final String INVALID_EXTENSION = "File created should end with .vcf or .csv extension.";
+
+
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the ExportCommand
+     * and returns an ExportCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+
+    public ExportCommand parse(String args) throws ParseException {
+
+        String trimmedArgs = args.trim();
+        if (args.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+        }
+        String directory = trimmedArgs.substring(0, trimmedArgs.lastIndexOf("/") + 1);
+        File dir = new File(directory);
+        if (!dir.isDirectory()) {
+            throw new ParseException(INVALID_DIRECTORY);
+        }
+
+        String fileName = trimmedArgs.substring(trimmedArgs.lastIndexOf("/") + 1, trimmedArgs.lastIndexOf("."));
+        if (!fileName.matches("[A-Za-z0-9.-_]+")) {
+            throw new ParseException(INVALID_FILE_NAME);
+        }
+
+        String extension = trimmedArgs.substring(trimmedArgs.lastIndexOf(".") + 1, trimmedArgs.length());
+        if (!extension.equals(VCF_EXTENSION) && !extension.equals(CSV_EXTENSION)) {
+            throw new ParseException(INVALID_EXTENSION);
+        }
+
+        return new ExportCommand(trimmedArgs, fileName, extension);
+    }
+}
+```
+###### \java\seedu\address\parser\EmailCommandParser.java
+``` java
+**
+ * Parses input arguments and creates a new ImportCommand object
+ */
+
+public class ImportCommandParser implements Parser<ImportCommand> {
+
+    public static final String NO_FILE_FOUND = "NO FILE FOUND";
+    public static final String FILE_WRONG_FORMAT = "FILE IN WRONG FORMAT. FILE SHOULD BE in .vcf FORMAT";
+    public static final String VCF_EXTENSION = "vcf";
+    private Path fileLocation;
+    /**
+     * Parses the given {@code String} of arguments in the context of the ImportCommand
+     * and returns an ImportCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+
+    public ImportCommand parse(String args) throws ParseException {
+
+        String trimmedArgs = args.trim();
+
+        if (args.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
+        }
+        fileLocation = Paths.get(trimmedArgs);
+        File file = new File(trimmedArgs);
+        if (!file.isFile()) {
+            throw new ParseException(NO_FILE_FOUND);
+        }
+        String filename = file.getName();
+        String extension = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
+        if (!extension.equals(VCF_EXTENSION)) {
+            throw new ParseException(FILE_WRONG_FORMAT);
+        }
+        return new ImportCommand(fileLocation);
+    }
+}
+```
+###### \java\seedu\address\parser\AddressBookParser.java
+``` java
+case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
+case EmailCommand.COMMAND_WORD:
+            return new EmailCommandParser().parse(arguments);
+case ImportCommand.COMMAND_WORD:
+            return new ImportCommandParser().parse(arguments);
+case ExportCommand.COMMAND_WORD:
+            return new ExportCommandParser().parse(arguments);
+```            
 ###### \java\seedu\address\model\Model.java
 ``` java
 //sort
