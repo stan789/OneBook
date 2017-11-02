@@ -50,8 +50,9 @@ public class AddressPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    //@@author Gideonfu-reused
     /**
-     * Loads the address and webpage of the selected Person
+     * Loads the address in Google Maps of the selected Person
      * @param person
      */
     private void loadPersonAddress(ReadOnlyPerson person) {

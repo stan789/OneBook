@@ -22,7 +22,7 @@ public class StorageManager extends ComponentManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
-
+    //@@author darrinloh
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
@@ -44,6 +44,7 @@ public class StorageManager extends ComponentManager implements Storage {
         }
 
     }
+    //@@author darrinloh
 
     // ================ UserPrefs methods ==============================
 
@@ -70,15 +71,18 @@ public class StorageManager extends ComponentManager implements Storage {
         return addressBookStorage.getAddressBookFilePath();
     }
 
+    //@@author darrinloh
     @Override
     public String getBackUpAddressBookFilePath() {
         return addressBookStorage.getAddressBookFilePath() + "-backup.xml";
     }
 
+
     @Override
     public Optional<AddressBookData> readBackUpAddressBook() throws DataConversionException, IOException {
         return readAddressBook(addressBookStorage.getAddressBookFilePath() + "-backup.xml");
     }
+    //@@author darrinloh
 
     @Override
     public Optional<AddressBookData> readAddressBook() throws DataConversionException, IOException {
@@ -103,6 +107,7 @@ public class StorageManager extends ComponentManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    //@@author darrinloh
     private void backUpAddressBook(AddressBookData addressBook) throws IOException {
         saveAddressBook(addressBook, getLocalBackUpAddressBookFilePath());
     }
@@ -110,7 +115,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public String getLocalBackUpAddressBookFilePath() {
         return addressBookStorage.getAddressBookFilePath() + "-backup.xml";
     }
-
+    //@@author darrinloh
 
     @Override
     @Subscribe

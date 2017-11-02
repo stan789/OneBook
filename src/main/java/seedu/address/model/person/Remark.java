@@ -2,8 +2,9 @@ package seedu.address.model.person;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
+//@@author Gideonfu
 /**
- * Represents a Person's Company in the address book.
+ * Represents a Person's remark in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidRemark(String)}
  */
 public class Remark {
@@ -12,7 +13,7 @@ public class Remark {
             "Person remark can take any values";
 
     /*
-     * The first character of the organisation must not be a whitespace,
+     * The first character of the remark must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String REMARK_VALIDATION_REGEX = "[^\\s].*";
@@ -36,7 +37,7 @@ public class Remark {
         }
     }
     /**
-     * Returns true if a given string is a valid person organisation.
+     * Returns true if a given string is a valid person remark.
      */
     public static boolean isValidRemark(String test) {
         return test.matches(REMARK_VALIDATION_REGEX) || test.matches(REMARK_NOT_ASSIGNED);
