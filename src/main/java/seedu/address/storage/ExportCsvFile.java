@@ -55,7 +55,7 @@ public class ExportCsvFile {
                 bufferedWriter.write(",");
 
                 if (!p.getPhone().toString().equals("~")) {
-                    bufferedWriter.write("," + p.getPhone().toString());
+                    bufferedWriter.write(p.getPhone().toString());
                 }
                 bufferedWriter.write(",");
 
