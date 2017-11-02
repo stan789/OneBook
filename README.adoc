@@ -17,6 +17,7 @@ endif::[]
 * This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * This application is optimized for companies' usage. It is also suitable for general usage.
 * This application allows users to easily import and export contacts, send emails conveniently and stores a database of contacts.
+
 == Site Map
 
 * <<UserGuide#, User Guide>>
