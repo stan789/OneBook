@@ -1,13 +1,6 @@
-package seedu.address.model.person;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
-public class RemarkTest {
-
-    //@@author Gideonfu
+# Gideonfu
+###### \java\seedu\address\model\person\RemarkTest.java
+``` java
     @Test
     public void isValidRemark() {
         // invalid addresses
@@ -20,3 +13,4 @@ public class RemarkTest {
         assertTrue(Remark.isValidRemark("Meet for lunch 21/10 6pm Nex")); // long remark
     }
 }
+```

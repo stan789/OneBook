@@ -20,6 +20,7 @@ public class ContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
         this.mainKeyword = mainKeyword;
     }
 
+    //@@author Gideonfu-reused
     @Override
     public boolean test(ReadOnlyPerson person) {
         switch (mainKeyword) {
@@ -48,6 +49,7 @@ public class ContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
         }
 
     }
+    //@@author
 
     @Override
     public boolean equals(Object other) {
