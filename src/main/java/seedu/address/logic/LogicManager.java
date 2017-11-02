@@ -55,11 +55,13 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredPersonList();
     }
 
+    //@@author frozventus
     @Override
     public void setListDisplay() {
         this.model.setListDisplay();
     }
 
+    //@@author frozventus
     @Override
     public void setBinDisplay() {
         this.model.setBinDisplay();
@@ -70,12 +72,14 @@ public class LogicManager extends ComponentManager implements Logic {
         return new ListElementPointer(history.getHistory());
     }
 
+    //@@author frozventus
     @Subscribe
     public void handleDisplayListResetEvent(DisplayListResetEvent event) {
         binMode = false;
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
 
+    //@@author frozventus
     @Subscribe
     public void handleDisplayBinEvent(DisplayBinEvent event) {
         binMode = true;

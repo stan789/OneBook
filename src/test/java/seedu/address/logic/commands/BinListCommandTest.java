@@ -23,6 +23,7 @@ public class BinListCommandTest {
     private Model expectedModel;
     private BinListCommand binListCommand;
 
+    //@@author frozventus
     @Before
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), getTypicalRecycleBin(), new UserPrefs());
@@ -34,11 +35,13 @@ public class BinListCommandTest {
         binListCommand.setData(model, new CommandHistory(), new UndoRedoStack(), true);
     }
 
+    //@@author frozventus-reused
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         assertCommandSuccess(binListCommand, model, BinListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
+    //@@author frozventus-reused
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showFirstPersonOnly(model, true);

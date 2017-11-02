@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class BirthdayTest {
+
+    //@@author frozventus
     @Test
     public void isValidBirthday() throws Exception {
         // blank Birthday

@@ -174,17 +174,22 @@ public class MainWindow extends UiPart<Region> {
         primaryStage.setTitle(appTitle);
     }
 
+    //@@author frozventus
     private void setListDisplay() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
     }
 
+    //@@author frozventus
     private void switchListDisplay() {
         logic.setListDisplay();
+        listName.textProperty().setValue("List");
     }
 
+    //@@author frozventus
     private void switchBinDisplay() {
         logic.setBinDisplay();
+        listName.textProperty().setValue("Bin");
     }
 
     /**
@@ -255,6 +260,7 @@ public class MainWindow extends UiPart<Region> {
         handleHelp();
     }
 
+    //@@author frozventus
     @Subscribe
     private void handleDisplayListFilteredEvent(DisplayListFilteredEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -265,6 +271,7 @@ public class MainWindow extends UiPart<Region> {
         }
     }
 
+    //@@author frozventus
     @Subscribe
     private void handleDisplayListResetEvent(DisplayListResetEvent event) {
         if (listName.textProperty().get().equals("Bin") || listName.textProperty().get().equals("Filtered Bin")) {
@@ -272,9 +279,9 @@ public class MainWindow extends UiPart<Region> {
             setListDisplay();
         }
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        listName.textProperty().setValue("List");
     }
 
+    //@@author frozventus
     @Subscribe
     private void handleDisplayBinEvent(DisplayBinEvent event) {
         if (listName.textProperty().get().equals("Filtered List") || listName.textProperty().get().equals("List")) {
@@ -282,6 +289,5 @@ public class MainWindow extends UiPart<Region> {
             setListDisplay();
         }
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        listName.textProperty().setValue("Bin");
     }
 }

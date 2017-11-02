@@ -44,6 +44,7 @@ public class PersonCard extends UiPart<Region> {
         bindListeners(person);
     }
 
+    //@@author frozventus-reused
     /**
      * Binds the individual UI elements to observe their respective {@code Person} properties
      * so that they will be notified of any changes.

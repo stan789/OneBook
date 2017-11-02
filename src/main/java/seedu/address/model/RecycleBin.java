@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
+//@@author frozventus
 /**
  * An extension of AddressBook to hold deleted contacts
  * Duplicates are not allowed (by .equals comparison)
@@ -24,7 +25,6 @@ public class RecycleBin extends AddressBook {
 
     @Override
     /**
-     * TODO: 21/10/2017 add support for day
      * Resets the existing data of this {@code RecycleBin} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {

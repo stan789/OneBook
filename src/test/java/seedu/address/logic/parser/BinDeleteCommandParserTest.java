@@ -20,11 +20,13 @@ public class BinDeleteCommandParserTest {
 
     private BinDeleteCommandParser parser = new BinDeleteCommandParser();
 
+    //@@author frozventus-reused
     @Test
     public void parse_validArgs_returnsBinDeleteCommand() {
         assertParseSuccess(parser, "1", new BinDeleteCommand(INDEX_FIRST_PERSON));
     }
 
+    //@@author frozventus-reused
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, BinDeleteCommand.MESSAGE_USAGE));
