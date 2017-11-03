@@ -16,7 +16,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 public class ExportCsvFile {
 
     private static final String heading = "First Name,Last Name,Company,Home Street,Other Phone,"
-            + "Birthday,E-mail Address";
+            + "Birthday,E-mail Address,Notes";
 
     private String fileLocation;
     public ExportCsvFile(String fileLocation) {
@@ -43,6 +43,8 @@ public class ExportCsvFile {
             writeCsvPhone(bufferedWriter, p);
             writeCsvBirthday(bufferedWriter, p);
             writeCsvEmail(bufferedWriter, p);
+            writeCsvRemark(bufferedWriter, p);
+            bufferedWriter.newLine();
         }
 
         bufferedWriter.close();
@@ -119,7 +121,17 @@ public class ExportCsvFile {
         if (!person.getEmail().toString().equals("~")) {
             bufferedWriter.write(person.getEmail().toString());
         }
-        bufferedWriter.newLine();
+        bufferedWriter.write(",");
+    }
+
+    //@@author stan789
+    /**
+     * Writes a person's remarks to csv file
+     */
+    private void writeCsvRemark(BufferedWriter bufferedWriter, ReadOnlyPerson person) throws  IOException {
+        if (!person.getRemark().toString().equals("~")) {
+            bufferedWriter.write(person.getRemark().toString());
+        }
     }
 
 }
