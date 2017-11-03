@@ -15,8 +15,8 @@ import seedu.address.model.person.ReadOnlyPerson;
 
 public class ExportCsvFile {
 
-    private static final String heading = "First Name,Last Name,Company,Home Street,Other Phone," +
-            "Birthday,E-mail Address";
+    private static final String heading = "First Name,Last Name,Company,Home Street,Other Phone,"
+            + "Birthday,E-mail Address";
 
     private String fileLocation;
     public ExportCsvFile(String fileLocation) {
@@ -28,24 +28,24 @@ public class ExportCsvFile {
      * Create a csv file to the directory.
      */
     public void createCsvFile(ObservableList<ReadOnlyPerson> person) throws IOException {
-            FileOutputStream outputStream = new FileOutputStream(new File(fileLocation));
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-8");
-            BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
+        FileOutputStream outputStream = new FileOutputStream(new File(fileLocation));
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-8");
+        BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
 
-            bufferedWriter.write(heading);
-            bufferedWriter.newLine();
+        bufferedWriter.write(heading);
+        bufferedWriter.newLine();
 
-            for (ReadOnlyPerson p: person) {
+        for (ReadOnlyPerson p : person) {
 
-                writeCsvName(bufferedWriter, p);
-                writeCsvOrganisation(bufferedWriter, p);
-                writeCsvAddress(bufferedWriter, p);
-                writeCsvPhone(bufferedWriter, p);
-                writeCsvBirthday(bufferedWriter, p);
-                writeCsvEmail(bufferedWriter, p);
-            }
+            writeCsvName(bufferedWriter, p);
+            writeCsvOrganisation(bufferedWriter, p);
+            writeCsvAddress(bufferedWriter, p);
+            writeCsvPhone(bufferedWriter, p);
+            writeCsvBirthday(bufferedWriter, p);
+            writeCsvEmail(bufferedWriter, p);
+        }
 
-            bufferedWriter.close();
+        bufferedWriter.close();
     }
 
     //@@author stan789
