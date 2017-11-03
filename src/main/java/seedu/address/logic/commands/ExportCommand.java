@@ -12,9 +12,11 @@ public class ExportCommand extends Command {
     public static final String COMMAND_WORD = "export";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": export contacts to VCard file or csv file.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example for export to VCard file: " + COMMAND_WORD + " C:/desktop/add.vcf\n"
-            + "Example for export to CSV file: " + COMMAND_WORD + " C:/desktop/add.csv";
+            + "Parameters: KEYWORD [FILE DIRECTORY]...\n"
+            + "Example for export to VCard file: " + COMMAND_WORD + " C:\\Users\\user\\desktop\\add.vcf(Windows)\n"
+            + "Example for export to CSV file: " + COMMAND_WORD + " C:\\Users\\user\\desktop\\add.csv(Windows)\n"
+            + "Example for export to VCard file: " + COMMAND_WORD + " /Users/user/Desktop/add.vcf(MAC OS)\n"
+            + "Example for export to CSV file: " + COMMAND_WORD + " /Users/user/Desktop/add.csv(MAC OS)\n";
 
     public static final String MESSAGE_SUCCESS = "OneBook has been exported to %1$s file successfully.";
 

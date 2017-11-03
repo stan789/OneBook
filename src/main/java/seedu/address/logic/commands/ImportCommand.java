@@ -15,8 +15,9 @@ public class ImportCommand extends Command {
     public static final String COMMAND_WORD = "import";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": import contacts from VCard file.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example for import from VCard file: " + COMMAND_WORD + " C:/desktop/add.vcf\n";
+            + "Parameters: KEYWORD [FILE DIRECTORY]\n"
+            + "Example for import from VCard file: " + COMMAND_WORD + " C:\\Users\\user\\desktop\\add.vcf(Windows)\n"
+            + "Example for import from VCard file: " + COMMAND_WORD + " /Users/user/Desktop/add.vcf(MAC OS)\n";
 
     public static final String MESSAGE_SUCCESS = "%1$s contact/s have been imported successfully";
 
