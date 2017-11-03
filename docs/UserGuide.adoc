@@ -268,10 +268,10 @@ Format: `clear`
 === Locating persons: `sort`
 
 Sorts the list in OneBook according to name or email in alphabetically order. +
-Format: `sort MAIN_KEYWORD KEYWORD [MORE_KEYWORDS]`
+Format: `sort [KEYWORD]`
 
 ****
-* The main keyword determines the search field (i.e. *name*/*email*).
+* The keyword determines the sort field (*name*/*email*).
 * At least one contact must be in OneBook before sorting.
 * The sort applies to the current listing displayed.
 ****

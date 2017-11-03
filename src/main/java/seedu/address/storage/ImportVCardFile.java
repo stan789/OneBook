@@ -118,11 +118,7 @@ public class ImportVCardFile {
         String[] contactArray = line.split(":");
         if (contactArray.length == INDEX_TWO) {
             if ((line.startsWith(vcf.getPhoneFormat2()) || line.contains(vcf.getPhoneFormat()))) {
-                String phone = contactArray[INDEX_ONE];
-                phone = phone.replaceAll("[^\\p{Graph}]", " ");
-                if (vCard.getPhone() == null) {
-                    vCard.setPhone(phone);
-                }
+                phoneSection(contactArray[INDEX_ONE]);
             }
 
             if (line.startsWith(vcf.getEmail())) {
@@ -138,12 +134,7 @@ public class ImportVCardFile {
             }
 
             if (line.startsWith(vcf.getBirthday())) {
-                String birthday = contactArray[INDEX_ONE];
-                String[] array = birthday.split("-");
-                if (array.length == BIRTHDAY_SIZE) {
-                    birthday = array[INDEX_TWO] + "-" + array[INDEX_ONE] + "-" + array[INDEX_ZERO];
-                }
-                vCard.setBirthday(birthday);
+                birthdaySection(contactArray[INDEX_ONE]);
             }
 
             if (line.startsWith(vcf.getLabel())) {
@@ -157,6 +148,29 @@ public class ImportVCardFile {
                 vCard.setRemark(contactArray[INDEX_ONE]);
             }
         }
+    }
+
+    //@@author stan789
+    /**
+     * change format of VCard phone to OneBook phone format
+     */
+    private void phoneSection(String phone) {
+        phone = phone.replaceAll("[^\\p{Graph}]", " ");
+        if (vCard.getPhone() == null) {
+            vCard.setPhone(phone);
+        }
+    }
+
+    //@@author stan789
+    /**
+     * change format of VCard birthday to OneBook birthday format
+     */
+    private void birthdaySection(String birthday) {
+        String[] array = birthday.split("-");
+        if (array.length == BIRTHDAY_SIZE) {
+            birthday = array[INDEX_TWO] + "-" + array[INDEX_ONE] + "-" + array[INDEX_ZERO];
+        }
+        vCard.setBirthday(birthday);
     }
 
     //@@author stan789
