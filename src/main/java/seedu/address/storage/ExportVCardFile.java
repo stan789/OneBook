@@ -20,12 +20,12 @@ public class ExportVCardFile {
     private static final Integer INDEX_ONE = 1;
     private static final Integer INDEX_TWO = 2;
     private String fileLocation;
-    private VCardFileType vcf;
+    private VCardFileFormat vcf;
 
     public ExportVCardFile(String fileLocation) {
 
         this.fileLocation = fileLocation;
-        vcf = new VCardFileType();
+        vcf = new VCardFileFormat();
     }
 
     //@@author stan789
@@ -46,7 +46,15 @@ public class ExportVCardFile {
                 bufferedWriter.write(vcf.getVersion());
                 bufferedWriter.newLine();
 
-                bufferedWriter.write(vcf.getName() + ":" + p.getName());
+                bufferedWriter.write(vcf.getFullName() + ":" + p.getName());
+                bufferedWriter.newLine();
+
+                String[] arrayName = p.getName().toString().split(" ", 2);
+
+                bufferedWriter.write(vcf.getName() + ":" + arrayName[INDEX_ZERO] + ";");
+                if (arrayName.length == INDEX_TWO) {
+                    bufferedWriter.write(arrayName[INDEX_ONE]);
+                }
                 bufferedWriter.newLine();
 
                 if (!p.getEmail().toString().equals("~")) {
@@ -77,14 +85,14 @@ public class ExportVCardFile {
                 }
                 if (!p.getAddress().toString().equals("~")) {
                     String address = p.getAddress().toString();
-                    for (int count = 0; count < 6; count++) {
+                    for (int count = 0; count < 4; count++) {
                         if (address.contains(",")) {
                             address = address.replace(",", ";");
                         } else {
                             address = address.concat(";");
                         }
                     }
-                    bufferedWriter.write(vcf.getAddressFormat1() + ":" + address);
+                    bufferedWriter.write(vcf.getAddressFormat1() + ":;;" +  address);
                     bufferedWriter.newLine();
                 }
                 if (!p.getOrganisation().toString().equals("~")) {

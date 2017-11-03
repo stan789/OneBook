@@ -39,7 +39,7 @@ public class ImportVCardFile {
     private static final Integer EMPTY_SIZE = 0;
     private Path fileLocation;
     private ArrayList<Person> person = new ArrayList<>();
-    private VCardFileType vcf;
+    private VCardFileFormat vcf;
     private VCard vCard;
     private boolean checkEnd = true;
     private boolean checkBegin = false;
@@ -52,7 +52,7 @@ public class ImportVCardFile {
 
     public ImportVCardFile(Path fileLocation) {
         this.fileLocation = fileLocation;
-        vcf = new VCardFileType();
+        vcf = new VCardFileFormat();
         vCard = new VCard();
     }
 
@@ -129,7 +129,7 @@ public class ImportVCardFile {
                 vCard.setEmail(contactArray[INDEX_ONE]);
             }
 
-            if (line.startsWith(vcf.getName())) {
+            if (line.startsWith(vcf.getFullName())) {
                 vCard.setName(contactArray[INDEX_ONE]);
             }
 

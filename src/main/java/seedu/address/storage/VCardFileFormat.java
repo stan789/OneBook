@@ -4,9 +4,10 @@ package seedu.address.storage;
  * Format of VCard file
  */
 
-public class VCardFileType {
+public class VCardFileFormat {
 
-    private static final String name = "FN";
+    private static final String fullName = "FN";
+    private static final String name = "N";
     private static final String addressFormat1 = "ADR";
     private static final String addressFormat2 = "item1.ADR";
     private static final String email = "EMAIL";
@@ -20,7 +21,7 @@ public class VCardFileType {
     private static final String organization = "ORG";
     private static final String notes = "NOTE";
 
-    public VCardFileType() {
+    public VCardFileFormat() {
     }
 
     public String getAddressFormat1() {
@@ -45,6 +46,10 @@ public class VCardFileType {
 
     public String getEnd() {
         return end;
+    }
+
+    public String getFullName() {
+        return fullName;
     }
 
     public String getName() {
