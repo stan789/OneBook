@@ -18,7 +18,7 @@ public class ImportCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example for import from VCard file: " + COMMAND_WORD + " C:/desktop/add.vcf\n";
 
-    public static final String MESSAGE_SUCCESS = "%1$s contacts have been imported successfully";
+    public static final String MESSAGE_SUCCESS = "%1$s contact/s have been imported successfully";
 
     public static final String MESSAGE_EMPTY_FILE = "The file is empty";
 
