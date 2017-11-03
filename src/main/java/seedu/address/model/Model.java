@@ -77,17 +77,21 @@ public interface Model {
     /** Returns an unmodifiable view of the recycle bin list */
     ObservableList<ReadOnlyPerson> getRecycleBinList();
 
+    //@@author stan789
     /**
      * Updates the filter of the filtered bin list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-
     void executeSort(String sortType) throws EmptyAddressBookException;
 
     //@@author frozventus-reused
     void executeBinSort(String sortType) throws EmptyAddressBookException;
 
+    //@@author stan789
+    /** Returns an integer which is the number of persons that are succcessfully imported*/
     Integer importFile(Path fileLocation) throws IOException;
 
+    //@@author stan789
+    /** Exports the current contacts in OneBook to VCard or Csv file*/
     void exportFile(String fileLocation, String extension) throws IOException;
 }

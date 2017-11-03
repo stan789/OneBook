@@ -37,6 +37,7 @@ public class EmailCommandTest {
         model = new ModelManager(getTypicalAddressBook(), new RecycleBin(), new UserPrefs());
     }
 
+    //@@author stan789-reused
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
@@ -46,6 +47,7 @@ public class EmailCommandTest {
         assertExecutionSuccess(lastPersonIndex);
     }
 
+    //@@author stan789-reused
     @Test
     public void execute_invalidIndexUnfilteredList_failure() {
         Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
@@ -53,6 +55,7 @@ public class EmailCommandTest {
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    //@@author stan789-reused
     @Test
     public void execute_validIndexFilteredList_success() {
         showFirstPersonOnly(model, false);
@@ -60,6 +63,7 @@ public class EmailCommandTest {
         assertExecutionSuccess(INDEX_FIRST_PERSON);
     }
 
+    //@@author stan789-reused
     @Test
     public void execute_invalidIndexFilteredList_failure() {
         showFirstPersonOnly(model, false);
@@ -71,6 +75,7 @@ public class EmailCommandTest {
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    //@@author stan789
     @Test
     public void emptyEmail_failure() {
         Person person = new PersonBuilder().withName("ALICE").withEmail(null).build();
@@ -82,6 +87,8 @@ public class EmailCommandTest {
         Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
         assertExecutionFailure(lastPersonIndex, EmailCommand.MESSAGE_EMPTY_EMAIL);
     }
+
+    //@@author stan789
     /**
      * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
      * is raised with the correct index.
@@ -98,6 +105,7 @@ public class EmailCommandTest {
 
     }
 
+    //@@author stan789
     /**
      * Executes a {@code EmailCommand} with the given {@code index}, and checks that a {@code CommandException}
      * is thrown with the {@code expectedMessage}.
@@ -113,6 +121,7 @@ public class EmailCommandTest {
         }
     }
 
+    //@@author stan789-reused
     /**
      * Returns a {@code EmailCommand} with parameters {@code index}.
      */

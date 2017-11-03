@@ -28,6 +28,7 @@ public class ImportCommandTest {
         expectedModel = new ModelManager(getTypicalAddressBook(), new RecycleBin(), new UserPrefs());
     }
 
+    //@@author stan789
     @Test
     public void execute_importVCardFile_importSuccess() throws IOException {
 
@@ -40,6 +41,7 @@ public class ImportCommandTest {
         assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
     }
 
+    //@@author stan789
     @Test
     public void execute_importVCardFileWithOneTag_importSuccess() throws IOException {
 
@@ -52,11 +54,13 @@ public class ImportCommandTest {
         assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
     }
 
+    //@@author stan789
     @Test(expected = IOException.class)
     public void testFileWithInvalidFormat() throws IOException {
         model.importFile(Paths.get("src/test/data/VCardFileTest/contacts_example.vcf"));
     }
 
+    //@@author stan789
     @Test
     public void execute_importEmptyVCardFile_importFailure() throws IOException {
 
@@ -67,6 +71,7 @@ public class ImportCommandTest {
         assertCommandFailure(importCommand, model, expectedMessage);
     }
 
+    //@@author stan789
     @Test
     public void execute_importInvalidVCardFileNoBeginCard_importFailure() throws IOException {
 
@@ -77,6 +82,7 @@ public class ImportCommandTest {
         assertCommandFailure(importCommand, model, expectedMessage);
     }
 
+    //@@author stan789-reused
     /**
      * Generates a new {@code ImportCommand} which upon execution, sorts the AddressBook.
      */

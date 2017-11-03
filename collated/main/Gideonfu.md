@@ -1,5 +1,76 @@
 # Gideonfu
-###### \java\seedu\address\logic\commands\DeleteCommand.java
+###### /java/seedu/address/logic/parser/FindCommandParser.java
+``` java
+    /**
+     * Parses the given {@code String} of arguments in the context of the FindCommand
+     * and returns an FindCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public FindCommand parse(String args) throws ParseException {
+        String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+
+        String[] keywords = trimmedArgs.split("\\s+");
+
+        String mainKeyword = keywords[0];
+        if (!mainKeyword.equals(FindCommand.KEYWORD_NAME) && !mainKeyword.equals(FindCommand.KEYWORD_ADDRESS)
+                && !mainKeyword.equals(FindCommand.KEYWORD_EMAIL) && !mainKeyword.equals(FindCommand.KEYWORD_PHONE)
+                && !mainKeyword.equals(FindCommand.KEYWORD_BIRTHDAY) && !mainKeyword.equals(FindCommand.KEYWORD_TAG)
+                && !mainKeyword.equals(FindCommand.KEYWORD_ORGANISATION)) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+
+        if (keywords.length == 1) {
+            throw new ParseException(FindCommand.MESSAGE_NO_KEYWORD);
+        }
+
+        String[] searchKeywords = new String[keywords.length - 1];
+        System.arraycopy(keywords, 1, searchKeywords, 0, keywords.length - 1);
+
+        if (mainKeyword.equals(FindCommand.KEYWORD_BIRTHDAY)) {
+            for (String keyword : searchKeywords) {
+                if (!keyword.matches("(0[1-9]|1[0-2])")) {
+                    throw new ParseException(FindCommand.MESSAGE_INVALID_BIRTHDAY_MONTH);
+                }
+            }
+        }
+
+        return new FindCommand(new ContainsKeywordsPredicate(Arrays.asList(searchKeywords), mainKeyword));
+    }
+
+}
+```
+###### /java/seedu/address/logic/parser/ParserUtil.java
+``` java
+    /**
+     * Parses {@code oneBasedIndex} into an {@code Index[]} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws IllegalValueException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static Index[] parseDeleteIndex(String oneBasedIndex) throws IllegalValueException {
+        String[] parts = oneBasedIndex.split(",");
+        String[] trimmedIndex = new String[parts.length];
+        int[] trimmedIntIndex = new int[parts.length];
+
+        for (int i = 0; i < parts.length; i++) {
+            trimmedIndex[i] = parts[i].trim();
+            if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex[i])) {
+                throw new IllegalValueException(MESSAGE_INVALID_INDEX);
+            }
+        }
+
+        for (int i = 0; i < trimmedIndex.length; i++) {
+            trimmedIntIndex[i] = Integer.parseInt(trimmedIndex[i]);
+        }
+
+        return Index.arrayFromOneBased(trimmedIntIndex);
+    }
+```
+###### /java/seedu/address/logic/commands/DeleteCommand.java
 ``` java
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
@@ -46,78 +117,7 @@
         return new CommandResult(deleteMessage.toString().trim());
     }
 ```
-###### \java\seedu\address\logic\parser\FindCommandParser.java
-``` java
-    /**
-     * Parses the given {@code String} of arguments in the context of the FindCommand
-     * and returns an FindCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    public FindCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        }
-
-        String[] keywords = trimmedArgs.split("\\s+");
-
-        String mainKeyword = keywords[0];
-        if (!mainKeyword.equals(FindCommand.KEYWORD_NAME) && !mainKeyword.equals(FindCommand.KEYWORD_ADDRESS)
-                && !mainKeyword.equals(FindCommand.KEYWORD_EMAIL) && !mainKeyword.equals(FindCommand.KEYWORD_PHONE)
-                && !mainKeyword.equals(FindCommand.KEYWORD_BIRTHDAY) && !mainKeyword.equals(FindCommand.KEYWORD_TAG)
-                && !mainKeyword.equals(FindCommand.KEYWORD_ORGANISATION)) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        }
-
-        if (keywords.length == 1) {
-            throw new ParseException(FindCommand.MESSAGE_NO_KEYWORD);
-        }
-
-        String[] searchKeywords = new String[keywords.length - 1];
-        System.arraycopy(keywords, 1, searchKeywords, 0, keywords.length - 1);
-
-        if (mainKeyword.equals(FindCommand.KEYWORD_BIRTHDAY)) {
-            for (String keyword : searchKeywords) {
-                if (!keyword.matches("(0[1-9]|1[0-2])")) {
-                    throw new ParseException(FindCommand.MESSAGE_INVALID_BIRTHDAY_MONTH);
-                }
-            }
-        }
-
-        return new FindCommand(new ContainsKeywordsPredicate(Arrays.asList(searchKeywords), mainKeyword));
-    }
-
-}
-```
-###### \java\seedu\address\logic\parser\ParserUtil.java
-``` java
-    /**
-     * Parses {@code oneBasedIndex} into an {@code Index[]} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
-     * @throws IllegalValueException if the specified index is invalid (not non-zero unsigned integer).
-     */
-    public static Index[] parseDeleteIndex(String oneBasedIndex) throws IllegalValueException {
-        String[] parts = oneBasedIndex.split(",");
-        String[] trimmedIndex = new String[parts.length];
-        int[] trimmedIntIndex = new int[parts.length];
-
-        for (int i = 0; i < parts.length; i++) {
-            trimmedIndex[i] = parts[i].trim();
-            if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex[i])) {
-                throw new IllegalValueException(MESSAGE_INVALID_INDEX);
-            }
-        }
-
-        for (int i = 0; i < trimmedIndex.length; i++) {
-            trimmedIntIndex[i] = Integer.parseInt(trimmedIndex[i]);
-        }
-
-        return Index.arrayFromOneBased(trimmedIntIndex);
-    }
-```
-###### \java\seedu\address\model\person\Remark.java
+###### /java/seedu/address/model/person/Remark.java
 ``` java
 /**
  * Represents a Person's remark in the address book.

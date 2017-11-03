@@ -17,12 +17,12 @@ import seedu.address.logic.commands.EmailCommand;
 public class EmailCommandParserTest {
 
     private EmailCommandParser parser = new EmailCommandParser();
-
+    //@@author stan789-reused
     @Test
     public void parse_validArgs_returnsSelectCommand() {
         assertParseSuccess(parser, "1", new EmailCommand(INDEX_FIRST_PERSON));
     }
-
+    //@@author stan789-reused
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmailCommand.MESSAGE_USAGE));

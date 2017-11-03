@@ -31,6 +31,7 @@ public class SortCommand extends Command {
         this.sortType = sortType;
     }
 
+    //@@author stan789
     @Override
     public CommandResult execute() throws CommandException {
         try {
@@ -46,6 +47,7 @@ public class SortCommand extends Command {
 
     }
 
+    //@@author stan789
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

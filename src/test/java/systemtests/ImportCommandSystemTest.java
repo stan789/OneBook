@@ -22,6 +22,7 @@ import seedu.address.storage.AddressBookData;
 
 public class ImportCommandSystemTest extends AddressBookSystemTest {
 
+    //@@author stan789
     @Test
     public void importing() {
 
@@ -75,12 +76,14 @@ public class ImportCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, count, expectedModel);
     }
 
+    //@@author stan789
     @After
     public void tearDown() {
         File file = new File("src/test/data/VCardFileTest/OneBook.vcf");
         file.delete();
     }
 
+    //@@author stan789-reused
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
      * box displays {@code String.format(MESSAGE_SUCCESS, count)},
@@ -99,6 +102,7 @@ public class ImportCommandSystemTest extends AddressBookSystemTest {
         assertStatusBarUnchangedExceptSyncStatus();
     }
 
+    //@@author stan789-reused
     /**
      * Executes {@code command} and verifies that the command box displays {@code command}, the result display
      * box displays {@code expectedResultMessage} and the model related components equal to the current model.

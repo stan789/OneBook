@@ -75,6 +75,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         syncMasterTagListWith(persons);
     }
 
+    //@@author stan789
     /**
      * Sorts the list by type(name or email) in alphabetical order.
      */

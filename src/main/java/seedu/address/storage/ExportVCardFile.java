@@ -28,6 +28,7 @@ public class ExportVCardFile {
         vcf = new VCardFileType();
     }
 
+    //@@author stan789
     /**
      * write vCard file from the directory. supports up to VCard Version 3.0
      */

@@ -56,6 +56,7 @@ public class ImportVCardFile {
         vCard = new VCard();
     }
 
+    //@@author stan789
     /**
      * Read vCard file from the directory. Check format in file.
      * return a list of persons
@@ -86,6 +87,7 @@ public class ImportVCardFile {
         return person;
     }
 
+    //@@author stan789
     /**
      * Check format in file for each line.
      * return a person
@@ -108,6 +110,7 @@ public class ImportVCardFile {
         }
     }
 
+    //@@author stan789
     /**
      * check the format of the different attributes of VCard object.
      */
@@ -156,6 +159,7 @@ public class ImportVCardFile {
         }
     }
 
+    //@@author stan789
     /**
      * change format of VCard address to OneBook address format
      */
@@ -175,6 +179,7 @@ public class ImportVCardFile {
         vCard.setAddress(address);
     }
 
+    //@@author stan789
     /**
      * create a list of tags from VCard file tags.
      */
@@ -188,6 +193,7 @@ public class ImportVCardFile {
         vCard.setTag(tagList);
     }
 
+    //@@author stan789
     /**
      * add a new person to Arraylist if a person's format is correct and start with begin VCard and
      * end VCard statement.

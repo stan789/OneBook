@@ -30,6 +30,7 @@ public class ExportCommandTest {
         expectedModel = new ModelManager(getTypicalAddressBook(), new RecycleBin(), new UserPrefs());
     }
 
+    //@@author stan789
     @Test
     public void execute_exportVCardFile_importSuccess() throws IOException {
 
@@ -42,6 +43,8 @@ public class ExportCommandTest {
         String expectedMessage = String.format(ExportCommand.MESSAGE_SUCCESS, fileName);
         assertCommandSuccess(exportCommand, model, expectedMessage, expectedModel);
     }
+
+    //@@author stan789
     @Test
     public void execute_exportCsvFile_importSuccess() throws IOException {
 
@@ -55,6 +58,7 @@ public class ExportCommandTest {
         assertCommandSuccess(exportCommand, model, expectedMessage, expectedModel);
     }
 
+    //@@author stan789
     @After
     public void tearDown() {
         File fileVcard = new File("src/test/data/VCardFileTest/OneBook.vcf");
@@ -63,7 +67,7 @@ public class ExportCommandTest {
         fileCsv.delete();
     }
 
-
+    //@@author stan789
     @Test
     public void execute_exportEmptyString_exportFailure() throws IOException {
 
@@ -74,17 +78,22 @@ public class ExportCommandTest {
         ExportCommand exportCommand = prepareCommand(fileLocation, fileName, extension);
         assertCommandFailure(exportCommand, model, MESSAGE_WRITE_ERROR);
     }
+
+    //@@author stan789
     @Test(expected = IOException.class)
     public void emptyFileDirectoryVcardIoException() throws IOException {
         model.exportFile("", "vcf");
 
     }
+
+    //@@author stan789
     @Test(expected = IOException.class)
     public void emptyFileDirectoryCsvIoException() throws IOException {
         model.exportFile("", "csv");
 
     }
 
+    //@@author stan789-reused
     /**
      * Generates a new {@code ExportCommand} which upon execution, sorts the AddressBook.
      */
