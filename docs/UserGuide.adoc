@@ -20,7 +20,9 @@ By: `CS2103AUG2017 T17-B4`      Since: `Jun 2016`      Licence: `MIT`
 
 OneBook is a desktop Address Book application. OneBook uses a Graphical User Interface (GUI) but most of the interactions happen using Command Line Interface (CLI).
 
-OneBook is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
+OneBook is optimized for companies' usage. It is also suitable for general usage.
+
+OneBook allows users to easily import and export contacts, send emails conveniently and stores a database of contacts.
 
 === About
 
@@ -162,6 +164,8 @@ Format: `delete INDEX, [MORE_INDEXES]`
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* 1, 2, 3, ...
 * The indexes *must be in ascending order*.
+* `delete` *does not delete contacts from the Recycle Bin*. Use `bindelete` instead.
+* `delete` *will still delete contacts from OneBook* even after using `bin` to display the Recycle Bin.
 ****
 
 Examples:
@@ -262,8 +266,12 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the address book, including the recycle bin +
 Format: `clear`
+
+****
+* Contacts deleted using this command does not show up in the Recycle Bin.
+****
 
 === Locating persons: `sort`
 
@@ -348,17 +356,20 @@ Format: `bin`
 
 ****
 * The listing will be replaced with recycle bin entries.
+* To go back to the contact lists, use the `list` command.
+* When displaying Recycle Bin, `delete` *will still be able to delete contacts from OneBook*.
 ****
 
 === Restore entry from recycle bin : `restore`
 
 Restore the specified person from the bin to the address book. +
-Format: `restore INDEX`
+Format: `restore INDEX, [MORE_INDEXES]`
 
 ****
 * Restores the person at the specified `INDEX`.
 * The index refers to the index number shown in the bin listing.
 * The index *must be a positive integer* 1, 2, 3, ...
+* `restore` *will still be able to restore contacts from Recycle Bin* even if the current listing shown is the contacts listing.
 ****
 
 Examples:
@@ -370,12 +381,13 @@ Restores the 2nd person in recycle bin to the address book. +
 === Remove entry from recycle bin : `bindelete`
 
 Restore the specified person from the bin to the address book. +
-Format: `bindelete INDEX`
+Format: `bindelete INDEX, [MORE_INDEXES]`
 
 ****
 * Restores the person at the specified `INDEX`.
 * The index refers to the index number shown in the bin listing.
 * The index *must be a positive integer* 1, 2, 3, ...
+* `bindelete` *will still be able to delete entries from Recycle Bin* even if the current listing shown is the contacts listing.
 ****
 
 Examples:
@@ -450,3 +462,8 @@ e.g. `sort email`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Recycle Bin* : `bin`
+* *Restore* : `restore INDEX` +
+e.g. `restore 2, 3, 4`
+* *Bin Delete* : `bindelete INDEX` +
+e.g. `bindelete 2, 3`
