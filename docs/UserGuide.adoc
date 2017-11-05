@@ -380,11 +380,11 @@ Restores the 2nd person in recycle bin to the address book. +
 
 === Remove entry from recycle bin : `bindelete`
 
-Restore the specified person from the bin to the address book. +
+Remove the specified person from the bin. +
 Format: `bindelete INDEX, [MORE_INDEXES]`
 
 ****
-* Restores the person at the specified `INDEX`.
+* Removes the person at the specified `INDEX`.
 * The index refers to the index number shown in the bin listing.
 * The index *must be a positive integer* 1, 2, 3, ...
 * `bindelete` *will still be able to delete entries from Recycle Bin* even if the current listing shown is the contacts listing.
