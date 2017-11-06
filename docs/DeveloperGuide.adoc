@@ -218,6 +218,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::ui[]
 === User Interface
 
 The User Interface is implemented using JavaFx. The Ui consists of a `MainWindow` which holds `StackWindow` fields.
@@ -232,6 +233,7 @@ Each of the `StackWindow` is to be filled with the Ui components as listed below
 * `AddressPanel` - Display Address and shows map of address
 
 The Ui also makes use of `DarkTheme,css` and `LightTheme.css` file to set the color scheme.
+// end::ui[]
 
 // tag::undoredo[]
 === Undo/Redo mechanism
