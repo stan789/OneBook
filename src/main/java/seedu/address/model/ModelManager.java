@@ -114,7 +114,6 @@ public class ModelManager extends ComponentManager implements Model {
         return addressBook;
     }
 
-    //@@author frozventus
     @Override
     public ReadOnlyAddressBook getRecycleBin() {
         return recycleBin;
@@ -126,7 +125,6 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new AddressBookChangedEvent(new AddressBookData(addressBook, recycleBin)));
     }
 
-    //@@author frozventus
     @Override
     public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException,
                                                                         DuplicatePersonException {
@@ -135,6 +133,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author
     @Override
     public synchronized void addPerson(ReadOnlyPerson person) throws DuplicatePersonException {
         addressBook.addPerson(person);
@@ -151,13 +150,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
-    //@@author frozventus
     @Override
     public synchronized void deleteFromBin(ReadOnlyPerson target) throws PersonNotFoundException {
         recycleBin.removePerson(target);
         indicateAddressBookChanged();
     }
 
+    //@@author
     @Override
     public void updatePerson(ReadOnlyPerson target, ReadOnlyPerson editedPerson)
             throws DuplicatePersonException, PersonNotFoundException {
@@ -191,20 +190,18 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
-    //@@author frozventus
     @Override
     public void setBinDisplay() {
         this.filteredPersons = filteredBin;
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
-    //@@author frozventus
+    //@@author
     @Override
     public ObservableList<ReadOnlyPerson> getAddressBookList() {
         return filteredAddresses;
     }
 
-    //@@author frozventus
     @Override
     public ObservableList<ReadOnlyPerson> getRecycleBinList() {
         return filteredBin;

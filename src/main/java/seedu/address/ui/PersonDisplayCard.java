@@ -93,20 +93,17 @@ public class PersonDisplayCard extends UiPart<Region> {
         });
     }
 
-    //@@author frozventus-reused
     private void initTags(ReadOnlyPerson person) {
         tagsLarge.getChildren().clear();
         person.getTags().forEach(tag -> tagsLarge.getChildren().add(new Label(tag.tagName)));
     }
 
-    //@@author frozventus
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonDetails(event.getNewSelection().person);
     }
 
-    //@@author frozventus
     @Subscribe
     private void handlePersonDeletedEvent(PersonDeletedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

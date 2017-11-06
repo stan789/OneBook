@@ -24,7 +24,6 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
-    //@@author frozventus
     /** Returns the RecycleBin */
     ReadOnlyAddressBook getRecycleBin();
 
@@ -38,10 +37,10 @@ public interface Model {
     /** Restores the given person from recycle bin */
     void restorePerson(ReadOnlyPerson target) throws PersonNotFoundException, DuplicatePersonException;
 
-    //@@author frozventus
     /** Deletes the given person from bin */
     void deleteFromBin(ReadOnlyPerson target) throws PersonNotFoundException;
 
+    //@@author
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      *
@@ -65,15 +64,12 @@ public interface Model {
     /** Toggle display to show list */
     void setListDisplay();
 
-    //@@author frozventus
     /** Toggle display to show bin */
     void setBinDisplay();
 
-    //@@author frozventus
     /** Returns an unmodifiable view of the address book person list */
     ObservableList<ReadOnlyPerson> getAddressBookList();
 
-    //@@author frozventus
     /** Returns an unmodifiable view of the recycle bin list */
     ObservableList<ReadOnlyPerson> getRecycleBinList();
 
