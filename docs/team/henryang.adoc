@@ -74,7 +74,9 @@ include::../DeveloperGuide.adoc[tag=ui]
 === Other contributions
 
 * Added Birthday field into contacts (Pull requests link:{repoURL}/pull/23[#23])
-* Setting up project repository(Pull requests link:{repoURL}/pull/1[#1], link:{repoURL}/pull/2[#2], link:{repoURL}/pull/3[#3])
+* Setting up project repository (Pull requests link:{repoURL}/pull/1[#1], link:{repoURL}/pull/2[#2], link:{repoURL}/pull/3[#3])
+* Reported bugs (Issues https://github.com/CS2103AUG2017-T17-B2/main/issues/170[MedNus #170], https://github.com/CS2103AUG2017-T17-B2/main/issues/172[MedNus #172],
+https://github.com/CS2103AUG2017-T17-B2/main/issues/174[MedNus #174])
 
 == Project: TickList
 
