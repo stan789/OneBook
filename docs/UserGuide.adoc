@@ -265,6 +265,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the address book. +
 Format: `clear`
 
+// tag::sort[]
 === Locating persons: `sort`
 
 Sorts the list in OneBook according to name or email in alphabetically order. +
@@ -283,8 +284,9 @@ Examples:
 * `bin` +
 `sort name` +
 Sorts the recycle bin entries in alphabetical order of their name.
+// end::sort[]
 
-
+// tag::import[]
 === Importing a VCard file(.vcf) to OneBook : `import`
 
 Import a VCard file from directory to OneBook +
@@ -302,7 +304,9 @@ Examples:
 * `import C:/Users/User/Downloads/contacts.vcf` (Windows)
 * `import /Users/user/Downloads/contacts.vcf` (MAC OSX)
 * `import /Users/user/Desktop/contacts.vcf` (MAC OSX)
+// end::import[]
 
+// tag::export[]
 === Exporting from OneBook to VCard file(.vcf) or CSV file(.csv) : `export`
 
 Create a VCard file or CSV File and export from OneBook to the file directory +
@@ -322,7 +326,9 @@ Examples:
 * `export/Users/user/Desktop/OneBook.vcf` (MAC OSX)
 * `export C:/Users/User/Downloads/OneBook.csv` (Windows)
 * `export /Users/user/Downloads/contacts.csv` (MAC OSX)
+// end::export[]
 
+// tag::email[]
 === Email to a person from Onebook contact list : `email`
 
 Emails to the person selected from Onebook contact list +
@@ -340,6 +346,8 @@ Examples:
 
 * `email 1`
 * `email 3`
+// end::email[]
+
 
 === Recycle Bin : `bin`
 

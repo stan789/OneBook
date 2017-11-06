@@ -23,7 +23,6 @@ public class ExportVCardFile {
     private VCardFileFormat vcf;
 
     public ExportVCardFile(String fileLocation) {
-
         this.fileLocation = fileLocation;
         vcf = new VCardFileFormat();
     }
@@ -122,8 +121,8 @@ public class ExportVCardFile {
     private void writeVCardBirthday(BufferedWriter bufferedWriter, ReadOnlyPerson person) throws IOException {
         if (!person.getBirthday().toString().equals("~")) {
             String birthday = person.getBirthday().toString();
-            String[] array = birthday.split("-");
-            birthday = array[INDEX_TWO] + "-" + array[INDEX_ONE] + "-" + array[INDEX_ZERO];
+            String[] birthdayArray = birthday.split("-");
+            birthday = birthdayArray[INDEX_TWO] + "-" + birthdayArray[INDEX_ONE] + "-" + birthdayArray[INDEX_ZERO];
             bufferedWriter.write(vcf.getBirthday() + ":" + birthday);
             bufferedWriter.newLine();
         }

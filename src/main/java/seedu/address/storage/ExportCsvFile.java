@@ -19,6 +19,7 @@ public class ExportCsvFile {
             + "Birthday,E-mail Address,Notes";
 
     private String fileLocation;
+
     public ExportCsvFile(String fileLocation) {
         this.fileLocation = fileLocation;
     }

@@ -65,17 +65,6 @@ public class EmailCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-    /**
-     * redirects user to their desktop's default email application.
-     */
-    protected void desktopEmail(String email) throws IOException, URISyntaxException {
-        if (!Desktop.isDesktopSupported()) {
-            throw new IOException();
-        }
-        Desktop desktop = getDesktop();
-        desktop.mail(new URI("mailto:" + email));
-    }
-
     //@@author stan789
     @Override
     public boolean equals(Object other) {
@@ -83,4 +72,16 @@ public class EmailCommand extends Command {
                 || (other instanceof EmailCommand // instanceof handles nulls
                 && this.targetIndex.equals(((EmailCommand) other).targetIndex)); // state check
     }
+
+    /**
+     * redirects user to their desktop's default email application.
+     */
+    protected void desktopEmail(String email) throws IOException, URISyntaxException, CommandException {
+        if (!Desktop.isDesktopSupported()) {
+            throw new CommandException(MESSAGE_NOT_SUPPORTED);
+        }
+        Desktop desktop = getDesktop();
+        desktop.mail(new URI("mailto:" + email));
+    }
+
 }

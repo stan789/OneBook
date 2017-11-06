@@ -397,7 +397,12 @@ The designated fields allowed are: +
 * `phone number` +
 
 This feature is case-insensitive, and an exact match is not required for each keyword. e.g. 'jon' will match 'Jonathan'
+// tag::sort[]
+=== Sort mechanism
+The `sort` function is implemented by `SortCommand`, which sort the contacts by name or email address in Onebook according to alphabetical order.
+// end::sort[]
 
+// tag::import[]
 === Import mechanism
 
 The `import` function is implemented by `ImportCommand`, which imports the contacts in a VCard file to Onebook. It imports a VCard file from a valid directory which the user need to input after keying "import" command in the command box. Inputting a directory is easier than asking the user to put the VCard file in a specfic directory.
@@ -408,8 +413,11 @@ The format in the VCard file is checked to ensure that it is valid before import
 * `email` +
 * `phone number` +
 * `birthday` +
-* `organisation`
+* `organisation` +
+* `reamarks`
+// end::import[]
 
+// tag::export[]
 === Export mechanism
 
 The `export` function is implemented by `ExportCommand`, which exports the contacts in Onebook to a VCard file. It exports a VCard file to a valid directory which the user need to input after keying "export" command in the command box. Inputting a directory is easier for the user so user would know where to find the exported file.
@@ -420,7 +428,14 @@ The fields that are currently exported to VCard file are: +
 * `email` +
 * `phone number` +
 * `birthday` +
-* `organisation`
+* `organisation` +
+* `reamarks`
+// end::export[]
+
+// tag::email[]
+=== Email mechanism
+// end::email[]
+
 
 === Recycle bin
 The recycle bin is implemented by having address book store the list of person deleted using a separate list from the main address book list. +
