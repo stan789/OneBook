@@ -48,7 +48,6 @@ public class PersonDisplayCard extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
-    //@@author frozventus-reused
     private void loadPersonDetails(ReadOnlyPerson person) {
         this.person = person;
         initTags(person);
@@ -93,6 +92,7 @@ public class PersonDisplayCard extends UiPart<Region> {
         });
     }
 
+    //@@author
     private void initTags(ReadOnlyPerson person) {
         tagsLarge.getChildren().clear();
         person.getTags().forEach(tag -> tagsLarge.getChildren().add(new Label(tag.tagName)));

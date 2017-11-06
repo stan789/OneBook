@@ -1,5 +1,14 @@
 # frozventus
-###### /java/seedu/address/logic/commands/BinListCommandTest.java
+###### \java\seedu\address\logic\commands\BinDeleteCommandTest.java
+``` java
+    @Before
+    public void setUp() {
+        model = new ModelManager(new AddressBook(), getTypicalRecycleBin(), new UserPrefs());
+        model.setBinDisplay();
+    }
+
+```
+###### \java\seedu\address\logic\commands\BinListCommandTest.java
 ``` java
     @Before
     public void setUp() {
@@ -13,7 +22,7 @@
     }
 
 ```
-###### /java/seedu/address/logic/commands/RestoreCommandTest.java
+###### \java\seedu\address\logic\commands\RestoreCommandTest.java
 ``` java
     @Before
     public void setUp() {
@@ -22,16 +31,7 @@
     }
 
 ```
-###### /java/seedu/address/logic/commands/BinDeleteCommandTest.java
-``` java
-    @Before
-    public void setUp() {
-        model = new ModelManager(new AddressBook(), getTypicalRecycleBin(), new UserPrefs());
-        model.setBinDisplay();
-    }
-
-```
-###### /java/seedu/address/model/person/BirthdayTest.java
+###### \java\seedu\address\model\person\BirthdayTest.java
 ``` java
     @Test
     public void isValidBirthday() throws Exception {
@@ -51,14 +51,7 @@
     }
 }
 ```
-###### /java/seedu/address/testutil/TypicalPersons.java
-``` java
-    public static List<ReadOnlyPerson> getTypicalPersonsForBin() {
-        return new ArrayList<>(Arrays.asList(JEAN, KEN));
-    }
-
-```
-###### /java/seedu/address/testutil/TypicalPersons.java
+###### \java\seedu\address\testutil\TypicalPersons.java
 ``` java
     public static AddressBookData getTypicalData() {
         return new AddressBookData(getTypicalAddressBook(), getTypicalRecycleBin());
