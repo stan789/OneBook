@@ -1,100 +1,62 @@
 # frozventus-reused
-###### \java\seedu\address\logic\commands\BinDeleteCommandTest.java
+###### /java/systemtests/AddressBookSystemTest.java
+``` java
+    /**
+     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+     * {@code expectedResultMessage}, the model and storage contains the same person objects as {@code expectedModel}
+     * and the person list panel displays the persons in the model correctly.
+     * For use when displaying Recycle Bin
+     */
+    protected void assertApplicationDisplaysExpectedWithBin(String expectedCommandInput, String expectedResultMessage,
+                                                     Model expectedModel) {
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedResultMessage, getResultDisplay().getText());
+        assertEquals(expectedModel, getModelWithBin());
+        assertEquals(expectedModel.getAddressBook(), testApp.readStorageAddressBook());
+        assertEquals(expectedModel.getRecycleBin(), testApp.readStorageRecycleBin());
+    }
+
+```
+###### /java/seedu/address/TestApp.java
+``` java
+    /**
+     * Returns a defensive copy of the model in Bin configuration.
+     */
+    public Model getModelBinMode() {
+        Model copy = new ModelManager(model.getAddressBook(), model.getRecycleBin(), new UserPrefs());
+        copy.setBinDisplay();
+        ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
+        return copy;
+    }
+
+```
+###### /java/seedu/address/logic/parser/BinDeleteCommandParserTest.java
 ``` java
     @Test
-    public void execute_validIndexUnfilteredList_success() throws Exception {
-        ReadOnlyPerson personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        BinDeleteCommand binDeleteCommand = prepareCommand(INDEX_FIRST_PERSON);
-
-        String expectedMessage = BinDeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS + personToDelete;
-
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getRecycleBin(), new UserPrefs());
-        expectedModel.setBinDisplay();
-        expectedModel.deleteFromBin(personToDelete);
-
-        assertCommandSuccess(binDeleteCommand, model, expectedMessage, expectedModel);
+    public void parse_validArgs_returnsBinDeleteCommand() {
+        assertParseSuccess(parser, "1", new BinDeleteCommand(INDEX_FIRST_PERSON));
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() throws Exception {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        BinDeleteCommand binDeleteCommand = prepareCommand(outOfBoundIndex);
-
-        assertCommandFailure(binDeleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void execute_validIndexFilteredList_success() throws Exception {
-        showFirstPersonOnly(model, true);
-
-        ReadOnlyPerson personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        BinDeleteCommand binDeleteCommand = prepareCommand(INDEX_FIRST_PERSON);
-
-        String expectedMessage = BinDeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS + personToDelete;
-
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getRecycleBin(), new UserPrefs());
-        expectedModel.setBinDisplay();
-        expectedModel.deleteFromBin(personToDelete);
-        showNoPerson(expectedModel);
-
-        assertCommandSuccess(binDeleteCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showFirstPersonOnly(model, true);
-
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getRecycleBin().getPersonList().size());
-
-        BinDeleteCommand binDeleteCommand = prepareCommand(outOfBoundIndex);
-
-        assertCommandFailure(binDeleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void equals() {
-        BinDeleteCommand binDeleteFirstCommand = new BinDeleteCommand(INDEX_FIRST_PERSON);
-        BinDeleteCommand binDeleteSecondCommand = new BinDeleteCommand(INDEX_SECOND_PERSON);
-
-        // same object -> returns true
-        assertTrue(binDeleteFirstCommand.equals(binDeleteFirstCommand));
-
-        // same values -> returns true
-        BinDeleteCommand deleteFirstCommandCopy = new BinDeleteCommand(INDEX_FIRST_PERSON);
-        assertTrue(binDeleteFirstCommand.equals(deleteFirstCommandCopy));
-
-        // different types -> returns false
-        assertFalse(binDeleteFirstCommand.equals(1));
-
-        // null -> returns false
-        assertFalse(binDeleteFirstCommand.equals(null));
-
-        // different person -> returns false
-        assertFalse(binDeleteFirstCommand.equals(binDeleteSecondCommand));
-    }
-
-    /**
-     * Returns a {@code BinDeleteCommand} with the parameter {@code index}.
-     */
-    private BinDeleteCommand prepareCommand(Index index) {
-        BinDeleteCommand binDeleteCommand = new BinDeleteCommand(index);
-        binDeleteCommand.setData(model, new CommandHistory(), new UndoRedoStack(), true);
-        return binDeleteCommand;
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show no one.
-     */
-    private void showNoPerson(Model model) {
-        model.updateFilteredPersonList(p -> false);
-
-        assert model.getFilteredPersonList().isEmpty();
+    public void parse_invalidArgs_throwsParseException() {
+        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, BinDeleteCommand.MESSAGE_USAGE));
     }
 }
 ```
-###### \java\seedu\address\logic\commands\BinListCommandTest.java
+###### /java/seedu/address/logic/parser/RestoreCommandParserTest.java
+``` java
+    @Test
+    public void parse_validArgs_returnsRestoreCommand() {
+        assertParseSuccess(parser, "1", new RestoreCommand(INDEX_FIRST_PERSON));
+    }
+
+    @Test
+    public void parse_invalidArgs_throwsParseException() {
+        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, RestoreCommand.MESSAGE_USAGE));
+    }
+}
+```
+###### /java/seedu/address/logic/commands/BinListCommandTest.java
 ``` java
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
@@ -108,7 +70,7 @@
     }
 }
 ```
-###### \java\seedu\address\logic\commands\RestoreCommandTest.java
+###### /java/seedu/address/logic/commands/RestoreCommandTest.java
 ``` java
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
@@ -203,46 +165,102 @@
     }
 }
 ```
-###### \java\seedu\address\logic\parser\BinDeleteCommandParserTest.java
+###### /java/seedu/address/logic/commands/BinDeleteCommandTest.java
 ``` java
     @Test
-    public void parse_validArgs_returnsBinDeleteCommand() {
-        assertParseSuccess(parser, "1", new BinDeleteCommand(INDEX_FIRST_PERSON));
+    public void execute_validIndexUnfilteredList_success() throws Exception {
+        ReadOnlyPerson personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        BinDeleteCommand binDeleteCommand = prepareCommand(INDEX_FIRST_PERSON);
+
+        String expectedMessage = BinDeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS + personToDelete;
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getRecycleBin(), new UserPrefs());
+        expectedModel.setBinDisplay();
+        expectedModel.deleteFromBin(personToDelete);
+
+        assertCommandSuccess(binDeleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, BinDeleteCommand.MESSAGE_USAGE));
-    }
-}
-```
-###### \java\seedu\address\logic\parser\RestoreCommandParserTest.java
-``` java
-    @Test
-    public void parse_validArgs_returnsRestoreCommand() {
-        assertParseSuccess(parser, "1", new RestoreCommand(INDEX_FIRST_PERSON));
+    public void execute_invalidIndexUnfilteredList_throwsCommandException() throws Exception {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        BinDeleteCommand binDeleteCommand = prepareCommand(outOfBoundIndex);
+
+        assertCommandFailure(binDeleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, RestoreCommand.MESSAGE_USAGE));
+    public void execute_validIndexFilteredList_success() throws Exception {
+        showFirstPersonOnly(model, true);
+
+        ReadOnlyPerson personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        BinDeleteCommand binDeleteCommand = prepareCommand(INDEX_FIRST_PERSON);
+
+        String expectedMessage = BinDeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS + personToDelete;
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getRecycleBin(), new UserPrefs());
+        expectedModel.setBinDisplay();
+        expectedModel.deleteFromBin(personToDelete);
+        showNoPerson(expectedModel);
+
+        assertCommandSuccess(binDeleteCommand, model, expectedMessage, expectedModel);
     }
-}
-```
-###### \java\seedu\address\TestApp.java
-``` java
+
+    @Test
+    public void execute_invalidIndexFilteredList_throwsCommandException() {
+        showFirstPersonOnly(model, true);
+
+        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        // ensures that outOfBoundIndex is still in bounds of address book list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getRecycleBin().getPersonList().size());
+
+        BinDeleteCommand binDeleteCommand = prepareCommand(outOfBoundIndex);
+
+        assertCommandFailure(binDeleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void equals() {
+        BinDeleteCommand binDeleteFirstCommand = new BinDeleteCommand(INDEX_FIRST_PERSON);
+        BinDeleteCommand binDeleteSecondCommand = new BinDeleteCommand(INDEX_SECOND_PERSON);
+
+        // same object -> returns true
+        assertTrue(binDeleteFirstCommand.equals(binDeleteFirstCommand));
+
+        // same values -> returns true
+        BinDeleteCommand deleteFirstCommandCopy = new BinDeleteCommand(INDEX_FIRST_PERSON);
+        assertTrue(binDeleteFirstCommand.equals(deleteFirstCommandCopy));
+
+        // different types -> returns false
+        assertFalse(binDeleteFirstCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(binDeleteFirstCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(binDeleteFirstCommand.equals(binDeleteSecondCommand));
+    }
+
     /**
-     * Returns a defensive copy of the model in Bin configuration.
+     * Returns a {@code BinDeleteCommand} with the parameter {@code index}.
      */
-    public Model getModelBinMode() {
-        Model copy = new ModelManager(model.getAddressBook(), model.getRecycleBin(), new UserPrefs());
-        copy.setBinDisplay();
-        ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
-        return copy;
+    private BinDeleteCommand prepareCommand(Index index) {
+        BinDeleteCommand binDeleteCommand = new BinDeleteCommand(index);
+        binDeleteCommand.setData(model, new CommandHistory(), new UndoRedoStack(), true);
+        return binDeleteCommand;
     }
 
+    /**
+     * Updates {@code model}'s filtered list to show no one.
+     */
+    private void showNoPerson(Model model) {
+        model.updateFilteredPersonList(p -> false);
+
+        assert model.getFilteredPersonList().isEmpty();
+    }
+}
 ```
-###### \java\seedu\address\testutil\TypicalPersons.java
+###### /java/seedu/address/testutil/TypicalPersons.java
 ``` java
     /**
      * Returns a {@code RecycleBin} with three of the typical persons.
@@ -261,24 +279,6 @@
 
     public static List<ReadOnlyPerson> getTypicalPersonsForBin() {
         return new ArrayList<>(Arrays.asList(JEAN, KEN));
-    }
-
-```
-###### \java\systemtests\AddressBookSystemTest.java
-``` java
-    /**
-     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-     * {@code expectedResultMessage}, the model and storage contains the same person objects as {@code expectedModel}
-     * and the person list panel displays the persons in the model correctly.
-     * For use when displaying Recycle Bin
-     */
-    protected void assertApplicationDisplaysExpectedWithBin(String expectedCommandInput, String expectedResultMessage,
-                                                     Model expectedModel) {
-        assertEquals(expectedCommandInput, getCommandBox().getInput());
-        assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(expectedModel, getModelWithBin());
-        assertEquals(expectedModel.getAddressBook(), testApp.readStorageAddressBook());
-        assertEquals(expectedModel.getRecycleBin(), testApp.readStorageRecycleBin());
     }
 
 ```
