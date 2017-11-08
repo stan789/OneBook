@@ -114,6 +114,18 @@ public class TestApp extends MainApp {
         return copy;
     }
 
+    //@@author frozventus-reused
+    /**
+     * Returns a defensive copy of the model in Bin configuration.
+     */
+    public Model getModelBinMode() {
+        Model copy = new ModelManager(model.getAddressBook(), model.getRecycleBin(), new UserPrefs());
+        copy.setBinDisplay();
+        ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
+        return copy;
+    }
+
+    //@@author frozventus
     @Override
     public void start(Stage primaryStage) {
         ui.start(primaryStage);
