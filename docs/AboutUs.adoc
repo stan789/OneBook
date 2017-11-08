@@ -31,7 +31,7 @@ Responsibilities: Storage
 
 === Gideon Fu
 image::gideonfu.jpg[width="150", align="left"]
-{empty}[http://github.com/gideonfu[github]] [<<Gideonfu#, portfolio>>]
+{empty}[http://github.com/gideonfu[github]] [<<gideonfu#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
