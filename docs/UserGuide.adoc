@@ -75,7 +75,7 @@ Changes the theme of OneBook between default mode and lite mode.
 Format: `mode`
 
 
-
+//tag::addoptionalfields[]
 === Adding a person: `add`
 
 Adds a person to the address book +
@@ -92,6 +92,7 @@ Examples:
 * `add n/John Doe p/98765432 b/21-01-1995 e/johnd@example.com a/John street, block 123, #01-01 o/Apple Inc. r/Meeting for dinner tomorrow 6pm`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison b/22-02-1998 p/1234567 t/criminal`
 * `add n/Timothy Smith`
+//end::addoptionalfields[]
 
 === Listing all persons : `list`
 
@@ -406,11 +407,16 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+//tag::backup[]
 === Backup data
 
-Address book will back up data when OneBook is launched. This will prevent loss of total data if the files are corrupted on the latest use. +
-Back up file will automatically overwrite the main file if the main file is corrupted.
+OneBook will automatically create a backup copy whenever the application is started.
 
+If the application checks that the main data file is corrupted, it will load the backup file.
+
+If the backup file does not exist or is corrupted too, OneBook will start with a sample AddressBook data.
+
+//end::backup[]
 
 === Remove all entry in recycle bin : `bin clear` [yellow]#*Coming in v2.0#
 

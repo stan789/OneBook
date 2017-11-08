@@ -379,13 +379,14 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+//tag::addoptionalfields[]
 === Add Contact with optional fields
 The `add` function is implemented by `AddCommand`. The `add` function has been enhanced to allow the user to add certain fields into the contact. For the fields that the user does not want to input, no prefixes for the field will be entered. The class `AddCommandParser` will interpret it as a null value and assign the string '-' to the following field. This will represent that the field is not assigned.
 
 The `name` field is compulsory.
 
 The fields that are not compulsory are `phone`, `birthday`, `email`, `address`, `organisation`, and `tags`.
-
+//end::addoptionalfields[]
 === Find mechanism
 
 The `find` function is implemented by `FindCommand`, which updates the list of displayed contacts. It holds a predicate from `ContainsKeywordsPredicate` that runs through each keyword and calls `containsWordIgnoreCase` each time to search for the keyword in the designated field. +
@@ -444,6 +445,16 @@ The recycle bin is implemented by having address book store the list of person d
 **Alternative 2:** Add a new command for each feature of `RecycleBin` usage. +
 **Pros:** Additional parsing of command is unnecessary. +
 **Cons:** Commands will be easily mixed up. Purpose of command will be unintuitive, `clear` may mean to clear recycle or to clear address book. A separate command name for clearing recycle bin need to be thought of (clear can no longer be used). +
+
+//tag::backup[]
+=== Backup AddressBook
+When OneBook is launched, the system will look for the main data file to open.
+
+If the main data file is able to open, it will create a backup copy of the main file from the `StorageManager`.
+
+There is no implementation for the backup function. It will happen on every start up of the application.
+//end::backup[]
+
 
 == Documentation
 
