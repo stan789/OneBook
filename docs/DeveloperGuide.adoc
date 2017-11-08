@@ -388,6 +388,7 @@ The `name` field is compulsory.
 
 The fields that are not compulsory are `phone`, `birthday`, `email`, `address`, `organisation`, and `tags`.
 
+// tag::find[]
 === Find mechanism
 
 The `find` function is implemented by `FindCommand`, which updates the list of displayed contacts. It holds a predicate from `ContainsKeywordsPredicate` that runs through each keyword and calls `containsWordIgnoreCase` each time to search for the keyword in the designated field. +
@@ -395,10 +396,21 @@ The designated fields allowed are: +
 
 * `name` +
 * `address` +
-* `email` (each keyword must contain a match) +
+* `email` +
 * `phone number` +
+* `birthday month` +
+* `organisation` +
 
 This feature is case-insensitive, and an exact match is not required for each keyword. e.g. 'jon' will match 'Jonathan'
+// end::find[]
+
+// tag::delete[]
+=== Delete mechanism
+
+The `delete` function is implemented by `DeleteCommand`. The function has been enhanced to allow multiple deletions at once. `DeleteCommandParser` returns a `DeleteCommand` with an array of indexes which are taken from the user input. `DeleteCommand` then executes the deletion of the respective persons.
+
+The indexes given by the user must be separated by a comma for multiple deletions.
+// end::delete[]
 
 === Import mechanism
 
