@@ -218,6 +218,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::ui[]
 === User Interface
 
 The User Interface is implemented using JavaFx. The Ui consists of a `MainWindow` which holds `StackWindow` fields.
@@ -232,6 +233,7 @@ Each of the `StackWindow` is to be filled with the Ui components as listed below
 * `AddressPanel` - Display Address and shows map of address
 
 The Ui also makes use of `DarkTheme,css` and `LightTheme.css` file to set the color scheme.
+// end::ui[]
 
 // tag::undoredo[]
 === Undo/Redo mechanism
@@ -387,6 +389,8 @@ The `name` field is compulsory.
 
 The fields that are not compulsory are `phone`, `birthday`, `email`, `address`, `organisation`, and `tags`.
 //end::addoptionalfields[]
+
+// tag::find[]
 === Find mechanism
 
 The `find` function is implemented by `FindCommand`, which updates the list of displayed contacts. It holds a predicate from `ContainsKeywordsPredicate` that runs through each keyword and calls `containsWordIgnoreCase` each time to search for the keyword in the designated field. +
@@ -394,10 +398,21 @@ The designated fields allowed are: +
 
 * `name` +
 * `address` +
-* `email` (each keyword must contain a match) +
+* `email` +
 * `phone number` +
+* `birthday month` +
+* `organisation` +
 
 This feature is case-insensitive, and an exact match is not required for each keyword. e.g. 'jon' will match 'Jonathan'
+// end::find[]
+
+// tag::delete[]
+=== Delete mechanism
+
+The `delete` function is implemented by `DeleteCommand`. The function has been enhanced to allow multiple deletions at once. `DeleteCommandParser` returns a `DeleteCommand` with an array of indexes which are taken from the user input. `DeleteCommand` then executes the deletion of the respective persons.
+
+The indexes given by the user must be separated by a comma for multiple deletions.
+// end::delete[]
 
 === Import mechanism
 
@@ -423,6 +438,7 @@ The fields that are currently exported to VCard file are: +
 * `birthday` +
 * `organisation`
 
+// tag::bin[]
 === Recycle bin
 The recycle bin is implemented by having address book store the list of person deleted using a separate list from the main address book list. +
 
@@ -445,6 +461,7 @@ The recycle bin is implemented by having address book store the list of person d
 **Alternative 2:** Add a new command for each feature of `RecycleBin` usage. +
 **Pros:** Additional parsing of command is unnecessary. +
 **Cons:** Commands will be easily mixed up. Purpose of command will be unintuitive, `clear` may mean to clear recycle or to clear address book. A separate command name for clearing recycle bin need to be thought of (clear can no longer be used). +
+// end::bin[]
 
 //tag::backup[]
 === Backup AddressBook

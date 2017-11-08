@@ -61,12 +61,12 @@ public class LogicManager extends ComponentManager implements Logic {
         this.model.setListDisplay();
     }
 
-    //@@author frozventus
     @Override
     public void setBinDisplay() {
         this.model.setBinDisplay();
     }
 
+    //@@author
     @Override
     public ListElementPointer getHistorySnapshot() {
         return new ListElementPointer(history.getHistory());
@@ -79,7 +79,6 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
 
-    //@@author frozventus
     @Subscribe
     public void handleDisplayBinEvent(DisplayBinEvent event) {
         binMode = true;

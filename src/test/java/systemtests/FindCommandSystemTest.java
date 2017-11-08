@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.GEORGE;
+import static seedu.address.testutil.TypicalPersons.KEN;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import java.util.ArrayList;
@@ -251,10 +252,13 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
 
         /* Case: switch to bin display and filter -> switch to bin display -> 1 person found */
+        executeCommand(UndoCommand.COMMAND_WORD);
         executeCommand(BinListCommand.COMMAND_WORD);
+        expectedModel = getModel();
         expectedModel.setBinDisplay();
+        ModelHelper.setFilteredList(expectedModel, KEN);
         command = "find" + " " + FindCommand.KEYWORD_NAME + " " + "Ken";
-        assertCommandSuccess(command, expectedModel);
+        assertCommandSuccessWithBin(command, expectedModel);
 
         /* Case: switch back to list mode and find -> 0 persons found*/
         executeCommand(ListCommand.COMMAND_WORD);
@@ -267,6 +271,25 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
+        /* Case: switch to bin display and filter -> switch to bin display -> 0 person found */
+        executeCommand(UndoCommand.COMMAND_WORD);
+        executeCommand(BinListCommand.COMMAND_WORD);
+        expectedModel = getModel();
+        expectedModel.setBinDisplay();
+        ModelHelper.setFilteredList(expectedModel);
+        command = "find" + " " + FindCommand.KEYWORD_NAME + " " + "Pauline";
+        assertCommandSuccessWithBin(command, expectedModel);
+
+        /* Case: switch back to bin mode and find -> 0 persons found*/
+        executeCommand(BinListCommand.COMMAND_WORD);
+        executeCommand(ClearCommand.COMMAND_WORD);
+        assert getModel().getAddressBook().getPersonList().size() == 0;
+        command = FindCommand.COMMAND_WORD + " " + FindCommand.KEYWORD_NAME + " " + KEYWORD_MATCHING_MEIER;
+        expectedModel = getModel();
+        expectedModel.setBinDisplay();
+        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        assertCommandSuccessWithBin(command, expectedModel);
+        assertSelectedCardUnchanged();
     }
 
     /**
@@ -285,6 +308,26 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+        assertCommandBoxShowsDefaultStyle();
+        assertStatusBarUnchanged();
+    }
+
+    /**
+     * Executes {@code command} and verifies that the command box displays an empty string, the result display
+     * box displays {@code Messages#MESSAGE_PERSONS_LISTED_OVERVIEW} with the number of people in the filtered list,
+     * and the model related components equal to {@code expectedModel}.
+     * These verifications are done by
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * Also verifies that the status bar remains unchanged, and the command box has the default style class, and the
+     * selected card updated accordingly, depending on {@code cardStatus}.
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     */
+    private void assertCommandSuccessWithBin(String command, Model expectedModel) {
+        String expectedResultMessage = String.format(
+                MESSAGE_PERSONS_LISTED_OVERVIEW, expectedModel.getFilteredPersonList().size());
+
+        executeCommand(command);
+        assertApplicationDisplaysExpectedWithBin("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchanged();
     }
