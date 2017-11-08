@@ -41,7 +41,6 @@ public class BinListCommandTest {
         assertCommandSuccess(binListCommand, model, BinListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
-    //@@author frozventus-reused
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showFirstPersonOnly(model, true);

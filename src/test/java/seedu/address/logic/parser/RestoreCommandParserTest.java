@@ -26,7 +26,6 @@ public class RestoreCommandParserTest {
         assertParseSuccess(parser, "1", new RestoreCommand(INDEX_FIRST_PERSON));
     }
 
-    //@@author frozventus-reused
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, RestoreCommand.MESSAGE_USAGE));
