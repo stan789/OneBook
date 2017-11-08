@@ -278,13 +278,14 @@ Format: `clear`
 * Contacts deleted using this command does not show up in the Recycle Bin.
 ****
 
+// tag::sort[]
 === Locating persons: `sort`
 
 Sorts the list in OneBook according to name or email in alphabetically order. +
-Format: `sort MAIN_KEYWORD KEYWORD [MORE_KEYWORDS]`
+Format: `sort [KEYWORD]`
 
 ****
-* The main keyword determines the search field (i.e. *name*/*email*).
+* The keyword determines the sort field (*name*/*email*).
 * At least one contact must be in OneBook before sorting.
 * The sort applies to the current listing displayed.
 ****
@@ -296,8 +297,9 @@ Examples:
 * `bin` +
 `sort name` +
 Sorts the recycle bin entries in alphabetical order of their name.
+// end::sort[]
 
-
+// tag::import[]
 === Importing a VCard file(.vcf) to OneBook : `import`
 
 Import a VCard file from directory to OneBook +
@@ -315,7 +317,9 @@ Examples:
 * `import C:/Users/User/Downloads/contacts.vcf` (Windows)
 * `import /Users/user/Downloads/contacts.vcf` (MAC OSX)
 * `import /Users/user/Desktop/contacts.vcf` (MAC OSX)
+// end::import[]
 
+// tag::export[]
 === Exporting from OneBook to VCard file(.vcf) or CSV file(.csv) : `export`
 
 Create a VCard file or CSV File and export from OneBook to the file directory +
@@ -335,7 +339,9 @@ Examples:
 * `export/Users/user/Desktop/OneBook.vcf` (MAC OSX)
 * `export C:/Users/User/Downloads/OneBook.csv` (Windows)
 * `export /Users/user/Downloads/contacts.csv` (MAC OSX)
+// end::export[]
 
+// tag::email[]
 === Email to a person from Onebook contact list : `email`
 
 Emails to the person selected from Onebook contact list +
@@ -353,6 +359,8 @@ Examples:
 
 * `email 1`
 * `email 3`
+// end::email[]
+
 
 // tag::bin[]
 === Recycle Bin : `bin`
@@ -429,17 +437,32 @@ If the backup file does not exist or is corrupted too, OneBook will start with a
 Clears the recycle bin. +
 Format: `binclear`
 
+=== Import from CSV(.csv) files to OneBook : `import` [yellow]#*Coming in v2.0#
+
+Import a CSV file from directory to OneBook +
+Format: `import [file directory]`
+
+=== Email to a person from Onebook contact list  via user's default web browser: `email` [yellow]#*Coming in v2.0#
+
+Emails to the person selected from Onebook contact list  via user's default web browser +
+Format: `email [email website] [Index]`
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
-*Q*: Why do I keep getting unknown command when typing a command?
+*Q*: Why do I keep getting unknown command when typing a command? +
 *A*: The command typed is invalid. Refer to Command Summary section for all the commands.
 
-*Q*: After entering list command, why do I not get any contact list?
+*Q*: After entering list command, why do I not get any contact list? +
 *A*: You might not have added at least one person to Onebook. Add at least one person to Onebook and try running the command again.
+
+*Q*: Why does it link to Windows mail or MACOS mailand not microsoft outlook when I type email command? +
+*A*: Your default mail application might be windows mail, not microsoft outlook. Go to settings to change your default mail application to your preference.
+
+*Q*: I have 500 contacts to import. When I use import command, only 490 contacts are imported. +
+*A*: You might have duplicated contacts in the list which are not imported.
 
 == Command Summary
 
