@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Henry Ang - Project Portfolio
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -80,4 +80,5 @@ https://github.com/CS2103AUG2017-T17-B2/main/issues/174[MedNus #174])
 
 == Project: TickList
 
-Ticklist is a to-do-list application for Android (https://github.com/FrozVentus/TickList[TickList])
+Ticklist is a to-do-list application for Android, completed as part of http://nusskylab-dev.comp.nus.edu.sg/[Orbital] together with https://github.com/DarrenCzen[DarrenCzen]. +
+The repository can be found here: https://github.com/FrozVentus/TickList[TickList].
