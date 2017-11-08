@@ -120,6 +120,7 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
+// tag::find[]
 === Locating persons: `find`
 
 Finds persons whose particular field contain any of the given keywords. +
@@ -151,7 +152,9 @@ Returns only persons having an address containing `Geylang Street 5`
 * `bin` +
 `find name Jake` +
 Returns any person with the name `Jake`
+// end::find[]
 
+// tag::delete[]
 === Deleting a person : `delete`
 
 Deletes the specified person(s) from the address book. +
@@ -175,6 +178,7 @@ Deletes the 3rd and 4th persons in the address book.
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
+// end::delete[]
 
 === Selecting a person : `select`
 
