@@ -11,6 +11,8 @@
 
         String trimmedArgs = args.trim();
 
+        trimmedArgs = trimmedArgs.replace("\\", "/");
+
         if (args.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
         }
@@ -39,6 +41,9 @@
     public ExportCommand parse(String args) throws ParseException {
 
         String trimmedArgs = args.trim();
+
+        trimmedArgs = trimmedArgs.replace("\\", "/");
+
         if (args.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
         }
@@ -122,17 +127,6 @@
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-    /**
-     * redirects user to their desktop's default email application.
-     */
-    protected void desktopEmail(String email) throws IOException, URISyntaxException {
-        if (!Desktop.isDesktopSupported()) {
-            throw new IOException();
-        }
-        Desktop desktop = getDesktop();
-        desktop.mail(new URI("mailto:" + email));
-    }
-
 ```
 ###### /java/seedu/address/logic/commands/EmailCommand.java
 ``` java
@@ -142,6 +136,18 @@
                 || (other instanceof EmailCommand // instanceof handles nulls
                 && this.targetIndex.equals(((EmailCommand) other).targetIndex)); // state check
     }
+
+    /**
+     * redirects user to their desktop's default email application.
+     */
+    protected void desktopEmail(String email) throws IOException, URISyntaxException, CommandException {
+        if (!Desktop.isDesktopSupported()) {
+            throw new CommandException(MESSAGE_NOT_SUPPORTED);
+        }
+        Desktop desktop = getDesktop();
+        desktop.mail(new URI("mailto:" + email));
+    }
+
 }
 ```
 ###### /java/seedu/address/logic/commands/ExportCommand.java
@@ -234,61 +240,126 @@
      * Create a csv file to the directory.
      */
     public void createCsvFile(ObservableList<ReadOnlyPerson> person) throws IOException {
+        FileOutputStream outputStream = new FileOutputStream(new File(fileLocation));
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-8");
+        BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
 
-        try {
-            FileOutputStream outputStream = new FileOutputStream(new File(fileLocation));
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-8");
-            BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
+        bufferedWriter.write(heading);
+        bufferedWriter.newLine();
 
-            bufferedWriter.write("First Name,Last Name,Company,Home Street,Other Phone,Birthday,E-mail Address");
+        for (ReadOnlyPerson p : person) {
+
+            writeCsvName(bufferedWriter, p);
+            writeCsvOrganisation(bufferedWriter, p);
+            writeCsvAddress(bufferedWriter, p);
+            writeCsvPhone(bufferedWriter, p);
+            writeCsvBirthday(bufferedWriter, p);
+            writeCsvEmail(bufferedWriter, p);
+            writeCsvRemark(bufferedWriter, p);
             bufferedWriter.newLine();
-            for (ReadOnlyPerson p: person) {
-                String[] name = p.getName().toString().split(" ", 2);
-                bufferedWriter.write(name[0]);
-                bufferedWriter.write(",");
-
-                if (name.length == 2) {
-                    bufferedWriter.write(name[1]);
-                }
-                bufferedWriter.write(",");
-
-                if (!p.getOrganisation().toString().equals("~")) {
-                    bufferedWriter.write(p.getOrganisation().toString());
-                }
-                bufferedWriter.write(",");
-
-                if (!p.getAddress().toString().equals("~")) {
-                    String address = p.getAddress().toString();
-                    address = address.replaceAll(",", "");
-                    bufferedWriter.write(address);
-                }
-                bufferedWriter.write(",");
-
-                if (!p.getPhone().toString().equals("~")) {
-                    bufferedWriter.write(p.getPhone().toString());
-                }
-                bufferedWriter.write(",");
-
-
-                if (!p.getBirthday().toString().equals("~")) {
-                    String birthday = p.getBirthday().toString();
-                    birthday = birthday.replaceAll("-", "/");
-                    bufferedWriter.write(birthday);
-                }
-                bufferedWriter.write(",");
-
-                if (!p.getEmail().toString().equals("~")) {
-                    bufferedWriter.write(p.getEmail().toString());
-                }
-                bufferedWriter.newLine();
-
-            }
-            bufferedWriter.close();
-        } catch (IOException e) {
-            throw new IOException();
         }
 
+        bufferedWriter.close();
     }
+
+```
+###### /java/seedu/address/storage/ExportCsvFile.java
+``` java
+    /**
+     * Writes a person's name to csv file
+     */
+    private void writeCsvName(BufferedWriter bufferedWriter, ReadOnlyPerson person) throws IOException {
+        String[] name = person.getName().toString().split(" ", 2);
+        bufferedWriter.write(name[0]);
+        bufferedWriter.write(",");
+
+        if (name.length == 2) {
+            bufferedWriter.write(name[1]);
+        }
+        bufferedWriter.write(",");
+    }
+
+```
+###### /java/seedu/address/storage/ExportCsvFile.java
+``` java
+    /**
+     * Writes a person's organisation to csv file
+     */
+    private void writeCsvOrganisation(BufferedWriter bufferedWriter, ReadOnlyPerson person) throws  IOException {
+        if (!person.getOrganisation().toString().equals("~")) {
+            bufferedWriter.write(person.getOrganisation().toString());
+        }
+        bufferedWriter.write(",");
+    }
+
+```
+###### /java/seedu/address/storage/ExportCsvFile.java
+``` java
+    /**
+     * Writes a person's address to csv file
+     */
+    private void writeCsvAddress(BufferedWriter bufferedWriter, ReadOnlyPerson person) throws  IOException {
+        if (!person.getAddress().toString().equals("~")) {
+            String address = person.getAddress().toString();
+            address = address.replaceAll(",", "");
+            bufferedWriter.write(address);
+        }
+        bufferedWriter.write(",");
+    }
+
+```
+###### /java/seedu/address/storage/ExportCsvFile.java
+``` java
+    /**
+     * Writes a person's phone to csv file
+     */
+    private void writeCsvPhone(BufferedWriter bufferedWriter, ReadOnlyPerson person) throws  IOException {
+        if (!person.getPhone().toString().equals("~")) {
+            bufferedWriter.write(person.getPhone().toString());
+        }
+        bufferedWriter.write(",");
+    }
+
+```
+###### /java/seedu/address/storage/ExportCsvFile.java
+``` java
+    /**
+     * Writes a person's birthday to csv file
+     */
+    private void writeCsvBirthday(BufferedWriter bufferedWriter, ReadOnlyPerson person) throws  IOException {
+        if (!person.getBirthday().toString().equals("~")) {
+            String birthday = person.getBirthday().toString();
+            birthday = birthday.replaceAll("-", "/");
+            bufferedWriter.write(birthday);
+        }
+        bufferedWriter.write(",");
+    }
+
+```
+###### /java/seedu/address/storage/ExportCsvFile.java
+``` java
+    /**
+     * Writes a person's email to csv file
+     */
+    private void writeCsvEmail(BufferedWriter bufferedWriter, ReadOnlyPerson person) throws  IOException {
+        if (!person.getEmail().toString().equals("~")) {
+            bufferedWriter.write(person.getEmail().toString());
+        }
+        bufferedWriter.write(",");
+    }
+
+```
+###### /java/seedu/address/storage/ExportCsvFile.java
+``` java
+    /**
+     * Writes a person's remarks to csv file
+     */
+    private void writeCsvRemark(BufferedWriter bufferedWriter, ReadOnlyPerson person) throws  IOException {
+        if (!person.getRemark().toString().equals("~")) {
+            bufferedWriter.write(person.getRemark().toString());
+        }
+    }
+
 }
 ```
 ###### /java/seedu/address/storage/exceptions/WrongFormatInFileException.java
@@ -322,77 +393,159 @@ public class EmptyFileException extends IOException {
      */
     public void createVCardFile(ObservableList<ReadOnlyPerson> person) throws IOException {
 
-        try {
-            FileOutputStream outputStream = new FileOutputStream(new File(fileLocation));
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-8");
-            BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
+        FileOutputStream outputStream = new FileOutputStream(new File(fileLocation));
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-8");
+        BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
 
-            for (ReadOnlyPerson p: person) {
-                bufferedWriter.write(vcf.getBegin());
-                bufferedWriter.newLine();
+        for (ReadOnlyPerson p : person) {
+            bufferedWriter.write(vcf.getBegin());
+            bufferedWriter.newLine();
 
-                bufferedWriter.write(vcf.getVersion());
-                bufferedWriter.newLine();
+            bufferedWriter.write(vcf.getVersion());
+            bufferedWriter.newLine();
 
-                bufferedWriter.write(vcf.getName() + ":" + p.getName());
-                bufferedWriter.newLine();
+            writeVCardName(bufferedWriter, p);
+            writeVCardEmail(bufferedWriter, p);
+            writeVCardPhone(bufferedWriter, p);
+            writeVCardTag(bufferedWriter, p);
+            writeVCardBirthday(bufferedWriter, p);
+            writeVCardAddress(bufferedWriter, p);
+            writeVCardOrganisation(bufferedWriter, p);
+            writeVCardRemark(bufferedWriter, p);
 
-                if (!p.getEmail().toString().equals("~")) {
-                    bufferedWriter.write(vcf.getEmail() + ":" + p.getEmail());
-                    bufferedWriter.newLine();
-                }
-
-                if (!p.getPhone().toString().equals("~")) {
-                    bufferedWriter.write(vcf.getPhoneFormat() + ":" + p.getPhone());
-                    bufferedWriter.newLine();
-                }
-
-                if (!p.getTags().isEmpty()) {
-                    String tag = p.getTags().toString();
-                    if (tag.contains("[")) {
-                        tag = tag.replaceAll("[\\[\\]]", "");
-                    }
-                    bufferedWriter.write(vcf.getLabel() + ":" + tag);
-                    bufferedWriter.newLine();
-                }
-
-                if (!p.getBirthday().toString().equals("~")) {
-                    String birthday = p.getBirthday().toString();
-                    String[] array = birthday.split("-");
-                    birthday = array[INDEX_TWO] + "-" + array[INDEX_ONE] + "-" + array[INDEX_ZERO];
-                    bufferedWriter.write(vcf.getBirthday() + ":" + birthday);
-                    bufferedWriter.newLine();
-                }
-                if (!p.getAddress().toString().equals("~")) {
-                    String address = p.getAddress().toString();
-                    for (int count = 0; count < 6; count++) {
-                        if (address.contains(",")) {
-                            address = address.replace(",", ";");
-                        } else {
-                            address = address.concat(";");
-                        }
-                    }
-                    bufferedWriter.write(vcf.getAddressFormat1() + ":" + address);
-                    bufferedWriter.newLine();
-                }
-                if (!p.getOrganisation().toString().equals("~")) {
-                    String org = p.getOrganisation().toString();
-                    bufferedWriter.write(vcf.getOrganization() + ":" + org);
-                    bufferedWriter.newLine();
-                }
-                if (!p.getRemark().toString().equals("~")) {
-                    String remark = p.getRemark().toString();
-                    bufferedWriter.write(vcf.getNotes() + ":" + remark);
-                    bufferedWriter.newLine();
-                }
-
-                bufferedWriter.write(vcf.getEnd());
-                bufferedWriter.newLine();
-            }
-            bufferedWriter.close();
-        } catch (IOException e) {
-            throw new IOException();
+            bufferedWriter.write(vcf.getEnd());
+            bufferedWriter.newLine();
         }
+        bufferedWriter.close();
+    }
+
+```
+###### /java/seedu/address/storage/ExportVCardFile.java
+``` java
+    /**
+     * write a person's name and full name to VCard file.
+     */
+    private void writeVCardName(BufferedWriter bufferedWriter, ReadOnlyPerson person) throws IOException {
+
+        bufferedWriter.write(vcf.getFullName() + ":" + person.getName());
+        bufferedWriter.newLine();
+
+        String[] arrayName = person.getName().toString().split(" ", 2);
+
+        bufferedWriter.write(vcf.getName() + ":" + arrayName[INDEX_ZERO] + ";");
+        if (arrayName.length == INDEX_TWO) {
+            bufferedWriter.write(arrayName[INDEX_ONE]);
+        }
+        bufferedWriter.newLine();
+    }
+
+```
+###### /java/seedu/address/storage/ExportVCardFile.java
+``` java
+    /**
+     * write a person's email to VCard file.
+     */
+    private void writeVCardEmail(BufferedWriter bufferedWriter, ReadOnlyPerson person) throws IOException {
+        if (!person.getEmail().toString().equals("~")) {
+            bufferedWriter.write(vcf.getEmail() + ":" + person.getEmail());
+            bufferedWriter.newLine();
+        }
+    }
+
+```
+###### /java/seedu/address/storage/ExportVCardFile.java
+``` java
+    /**
+     * write a person's phone to VCard file.
+     */
+    private void writeVCardPhone(BufferedWriter bufferedWriter, ReadOnlyPerson person) throws IOException {
+        if (!person.getPhone().toString().equals("~")) {
+            bufferedWriter.write(vcf.getPhoneFormat() + ":" + person.getPhone());
+            bufferedWriter.newLine();
+        }
+    }
+
+```
+###### /java/seedu/address/storage/ExportVCardFile.java
+``` java
+    /**
+     * write a person's tag/tags to VCard file.
+     */
+    private void writeVCardTag(BufferedWriter bufferedWriter, ReadOnlyPerson person) throws IOException {
+        if (!person.getTags().isEmpty()) {
+            String tag = person.getTags().toString();
+            if (tag.contains("[")) {
+                tag = tag.replaceAll("[\\[\\]]", "");
+            }
+            bufferedWriter.write(vcf.getLabel() + ":" + tag);
+            bufferedWriter.newLine();
+        }
+    }
+
+```
+###### /java/seedu/address/storage/ExportVCardFile.java
+``` java
+    /**
+     * write a person's birthday to VCard file.
+     */
+    private void writeVCardBirthday(BufferedWriter bufferedWriter, ReadOnlyPerson person) throws IOException {
+        if (!person.getBirthday().toString().equals("~")) {
+            String birthday = person.getBirthday().toString();
+            String[] birthdayArray = birthday.split("-");
+            birthday = birthdayArray[INDEX_TWO] + "-" + birthdayArray[INDEX_ONE] + "-" + birthdayArray[INDEX_ZERO];
+            bufferedWriter.write(vcf.getBirthday() + ":" + birthday);
+            bufferedWriter.newLine();
+        }
+    }
+
+```
+###### /java/seedu/address/storage/ExportVCardFile.java
+``` java
+    /**
+     * write a person's address to VCard file.
+     */
+    private void writeVCardAddress(BufferedWriter bufferedWriter, ReadOnlyPerson person) throws IOException {
+        if (!person.getAddress().toString().equals("~")) {
+            String address = person.getAddress().toString();
+            for (int count = 0; count < 4; count++) {
+                if (address.contains(",")) {
+                    address = address.replace(",", ";");
+                } else {
+                    address = address.concat(";");
+                }
+            }
+            bufferedWriter.write(vcf.getAddressFormat1() + ":;;" + address);
+            bufferedWriter.newLine();
+        }
+    }
+
+```
+###### /java/seedu/address/storage/ExportVCardFile.java
+``` java
+    /**
+     * write a person's organisation to VCard file.
+     */
+    private void writeVCardOrganisation(BufferedWriter bufferedWriter, ReadOnlyPerson person) throws IOException {
+        if (!person.getOrganisation().toString().equals("~")) {
+            String org = person.getOrganisation().toString();
+            bufferedWriter.write(vcf.getOrganization() + ":" + org);
+            bufferedWriter.newLine();
+        }
+    }
+
+```
+###### /java/seedu/address/storage/ExportVCardFile.java
+``` java
+    /**
+     * write a person's reamark to VCard file.
+     */
+    private void writeVCardRemark(BufferedWriter bufferedWriter, ReadOnlyPerson person) throws IOException {
+        if (!person.getRemark().toString().equals("~")) {
+            String remark = person.getRemark().toString();
+            bufferedWriter.write(vcf.getNotes() + ":" + remark);
+            bufferedWriter.newLine();
+        }
+
     }
 }
 ```
@@ -463,18 +616,14 @@ public class EmptyFileException extends IOException {
         String[] contactArray = line.split(":");
         if (contactArray.length == INDEX_TWO) {
             if ((line.startsWith(vcf.getPhoneFormat2()) || line.contains(vcf.getPhoneFormat()))) {
-                String phone = contactArray[INDEX_ONE];
-                phone = phone.replaceAll("[^\\p{Graph}]", " ");
-                if (vCard.getPhone() == null) {
-                    vCard.setPhone(phone);
-                }
+                phoneSection(contactArray[INDEX_ONE]);
             }
 
             if (line.startsWith(vcf.getEmail())) {
                 vCard.setEmail(contactArray[INDEX_ONE]);
             }
 
-            if (line.startsWith(vcf.getName())) {
+            if (line.startsWith(vcf.getFullName())) {
                 vCard.setName(contactArray[INDEX_ONE]);
             }
 
@@ -483,12 +632,7 @@ public class EmptyFileException extends IOException {
             }
 
             if (line.startsWith(vcf.getBirthday())) {
-                String birthday = contactArray[INDEX_ONE];
-                String[] array = birthday.split("-");
-                if (array.length == BIRTHDAY_SIZE) {
-                    birthday = array[INDEX_TWO] + "-" + array[INDEX_ONE] + "-" + array[INDEX_ZERO];
-                }
-                vCard.setBirthday(birthday);
+                birthdaySection(contactArray[INDEX_ONE]);
             }
 
             if (line.startsWith(vcf.getLabel())) {
@@ -502,6 +646,33 @@ public class EmptyFileException extends IOException {
                 vCard.setRemark(contactArray[INDEX_ONE]);
             }
         }
+    }
+
+```
+###### /java/seedu/address/storage/ImportVCardFile.java
+``` java
+    /**
+     * change format of VCard phone to OneBook phone format
+     */
+    private void phoneSection(String phone) {
+        phone = phone.replaceAll("[^\\p{Graph}]", " ");
+        if (vCard.getPhone() == null) {
+            vCard.setPhone(phone);
+        }
+    }
+
+```
+###### /java/seedu/address/storage/ImportVCardFile.java
+``` java
+    /**
+     * change format of VCard birthday to OneBook birthday format
+     */
+    private void birthdaySection(String birthday) {
+        String[] array = birthday.split("-");
+        if (array.length == BIRTHDAY_SIZE) {
+            birthday = array[INDEX_TWO] + "-" + array[INDEX_ONE] + "-" + array[INDEX_ZERO];
+        }
+        vCard.setBirthday(birthday);
     }
 
 ```
@@ -827,16 +998,18 @@ public class EmptyAddressBookException extends Exception {
 ``` java
     @Override
     public Integer importFile(Path fileLocation) throws IOException {
+        Integer count = 0;
         ImportVCardFile importFile = new ImportVCardFile(fileLocation);
         ArrayList<Person> person = importFile.getPersonFromFile();
         for (Person p : person) {
             try {
                 addPerson(p);
+                count++;
             } catch (DuplicatePersonException e) {
                 System.out.println("DuplicatePersonException" + p.getName());
             }
         }
-        return person.size();
+        return count;
     }
 
 ```
@@ -858,6 +1031,11 @@ public class EmptyAddressBookException extends Exception {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
+    }
+
+    @Override
+    public ReadOnlyAddressBook getRecycleBin() {
+        return recycleBin;
     }
 
 ```

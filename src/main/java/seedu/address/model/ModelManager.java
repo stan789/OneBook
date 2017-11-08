@@ -83,16 +83,18 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author stan789
     @Override
     public Integer importFile(Path fileLocation) throws IOException {
+        Integer count = 0;
         ImportVCardFile importFile = new ImportVCardFile(fileLocation);
         ArrayList<Person> person = importFile.getPersonFromFile();
         for (Person p : person) {
             try {
                 addPerson(p);
+                count++;
             } catch (DuplicatePersonException e) {
                 System.out.println("DuplicatePersonException" + p.getName());
             }
         }
-        return person.size();
+        return count;
     }
 
     //@@author stan789

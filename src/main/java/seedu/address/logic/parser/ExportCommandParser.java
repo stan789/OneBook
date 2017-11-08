@@ -31,6 +31,9 @@ public class ExportCommandParser implements Parser<ExportCommand> {
     public ExportCommand parse(String args) throws ParseException {
 
         String trimmedArgs = args.trim();
+
+        trimmedArgs = trimmedArgs.replace("\\", "/");
+
         if (args.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
         }
