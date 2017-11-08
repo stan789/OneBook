@@ -229,6 +229,19 @@
     }
 }
 ```
+###### \java\seedu\address\TestApp.java
+``` java
+    /**
+     * Returns a defensive copy of the model in Bin configuration.
+     */
+    public Model getModelBinMode() {
+        Model copy = new ModelManager(model.getAddressBook(), model.getRecycleBin(), new UserPrefs());
+        copy.setBinDisplay();
+        ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
+        return copy;
+    }
+
+```
 ###### \java\seedu\address\testutil\TypicalPersons.java
 ``` java
     /**
@@ -248,6 +261,24 @@
 
     public static List<ReadOnlyPerson> getTypicalPersonsForBin() {
         return new ArrayList<>(Arrays.asList(JEAN, KEN));
+    }
+
+```
+###### \java\systemtests\AddressBookSystemTest.java
+``` java
+    /**
+     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+     * {@code expectedResultMessage}, the model and storage contains the same person objects as {@code expectedModel}
+     * and the person list panel displays the persons in the model correctly.
+     * For use when displaying Recycle Bin
+     */
+    protected void assertApplicationDisplaysExpectedWithBin(String expectedCommandInput, String expectedResultMessage,
+                                                     Model expectedModel) {
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedResultMessage, getResultDisplay().getText());
+        assertEquals(expectedModel, getModelWithBin());
+        assertEquals(expectedModel.getAddressBook(), testApp.readStorageAddressBook());
+        assertEquals(expectedModel.getRecycleBin(), testApp.readStorageRecycleBin());
     }
 
 ```

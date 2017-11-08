@@ -155,14 +155,14 @@ public class PersonDeletedEvent extends BaseEvent {
 ``` java
     @Override
     public void setListDisplay() {
-        this.filteredPersons = filteredAddresses;
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        this.filteredPersons = filteredAddresses;
     }
 
     @Override
     public void setBinDisplay() {
-        this.filteredPersons = filteredBin;
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        this.filteredPersons = filteredBin;
     }
 
 ```

@@ -51,6 +51,31 @@
     }
 }
 ```
+###### \java\seedu\address\TestApp.java
+``` java
+    @Override
+    public void start(Stage primaryStage) {
+        ui.start(primaryStage);
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    /**
+     * Creates an XML file at the {@code filePath} with the {@code data}.
+     */
+    private <T> void createDataFileWithData(T data, String filePath) {
+        try {
+            File saveFileForTesting = new File(filePath);
+            FileUtil.createIfMissing(saveFileForTesting);
+            XmlUtil.saveDataToFile(saveFileForTesting, data);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
+```
 ###### \java\seedu\address\testutil\TypicalPersons.java
 ``` java
     public static AddressBookData getTypicalData() {
