@@ -332,7 +332,7 @@
     -fx-border-width: 1;
 }
 
-#nameLarge, #phoneLarge, #birthdayLarge, #emailLarge, #notesLarge, #addressLarge, #organisationLarge {
+#nameLarge, #phoneLarge, #birthdayLarge, #emailLarge, #remarkLarge, #addressLarge, #organisationLarge {
     -fx-text-fill: black;
     -fx-fill: black;
     -fx-font-weight: bold;
@@ -340,7 +340,7 @@
     -fx-font-size: 15pt;
 }
 
-#nameHeader, #phoneHeader, #birthdayHeader, #emailHeader, #notesHeader, #addressHeader, #organisationHeader,
+#nameHeader, #phoneHeader, #birthdayHeader, #emailHeader, #remarkHeader, #addressHeader, #organisationHeader,
 #tagsHeader {
     -fx-text-fill: black;
     -fx-fill: black;
