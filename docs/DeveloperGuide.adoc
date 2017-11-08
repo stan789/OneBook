@@ -406,9 +406,21 @@ This feature is case-insensitive, and an exact match is not required for each ke
 
 // tag::sort[]
 === Sort mechanism
-The `sort` function is implemented by `SortCommand`, which sort the contacts by name or email address in Onebook according to alphabetical order.
-// end::sort[]
 
+The `sort` function is implemented by the `SortCommand`, which sorts the OneBook contact list by name or email alphabetically.
+There is a `SortCommandParser` which checks for the KEYWORD which must be either name or email.
+When a user wants to sort the address book by name, the logic manager will execute the command by parsing the command to the other classes accordingly.
+When SortCommand is executed, it will call executeSort() in the ModelManager. The executeSort() will call executeSort in Addressbook and finally, sort() method will be called in the UniquePersonList will sort the AddressBook alphabetically.
+
+==== Design considerations
+**Aspect:** What fields to be sorted. +
+**Alternative 1 (current choice):**  allows user to sort name and email only. +
+**Pros:** Sorting by name or email is the most common, so users do not need to remember the many sorting options. +
+**Cons:** Users do not have the freedom to select what fields to be sorted according to. +
+**Alternative 2:** Allow users to sort all fields. +
+**Pros:** Users have the freedom to select what fields to be sorted according to. +
+**Cons:** Not useful as most users sort by name only.
+// end::sort[]
 
 // tag::delete[]
 === Delete mechanism
@@ -431,6 +443,15 @@ The format in the VCard file is checked to ensure that it is valid before import
 * `birthday` +
 * `organisation` +
 * `remarks`
+
+==== Design considerations
+**Aspect:** Which file formats to allow to import. +
+**Alternative 1 (current choice):** Only allow VCard file. +
+**Pros:** VCard file has a format for each field, which makes importing easier. Some file formats such as csv does not have common heading standards which make import difficult. +
+**Cons:** Users can only import VCard file. +
+**Alternative 2:** Allow all contact file formats. +
+**Pros:** Users can import contacts in the different file formats that have. +
+**Cons:** Difficult to implement since file formats such as csv does not have common heading standards.
 // end::import[]
 
 // tag::export[]
@@ -445,11 +466,31 @@ The fields that are currently exported to VCard file are: +
 * `phone number` +
 * `birthday` +
 * `organisation` +
-* `reamarks`
+* `remarks`
+
+==== Design considerations
+**Aspect:** Which file formats to allow to export. +
+**Alternative 1 (current choice):** Only allow VCard file and csv file. +
+**Pros:** csv file and VCard file format are the most common file formats for contacts which makes it easy for users to import to other contact applications. +
+**Cons:** Users can only export VCard file or csv file. +
+**Alternative 2:** Allow user to export to all other file formats. +
+**Pros:** Users can choose which file format they want to export as. +
+**Cons:** Difficult to implement there are alot of file formats to implement for export.
 // end::export[]
 
 // tag::email[]
 === Email mechanism
+The email function is implemented by the EmailCommand, which will fill in the email address in the compose message in user’s desktop default application.
+Users will key in email index where index refers to the index of the person listed in the PersonListPanel which they wish to email to. It will be parse through AddressBookParser and EmailCommandParser to extract the index. A new EmailCommand will be created and the EmailCommand open user’s desktop default mail application.
+
+==== Design considerations
+**Aspect:** How should the email work. +
+**Alternative 1 (current choice):** opened via user’s default desktop application. +
+**Pros:** It is easy to implement. Most operating system such as Windows or MacOS have a email application installed. +
+**Cons:** Users need to make sure the email application such as Microsoft outlook is their desktop default application. Users need a email application on their desktop/computers. +
+**Alternative 2:** email directly from the command box using Java Mail API. +
+**Pros:** Users do not need to get out of java application to send an email. +
+**Cons:** If users need to type long messages, it will be problematic as the command box is not long enough to preview the whole message at once.
 // end::email[]
 
 
