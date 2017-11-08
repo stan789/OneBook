@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
@@ -24,11 +25,13 @@ import seedu.address.model.person.ReadOnlyPerson;
 public class AddressPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
+    public static final String DEFAULT_LIGHT_PAGE = "default_light.html";
     public static final String GOOGLE_SEARCH_URL_PREFIX = "https://www.google.com.sg/maps/place/";
     public static final String GOOGLE_SEARCH_URL_SUFFIX = ",+?dg=dbrw&newdg=1";
     public static final String UNIT_NUMBER_REGEX = "#\\d+-\\d+";
 
     private static final String FXML = "AddressPanel.fxml";
+    private static final String DARK_MODE = "view/DarkTheme.css";
 
     private ReadOnlyPerson person;
 
@@ -94,9 +97,20 @@ public class AddressPanel extends UiPart<Region> {
     /**
      * Loads a default HTML file with a background that matches the general theme.
      */
-    private void loadDefaultPage() {
+    public void loadDefaultPage() {
         URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
         loadPage(defaultPage.toExternalForm());
+    }
+
+    public void setDefaultPage() {
+        Scene scene = MainWindow.getScene();
+        if (scene.getStylesheets().contains(DARK_MODE)) {
+            URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+            loadPage(defaultPage.toExternalForm());
+        } else {
+            URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_LIGHT_PAGE);
+            loadPage(defaultPage.toExternalForm());
+        }
     }
 
     /**
