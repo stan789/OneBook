@@ -180,18 +180,17 @@ public class MainWindow extends UiPart<Region> {
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
     }
 
-    //@@author frozventus
     private void switchListDisplay() {
         logic.setListDisplay();
         listName.textProperty().setValue("List");
     }
 
-    //@@author frozventus
     private void switchBinDisplay() {
         logic.setBinDisplay();
         listName.textProperty().setValue("Bin");
     }
 
+    //@@author
     /**
      * Sets the given image as the icon of the main window.
      * @param iconSource e.g. {@code "/images/help_icon.png"}
@@ -271,22 +270,26 @@ public class MainWindow extends UiPart<Region> {
         }
     }
 
-    //@@author frozventus
     @Subscribe
     private void handleDisplayListResetEvent(DisplayListResetEvent event) {
         if (listName.textProperty().get().equals("Bin") || listName.textProperty().get().equals("Filtered Bin")) {
             switchListDisplay();
             setListDisplay();
         }
+        if (listName.textProperty().get().equals("Filtered List")) {
+            listName.textProperty().setValue("List");
+        }
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
 
-    //@@author frozventus
     @Subscribe
     private void handleDisplayBinEvent(DisplayBinEvent event) {
         if (listName.textProperty().get().equals("Filtered List") || listName.textProperty().get().equals("List")) {
             switchBinDisplay();
             setListDisplay();
+        }
+        if (listName.textProperty().get().equals("Filtered Bin")) {
+            listName.textProperty().setValue("Bin");
         }
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }

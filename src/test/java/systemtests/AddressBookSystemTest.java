@@ -154,6 +154,23 @@ public abstract class AddressBookSystemTest {
         assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
     }
 
+    //@@author frozventus-reused
+    /**
+     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+     * {@code expectedResultMessage}, the model and storage contains the same person objects as {@code expectedModel}
+     * and the person list panel displays the persons in the model correctly.
+     * For use when displaying Recycle Bin
+     */
+    protected void assertApplicationDisplaysExpectedWithBin(String expectedCommandInput, String expectedResultMessage,
+                                                     Model expectedModel) {
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedResultMessage, getResultDisplay().getText());
+        assertEquals(expectedModel, getModelWithBin());
+        assertEquals(expectedModel.getAddressBook(), testApp.readStorageAddressBook());
+        assertEquals(expectedModel.getRecycleBin(), testApp.readStorageRecycleBin());
+    }
+
+    //@@author
     /**
      * Calls {@code AddressPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
@@ -261,5 +278,12 @@ public abstract class AddressBookSystemTest {
      */
     protected Model getModel() {
         return testApp.getModel();
+    }
+
+    /**
+     * Returns a defensive copy of the current model in Bin configuration.
+     */
+    protected Model getModelWithBin() {
+        return testApp.getModelBinMode();
     }
 }

@@ -51,7 +51,6 @@ public class RestoreCommandTest {
         assertCommandSuccess(restoreCommand, model, expectedMessage, expectedModel);
     }
 
-    //@@author frozventus-reused
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() throws Exception {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
@@ -60,7 +59,6 @@ public class RestoreCommandTest {
         assertCommandFailure(restoreCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
-    //@@author frozventus-reused
     @Test
     public void execute_validIndexFilteredList_success() throws Exception {
         showFirstPersonOnly(model, true);
@@ -78,7 +76,6 @@ public class RestoreCommandTest {
         assertCommandSuccess(restoreCommand, model, expectedMessage, expectedModel);
     }
 
-    //@@author frozventus-reused
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
         showFirstPersonOnly(model, true);
@@ -92,7 +89,6 @@ public class RestoreCommandTest {
         assertCommandFailure(restoreCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
-    //@@author frozventus-reused
     @Test
     public void equals() {
         RestoreCommand restoreFirstCommand = new RestoreCommand(INDEX_FIRST_PERSON);
@@ -115,7 +111,6 @@ public class RestoreCommandTest {
         assertFalse(restoreFirstCommand.equals(restoreSecondCommand));
     }
 
-    //@@author frozventus-reused
     /**
      * Returns a {@code RestoreCommand} with the parameter {@code index}.
      */
@@ -125,7 +120,6 @@ public class RestoreCommandTest {
         return restoreCommand;
     }
 
-    //@@author frozventus-reused
     /**
      * Updates {@code model}'s filtered list to show no one.
      */

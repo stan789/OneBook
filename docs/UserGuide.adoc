@@ -18,7 +18,7 @@ By: `CS2103AUG2017 T17-B4`      Since: `Jun 2016`      Licence: `MIT`
 
 === Introduction
 
-OneBook is a desktop Address Book application. OneBook uses a Graphical User Interface (GUI) but most of the interactions happen using Command Line Interface (CLI).
+OneBook is a desktop Address Book application. It uses a Graphical User Interface (GUI) but most of the interactions happen using Command Line Interface (CLI).
 
 OneBook is optimized for companies' usage. It is also suitable for general usage.
 
@@ -123,6 +123,7 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
+// tag::find[]
 === Locating persons: `find`
 
 Finds persons whose particular field contain any of the given keywords. +
@@ -154,7 +155,9 @@ Returns only persons having an address containing `Geylang Street 5`
 * `bin` +
 `find name Jake` +
 Returns any person with the name `Jake`
+// end::find[]
 
+// tag::delete[]
 === Deleting a person : `delete`
 
 Deletes the specified person(s) from the address book. +
@@ -180,6 +183,7 @@ Deletes the 3rd and 4th persons in the address book.
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
+// end::delete[]
 
 === Selecting a person : `select`
 
@@ -350,6 +354,7 @@ Examples:
 * `email 1`
 * `email 3`
 
+// tag::bin[]
 === Recycle Bin : `bin`
 
 Shows a list of deleted persons. +
@@ -396,6 +401,7 @@ Examples:
 * `bin` +
 `bindelete 2` +
 Removes the 2nd person in recycle bin. +
+// end::bin[]
 
 === Exiting the program : `exit`
 
