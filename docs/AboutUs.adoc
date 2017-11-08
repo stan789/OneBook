@@ -22,7 +22,7 @@ Responsibilities: Model
 
 === Darrin Loh
 image::darrinloh.jpg[width="150", align="left"]
-{empty}[http://github.com/darrinloh[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/darrinloh[github]] [<<darrinloh#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Storage
@@ -40,7 +40,7 @@ Responsibilities: UI
 
 === Stanley Guok
 image::stan789.jpg[width="150", align="left"]
-{empty}[http://github.com/stan789[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/stan789[github]] [<<stanleyguok#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Logic
