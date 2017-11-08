@@ -137,7 +137,6 @@ public class TypicalPersons {
         return rb;
     }
 
-    //@@author frozventus
     public static List<ReadOnlyPerson> getTypicalPersonsForBin() {
         return new ArrayList<>(Arrays.asList(JEAN, KEN));
     }

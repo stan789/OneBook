@@ -18,7 +18,7 @@ By: `CS2103AUG2017 T17-B4`      Since: `Jun 2016`      Licence: `MIT`
 
 === Introduction
 
-OneBook is a desktop Address Book application. OneBook uses a Graphical User Interface (GUI) but most of the interactions happen using Command Line Interface (CLI).
+OneBook is a desktop Address Book application. It uses a Graphical User Interface (GUI) but most of the interactions happen using Command Line Interface (CLI).
 
 OneBook is optimized for companies' usage. It is also suitable for general usage.
 
@@ -349,6 +349,7 @@ Examples:
 * `email 1`
 * `email 3`
 
+// tag::bin[]
 === Recycle Bin : `bin`
 
 Shows a list of deleted persons. +
@@ -395,6 +396,7 @@ Examples:
 * `bin` +
 `bindelete 2` +
 Removes the 2nd person in recycle bin. +
+// end::bin[]
 
 === Exiting the program : `exit`
 
