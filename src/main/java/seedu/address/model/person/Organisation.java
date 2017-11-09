@@ -6,6 +6,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * Represents a Person's Company in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidOrganisation(String)}
  */
+
+//@@author darrinloh
 public class Organisation {
 
     public static final String MESSAGE_ORGANISATION_CONSTRAINTS =
@@ -62,3 +64,5 @@ public class Organisation {
     }
 
 }
+
+//@@author darrinloh

@@ -101,6 +101,7 @@ public class AddressPanel extends UiPart<Region> {
         URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
         loadPage(defaultPage.toExternalForm());
     }
+    //@@author darrinloh
 
     public void setDefaultPage() {
         Scene scene = MainWindow.getScene();
@@ -113,6 +114,7 @@ public class AddressPanel extends UiPart<Region> {
         }
     }
 
+    //@@author darrinloh
     /**
      * Frees resources allocated to the browser.
      */
