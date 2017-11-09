@@ -281,7 +281,7 @@ Format: `clear`
 // tag::sort[]
 === Locating persons: `sort`
 
-Sorts the list in OneBook according to name or email in alphabetically order. +
+Sorts the list in OneBook according to name or email in alphabetical order. +
 Format: `sort [KEYWORD]`
 
 ****
