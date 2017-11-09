@@ -1,124 +1,24 @@
 # darrinloh
-###### /java/seedu/address/storage/StorageManager.java
+###### \java\seedu\address\logic\commands\ModeCommand.java
 ``` java
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
-        super();
-        this.addressBookStorage = addressBookStorage;
-        this.userPrefsStorage = userPrefsStorage;
+    @Override
+    public CommandResult execute() {
+        Scene scene = MainWindow.getScene();
+        AddressPanel addressPanel = MainWindow.getAddressPanel();
+        if (scene.getStylesheets().contains(DARK_MODE)) {
+            scene.getStylesheets().remove(DARK_MODE);
+            scene.getStylesheets().add(LIGHT_MODE);
+            addressPanel.setDefaultPage();
 
-        Optional<AddressBookData> addressBookOptional;
-        try {
-            addressBookOptional = addressBookStorage.readAddressBook();
-            if (addressBookOptional.isPresent()) {
-                backUpAddressBook(addressBookOptional.get());
-                logger.info("AddressBook found, backup initiated.");
-            } else {
-                logger.warning("AddressBook not found, backup will not initiate.");
-            }
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Backup will not initiate.");
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Backup will not initiate.");
+        } else {
+            scene.getStylesheets().remove(LIGHT_MODE);
+            scene.getStylesheets().add(DARK_MODE);
+            addressPanel.setDefaultPage();
         }
-
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 ```
-###### /java/seedu/address/storage/StorageManager.java
-``` java
-
-    // ================ UserPrefs methods ==============================
-
-    @Override
-    public String getUserPrefsFilePath() {
-        return userPrefsStorage.getUserPrefsFilePath();
-    }
-
-    @Override
-    public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
-        return userPrefsStorage.readUserPrefs();
-    }
-
-    @Override
-    public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
-        userPrefsStorage.saveUserPrefs(userPrefs);
-    }
-
-
-    // ================ AddressBook methods ==============================
-
-    @Override
-    public String getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
-    }
-
-```
-###### /java/seedu/address/storage/StorageManager.java
-``` java
-    @Override
-    public String getBackUpAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath() + "-backup.xml";
-    }
-
-
-    @Override
-    public Optional<AddressBookData> readBackUpAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath() + "-backup.xml");
-    }
-```
-###### /java/seedu/address/storage/StorageManager.java
-``` java
-
-    @Override
-    public Optional<AddressBookData> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
-    }
-
-    @Override
-    public Optional<AddressBookData> readAddressBook(String filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
-    }
-
-    @Override
-    public void saveAddressBook(AddressBookData addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
-    }
-
-    @Override
-    public void saveAddressBook(AddressBookData addressBook, String filePath)
-            throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
-    }
-
-```
-###### /java/seedu/address/storage/StorageManager.java
-``` java
-    private void backUpAddressBook(AddressBookData addressBook) throws IOException {
-        saveAddressBook(addressBook, getLocalBackUpAddressBookFilePath());
-    }
-
-    public String getLocalBackUpAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath() + "-backup.xml";
-    }
-```
-###### /java/seedu/address/storage/StorageManager.java
-``` java
-
-    @Override
-    @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
-        try {
-            saveAddressBook(event.data);
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
-        }
-    }
-
-}
-```
-###### /java/seedu/address/MainApp.java
+###### \java\seedu\address\MainApp.java
 ``` java
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<AddressBookData> addressBookOptional;
@@ -155,7 +55,7 @@
         return new ModelManager(initialData.getAddressBook(), initialData.getRecycleBin(), userPrefs);
     }
 ```
-###### /java/seedu/address/MainApp.java
+###### \java\seedu\address\MainApp.java
 ``` java
 
 
@@ -264,4 +164,218 @@
         launch(args);
     }
 }
+```
+###### \java\seedu\address\model\person\Organisation.java
+``` java
+public class Organisation {
+
+    public static final String MESSAGE_ORGANISATION_CONSTRAINTS =
+            "Person organisation can take any values";
+
+    /*
+     * The first character of the organisation must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
+    public static final String ORGANISATION_VALIDATION_REGEX = "[^\\s].*";
+    public static final String ORGANISATION_NOT_ASSIGNED = "~";
+
+    public final String value;
+
+    /**
+     * Validates given organisation.
+     *
+     * @throws IllegalValueException if given organisation string is invalid.
+     */
+    public Organisation(String organisation) throws IllegalValueException {
+
+        if (organisation == null) {
+            this.value = ORGANISATION_NOT_ASSIGNED;
+        } else {
+            if (!isValidOrganisation(organisation)) {
+                throw new IllegalValueException(MESSAGE_ORGANISATION_CONSTRAINTS);
+            }
+            this.value = organisation;
+        }
+    }
+
+    /**
+     * Returns true if a given string is a valid person organisation.
+     */
+    public static boolean isValidOrganisation(String test) {
+        return test.matches(ORGANISATION_VALIDATION_REGEX) || test.matches(ORGANISATION_NOT_ASSIGNED);
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Organisation // instanceof handles nulls
+                && this.value.equals(((Organisation) other).value)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
+
+}
+
+```
+###### \java\seedu\address\model\person\Organisation.java
+``` java
+
+```
+###### \java\seedu\address\storage\StorageManager.java
+``` java
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+        super();
+        this.addressBookStorage = addressBookStorage;
+        this.userPrefsStorage = userPrefsStorage;
+
+        Optional<AddressBookData> addressBookOptional;
+        try {
+            addressBookOptional = addressBookStorage.readAddressBook();
+            if (addressBookOptional.isPresent()) {
+                backUpAddressBook(addressBookOptional.get());
+                logger.info("AddressBook found, backup initiated.");
+            } else {
+                logger.warning("AddressBook not found, backup will not initiate.");
+            }
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Backup will not initiate.");
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Backup will not initiate.");
+        }
+
+    }
+```
+###### \java\seedu\address\storage\StorageManager.java
+``` java
+
+    // ================ UserPrefs methods ==============================
+
+    @Override
+    public String getUserPrefsFilePath() {
+        return userPrefsStorage.getUserPrefsFilePath();
+    }
+
+    @Override
+    public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
+        return userPrefsStorage.readUserPrefs();
+    }
+
+    @Override
+    public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
+        userPrefsStorage.saveUserPrefs(userPrefs);
+    }
+
+
+    // ================ AddressBook methods ==============================
+
+    @Override
+    public String getAddressBookFilePath() {
+        return addressBookStorage.getAddressBookFilePath();
+    }
+
+```
+###### \java\seedu\address\storage\StorageManager.java
+``` java
+    @Override
+    public String getBackUpAddressBookFilePath() {
+        return addressBookStorage.getAddressBookFilePath() + "-backup.xml";
+    }
+
+
+    @Override
+    public Optional<AddressBookData> readBackUpAddressBook() throws DataConversionException, IOException {
+        return readAddressBook(addressBookStorage.getAddressBookFilePath() + "-backup.xml");
+    }
+```
+###### \java\seedu\address\storage\StorageManager.java
+``` java
+
+    @Override
+    public Optional<AddressBookData> readAddressBook() throws DataConversionException, IOException {
+        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    }
+
+    @Override
+    public Optional<AddressBookData> readAddressBook(String filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return addressBookStorage.readAddressBook(filePath);
+    }
+
+    @Override
+    public void saveAddressBook(AddressBookData addressBook) throws IOException {
+        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    }
+
+    @Override
+    public void saveAddressBook(AddressBookData addressBook, String filePath)
+            throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        addressBookStorage.saveAddressBook(addressBook, filePath);
+    }
+
+```
+###### \java\seedu\address\storage\StorageManager.java
+``` java
+    private void backUpAddressBook(AddressBookData addressBook) throws IOException {
+        saveAddressBook(addressBook, getLocalBackUpAddressBookFilePath());
+    }
+
+    public String getLocalBackUpAddressBookFilePath() {
+        return addressBookStorage.getAddressBookFilePath() + "-backup.xml";
+    }
+```
+###### \java\seedu\address\storage\StorageManager.java
+``` java
+
+    @Override
+    @Subscribe
+    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        try {
+            saveAddressBook(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
+
+}
+```
+###### \java\seedu\address\ui\AddressPanel.java
+``` java
+
+    public void setDefaultPage() {
+        Scene scene = MainWindow.getScene();
+        if (scene.getStylesheets().contains(DARK_MODE)) {
+            URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+            loadPage(defaultPage.toExternalForm());
+        } else {
+            URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_LIGHT_PAGE);
+            loadPage(defaultPage.toExternalForm());
+        }
+    }
+
+```
+###### \java\seedu\address\ui\AddressPanel.java
+``` java
+    /**
+     * Frees resources allocated to the browser.
+     */
+    public void freeResources() {
+        browser = null;
+    }
+
+    @Subscribe
+    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadPersonAddress(event.getNewSelection().person);
+    }
+
 ```

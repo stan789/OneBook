@@ -16,7 +16,7 @@ public class ModeCommand extends Command {
     private static final String LIGHT_MODE = "view/LightTheme.css";
     private static final String DARK_MODE = "view/DarkTheme.css";
 
-
+    //@@author darrinloh
     @Override
     public CommandResult execute() {
         Scene scene = MainWindow.getScene();
@@ -33,4 +33,5 @@ public class ModeCommand extends Command {
         }
         return new CommandResult(MESSAGE_SUCCESS);
     }
+    //@@author
 }
