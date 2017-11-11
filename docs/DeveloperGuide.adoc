@@ -411,7 +411,10 @@ This feature is case-insensitive, and an exact match is not required for each ke
 
 The `sort` function is implemented by the `SortCommand`, which sorts the OneBook contact list by name or email alphabetically.
 There is a `SortCommandParser` which checks for the KEYWORD which must be either name or email.
-When a user wants to sort the address book by name, the logic manager will execute the command by parsing the command to the other classes accordingly.
+When a user wants to sort the address book by name, the logic manager will execute the command by parsing the command to the other classes accordingly as shown in the figure below.
+
+image::SortPersonDiagram.png[width="800"]
+
 When SortCommand is executed, it will call executeSort() in the ModelManager. The executeSort() will call executeSort in Addressbook and finally, sort() method will be called in the UniquePersonList will sort the AddressBook alphabetically.
 
 ==== Design considerations
@@ -435,7 +438,7 @@ The indexes given by the user must be separated by a comma for multiple deletion
 // tag::import[]
 === Import mechanism
 
-The `import` function is implemented by `ImportCommand`, which imports the contacts in a VCard file to Onebook. It imports a VCard file from a valid directory which the user need to input after keying "import" command in the command box. Inputting a directory is easier than asking the user to put the VCard file in a specfic directory.
+The `import` function is implemented by `ImportCommand`, which imports the contacts in a VCard file to Onebook. It imports a VCard file from a valid directory which the user need to input after keying "import" command in the command box. Inputting a directory is easier than asking the user to put the VCard file in a specific directory.
 The format in the VCard file is checked to ensure that it is valid before importing it to OneBook. The fields that are currently imported from VCard file are: +
 
 * `name` +
@@ -445,6 +448,9 @@ The format in the VCard file is checked to ensure that it is valid before import
 * `birthday` +
 * `organisation` +
 * `remarks`
+
+The `ImportCommandParser` will check if the file directory exist and whether the extension is correct. Then it will  create a new `ImportCommand`.
+When ImportCommand is executed, it will call importFile() in Model Manager which will call getPersonFromFile() in ImportVCardFile. It will return an ArrayList of Person which will be added to OneBook using addPerson() in Model Manager.
 
 ==== Design considerations
 **Aspect:** Which file formats to allow to import. +

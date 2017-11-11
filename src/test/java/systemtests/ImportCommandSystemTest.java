@@ -38,7 +38,7 @@ public class ImportCommandSystemTest extends AddressBookSystemTest {
         expectedModel.resetData(new AddressBookData(new AddressBook(), new RecycleBin()));
         ImportAnalysis importAnalysis = new ImportAnalysis();
         try {
-            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/OneBook.vcf"),importAnalysis);
+            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/OneBook.vcf"), importAnalysis);
         } catch (IOException e) {
             throw new IllegalArgumentException("Execution of command should not fail.", e);
         }
@@ -49,7 +49,7 @@ public class ImportCommandSystemTest extends AddressBookSystemTest {
         command = ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/contacts.vcf";
         importAnalysis = new ImportAnalysis();
         try {
-            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"),importAnalysis);
+            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"), importAnalysis);
         } catch (IOException e) {
             throw new IllegalArgumentException("Execution of command should not fail.", e);
         }
@@ -61,7 +61,7 @@ public class ImportCommandSystemTest extends AddressBookSystemTest {
         command = ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/contacts.vcf";
         importAnalysis = new ImportAnalysis();
         try {
-            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"),importAnalysis);
+            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"), importAnalysis);
         } catch (IOException e) {
             throw new IllegalArgumentException("Execution of command should not fail.", e);
         }
@@ -73,7 +73,7 @@ public class ImportCommandSystemTest extends AddressBookSystemTest {
         command = ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/name_only.vcf";
         importAnalysis = new ImportAnalysis();
         try {
-            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/name_only.vcf"),importAnalysis);
+            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/name_only.vcf"), importAnalysis);
         } catch (IOException e) {
             throw new IllegalArgumentException("Execution of command should not fail.", e);
         }

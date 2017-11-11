@@ -34,7 +34,7 @@ public class ImportCommandTest {
         Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts.vcf");
         ImportCommand importCommand = prepareCommand(fileLocation);
         ImportAnalysis importAnalysis = new ImportAnalysis();
-        expectedModel.importFile(fileLocation,importAnalysis);
+        expectedModel.importFile(fileLocation, importAnalysis);
         String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, importAnalysis.getNumContacts());
         assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
     }
@@ -47,7 +47,7 @@ public class ImportCommandTest {
 
         ImportCommand importCommand = prepareCommand(fileLocation);
         ImportAnalysis importAnalysis = new ImportAnalysis();
-        expectedModel.importFile(fileLocation,importAnalysis);
+        expectedModel.importFile(fileLocation, importAnalysis);
         String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, importAnalysis.getNumContacts());
         assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
     }
@@ -60,7 +60,7 @@ public class ImportCommandTest {
 
         ImportCommand importCommand = prepareCommand(fileLocation);
         ImportAnalysis importAnalysis = new ImportAnalysis();
-        expectedModel.importFile(fileLocation,importAnalysis);
+        expectedModel.importFile(fileLocation, importAnalysis);
         String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, importAnalysis.getNumContacts())
                 + ImportCommand.MESSAGE_DUPLICATE;
         assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
@@ -74,7 +74,7 @@ public class ImportCommandTest {
 
         ImportCommand importCommand = prepareCommand(fileLocation);
         ImportAnalysis importAnalysis = new ImportAnalysis();
-        expectedModel.importFile(fileLocation,importAnalysis);
+        expectedModel.importFile(fileLocation, importAnalysis);
         String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, importAnalysis.getNumContacts())
                 + ImportCommand.MESSAGE_ILLEGAL_VALUE;
         assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
@@ -87,7 +87,7 @@ public class ImportCommandTest {
 
         ImportCommand importCommand = prepareCommand(fileLocation);
         ImportAnalysis importAnalysis = new ImportAnalysis();
-        expectedModel.importFile(fileLocation,importAnalysis);
+        expectedModel.importFile(fileLocation, importAnalysis);
         String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, importAnalysis.getNumContacts())
                 + ImportCommand.MESSAGE_DUPLICATE + ImportCommand.MESSAGE_ILLEGAL_VALUE;
         assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
@@ -97,7 +97,7 @@ public class ImportCommandTest {
     @Test(expected = IOException.class)
     public void testFileWithInvalidFormat() throws IOException {
         ImportAnalysis importAnalysis = new ImportAnalysis();
-        model.importFile(Paths.get("src/test/data/VCardFileTest/contacts_example.vcf"),importAnalysis);
+        model.importFile(Paths.get("src/test/data/VCardFileTest/contacts_example.vcf"), importAnalysis);
     }
 
     //@@author stan789

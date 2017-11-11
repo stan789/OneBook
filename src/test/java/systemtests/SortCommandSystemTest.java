@@ -35,7 +35,7 @@ public class SortCommandSystemTest extends AddressBookSystemTest {
         String command = SortCommand.COMMAND_WORD + " " + SORT_NAME;
         ImportAnalysis importAnalysis = new ImportAnalysis();
         try {
-            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"),importAnalysis);
+            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"), importAnalysis);
             expectedModel.executeSort(SORT_NAME);
         } catch (EmptyAddressBookException e) {
             assertCommandFailure(command, MESSAGE_NO_PERSON_TO_SORT, expectedModel);

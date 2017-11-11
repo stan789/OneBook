@@ -186,7 +186,7 @@ public class AddCommandTest {
             fail("This method should not be called.");
         }
         @Override
-        public void importFile(Path fileLocation,ImportAnalysis importAnalysis) {
+        public void importFile(Path fileLocation, ImportAnalysis importAnalysis) {
             fail("This method should not be called.");
         }
 
