@@ -12,10 +12,10 @@ import seedu.address.logic.commands.ImportAnalysis;
 
 public class ImportVCardFileTest {
 
-    private ImportAnalysis importAnalysis = new ImportAnalysis();
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    private ImportAnalysis importAnalysis = new ImportAnalysis();
 
     //@@author stan789
     @Test
