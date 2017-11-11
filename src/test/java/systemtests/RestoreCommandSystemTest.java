@@ -1,9 +1,16 @@
 package systemtests;
 
+import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ORDER_PERSONS_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_REPEATED_INDEXES;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.RestoreCommand.MESSAGE_RESTORE_PERSON_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndexFromBin;
 import static seedu.address.testutil.TestUtil.getPersonFromBin;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MUELLER;
 
 import org.junit.Test;
 
@@ -58,6 +65,78 @@ public class RestoreCommandSystemTest extends AddressBookSystemTest{
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         restorePerson(modelBeforeRestoringLast, lastPersonIndex);
         assertCommandSuccess(command, modelBeforeRestoringLast, expectedResultMessage);
+
+        /* ------------------ Performing restore operation while a filtered list is being shown ---------------------- */
+
+        /* Case: filtered bin list, delete index within bounds of recycle bin and bin list -> deleted */
+        showPersonsInBinWithName(KEYWORD_MATCHING_MEIER);
+        Index index = INDEX_FIRST_PERSON;
+        assertTrue(index.getZeroBased() < getModelWithBin().getFilteredPersonList().size());
+        assertCommandSuccess(index);
+
+        /* Case: filtered bin list, delete index within bounds of recycle bin but out of bounds of bin list
+         * -> rejected
+         */
+        executeCommand(UndoCommand.COMMAND_WORD);
+        executeCommand(BinListCommand.COMMAND_WORD);
+        showPersonsInBinWithName(KEYWORD_MATCHING_MUELLER);
+        int invalidIndex = getModel().getRecycleBin().getPersonList().size();
+        command = RestoreCommand.COMMAND_WORD + " " + invalidIndex;
+        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        executeCommand(UndoCommand.COMMAND_WORD);
+
+
+        /* --------------------- Performing restore operation while a person card is selected ------------------------ */
+
+        /* Case: restore the selected person -> person list panel selects the person before restoring the person */
+        showAllPersonsInBin();
+        Model expectedModel = getModelWithBin();
+        Index selectedIndex = getLastIndexFromBin(expectedModel);
+        Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
+        selectPerson(selectedIndex);
+        command = RestoreCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
+        ReadOnlyPerson restoredPerson = restorePerson(expectedModel, selectedIndex);
+        expectedResultMessage = MESSAGE_RESTORE_PERSON_SUCCESS + restoredPerson;
+        assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
+
+        /* --------------------------------- Performing invalid restore operation ------------------------------------ */
+
+        /* Case: invalid index (0) -> rejected */
+        command = RestoreCommand.COMMAND_WORD + " 0";
+        assertCommandFailure(command, MESSAGE_INVALID_RESTORE_COMMAND_FORMAT);
+
+        /* Case: invalid index (-1) -> rejected */
+        command = RestoreCommand.COMMAND_WORD + " -1";
+        assertCommandFailure(command, MESSAGE_INVALID_RESTORE_COMMAND_FORMAT);
+
+        /* Case: invalid index (size + 1) -> rejected */
+        Index outOfBoundsIndex = Index.fromOneBased(
+                getModel().getRecycleBin().getPersonList().size() + 1);
+        command = RestoreCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
+        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        /* Case: invalid indexes (not in ascending order) -> rejected */
+        command = RestoreCommand.COMMAND_WORD + " 2, 1";
+        assertCommandFailure(command, MESSAGE_INVALID_ORDER_PERSONS_INDEX);
+
+        /* Case: invalid indexes (identical indexes found) */
+        command = RestoreCommand.COMMAND_WORD + " 1, 1";
+        assertCommandFailure(command, MESSAGE_REPEATED_INDEXES);
+
+        /* Case: invalid index (some valid, some invalid) -> rejected */
+        command = RestoreCommand.COMMAND_WORD + " 1, " + outOfBoundsIndex.getOneBased();
+        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        /* Case: invalid arguments (alphabets) -> rejected */
+        assertCommandFailure(RestoreCommand.COMMAND_WORD + " abc",
+                             MESSAGE_INVALID_RESTORE_COMMAND_FORMAT);
+
+        /* Case: invalid arguments (extra argument) -> rejected */
+        assertCommandFailure(RestoreCommand.COMMAND_WORD + " 1 abc",
+                             MESSAGE_INVALID_RESTORE_COMMAND_FORMAT);
+
+        /* Case: mixed case command word -> rejected */
+        assertCommandFailure("ReStOrE 1", MESSAGE_UNKNOWN_COMMAND);
     }
 
     /**
@@ -150,7 +229,7 @@ public class RestoreCommandSystemTest extends AddressBookSystemTest{
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
-        Model expectedModel = getModel();
+        Model expectedModel = getModelWithBin();
 
         executeCommand(command);
         assertApplicationDisplaysExpectedWithBin(command, expectedResultMessage, expectedModel);

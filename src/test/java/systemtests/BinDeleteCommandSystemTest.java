@@ -67,13 +67,13 @@ public class BinDeleteCommandSystemTest extends AddressBookSystemTest{
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered person list, delete index within bounds of address book and person list -> deleted */
+        /* Case: filtered bin list, delete index within bounds of recycle bin and bin list -> deleted */
         showPersonsInBinWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModelWithBin().getFilteredPersonList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered person list, delete index within bounds of address book but out of bounds of person list
+        /* Case: filtered bin list, delete index within bounds of recycle bin but out of bounds of bin list
          * -> rejected
          */
         executeCommand(UndoCommand.COMMAND_WORD);
@@ -134,7 +134,7 @@ public class BinDeleteCommandSystemTest extends AddressBookSystemTest{
                              MESSAGE_INVALID_BIN_DELETE_COMMAND_FORMAT);
 
         /* Case: mixed case command word -> rejected */
-        assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND);
+        assertCommandFailure("BiNDelETE 1", MESSAGE_UNKNOWN_COMMAND);
     }
 
     /**
@@ -211,7 +211,7 @@ public class BinDeleteCommandSystemTest extends AddressBookSystemTest{
                                       Index expectedSelectedCardIndex) {
         executeCommand(command);
         assertApplicationDisplaysExpectedWithBin("", expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedCardDeselected();
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchangedExceptSyncStatus();
     }
