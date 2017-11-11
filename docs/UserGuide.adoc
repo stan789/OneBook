@@ -412,7 +412,7 @@ Removes the 2nd person in recycle bin. +
 
 === Clearing all recycle bin entries : `binclear`
 
-Clears all entries from the recycle bin +
+Clears all entries from the recycle bin. +
 Format: `binclear`
 // end::bin[]
 
