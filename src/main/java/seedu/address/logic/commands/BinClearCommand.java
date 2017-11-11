@@ -8,7 +8,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.RecycleBin;
 import seedu.address.storage.AddressBookData;
 
-//@@ frozventus
+//@@ author frozventus
 /**
  * Clears the recycle bin.
  */

@@ -24,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
+//@@ author frozventus
 public class BinDeleteCommandSystemTest extends AddressBookSystemTest{
 
     private static final String MESSAGE_INVALID_BIN_DELETE_COMMAND_FORMAT =

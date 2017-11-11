@@ -114,7 +114,7 @@ public class TestApp extends MainApp {
         return copy;
     }
 
-    //@@author frozventus-reused
+    //@@author frozventus
     /**
      * Returns a defensive copy of the model in Bin configuration.
      */
@@ -125,7 +125,7 @@ public class TestApp extends MainApp {
         return copy;
     }
 
-    //@@author frozventus
+    //@@author
     @Override
     public void start(Stage primaryStage) {
         ui.start(primaryStage);

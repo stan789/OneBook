@@ -299,6 +299,7 @@ public abstract class AddressBookSystemTest {
         return testApp.getModel();
     }
 
+    //@@ author frozventus
     /**
      * Returns a defensive copy of the current model in Bin configuration.
      */
