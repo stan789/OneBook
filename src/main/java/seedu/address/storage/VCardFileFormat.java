@@ -9,12 +9,12 @@ public class VCardFileFormat {
     private static final String fullName = "FN";
     private static final String name = "N";
     private static final String addressFormat1 = "ADR";
-    private static final String addressFormat2 = ".ADR";
+    private static final String addressFormat2 = "item1.ADR";
     private static final String email = "EMAIL";
     private static final String begin = "BEGIN:VCARD";
     private static final String end = "END:VCARD";
     private static final String phoneFormat1 = "TEL";
-    private static final String phoneFormat2 = ".TEL";
+    private static final String phoneFormat2 = "item1.TEL";
     private static final String birthday = "BDAY";
     private static final String label = "CATEGORIES";
     private static final String version = "Version 3.0";

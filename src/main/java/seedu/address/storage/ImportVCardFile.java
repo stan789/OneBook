@@ -122,7 +122,7 @@ public class ImportVCardFile {
     private void vCardFilePart(String line) {
         String[] contactArray = line.split(":");
         if (contactArray.length == INDEX_TWO) {
-            if ((line.startsWith(vcf.getPhoneFormat2()) || line.contains(vcf.getPhoneFormat()))) {
+            if ((line.startsWith(vcf.getPhoneFormat2()) || line.startsWith(vcf.getPhoneFormat()))) {
                 phoneSection(contactArray[INDEX_ONE].trim());
             }
             if (line.startsWith(vcf.getEmail())) {
@@ -134,7 +134,7 @@ public class ImportVCardFile {
             if (line.startsWith(vcf.getName())) {
                 nameSection(contactArray[INDEX_ONE].trim());
             }
-            if (line.startsWith(vcf.getAddressFormat1()) || line.contains(vcf.getAddressFormat2())) {
+            if (line.startsWith(vcf.getAddressFormat1()) || line.startsWith(vcf.getAddressFormat2())) {
                 addressSection(contactArray[INDEX_ONE].trim());
             }
             if (line.startsWith(vcf.getBirthday())) {
@@ -159,7 +159,7 @@ public class ImportVCardFile {
     private void nameSection(String contactArray) {
         String[] nameArray = contactArray.split(";");
         for (int i = nameArray.length - 1; i >= 0; i--) {
-            if (!nameArray[INDEX_ONE].equals("")) {
+            if (!nameArray[i].equals("")) {
                 name = name.concat(nameArray[i] + " ");
             }
         }
