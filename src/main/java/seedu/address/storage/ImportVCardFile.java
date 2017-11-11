@@ -45,6 +45,7 @@ public class ImportVCardFile {
     private VCard vCard;
     private boolean checkEnd = true;
     private boolean checkBegin = false;
+    private String name;
 
 
     /**
@@ -103,6 +104,7 @@ public class ImportVCardFile {
                 throw new WrongFormatInFileException();
             } else {
                 vCard = new VCard();
+                name = "";
             }
             checkEnd = false;
             checkBegin = true;
@@ -121,37 +123,48 @@ public class ImportVCardFile {
         String[] contactArray = line.split(":");
         if (contactArray.length == INDEX_TWO) {
             if ((line.startsWith(vcf.getPhoneFormat2()) || line.contains(vcf.getPhoneFormat()))) {
-                phoneSection(contactArray[INDEX_ONE]);
+                phoneSection(contactArray[INDEX_ONE].trim());
             }
-
             if (line.startsWith(vcf.getEmail())) {
-                vCard.setEmail(contactArray[INDEX_ONE]);
+                vCard.setEmail(contactArray[INDEX_ONE].trim());
             }
-
             if (line.startsWith(vcf.getFullName())) {
-                vCard.setName(contactArray[INDEX_ONE]);
+                vCard.setName(contactArray[INDEX_ONE].trim());
             }
-
+            if (line.startsWith(vcf.getName())) {
+                nameSection(contactArray[INDEX_ONE].trim());
+            }
             if (line.startsWith(vcf.getAddressFormat1()) || line.contains(vcf.getAddressFormat2())) {
-                addressSection(contactArray[INDEX_ONE]);
+                addressSection(contactArray[INDEX_ONE].trim());
             }
-
             if (line.startsWith(vcf.getBirthday())) {
-                birthdaySection(contactArray[INDEX_ONE]);
+                birthdaySection(contactArray[INDEX_ONE].trim());
             }
-
             if (line.startsWith(vcf.getLabel())) {
-                tagSection(contactArray[INDEX_ONE]);
+                tagSection(contactArray[INDEX_ONE].trim());
             }
-
             if (line.startsWith(vcf.getOrganization())) {
-                vCard.setOrganisation(contactArray[INDEX_ONE]);
+                vCard.setOrganisation(contactArray[INDEX_ONE].trim());
             }
             if (line.startsWith(vcf.getNotes())) {
-                vCard.setRemark(contactArray[INDEX_ONE]);
+                vCard.setRemark(contactArray[INDEX_ONE].trim());
             }
         }
     }
+
+    //@@author stan789
+    /**
+     * change format of VCard name to OneBook phone format
+     */
+    private void nameSection(String contactArray) {
+        String[] nameArray = contactArray.split(";");
+        for (int i= nameArray.length -1 ; i >= 0 ; i-- ) {
+            if (!nameArray[INDEX_ONE].equals("")) {
+                name = name.concat(nameArray[i] + " ");
+            }
+        }
+    }
+
 
     //@@author stan789
     /**
@@ -222,6 +235,9 @@ public class ImportVCardFile {
             } else {
                 checkEnd = true;
                 checkBegin = false;
+                if (vCard.getName().equals("")) {
+                    vCard.setName(name.trim());
+                }
                 Set<Tag> tag = new HashSet<>();
                 for (String string : vCard.getTag()) {
                     tag.add(new Tag(string));
