@@ -15,6 +15,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.logic.commands.ImportAnalysis;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -82,19 +83,19 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author stan789
     @Override
-    public Integer importFile(Path fileLocation) throws IOException {
+    public void importFile(Path fileLocation, ImportAnalysis importAnalysis) throws IOException {
         Integer count = 0;
-        ImportVCardFile importFile = new ImportVCardFile(fileLocation);
+        ImportVCardFile importFile = new ImportVCardFile(fileLocation, importAnalysis);
         ArrayList<Person> person = importFile.getPersonFromFile();
         for (Person p : person) {
             try {
                 addPerson(p);
                 count++;
             } catch (DuplicatePersonException e) {
-                System.out.println("DuplicatePersonException" + p.getName());
+                importAnalysis.setDuplicateContacts(true);
             }
         }
-        return count;
+        importAnalysis.setNumContacts(count);
     }
 
     //@@author stan789

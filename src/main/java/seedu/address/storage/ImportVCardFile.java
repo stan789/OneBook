@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.ImportAnalysis;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
@@ -38,6 +39,7 @@ public class ImportVCardFile {
     private static final Integer INDEX_TWO = 2;
     private static final Integer EMPTY_SIZE = 0;
     private Path fileLocation;
+    private ImportAnalysis importAnalysis;
     private ArrayList<Person> person = new ArrayList<>();
     private VCardFileFormat vcf;
     private VCard vCard;
@@ -50,8 +52,9 @@ public class ImportVCardFile {
      * return a list of persons
      */
 
-    public ImportVCardFile(Path fileLocation) {
+    public ImportVCardFile(Path fileLocation, ImportAnalysis importAnalysis) {
         this.fileLocation = fileLocation;
+        this.importAnalysis = importAnalysis;
         vcf = new VCardFileFormat();
         vCard = new VCard();
     }
@@ -59,7 +62,8 @@ public class ImportVCardFile {
     //@@author stan789
     /**
      * Read vCard file from the directory. Check format in file.
-     * return a list of persons
+     * @return ArrayList<Person>
+     * @throws IOException if not able to read from file
      */
 
     public ArrayList<Person> getPersonFromFile() throws IOException {
@@ -229,7 +233,7 @@ public class ImportVCardFile {
                         new Remark((vCard.getRemark())), tag));
             }
         } catch (IllegalValueException e) {
-            System.out.println("IllegalValueException" + vCard.getName() + " " + vCard.getPhone());
+            importAnalysis.setIllegalValue(true);
         }
     }
 
