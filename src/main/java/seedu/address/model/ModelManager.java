@@ -199,7 +199,6 @@ public class ModelManager extends ComponentManager implements Model {
         this.filteredPersons = filteredBin;
     }
 
-    //@@author
     @Override
     public ObservableList<ReadOnlyPerson> getAddressBookList() {
         return filteredAddresses;
@@ -210,6 +209,7 @@ public class ModelManager extends ComponentManager implements Model {
         return filteredBin;
     }
 
+    //@@author
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

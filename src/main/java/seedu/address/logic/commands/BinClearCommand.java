@@ -8,19 +8,20 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.RecycleBin;
 import seedu.address.storage.AddressBookData;
 
+//@@author frozventus
 /**
- * Resets the address book.
+ * Clears the recycle bin.
  */
-public class ClearCommand extends UndoableCommand {
+public class BinClearCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Application data has been reset!";
+    public static final String COMMAND_WORD = "binclear";
+    public static final String MESSAGE_SUCCESS = "Recycle Bin has been cleared!";
 
 
     @Override
     public CommandResult executeUndoableCommand() {
         requireNonNull(model);
-        model.resetData(new AddressBookData(new AddressBook(), new RecycleBin()));
+        model.resetData(new AddressBookData(new AddressBook(model.getAddressBook()), new RecycleBin()));
         EventsCenter.getInstance().post(new PersonDeletedEvent());
         return new CommandResult(MESSAGE_SUCCESS);
     }

@@ -1042,7 +1042,91 @@ Use case ends.
 +
 Use case ends.
 
-{More to be added}
+[discrete]
+=== Use case: Clear OneBook data
+
+*MSS*
+
+1. User requests to clear OneBook
+2. OneBook clears all the data stored
++
+Use case ends.
+
+[discrete]
+=== Use case: Restore person
+
+*MSS*
+
+1.  User requests to see the recycle bin
+2.  OneBook shows the recycle bin
+3.  User requests to restore a specific person from the bin
+4.  OneBook restores the person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The bin is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. OneBook shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The chosen person is already inside the contact list
++
+[none]
+** 3b1. OneBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Delete recycle bin entry
+
+*MSS*
+
+1.  User requests to see the recycle bin
+2.  OneBook shows the recycle bin
+3.  User requests to delete a specific person in the recycle bin
+4.  OneBook deletes the person from the recycle bin
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The recycle bin is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. OneBook shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The chosen person is already inside the contact list
++
+[none]
+** 3b1. OneBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Clear recycle bin data
+
+*MSS*
+
+1. User requests to clear recycle bin
+2. OneBook clears the recycle bin
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements

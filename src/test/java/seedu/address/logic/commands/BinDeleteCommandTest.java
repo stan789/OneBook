@@ -36,7 +36,6 @@ public class BinDeleteCommandTest {
         model.setBinDisplay();
     }
 
-    //@@author frozventus-reused
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
         ReadOnlyPerson personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -51,6 +50,7 @@ public class BinDeleteCommandTest {
         assertCommandSuccess(binDeleteCommand, model, expectedMessage, expectedModel);
     }
 
+    //@@author frozventus-reused
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() throws Exception {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
@@ -59,6 +59,7 @@ public class BinDeleteCommandTest {
         assertCommandFailure(binDeleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    //@@author frozventus
     @Test
     public void execute_validIndexFilteredList_success() throws Exception {
         showFirstPersonOnly(model, true);
@@ -89,6 +90,7 @@ public class BinDeleteCommandTest {
         assertCommandFailure(binDeleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    //@@author frozventus-reused
     @Test
     public void equals() {
         BinDeleteCommand binDeleteFirstCommand = new BinDeleteCommand(INDEX_FIRST_PERSON);

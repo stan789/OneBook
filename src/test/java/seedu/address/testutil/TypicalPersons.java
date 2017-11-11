@@ -62,6 +62,9 @@ public class TypicalPersons {
     public static final ReadOnlyPerson KEN = new PersonBuilder().withName("Ken Mueller").withPhone("8483737")
             .withBirthday("11-11-2001").withEmail("kitkat@example.com").withAddress("beansprout ave")
             .withOrganisation("P&G").withRemark("Need to plan holiday").build();
+    public static final ReadOnlyPerson LINDA = new PersonBuilder().withName("Linda Meyer").withPhone("8443377")
+            .withBirthday("12-12-2002").withEmail("lineup@example.com").withAddress("carrot road")
+            .withOrganisation("ASDF").withRemark("Nothing to put here").build();
 
     // Manually added
     public static final ReadOnlyPerson HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
@@ -100,6 +103,8 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
+    public static final String KEYWORD_MATCHING_MUELLER = "Mueller"; // A keyword that matches MUELLER
+
     private TypicalPersons() {} // prevents instantiation
 
     /**
@@ -121,7 +126,7 @@ public class TypicalPersons {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 
-    //@@author frozventus-reused
+    //@@author frozventus
     /**
      * Returns a {@code RecycleBin} with three of the typical persons.
      */
@@ -138,10 +143,9 @@ public class TypicalPersons {
     }
 
     public static List<ReadOnlyPerson> getTypicalPersonsForBin() {
-        return new ArrayList<>(Arrays.asList(JEAN, KEN));
+        return new ArrayList<>(Arrays.asList(JEAN, KEN, LINDA));
     }
 
-    //@@author frozventus
     public static AddressBookData getTypicalData() {
         return new AddressBookData(getTypicalAddressBook(), getTypicalRecycleBin());
     }
