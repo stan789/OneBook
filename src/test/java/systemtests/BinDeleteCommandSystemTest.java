@@ -25,7 +25,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 //@@author frozventus
-public class BinDeleteCommandSystemTest extends AddressBookSystemTest{
+public class BinDeleteCommandSystemTest extends AddressBookSystemTest {
 
     private static final String MESSAGE_INVALID_BIN_DELETE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, BinDeleteCommand.MESSAGE_USAGE);
@@ -142,8 +142,7 @@ public class BinDeleteCommandSystemTest extends AddressBookSystemTest{
      * Deletes the {@code ReadOnlyPerson} at the specified {@code index} in {@code model}'s address book.
      * @return the removed person
      */
-    private ReadOnlyPerson binDeletePerson (Model model, Index index)
-    {
+    private ReadOnlyPerson binDeletePerson (Model model, Index index) {
         ReadOnlyPerson targetPerson = getPersonFromBin(model, index);
         try {
             model.deleteFromBin(targetPerson);
