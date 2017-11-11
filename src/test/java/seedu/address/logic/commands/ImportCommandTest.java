@@ -54,6 +54,19 @@ public class ImportCommandTest {
 
     //@@author stan789
     @Test
+    public void execute_importVCardFileWithoutFullName_importSuccess() throws IOException {
+
+        Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts_with_empty_fullName.vcf");
+
+        ImportCommand importCommand = prepareCommand(fileLocation);
+        ImportAnalysis importAnalysis = new ImportAnalysis();
+        expectedModel.importFile(fileLocation, importAnalysis);
+        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, importAnalysis.getNumContacts());
+        assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
+    }
+
+    //@@author stan789
+    @Test
     public void execute_importVCardFileWithDuplicate_importSuccessWithWarning() throws IOException {
 
         Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts_with_duplicate.vcf");
@@ -80,6 +93,7 @@ public class ImportCommandTest {
         assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
     }
 
+    //@@author stan789
     @Test
     public void execute_importVCardFileWithInfoInvalidFormatAndDuplicate_importSuccessWithWarning() throws IOException {
 
