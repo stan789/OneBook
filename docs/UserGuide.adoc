@@ -313,8 +313,8 @@ Format: `import [file directory]`
 
 Examples:
 
-* `import C:/Users/User/Desktop/contacts.vcf` (Windows)
-* `import C:/Users/User/Downloads/contacts.vcf` (Windows)
+* `import C:\Users\User\Desktop\contacts.vcf` (Windows)
+* `import C:\Users\User\Downloads\contacts.vcf` (Windows)
 * `import /Users/user/Downloads/contacts.vcf` (MAC OSX)
 * `import /Users/user/Desktop/contacts.vcf` (MAC OSX)
 // end::import[]
@@ -323,7 +323,7 @@ Examples:
 === Exporting from OneBook to VCard file(.vcf) or CSV file(.csv) : `export`
 
 Create a VCard file or CSV File and export from OneBook to the file directory +
-Format: `export [file directory]`
+Format: `export [file directory(including filename and file extension)]`
 
 ****
 * Exports a VCard file to a valid directory.
@@ -333,11 +333,11 @@ Format: `export [file directory]`
 
 Examples:
 
-* `export C:/Users/User/Desktop/contacts.vcf` (Windows)
-* `export C:/Users/User/Downloads/OneBook.vcf` (Windows)
+* `export C:\Users\User\Desktop\contacts.vcf` (Windows)
+* `export C:\Users\User\Downloads\OneBook.vcf` (Windows)
 * `export /Users/user/Downloads/contacts.vcf` (MAC OSX)
 * `export/Users/user/Desktop/OneBook.vcf` (MAC OSX)
-* `export C:/Users/User/Downloads/OneBook.csv` (Windows)
+* `export C:\Users\User\Downloads\OneBook.csv` (Windows)
 * `export /Users/user/Downloads/contacts.csv` (MAC OSX)
 // end::export[]
 
@@ -490,12 +490,12 @@ e.g. `edit 2 n/James Lee e/jameslee@example.com`
 e.g. `find name James Jake` +
 e.g. `find phone 123456789`
 * *Import* : `import [file directory]` +
-e.g. `import C:/Users/User/Desktop/contacts.vcf` (Windows) +
+e.g. `import C:\Users\User\Desktop\contacts.vcf` (Windows) +
 e.g. `import /Users/user/Downloads/contacts.vcf` (MAC OSX)
 * *Export* : `import [file directory]` +
-e.g. `export C:/Users/User/Desktop/contacts.vcf` (Windows) +
+e.g. `export C:\Users\User\Desktop\contacts.vcf` (Windows) +
 e.g. `export /Users/user/Downloads/contacts.vcf` (MAC OSX) +
-e.g. `export C:/Users/User/Desktop/contacts.csv` (Windows) +
+e.g. `export C:\Users\User\Desktop\contacts.csv` (Windows) +
 e.g. `export /Users/user/Downloads/contacts.csv` (MAC OSX)
 * *Email* : `email INDEX` +
 e.g.`email 2`

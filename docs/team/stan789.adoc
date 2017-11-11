@@ -25,9 +25,9 @@ include::../UserGuide.adoc[tag=sort]
 
 ==== Justification
 
-+When adding contacts to OneBook, the contacts are messy as there is no order in which the contacts are organised.
+* When adding contacts to OneBook, the contacts are messy as there is no order in which the contacts are organised.
 
-+Users might want the contact list to be more organised and sorting by name or email makes it easier to browse the list.
+* Users might want the contact list to be more organised and sorting by name or email makes it easier to browse the list.
 
 
 ==== Implementation

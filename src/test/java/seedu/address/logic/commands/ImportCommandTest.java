@@ -21,7 +21,6 @@ import seedu.address.model.UserPrefs;
 public class ImportCommandTest {
     private Model model;
     private Model expectedModel;
-
     @Before
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new RecycleBin(), new UserPrefs());
@@ -33,11 +32,10 @@ public class ImportCommandTest {
     public void execute_importVCardFile_importSuccess() throws IOException {
 
         Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts.vcf");
-
         ImportCommand importCommand = prepareCommand(fileLocation);
-
-        Integer count = expectedModel.importFile(fileLocation);
-        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, count);
+        ImportAnalysis importAnalysis = new ImportAnalysis();
+        expectedModel.importFile(fileLocation, importAnalysis);
+        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, importAnalysis.getNumContacts());
         assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
     }
 
@@ -48,16 +46,72 @@ public class ImportCommandTest {
         Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts_with_one_tag.vcf");
 
         ImportCommand importCommand = prepareCommand(fileLocation);
+        ImportAnalysis importAnalysis = new ImportAnalysis();
+        expectedModel.importFile(fileLocation, importAnalysis);
+        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, importAnalysis.getNumContacts());
+        assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
+    }
 
-        Integer count = expectedModel.importFile(fileLocation);
-        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, count);
+    //@@author stan789
+    @Test
+    public void execute_importVCardFileWithoutFullName_importSuccess() throws IOException {
+
+        Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts_with_empty_fullName.vcf");
+
+        ImportCommand importCommand = prepareCommand(fileLocation);
+        ImportAnalysis importAnalysis = new ImportAnalysis();
+        expectedModel.importFile(fileLocation, importAnalysis);
+        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, importAnalysis.getNumContacts());
+        assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
+    }
+
+    //@@author stan789
+    @Test
+    public void execute_importVCardFileWithDuplicate_importSuccessWithWarning() throws IOException {
+
+        Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts_with_duplicate.vcf");
+
+        ImportCommand importCommand = prepareCommand(fileLocation);
+        ImportAnalysis importAnalysis = new ImportAnalysis();
+        expectedModel.importFile(fileLocation, importAnalysis);
+        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, importAnalysis.getNumContacts())
+                + ImportCommand.MESSAGE_DUPLICATE;
+        assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
+    }
+
+    //@@author stan789
+    @Test
+    public void execute_importVCardFileWithInfoInvalidFormat_importSuccessWithWarning() throws IOException {
+
+        Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts_with_illegal_value.vcf");
+
+        ImportCommand importCommand = prepareCommand(fileLocation);
+        ImportAnalysis importAnalysis = new ImportAnalysis();
+        expectedModel.importFile(fileLocation, importAnalysis);
+        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, importAnalysis.getNumContacts())
+                + ImportCommand.MESSAGE_ILLEGAL_VALUE;
+        assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
+    }
+
+    //@@author stan789
+    @Test
+    public void execute_importVCardFileWithInfoInvalidFormatAndDuplicate_importSuccessWithWarning() throws IOException {
+
+        Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts_duplicate_and_illegal_value.vcf");
+
+        ImportCommand importCommand = prepareCommand(fileLocation);
+        ImportAnalysis importAnalysis = new ImportAnalysis();
+        expectedModel.importFile(fileLocation, importAnalysis);
+        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, importAnalysis.getNumContacts())
+                + ImportCommand.MESSAGE_DUPLICATE + ImportCommand.MESSAGE_ILLEGAL_VALUE;
         assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
     }
 
     //@@author stan789
     @Test(expected = IOException.class)
     public void testFileWithInvalidFormat() throws IOException {
-        model.importFile(Paths.get("src/test/data/VCardFileTest/contacts_example.vcf"));
+        ImportAnalysis importAnalysis = new ImportAnalysis();
+        model.importFile(Paths.get("src/test/data/VCardFileTest/contacts_example.vcf"), importAnalysis);
     }
 
     //@@author stan789
@@ -65,9 +119,8 @@ public class ImportCommandTest {
     public void execute_importEmptyVCardFile_importFailure() throws IOException {
 
         Path fileLocation = Paths.get("src/test/data/VCardFileTest/empty.vcf");
-
         ImportCommand importCommand = prepareCommand(fileLocation);
-        String expectedMessage = importCommand.MESSAGE_EMPTY_FILE;
+        String expectedMessage = ImportCommand.MESSAGE_EMPTY_FILE;
         assertCommandFailure(importCommand, model, expectedMessage);
     }
 
@@ -78,7 +131,7 @@ public class ImportCommandTest {
         Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts_without_begin.vcf");
 
         ImportCommand importCommand = prepareCommand(fileLocation);
-        String expectedMessage = importCommand.MESSAGE_FILE_INVALID;
+        String expectedMessage = ImportCommand.MESSAGE_FILE_INVALID;
         assertCommandFailure(importCommand, model, expectedMessage);
     }
 

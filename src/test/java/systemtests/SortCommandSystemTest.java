@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import org.junit.Test;
 
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ImportAnalysis;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.model.AddressBook;
@@ -32,8 +33,9 @@ public class SortCommandSystemTest extends AddressBookSystemTest {
         /* Case: import to existing address book and sort -> sorted  */
         executeCommand(ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/contacts.vcf");
         String command = SortCommand.COMMAND_WORD + " " + SORT_NAME;
+        ImportAnalysis importAnalysis = new ImportAnalysis();
         try {
-            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"));
+            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"), importAnalysis);
             expectedModel.executeSort(SORT_NAME);
         } catch (EmptyAddressBookException e) {
             assertCommandFailure(command, MESSAGE_NO_PERSON_TO_SORT, expectedModel);

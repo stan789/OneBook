@@ -1,7 +1,6 @@
 package systemtests;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.logic.commands.ImportCommand.MESSAGE_FILE_INVALID;
 import static seedu.address.logic.commands.ImportCommand.MESSAGE_SUCCESS;
 
 import java.io.File;
@@ -13,6 +12,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ExportCommand;
+import seedu.address.logic.commands.ImportAnalysis;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -28,7 +28,6 @@ public class ImportCommandSystemTest extends AddressBookSystemTest {
 
         Model expectedModel = getModel();
         Model model = getModel();
-        Integer count = 0;
 
         /* Case: export VCard file and import the file back to OneBook -> import successful */
         String command = ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/OneBook.vcf";
@@ -36,44 +35,48 @@ public class ImportCommandSystemTest extends AddressBookSystemTest {
         executeCommand(ClearCommand.COMMAND_WORD);
         model.resetData(new AddressBookData(model.getAddressBook(), new RecycleBin()));
         expectedModel.resetData(new AddressBookData(new AddressBook(), new RecycleBin()));
+        ImportAnalysis importAnalysis = new ImportAnalysis();
         try {
-            count = expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/OneBook.vcf"));
+            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/OneBook.vcf"), importAnalysis);
         } catch (IOException e) {
-            assertCommandFailure(command, MESSAGE_FILE_INVALID, expectedModel);
+            throw new IllegalArgumentException("Execution of command should not fail.", e);
         }
-        assertCommandSuccess(command, count, expectedModel);
+        assertCommandSuccess(command, importAnalysis.getNumContacts(), expectedModel);
         assertEquals(model, expectedModel);
 
         /* Case: import VCard file with valid format -> import successful */
         command = ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/contacts.vcf";
+        importAnalysis = new ImportAnalysis();
         try {
-            count = expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"));
+            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"), importAnalysis);
         } catch (IOException e) {
-            assertCommandFailure(command, MESSAGE_FILE_INVALID, expectedModel);
+            throw new IllegalArgumentException("Execution of command should not fail.", e);
         }
-        assertCommandSuccess(command, count, expectedModel);
+        assertCommandSuccess(command, importAnalysis.getNumContacts(), expectedModel);
 
         /* Case: import VCard file with valid format to empty address book -> import successful */
         executeCommand(ClearCommand.COMMAND_WORD);
         expectedModel.resetData(new AddressBookData(new AddressBook(), new RecycleBin()));
         command = ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/contacts.vcf";
+        importAnalysis = new ImportAnalysis();
         try {
-            count = expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"));
+            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"), importAnalysis);
         } catch (IOException e) {
-            assertCommandFailure(command, MESSAGE_FILE_INVALID, expectedModel);
+            throw new IllegalArgumentException("Execution of command should not fail.", e);
         }
-        assertCommandSuccess(command, count, expectedModel);
+        assertCommandSuccess(command, importAnalysis.getNumContacts(), expectedModel);
 
         /* Case: import VCard file with name only -> import successful */
         executeCommand(ClearCommand.COMMAND_WORD);
         expectedModel.resetData(new AddressBookData());
         command = ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/name_only.vcf";
+        importAnalysis = new ImportAnalysis();
         try {
-            count = expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/name_only.vcf"));
+            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/name_only.vcf"), importAnalysis);
         } catch (IOException e) {
-            assertCommandFailure(command, MESSAGE_FILE_INVALID, expectedModel);
+            throw new IllegalArgumentException("Execution of command should not fail.", e);
         }
-        assertCommandSuccess(command, count, expectedModel);
+        assertCommandSuccess(command, importAnalysis.getNumContacts(), expectedModel);
     }
 
     //@@author stan789
@@ -100,23 +103,5 @@ public class ImportCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchangedExceptSyncStatus();
-    }
-
-    //@@author stan789-reused
-    /**
-     * Executes {@code command} and verifies that the command box displays {@code command}, the result display
-     * box displays {@code expectedResultMessage} and the model related components equal to the current model.
-     * These verifications are done by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
-     * error style.
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     */
-    private void assertCommandFailure(String command, String expectedResultMessage, Model expectedModel) {
-        executeCommand(command);
-        assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
-        assertCommandBoxShowsErrorStyle();
-        assertStatusBarUnchanged();
     }
 }
