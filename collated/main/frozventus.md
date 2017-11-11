@@ -56,6 +56,49 @@ public class PersonDeletedEvent extends BaseEvent {
 }
 
 ```
+###### \java\seedu\address\logic\commands\BinClearCommand.java
+``` java
+/**
+ * Clears the recycle bin.
+ */
+public class BinClearCommand extends UndoableCommand {
+
+    public static final String COMMAND_WORD = "binclear";
+    public static final String MESSAGE_SUCCESS = "Recycle Bin has been cleared!";
+
+
+    @Override
+    public CommandResult executeUndoableCommand() {
+        requireNonNull(model);
+        model.resetData(new AddressBookData(new AddressBook(model.getAddressBook()), new RecycleBin()));
+        EventsCenter.getInstance().post(new PersonDeletedEvent());
+        return new CommandResult(MESSAGE_SUCCESS);
+    }
+}
+```
+###### \java\seedu\address\logic\commands\BinListCommand.java
+``` java
+    @Override
+    public CommandResult execute() {
+        EventsCenter.getInstance().post(new DisplayBinEvent());
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(MESSAGE_SUCCESS);
+    }
+}
+```
+###### \java\seedu\address\logic\commands\Command.java
+``` java
+    /**
+     * Provides any needed dependencies to the command.
+     * Commands making use of any of these should override this method to gain
+     * access to the dependencies.
+     */
+    public void setData(Model model, CommandHistory history, UndoRedoStack undoRedoStack, boolean binMode) {
+        this.model = model;
+        this.binMode = binMode;
+    }
+}
+```
 ###### \java\seedu\address\logic\LogicManager.java
 ``` java
     @Override
@@ -163,6 +206,16 @@ public class PersonDeletedEvent extends BaseEvent {
     public void setBinDisplay() {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         this.filteredPersons = filteredBin;
+    }
+
+    @Override
+    public ObservableList<ReadOnlyPerson> getAddressBookList() {
+        return filteredAddresses;
+    }
+
+    @Override
+    public ObservableList<ReadOnlyPerson> getRecycleBinList() {
+        return filteredBin;
     }
 
 ```
@@ -455,6 +508,44 @@ public class XmlSerializableAddressBookCombined {
     }
 }
 ```
+###### \java\seedu\address\ui\PersonCard.java
+``` java
+    /**
+     * Binds the individual UI elements to observe their respective {@code Person} properties
+     * so that they will be notified of any changes.
+     */
+    private void bindListeners(ReadOnlyPerson person) {
+        name.textProperty().bind(Bindings.convert(person.nameProperty()));
+        phone.textProperty().bind(Bindings.convert(person.phoneProperty()));
+        person.tagProperty().addListener((observable, oldValue, newValue) -> {
+            tags.getChildren().clear();
+            person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        });
+    }
+
+    private void initTags(ReadOnlyPerson person) {
+        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof PersonCard)) {
+            return false;
+        }
+
+        // state check
+        PersonCard card = (PersonCard) other;
+        return id.getText().equals(card.id.getText())
+                && person.equals(card.person);
+    }
+}
+```
 ###### \java\seedu\address\ui\PersonDisplayCard.java
 ``` java
     /**
@@ -474,6 +565,23 @@ public class XmlSerializableAddressBookCombined {
         remarkLarge.textProperty().unbind();
         remarkLarge.textProperty().setValue("");
         tagsLarge.getChildren().clear();
+    }
+
+    /**
+     * Binds the individual UI elements to observe their respective {@code Person} properties
+     * so that they will be notified of any changes.
+     */
+    private void bindListeners(ReadOnlyPerson person) {
+        nameLarge.textProperty().bind(Bindings.convert(person.nameProperty()));
+        phoneLarge.textProperty().bind(Bindings.convert(person.phoneProperty()));
+        birthdayLarge.textProperty().bind(Bindings.convert(person.birthdayProperty()));
+        emailLarge.textProperty().bind(Bindings.convert(person.emailProperty()));
+        organisationLarge.textProperty().bind(Bindings.convert(person.organisationProperty()));
+        remarkLarge.textProperty().bind(Bindings.convert(person.remarkProperty()));
+        person.tagProperty().addListener((observable, oldValue, newValue) -> {
+            tagsLarge.getChildren().clear();
+            person.getTags().forEach(tag -> tagsLarge.getChildren().add(new Label(tag.tagName)));
+        });
     }
 
 ```

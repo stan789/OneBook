@@ -33,6 +33,7 @@ import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.BinListCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -131,6 +132,24 @@ public abstract class AddressBookSystemTest {
         assert getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size();
     }
 
+    //@@author frozventus
+    /**
+     * Displays all persons in the recycle bin.
+     */
+    protected void showAllPersonsInBin() {
+        executeCommand(BinListCommand.COMMAND_WORD);
+        assert getModel().getRecycleBin().getPersonList().size() == getModelWithBin().getFilteredPersonList().size();
+    }
+
+    /**
+     * Displays all persons in recycle bin with any parts of their names matching {@code keyword} (case-insensitive).
+     */
+    protected void showPersonsInBinWithName(String keyword) {
+        executeCommand(FindCommand.COMMAND_WORD + " " + FindCommand.KEYWORD_NAME + " " + keyword);
+        assert getModelWithBin().getFilteredPersonList().size() <= getModel().getRecycleBin().getPersonList().size();
+    }
+
+    //@@author
     /**
      * Selects the person at {@code index} of the displayed list.
      */
@@ -154,7 +173,7 @@ public abstract class AddressBookSystemTest {
         assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
     }
 
-    //@@author frozventus-reused
+    //@@author frozventus
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
      * {@code expectedResultMessage}, the model and storage contains the same person objects as {@code expectedModel}
@@ -280,6 +299,7 @@ public abstract class AddressBookSystemTest {
         return testApp.getModel();
     }
 
+    //@@ author frozventus
     /**
      * Returns a defensive copy of the current model in Bin configuration.
      */

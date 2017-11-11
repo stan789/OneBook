@@ -139,7 +139,7 @@ Format: `find MAIN_KEYWORD KEYWORD [MORE_KEYWORDS]`
 * *name* / *email* / *phone* / *tag*: Persons containing at least one keyword will be returned (i.e. `OR` search). e.g. `name Hans Bo` will return `Hans Gruber`, `Bo Yang`
 * *address* / *org*: Persons containing all the keywords will be returned (i.e. `AND` search). e.g. `address Serangoon Street 4` will not return `Serangoon Street 6`
 * *birthday*: Keywords are expected to be in the format '`mm`', a 2 digit number indicating the month.
-* Upon usage of this command, the top left of the list will be replaced with *Filtered* to indicate that the list display is filtered.
+* Upon usage of this command, the top left of the list will be appended with *Filtered* to indicate that the list display is filtered.
 ****
 
 Examples:
@@ -370,7 +370,7 @@ Format: `bin`
 
 ****
 * The listing will be replaced with recycle bin entries.
-* To go back to the contact lists, use the `list` command.
+* Upon usage of this command, the top left of the list will be replaced with *Bin* to indicate the list displayed is the recycle bin
 * When displaying Recycle Bin, `delete` *will still be able to delete contacts from OneBook*.
 ****
 
@@ -409,6 +409,11 @@ Examples:
 * `bin` +
 `bindelete 2` +
 Removes the 2nd person in recycle bin. +
+
+=== Clearing all recycle bin entries : `binclear`
+
+Clears all entries from the recycle bin +
+Format: `binclear`
 // end::bin[]
 
 === Exiting the program : `exit`
@@ -464,6 +469,12 @@ Format: `email [email website] [Index]`
 *Q*: I have 500 contacts to import. When I use import command, only 490 contacts are imported. +
 *A*: You might have duplicated contacts in the list which are not imported.
 
+*Q*: How do I unfilter my currently displayed list? +
+*A*: Depending on which list you are in. In the contact list, enter `list` command. In the recycle bin, enter `bin` command.
+
+*Q*: How do I switch back to contact list after I switch to recycle bin? +
+*A*: Use the `list` command.
+
 == Command Summary
 
 * *Help* : `help`
@@ -502,3 +513,4 @@ e.g. `sort email`
 e.g. `restore 2, 3, 4`
 * *Bin Delete* : `bindelete INDEX` +
 e.g. `bindelete 2, 3`
+* *Clear Recycle Bin* : `binclear`
