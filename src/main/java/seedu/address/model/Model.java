@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.ImportAnalysis;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.EmptyAddressBookException;
@@ -75,8 +76,8 @@ public interface Model {
 
     //@@author stan789
     /**
-     * Updates the filter of the filtered bin list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
+     * sorts the list in the addressbook by alphabetical order.
+     * @throws EmptyAddressBookException if addressbook is empty
      */
     void executeSort(String sortType) throws EmptyAddressBookException;
 
@@ -84,8 +85,10 @@ public interface Model {
     void executeBinSort(String sortType) throws EmptyAddressBookException;
 
     //@@author stan789
-    /** Returns an integer which is the number of persons that are succcessfully imported*/
-    Integer importFile(Path fileLocation) throws IOException;
+    /** imports a VCard file to OneBook.
+     * @throws IOException if file cannot be read.
+     */
+    void importFile(Path fileLocation, ImportAnalysis importAnalysis) throws IOException;
 
     //@@author stan789
     /** Exports the current contacts in OneBook to VCard or Csv file*/

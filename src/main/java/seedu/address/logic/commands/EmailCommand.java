@@ -73,9 +73,15 @@ public class EmailCommand extends Command {
                 && this.targetIndex.equals(((EmailCommand) other).targetIndex)); // state check
     }
 
+    //@@author stan789
     /**
      * redirects user to their desktop's default email application.
+     *
+     * @param email email of the recipient.
+     * @throws CommandException if desktop not supported
+     * @throws IOException if desktop mail application cannot be opened or not found
      */
+
     protected void desktopEmail(String email) throws IOException, URISyntaxException, CommandException {
         if (!Desktop.isDesktopSupported()) {
             throw new CommandException(MESSAGE_NOT_SUPPORTED);
