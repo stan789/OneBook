@@ -62,7 +62,6 @@ public class ImportVCardFile {
     //@@author stan789
     /**
      * Read vCard file from the directory. Check format in file.
-     * @return ArrayList<Person>
      * @throws IOException if not able to read from file
      */
 
