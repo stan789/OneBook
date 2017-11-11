@@ -158,7 +158,7 @@ public class ImportVCardFile {
      */
     private void nameSection(String contactArray) {
         String[] nameArray = contactArray.split(";");
-        for (int i= nameArray.length -1 ; i >= 0 ; i-- ) {
+        for (int i = nameArray.length - 1; i >= 0; i--) {
             if (!nameArray[INDEX_ONE].equals("")) {
                 name = name.concat(nameArray[i] + " ");
             }
