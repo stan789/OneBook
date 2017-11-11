@@ -126,7 +126,7 @@ public class TypicalPersons {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 
-    //@@author frozventus-reused
+    //@@author frozventus
     /**
      * Returns a {@code RecycleBin} with three of the typical persons.
      */
@@ -146,7 +146,6 @@ public class TypicalPersons {
         return new ArrayList<>(Arrays.asList(JEAN, KEN, LINDA));
     }
 
-    //@@author frozventus
     public static AddressBookData getTypicalData() {
         return new AddressBookData(getTypicalAddressBook(), getTypicalRecycleBin());
     }

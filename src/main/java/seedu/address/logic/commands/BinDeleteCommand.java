@@ -11,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
+//@@author frozventus-reused
 /**
  * Deletes a person identified using it's last displayed index from the address book.
  */
@@ -31,7 +32,6 @@ public class BinDeleteCommand extends UndoableCommand {
         this.targetIndex = targetIndex;
     }
 
-    //@@author frozventus-reused
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
 

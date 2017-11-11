@@ -16,7 +16,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.RecycleBin;
 import seedu.address.model.UserPrefs;
 
-//@@ author frozventus
+//@@author frozventus
 public class BinClearCommandSystemTest extends AddressBookSystemTest {
 
     @Test

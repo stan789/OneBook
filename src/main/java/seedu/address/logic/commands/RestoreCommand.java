@@ -12,6 +12,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
+//@@author frozventus-reused
 /**
  * Deletes a person identified using it's last displayed index from the address book.
  */
@@ -32,8 +33,6 @@ public class RestoreCommand extends UndoableCommand {
         this.targetIndex = targetIndex;
     }
 
-
-    //@@author frozventus-reused
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
 

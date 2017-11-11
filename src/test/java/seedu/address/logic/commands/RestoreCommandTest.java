@@ -36,7 +36,6 @@ public class RestoreCommandTest {
         model.setBinDisplay();
     }
 
-    //@@author frozventus-reused
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
         ReadOnlyPerson personToRestore = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -51,6 +50,7 @@ public class RestoreCommandTest {
         assertCommandSuccess(restoreCommand, model, expectedMessage, expectedModel);
     }
 
+    //@@author frozventus-reused
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() throws Exception {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
@@ -59,6 +59,7 @@ public class RestoreCommandTest {
         assertCommandFailure(restoreCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    //@@author frozventus
     @Test
     public void execute_validIndexFilteredList_success() throws Exception {
         showFirstPersonOnly(model, true);
@@ -82,13 +83,14 @@ public class RestoreCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getRecycleBin().getPersonList().size());
 
         RestoreCommand restoreCommand = prepareCommand(outOfBoundIndex);
 
         assertCommandFailure(restoreCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    //@@author frozventus-reused
     @Test
     public void equals() {
         RestoreCommand restoreFirstCommand = new RestoreCommand(INDEX_FIRST_PERSON);

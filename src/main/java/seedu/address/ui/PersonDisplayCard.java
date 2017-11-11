@@ -74,7 +74,6 @@ public class PersonDisplayCard extends UiPart<Region> {
         tagsLarge.getChildren().clear();
     }
 
-    //@@author frozventus-reused
     /**
      * Binds the individual UI elements to observe their respective {@code Person} properties
      * so that they will be notified of any changes.

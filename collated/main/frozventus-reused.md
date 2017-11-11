@@ -1,6 +1,26 @@
 # frozventus-reused
 ###### \java\seedu\address\logic\commands\BinDeleteCommand.java
 ``` java
+/**
+ * Deletes a person identified using it's last displayed index from the address book.
+ */
+public class BinDeleteCommand extends UndoableCommand {
+
+    public static final String COMMAND_WORD = "bindelete";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Deletes the persons identified by the index number used in the last bin listing.\n"
+            + "Parameters: INDEX (must be positive integers in ascending order, separated by a comma)\n"
+            + "Example: " + COMMAND_WORD + " 1, 3";
+
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted from Bin: ";
+
+    private final Index[] targetIndex;
+
+    public BinDeleteCommand (Index... targetIndex) {
+        this.targetIndex = targetIndex;
+    }
+
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
 
@@ -40,7 +60,7 @@
             deleteMessage.append(message);
             deleteMessage.append("\n");
         }
-
+        EventsCenter.getInstance().post(new PersonDeletedEvent());
         return new CommandResult(deleteMessage.toString().trim());
     }
 
@@ -52,31 +72,28 @@
     }
 }
 ```
-###### \java\seedu\address\logic\commands\BinListCommand.java
-``` java
-    @Override
-    public CommandResult execute() {
-        EventsCenter.getInstance().post(new DisplayBinEvent());
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(MESSAGE_SUCCESS);
-    }
-}
-```
-###### \java\seedu\address\logic\commands\Command.java
-``` java
-    /**
-     * Provides any needed dependencies to the command.
-     * Commands making use of any of these should override this method to gain
-     * access to the dependencies.
-     */
-    public void setData(Model model, CommandHistory history, UndoRedoStack undoRedoStack, boolean binMode) {
-        this.model = model;
-        this.binMode = binMode;
-    }
-}
-```
 ###### \java\seedu\address\logic\commands\RestoreCommand.java
 ``` java
+/**
+ * Deletes a person identified using it's last displayed index from the address book.
+ */
+public class RestoreCommand extends UndoableCommand {
+
+    public static final String COMMAND_WORD = "restore";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Restores the persons identified by the index number used in the last bin listing.\n"
+            + "Parameters: INDEX (must be positive integers in ascending order, separated by a comma)\n"
+            + "Example: " + COMMAND_WORD + " 1, 3";
+
+    public static final String MESSAGE_RESTORE_PERSON_SUCCESS = "Restored Person: ";
+
+    private final Index[] targetIndex;
+
+    public RestoreCommand (Index... targetIndex) {
+        this.targetIndex = targetIndex;
+    }
+
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
 
@@ -118,7 +135,7 @@
             restoreMessage.append(message);
             restoreMessage.append("\n");
         }
-
+        EventsCenter.getInstance().post(new PersonDeletedEvent());
         return new CommandResult(restoreMessage.toString().trim());
     }
 
@@ -179,64 +196,6 @@
     public void executeBinSort(String sortType) throws EmptyAddressBookException {
         recycleBin.executeSort(sortType);
         indicateAddressBookChanged();
-    }
-
-```
-###### \java\seedu\address\ui\PersonCard.java
-``` java
-    /**
-     * Binds the individual UI elements to observe their respective {@code Person} properties
-     * so that they will be notified of any changes.
-     */
-    private void bindListeners(ReadOnlyPerson person) {
-        name.textProperty().bind(Bindings.convert(person.nameProperty()));
-        phone.textProperty().bind(Bindings.convert(person.phoneProperty()));
-        person.tagProperty().addListener((observable, oldValue, newValue) -> {
-            tags.getChildren().clear();
-            person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        });
-    }
-
-    private void initTags(ReadOnlyPerson person) {
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
-            return false;
-        }
-
-        // state check
-        PersonCard card = (PersonCard) other;
-        return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
-    }
-}
-```
-###### \java\seedu\address\ui\PersonDisplayCard.java
-``` java
-    /**
-     * Binds the individual UI elements to observe their respective {@code Person} properties
-     * so that they will be notified of any changes.
-     */
-    private void bindListeners(ReadOnlyPerson person) {
-        nameLarge.textProperty().bind(Bindings.convert(person.nameProperty()));
-        phoneLarge.textProperty().bind(Bindings.convert(person.phoneProperty()));
-        birthdayLarge.textProperty().bind(Bindings.convert(person.birthdayProperty()));
-        emailLarge.textProperty().bind(Bindings.convert(person.emailProperty()));
-        organisationLarge.textProperty().bind(Bindings.convert(person.organisationProperty()));
-        remarkLarge.textProperty().bind(Bindings.convert(person.remarkProperty()));
-        person.tagProperty().addListener((observable, oldValue, newValue) -> {
-            tagsLarge.getChildren().clear();
-            person.getTags().forEach(tag -> tagsLarge.getChildren().add(new Label(tag.tagName)));
-        });
     }
 
 ```
