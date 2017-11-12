@@ -33,7 +33,6 @@ import seedu.address.storage.ImportVCardFile;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private String theme;
     private final AddressBook addressBook;
     private final RecycleBin recycleBin;
     private FilteredList<ReadOnlyPerson> filteredPersons;
@@ -49,7 +48,6 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        theme = userPrefs.getTheme();
         this.addressBook = new AddressBook(addressBook);
         this.recycleBin = new RecycleBin(recycleBin);
         filteredAddresses = new FilteredList<>(this.addressBook.getPersonList());

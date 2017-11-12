@@ -9,7 +9,6 @@ import seedu.address.commons.events.ui.ModeChangeRequestEvent;
 public class ModeCommand extends Command {
 
     public static final String COMMAND_WORD = "mode";
-    public static final String DEFAULT_HTML = "LightTheme.css";
 
     public static final String MESSAGE_SUCCESS = "New mode enabled.";
     private static final String LIGHT_MODE = "view/LightTheme.css";
@@ -20,7 +19,6 @@ public class ModeCommand extends Command {
     public CommandResult execute() {
 
         EventsCenter.getInstance().post(new ModeChangeRequestEvent());
-        model.changeTheme();
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

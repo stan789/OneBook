@@ -22,7 +22,6 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<ReadOnlyPerson> getFilteredPersonList();
 
-
     /** Toggle display to show list */
     void setListDisplay();
 

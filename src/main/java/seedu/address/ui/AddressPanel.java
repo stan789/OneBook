@@ -31,7 +31,7 @@ public class AddressPanel extends UiPart<Region> {
     public static final String UNIT_NUMBER_REGEX = "#\\d+-\\d+";
 
     private static final String FXML = "AddressPanel.fxml";
-    private static final String DARK_MODE = "view/DarkTheme.css";
+    private static final String LIGHT_MODE = "view/LightTheme.css";
 
     private ReadOnlyPerson person;
 
@@ -103,18 +103,18 @@ public class AddressPanel extends UiPart<Region> {
     }
     //@@author darrinloh
 
-//    public void setDefaultPage() {
-//        Scene scene = MainWindow.getScene();
-//        if (scene.getStylesheets().contains(DARK_MODE)) {
-//            URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
-//            loadPage(defaultPage.toExternalForm());
-//        } else {
-//            URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_LIGHT_PAGE);
-//            loadPage(defaultPage.toExternalForm());
-//        }
-//    }
+    public void setDefaultPage(String currentTheme) {
 
-    //@@author darrinloh
+        if(currentTheme.contains(LIGHT_MODE)) {
+            URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+            loadPage(defaultPage.toExternalForm());
+        } else {
+            URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_LIGHT_PAGE);
+            loadPage(defaultPage.toExternalForm());
+        }
+    }
+
+    //@@author
     /**
      * Frees resources allocated to the browser.
      */

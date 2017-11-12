@@ -22,6 +22,7 @@ import seedu.address.commons.events.commands.DisplayBinEvent;
 import seedu.address.commons.events.commands.DisplayListFilteredEvent;
 import seedu.address.commons.events.commands.DisplayListResetEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.ModeChangeRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
@@ -37,6 +38,8 @@ public class MainWindow extends UiPart<Region> {
     private static final String FXML = "MainWindow.fxml";
     private static final int MIN_HEIGHT = 600;
     private static final int MIN_WIDTH = 450;
+    private static final String DARK_MODE= "/view/DarkTheme.css";
+    private static final String LIGHT_MODE="/view/LightTheme.css";
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     private Stage primaryStage;
@@ -90,6 +93,7 @@ public class MainWindow extends UiPart<Region> {
         setIcon(ICON);
         setWindowMinSize();
         setWindowDefaultSize(prefs);
+        setWindowDefaultTheme(prefs);
         Scene scene = new Scene(getRoot());
         primaryStage.setScene(scene);
 
@@ -168,6 +172,23 @@ public class MainWindow extends UiPart<Region> {
         primaryStage.setTitle(appTitle);
     }
 
+    private void changeHTML() {
+        String theme = getCurrentThemeSetting();
+        addressPanel.setDefaultPage(theme);
+    }
+
+
+    private void changeCSS() {
+        String theme = getCurrentThemeSetting();
+        if(theme.contains(DARK_MODE)) {
+            getRoot().getStylesheets().remove(DARK_MODE);
+            getRoot().getStylesheets().add(LIGHT_MODE);
+        } else {
+            getRoot().getStylesheets().remove(LIGHT_MODE);
+            getRoot().getStylesheets().add(DARK_MODE);
+        }
+    }
+
     //@@author frozventus
     private void setListDisplay() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
@@ -194,6 +215,13 @@ public class MainWindow extends UiPart<Region> {
     }
 
     /**
+     * Sets the default theme based on use preferences.
+     * @param prefs
+     */
+    private void setWindowDefaultTheme(UserPrefs prefs) {
+        getRoot().getStylesheets().add(prefs.getTheme());
+    }
+    /**
      * Sets the default size based on user preferences.
      */
     private void setWindowDefaultSize(UserPrefs prefs) {
@@ -218,6 +246,12 @@ public class MainWindow extends UiPart<Region> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    /**
+     * Returns the current theme of the main Window.
+     */
+    String getCurrentThemeSetting() {
+        return getRoot().getStylesheets().get(1);
+    }
     /**
      * Opens the help window.
      */
@@ -286,5 +320,11 @@ public class MainWindow extends UiPart<Region> {
             listName.textProperty().setValue("Bin");
         }
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    }
+
+    @Subscribe
+    private void handleChangeModeRequestEvent(ModeChangeRequestEvent event) {
+        changeHTML();
+        changeCSS();
     }
 }

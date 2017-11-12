@@ -16,18 +16,24 @@ public class UserPrefs {
     private String addressBookName = "MyOneBook";
     private String theme;
 
-    private static final String DEFAULT_THEME = "DarkTheme.css";
-    private static final String FXML_FOLDER = "/view/";
+    private String DEFAULT_THEME = "/view/DarkTheme.css";
+
 
     public UserPrefs() {
         this.setGuiSettings(500, 500, 0, 0);
     }
 
     public String getTheme() {
-        return theme == null ? (FXML_FOLDER + DEFAULT_THEME) : theme;
+        return theme == null ? DEFAULT_THEME : theme;
     }
 
+    public void updateLastUsedThemeSetting(String theme) {
+        this.theme = theme;
+    }
 
+    public void setTheme() {
+        this.theme = theme;
+    }
 
     public GuiSettings getGuiSettings() {
         return guiSettings == null ? new GuiSettings() : guiSettings;
