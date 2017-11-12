@@ -106,11 +106,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void changeTheme() {
-            fail("This method should not be called");
-        }
-
-        @Override
         public void resetData(AddressBookData newData) {
             fail("This method should not be called.");
         }

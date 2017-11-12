@@ -59,12 +59,6 @@ public class ModelManager extends ComponentManager implements Model {
         this(new AddressBook(), new RecycleBin(), new UserPrefs());
     }
 
-    //@@author darrinloh
-    @Override
-    public void changeTheme() {
-
-    }
-
     //@@author frozventus
     @Override
     public void resetData(AddressBookData newData) {

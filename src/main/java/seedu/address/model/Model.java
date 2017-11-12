@@ -28,9 +28,6 @@ public interface Model {
     /** Returns the RecycleBin */
     ReadOnlyAddressBook getRecycleBin();
 
-    /** Change the theme */
-    void changeTheme();
-
     /** Deletes the given person from addressbook */
     void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException, DuplicatePersonException;
 
