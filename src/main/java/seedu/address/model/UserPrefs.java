@@ -16,7 +16,7 @@ public class UserPrefs {
     private String addressBookName = "MyOneBook";
     private String theme;
 
-    private String DEFAULT_THEME = "/view/DarkTheme.css";
+    private static final String DEFAULT_THEME = "/view/DarkTheme.css";
 
 
     public UserPrefs() {
