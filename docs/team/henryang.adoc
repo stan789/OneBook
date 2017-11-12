@@ -50,6 +50,10 @@ include::../DeveloperGuide.adoc[tag=bin]
 
 === Enhancement Added: Modify UI to display contact details.
 
+==== External behavior
+
+New Ui
+
 image::Ui.png[width="790"]
 
 ==== Justification
@@ -66,6 +70,28 @@ Google Maps address of the selected contact instead.
 #Start of Extract [from: Developer Guide]#
 
 include::../DeveloperGuide.adoc[tag=ui]
+
+#End of Extract#
+
+---
+
+=== Enhancement Added: Modify Storage to save `AddressBookData` instead of `ReadOnlyAddressBook` in xml format
+
+==== External Behaviour
+
+The storage file `addressbook.xml` holds the data of `AddressBookData`, which contains data of both the `AddressBook` and `RecycleBin`.
+
+==== Justification
+
+The original version of Storage only allows storage of one copy of `ReadOnlyAddressBook`. This makes it impossible to store the data
+of `RecycleBin`, causing `RecycleBin` data to be lost upon closing the application.
+
+==== Implementation
+
+---
+#Start of Extract [from: Developer Guide]#
+
+include::../DeveloperGuide.adoc[tag=storage]
 
 #End of Extract#
 
