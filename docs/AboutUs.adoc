@@ -38,7 +38,7 @@ Responsibilities: Model
 
 '''
 
-=== Stanley Guok
+=== Guok Enjie Stanley
 image::stan789.jpg[width="150", align="left"]
 {empty}[http://github.com/stan789[github]] [<<stanleyguok#, portfolio>>]
 

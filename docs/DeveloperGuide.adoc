@@ -417,6 +417,7 @@ There is a `SortCommandParser` which checks for the KEYWORD which must be either
 When a user wants to sort the address book by name, the logic manager will execute the command by parsing the command to the other classes accordingly as shown in the figure below.
 
 image::SortPersonDiagram.png[width="800"]
+_Figure 3.7.1 : Sequence Diagram for sort operation_
 
 When SortCommand is executed, it will call executeSort() in the ModelManager. The executeSort() will call executeSort in Addressbook and finally, sort() method will be called in the UniquePersonList will sort the AddressBook alphabetically.
 
@@ -453,7 +454,12 @@ The format in the VCard file is checked to ensure that it is valid before import
 * `remarks`
 
 The `ImportCommandParser` will check if the file directory exist and whether the extension is correct. Then it will  create a new `ImportCommand`.
-When ImportCommand is executed, it will call importFile() in Model Manager which will call getPersonFromFile() in ImportVCardFile. It will return an ArrayList of Person which will be added to OneBook using addPerson() in Model Manager.
+When ImportCommand is executed, it will call importFile() in Model as shown in the diagram below.
+
+image::ImportDiagram.png[width="800"]
+_Figure 3.8.1 : Sequence Diagram for import operation_
+
+The Model Manager will then call getPersonFromFile() in ImportVCardFile. It will return an ArrayList of Person which will be added to OneBook using addPerson() in Model Manager.
 
 ==== Design considerations
 **Aspect:** Which file formats to allow to import. +
@@ -480,7 +486,12 @@ The fields that are currently exported to VCard file are: +
 * `remarks`
 
 The `ExportCommandParser` will check if the file directory exist and whether the extension is correct. Then it will  create a new `ExportCommand`.
-When ExportCommand is executed, it will call exportFile() in Model Manager which will call either createCsvFile() in ExportCsvFile if the file extension is .csv or createVCardFile() if the file extension is .vcf.
+When ExportCommand is executed, it will call exportFile() in Model.
+
+image::ExportDiagram.png[width="800"]
+_Figure 3.9.1 : Sequence Diagram for export operation_
+
+The model manager will then call either createCsvFile() in ExportCsvFile if the file extension is .csv or createVCardFile() if the file extension is .vcf.
 ExportCsvFile will create a .csv file with the contacts information from OneBook and createVCardFile() will create .vcf file with contacts information from OneBook. The file will be created in the file directory specified by the user.
 
 ==== Design considerations

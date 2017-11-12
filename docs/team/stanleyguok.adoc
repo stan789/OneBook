@@ -1,4 +1,4 @@
-= Stanley Guok - Project Portfolio
+= Guok Enjie Stanley - Project Portfolio
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -132,7 +132,7 @@ include::../DeveloperGuide.adoc[tag=email]
 
 === Other contributions
 
-* Design and add application icon for OneBook
+* Design and add application icon for OneBook. (link:{repoURL}/commit/e83218389346f34983358269497972a10c840ceb[Commit link])
 * Reported bugs (https://github.com/CS2103AUG2017-W15-B3/main/issues/101[ConnectUs #101],
 https://github.com/CS2103AUG2017-W15-B3/main/issues/96[ConnectUs #96])
 
