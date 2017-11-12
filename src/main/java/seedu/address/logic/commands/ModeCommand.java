@@ -11,8 +11,6 @@ public class ModeCommand extends Command {
     public static final String COMMAND_WORD = "mode";
 
     public static final String MESSAGE_SUCCESS = "New mode enabled.";
-    private static final String LIGHT_MODE = "view/LightTheme.css";
-    private static final String DARK_MODE = "view/DarkTheme.css";
 
     //@@author darrinloh
     @Override
