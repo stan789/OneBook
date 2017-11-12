@@ -39,6 +39,7 @@ public class AddressPanelTest extends GuiUnitTest {
         addressPanelHandle = new AddressPanelHandle(addressPanel.getRoot());
     }
 
+    //@@author darrinloh-reused
     @Test
     public void display() throws Exception {
         // default web page

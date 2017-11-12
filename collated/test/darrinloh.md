@@ -1,4 +1,21 @@
 # darrinloh
+###### \java\seedu\address\logic\commands\ModeCommandTest.java
+``` java
+    @Test
+    public void execute_mode_command() {
+        assertCommandSuccess(modeCommand, model, ModeCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void equals() {
+        //correct input -> returns true
+        assertTrue(ModeCommand.COMMAND_WORD.equals("mode"));
+
+        //case sensitive -> returns false
+        assertFalse(ModeCommand.COMMAND_WORD.equals("Mode"));
+    }
+}
+```
 ###### \java\seedu\address\storage\StorageManagerTest.java
 ``` java
     @Test
@@ -84,5 +101,31 @@
     }
 
 
+}
+```
+###### \java\seedu\address\ui\ModeChangeTest.java
+``` java
+    @Before
+    public void setUp() {
+        prefs = new UserPrefs();
+
+    }
+
+    @Test
+    public void check_valid_css() {
+        assertTrue(prefs.getTheme().contains(DARK_MODE));
+    }
+
+    @Test
+    public void check_validCssAfterUpdating() {
+        prefs.updateLastUsedThemeSetting(DARK_MODE);
+        assertTrue(prefs.getTheme().contains(DARK_MODE));
+    }
+
+    @Test
+    public void set_css() {
+        prefs.setTheme(LIGHT_MODE);
+        assertTrue(prefs.getTheme().contains(LIGHT_MODE));
+    }
 }
 ```

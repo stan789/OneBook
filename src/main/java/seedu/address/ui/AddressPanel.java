@@ -95,6 +95,7 @@ public class AddressPanel extends UiPart<Region> {
         Platform.runLater(() -> browser.getEngine().load(url));
     }
 
+    //@@author darrinloh-reused
     /**
      * Loads a default HTML file with a background that matches the general theme.
      */
@@ -108,10 +109,12 @@ public class AddressPanel extends UiPart<Region> {
 
         loadPage(defaultPage.toExternalForm());
     }
+
     //@@author darrinloh
-
-
-
+    /**
+     * Replaces the current theme with another theme
+     * @param currentTheme obtains the current theme
+     */
     public void setDefaultPage(String currentTheme) {
 
         if (currentTheme.contains(LIGHT_MODE)) {
