@@ -393,7 +393,13 @@ The fields that are not compulsory are `phone`, `birthday`, `email`, `address`, 
 // tag::find[]
 === Find mechanism
 
-The `find` function is implemented by `FindCommand`, which updates the list of displayed contacts. It holds a predicate from `ContainsKeywordsPredicate` that runs through each keyword and calls `containsWordIgnoreCase` each time to search for the keyword in the designated field. +
+The `find` function is implemented by `FindCommand`, which updates the list of displayed contacts. `FindCommandParser` checks that the KEYWORDS entered are valid, then passes a predicate from `ContainsKeywordsPredicate` into `FindCommand`. +
+
+Given below is the Sequence Diagram that shows how the `find` operation works: +
+
+image::FindPersonDiagram.png[width="800"]
+_Figure 3.6.1 : Sequence Diagram for find operation_
+
 The designated fields allowed are: +
 
 * `name` +
@@ -403,7 +409,13 @@ The designated fields allowed are: +
 * `birthday month` +
 * `organisation` +
 
-This feature is case-insensitive, and an exact match is not required for each keyword. e.g. 'jon' will match 'Jonathan'
+**Aspect:** Command keywords. +
+**Alternative 1 (current choice):**  Allow user to search each field using specific keywords. +
+**Pros:** More utility is given to users as they can find their contacts using specific keywords for the individual fields. +
+**Cons:** Too many main keywords for users to remember. +
+**Alternative 2:** Allow user to search for all fields without specific keywords. +
+**Pros:** No extra keywords to remember. +
+**Cons:** Search may end up overlapping with other unwanted fields, giving a less precise search.
 // end::find[]
 
 // tag::sort[]
