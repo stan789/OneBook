@@ -570,6 +570,16 @@ There is no implementation for the backup function. It will happen on every star
 //end::backup[]
 
 
+=== Change mode mechanism
+The `mode` function is implemented by `ModeCommand`,
+which will change the background theme by replacing the current CSS and HTML files with new files.
+
+
+This is done by calling ChangeCss() and ChangeHtml() in `MainWindow`.
+
+
+`UserPrefs` will contain the current theme. `MainWindow` will execute getTheme() to obtain the current theme and change it accordingly.
+
 == Documentation
 
 We use asciidoc for writing documentation.

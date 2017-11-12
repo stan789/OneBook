@@ -19,7 +19,6 @@ public class ModeCommandTest {
 
     private Model model;
     private Model expectedModel;
-    private UserPrefs prefs;
     private ModeCommand modeCommand;
 
     @Before
@@ -27,17 +26,11 @@ public class ModeCommandTest {
         model = new ModelManager(getTypicalAddressBook(), getTypicalRecycleBin(), new UserPrefs());
         expectedModel = new ModelManager(model.getAddressBook(), model.getRecycleBin(), new UserPrefs());
         modeCommand = new ModeCommand();
-        prefs = new UserPrefs();
     }
 
     @Test
     public void execute_mode_command() {
         assertCommandSuccess(modeCommand, model, ModeCommand.MESSAGE_SUCCESS, expectedModel);
-    }
-
-    @Test
-    public void check_valid_theme() {
-        assertTrue(prefs.getTheme().contains(DARK_MODE));
     }
 
     @Test
