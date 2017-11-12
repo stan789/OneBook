@@ -7,7 +7,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalRecycleBin;
 import static seedu.address.ui.MainWindow.DARK_MODE;
 
-
 import org.junit.Before;
 import org.junit.Test;
 
