@@ -68,12 +68,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+//tag::modechange[]
 === Changing theme: `mode`
 
 Changes the theme of OneBook between default mode and lite mode.
 
 Format: `mode`
-
+//end::modechange[]
 
 //tag::addoptionalfields[]
 === Adding a person: `add`

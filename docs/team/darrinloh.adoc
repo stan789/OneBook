@@ -70,12 +70,37 @@ include::../DeveloperGuide.adoc[tag=addoptionalfields]
 
 ---
 
+=== Enhancement Added: Change Theme using Mode Command
 
+==== External behavior
+
+---
+#Start of Extract [from: User Guide]#
+
+include::../UserGuide.adoc[tag=modechange]
+
+#End of Extract#
+
+---
+
+==== Justification
+
+Changing of themes will enhance the user's experience and allow the user interface to be seemingly smoother for the user.
+
+==== Implementation
+
+---
+#Start of Extract [from: Developer Guide]#
+
+include::../DeveloperGuide.adoc[tag=modechange]
+
+#End of Extract#
+
+---
 
 
 === Other contributions
 
-* Added a mode command to change the themes (Pull request link:{repoURL}/pull/27[#27])
 * Added a organisation field into OneBook (Pull request link:{repoURL}/pull/53[#53])
 * Reported bugs (https://github.com/CS2103AUG2017-T13-B1/main/issues/125[Project LISA #125])
 
