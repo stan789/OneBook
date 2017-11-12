@@ -31,7 +31,7 @@ public class UserPrefs {
         this.theme = theme;
     }
 
-    public void setTheme() {
+    public void setTheme(String theme) {
         this.theme = theme;
     }
 

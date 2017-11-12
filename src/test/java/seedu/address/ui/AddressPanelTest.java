@@ -18,18 +18,20 @@ import org.junit.Test;
 import guitests.guihandles.AddressPanelHandle;
 import seedu.address.MainApp;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.model.UserPrefs;
 
 public class AddressPanelTest extends GuiUnitTest {
     private PersonPanelSelectionChangedEvent selectionChangedEventStub;
 
     private AddressPanel addressPanel;
     private AddressPanelHandle addressPanelHandle;
+    private UserPrefs prefs;
 
     @Before
     public void setUp() {
         selectionChangedEventStub = new PersonPanelSelectionChangedEvent(new PersonCard(ALICE, 0));
-
-        guiRobot.interact(() -> addressPanel = new AddressPanel());
+        prefs = new UserPrefs();
+        guiRobot.interact(() -> addressPanel = new AddressPanel(prefs));
         uiPartRule.setUiPart(addressPanel);
 
         addressPanelHandle = new AddressPanelHandle(addressPanel.getRoot());

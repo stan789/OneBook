@@ -144,7 +144,7 @@ public class MainWindow extends UiPart<Region> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        addressPanel = new AddressPanel();
+        addressPanel = new AddressPanel(prefs);
         addressPlaceholder.getChildren().add(addressPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
@@ -183,9 +183,11 @@ public class MainWindow extends UiPart<Region> {
         if(theme.contains(DARK_MODE)) {
             getRoot().getStylesheets().remove(DARK_MODE);
             getRoot().getStylesheets().add(LIGHT_MODE);
+            prefs.setTheme(LIGHT_MODE);
         } else {
             getRoot().getStylesheets().remove(LIGHT_MODE);
             getRoot().getStylesheets().add(DARK_MODE);
+            prefs.setTheme(DARK_MODE);
         }
     }
 
@@ -215,7 +217,7 @@ public class MainWindow extends UiPart<Region> {
     }
 
     /**
-     * Sets the default theme based on use preferences.
+     * Sets the default theme based on user preferences.
      * @param prefs
      */
     private void setWindowDefaultTheme(UserPrefs prefs) {

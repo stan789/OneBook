@@ -9,7 +9,6 @@ import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
@@ -17,6 +16,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.commands.PersonDeletedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
@@ -31,9 +31,10 @@ public class AddressPanel extends UiPart<Region> {
     public static final String UNIT_NUMBER_REGEX = "#\\d+-\\d+";
 
     private static final String FXML = "AddressPanel.fxml";
-    private static final String LIGHT_MODE = "view/LightTheme.css";
+    private static final String LIGHT_MODE = "/view/LightTheme.css";
 
     private ReadOnlyPerson person;
+    private UserPrefs prefs;
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
@@ -43,12 +44,12 @@ public class AddressPanel extends UiPart<Region> {
     @FXML
     private Label addressLarge;
 
-    public AddressPanel() {
+    public AddressPanel(UserPrefs prefs) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
-
+        this.prefs = prefs;
         loadDefaultPage();
         registerAsAnEventHandler(this);
     }
@@ -98,10 +99,18 @@ public class AddressPanel extends UiPart<Region> {
      * Loads a default HTML file with a background that matches the general theme.
      */
     public void loadDefaultPage() {
-        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+        URL defaultPage;
+        if(prefs.getTheme().contains(LIGHT_MODE)) {
+            defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_LIGHT_PAGE);
+        } else {
+            defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+        }
+
         loadPage(defaultPage.toExternalForm());
     }
     //@@author darrinloh
+
+
 
     public void setDefaultPage(String currentTheme) {
 
