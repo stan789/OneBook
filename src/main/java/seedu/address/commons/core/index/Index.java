@@ -45,6 +45,7 @@ public class Index {
         return new Index(oneBasedIndex - 1);
     }
 
+    //@@author Gideonfu
     /**
      * Creates a new {@code Index[]} using a one-based index.
      */
@@ -55,6 +56,7 @@ public class Index {
         }
         return arrayIndex;
     }
+    //@@author
 
     @Override
     public boolean equals(Object other) {

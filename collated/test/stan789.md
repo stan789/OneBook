@@ -8,8 +8,9 @@
         /* Case: import to existing address book and sort -> sorted  */
         executeCommand(ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/contacts.vcf");
         String command = SortCommand.COMMAND_WORD + " " + SORT_NAME;
+        ImportAnalysis importAnalysis = new ImportAnalysis();
         try {
-            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"));
+            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"), importAnalysis);
             expectedModel.executeSort(SORT_NAME);
         } catch (EmptyAddressBookException e) {
             assertCommandFailure(command, MESSAGE_NO_PERSON_TO_SORT, expectedModel);
@@ -60,7 +61,6 @@
 
         Model expectedModel = getModel();
         Model model = getModel();
-        Integer count = 0;
 
         /* Case: export VCard file and import the file back to OneBook -> import successful */
         String command = ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/OneBook.vcf";
@@ -68,44 +68,48 @@
         executeCommand(ClearCommand.COMMAND_WORD);
         model.resetData(new AddressBookData(model.getAddressBook(), new RecycleBin()));
         expectedModel.resetData(new AddressBookData(new AddressBook(), new RecycleBin()));
+        ImportAnalysis importAnalysis = new ImportAnalysis();
         try {
-            count = expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/OneBook.vcf"));
+            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/OneBook.vcf"), importAnalysis);
         } catch (IOException e) {
-            assertCommandFailure(command, MESSAGE_FILE_INVALID, expectedModel);
+            throw new IllegalArgumentException("Execution of command should not fail.", e);
         }
-        assertCommandSuccess(command, count, expectedModel);
+        assertCommandSuccess(command, importAnalysis.getNumContacts(), expectedModel);
         assertEquals(model, expectedModel);
 
         /* Case: import VCard file with valid format -> import successful */
         command = ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/contacts.vcf";
+        importAnalysis = new ImportAnalysis();
         try {
-            count = expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"));
+            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"), importAnalysis);
         } catch (IOException e) {
-            assertCommandFailure(command, MESSAGE_FILE_INVALID, expectedModel);
+            throw new IllegalArgumentException("Execution of command should not fail.", e);
         }
-        assertCommandSuccess(command, count, expectedModel);
+        assertCommandSuccess(command, importAnalysis.getNumContacts(), expectedModel);
 
         /* Case: import VCard file with valid format to empty address book -> import successful */
         executeCommand(ClearCommand.COMMAND_WORD);
         expectedModel.resetData(new AddressBookData(new AddressBook(), new RecycleBin()));
         command = ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/contacts.vcf";
+        importAnalysis = new ImportAnalysis();
         try {
-            count = expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"));
+            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/contacts.vcf"), importAnalysis);
         } catch (IOException e) {
-            assertCommandFailure(command, MESSAGE_FILE_INVALID, expectedModel);
+            throw new IllegalArgumentException("Execution of command should not fail.", e);
         }
-        assertCommandSuccess(command, count, expectedModel);
+        assertCommandSuccess(command, importAnalysis.getNumContacts(), expectedModel);
 
         /* Case: import VCard file with name only -> import successful */
         executeCommand(ClearCommand.COMMAND_WORD);
         expectedModel.resetData(new AddressBookData());
         command = ImportCommand.COMMAND_WORD + " src/test/data/VCardFileTest/name_only.vcf";
+        importAnalysis = new ImportAnalysis();
         try {
-            count = expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/name_only.vcf"));
+            expectedModel.importFile(Paths.get("src/test/data/VCardFileTest/name_only.vcf"), importAnalysis);
         } catch (IOException e) {
-            assertCommandFailure(command, MESSAGE_FILE_INVALID, expectedModel);
+            throw new IllegalArgumentException("Execution of command should not fail.", e);
         }
-        assertCommandSuccess(command, count, expectedModel);
+        assertCommandSuccess(command, importAnalysis.getNumContacts(), expectedModel);
     }
 
 ```
@@ -292,11 +296,10 @@
     public void execute_importVCardFile_importSuccess() throws IOException {
 
         Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts.vcf");
-
         ImportCommand importCommand = prepareCommand(fileLocation);
-
-        Integer count = expectedModel.importFile(fileLocation);
-        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, count);
+        ImportAnalysis importAnalysis = new ImportAnalysis();
+        expectedModel.importFile(fileLocation, importAnalysis);
+        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, importAnalysis.getNumContacts());
         assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
     }
 
@@ -309,9 +312,72 @@
         Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts_with_one_tag.vcf");
 
         ImportCommand importCommand = prepareCommand(fileLocation);
+        ImportAnalysis importAnalysis = new ImportAnalysis();
+        expectedModel.importFile(fileLocation, importAnalysis);
+        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, importAnalysis.getNumContacts());
+        assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
+    }
 
-        Integer count = expectedModel.importFile(fileLocation);
-        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, count);
+```
+###### /java/seedu/address/logic/commands/ImportCommandTest.java
+``` java
+    @Test
+    public void execute_importVCardFileWithoutFullName_importSuccess() throws IOException {
+
+        Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts_with_empty_fullName.vcf");
+
+        ImportCommand importCommand = prepareCommand(fileLocation);
+        ImportAnalysis importAnalysis = new ImportAnalysis();
+        expectedModel.importFile(fileLocation, importAnalysis);
+        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, importAnalysis.getNumContacts());
+        assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
+    }
+
+```
+###### /java/seedu/address/logic/commands/ImportCommandTest.java
+``` java
+    @Test
+    public void execute_importVCardFileWithDuplicate_importSuccessWithWarning() throws IOException {
+
+        Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts_with_duplicate.vcf");
+
+        ImportCommand importCommand = prepareCommand(fileLocation);
+        ImportAnalysis importAnalysis = new ImportAnalysis();
+        expectedModel.importFile(fileLocation, importAnalysis);
+        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, importAnalysis.getNumContacts())
+                + ImportCommand.MESSAGE_DUPLICATE;
+        assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
+    }
+
+```
+###### /java/seedu/address/logic/commands/ImportCommandTest.java
+``` java
+    @Test
+    public void execute_importVCardFileWithInfoInvalidFormat_importSuccessWithWarning() throws IOException {
+
+        Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts_with_illegal_value.vcf");
+
+        ImportCommand importCommand = prepareCommand(fileLocation);
+        ImportAnalysis importAnalysis = new ImportAnalysis();
+        expectedModel.importFile(fileLocation, importAnalysis);
+        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, importAnalysis.getNumContacts())
+                + ImportCommand.MESSAGE_ILLEGAL_VALUE;
+        assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
+    }
+
+```
+###### /java/seedu/address/logic/commands/ImportCommandTest.java
+``` java
+    @Test
+    public void execute_importVCardFileWithInfoInvalidFormatAndDuplicate_importSuccessWithWarning() throws IOException {
+
+        Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts_duplicate_and_illegal_value.vcf");
+
+        ImportCommand importCommand = prepareCommand(fileLocation);
+        ImportAnalysis importAnalysis = new ImportAnalysis();
+        expectedModel.importFile(fileLocation, importAnalysis);
+        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, importAnalysis.getNumContacts())
+                + ImportCommand.MESSAGE_DUPLICATE + ImportCommand.MESSAGE_ILLEGAL_VALUE;
         assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
     }
 
@@ -320,7 +386,8 @@
 ``` java
     @Test(expected = IOException.class)
     public void testFileWithInvalidFormat() throws IOException {
-        model.importFile(Paths.get("src/test/data/VCardFileTest/contacts_example.vcf"));
+        ImportAnalysis importAnalysis = new ImportAnalysis();
+        model.importFile(Paths.get("src/test/data/VCardFileTest/contacts_example.vcf"), importAnalysis);
     }
 
 ```
@@ -330,9 +397,8 @@
     public void execute_importEmptyVCardFile_importFailure() throws IOException {
 
         Path fileLocation = Paths.get("src/test/data/VCardFileTest/empty.vcf");
-
         ImportCommand importCommand = prepareCommand(fileLocation);
-        String expectedMessage = importCommand.MESSAGE_EMPTY_FILE;
+        String expectedMessage = ImportCommand.MESSAGE_EMPTY_FILE;
         assertCommandFailure(importCommand, model, expectedMessage);
     }
 
@@ -345,7 +411,7 @@
         Path fileLocation = Paths.get("src/test/data/VCardFileTest/contacts_without_begin.vcf");
 
         ImportCommand importCommand = prepareCommand(fileLocation);
-        String expectedMessage = importCommand.MESSAGE_FILE_INVALID;
+        String expectedMessage = ImportCommand.MESSAGE_FILE_INVALID;
         assertCommandFailure(importCommand, model, expectedMessage);
     }
 
@@ -490,7 +556,7 @@
     @Test
     public void getPersonFromFile_withoutBegin_throwsIoException() throws IOException {
         ImportVCardFile importVCardFile = new ImportVCardFile(
-                Paths.get("src/test/data/VCardFileTest/contacts_without_begin.vcf"));
+                Paths.get("src/test/data/VCardFileTest/contacts_without_begin.vcf"), importAnalysis);
         thrown.expect(IOException.class);
         importVCardFile.getPersonFromFile();
 
@@ -502,7 +568,7 @@
     @Test
     public void getPersonFromFile_withoutEnd_throwsIoException() throws IOException {
         ImportVCardFile importVCardFile = new ImportVCardFile(
-                Paths.get("src/test/data/VCardFileTest/contacts_without_end.vcf"));
+                Paths.get("src/test/data/VCardFileTest/contacts_without_end.vcf"), importAnalysis);
         thrown.expect(IOException.class);
         importVCardFile.getPersonFromFile();
 
@@ -514,7 +580,7 @@
     @Test
     public void getPersonFromFile_someWithoutEnd_throwsIoException() throws IOException {
         ImportVCardFile importVCardFile = new ImportVCardFile(
-                Paths.get("src/test/data/VCardFileTest/contacts_some_without_end.vcf"));
+                Paths.get("src/test/data/VCardFileTest/contacts_some_without_end.vcf"), importAnalysis);
         thrown.expect(IOException.class);
         importVCardFile.getPersonFromFile();
 
@@ -526,7 +592,7 @@
     @Test
     public void getPersonFromFile_someWithoutBegin_throwsIoException() throws IOException {
         ImportVCardFile importVCardFile = new ImportVCardFile(
-                Paths.get("src/test/data/VCardFileTest/contacts_some_without_begin.vcf"));
+                Paths.get("src/test/data/VCardFileTest/contacts_some_without_begin.vcf"), importAnalysis);
         thrown.expect(IOException.class);
         importVCardFile.getPersonFromFile();
 
