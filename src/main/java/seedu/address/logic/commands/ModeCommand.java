@@ -1,8 +1,7 @@
 package seedu.address.logic.commands;
 
-import javafx.scene.Scene;
-import seedu.address.ui.AddressPanel;
-import seedu.address.ui.MainWindow;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ModeChangeRequestEvent;
 
 /**
  * This is to enable change mode.
@@ -19,6 +18,7 @@ public class ModeCommand extends Command {
     //@@author darrinloh
     @Override
     public CommandResult execute() {
+        EventsCenter.getInstance().post(new ModeChangeRequestEvent());
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
