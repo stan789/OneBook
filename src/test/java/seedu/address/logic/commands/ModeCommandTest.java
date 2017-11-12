@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalRecycleBin;
-import static seedu.address.ui.MainWindow.DARK_MODE;
 
 import org.junit.Before;
 import org.junit.Test;

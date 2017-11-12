@@ -27,7 +27,7 @@ public class ModeChangeTest {
     }
 
     @Test
-    public void check_valid_css_after_updating() {
+    public void check_validCssAfterUpdating() {
         prefs.updateLastUsedThemeSetting(DARK_MODE);
         assertTrue(prefs.getTheme().contains(DARK_MODE));
     }
