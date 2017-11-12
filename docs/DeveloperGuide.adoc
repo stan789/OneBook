@@ -209,6 +209,9 @@ on the list being displayed. This data can be 'observed' e.g. the UI can be boun
 image::StorageClassDiagram.png[width="800"]
 _Figure 2.5.1 : Structure of the Storage Component_
 
+image::AddressBookDataClassDiagram.png[width="400"]
+_Figure 2.5.2 : Structure of Data Storage_
+
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
@@ -513,6 +516,17 @@ Users will key in email index where index refers to the index of the person list
 === Recycle bin
 The recycle bin is implemented by having OneBook store the list of person deleted using a separate list from the main address book list. +
 This list is implemented via extending `AddressBook` class.
+
+To support display of `RecycleBin`, two separate `ObservableList<ReadOnlyPerson>` are stored in `Model`. One of the list contains the `AddressBook` contacts,
+while the other contains the `RecycleBin` contacts. The displayed `ObservableList<ReadOnlyPerson>` switches between the two depending on which mode is being displayed.
+This allows for `find` and `sort` to retain compability between regular display and bin display. +
+The diagram belows shows the sequence of execution when `bin` is executed.
+
+image::BinListDiagram.png[width="800"]
+_Figure 3.11.1 Sequence Diagram for bin operation_
+
+The `RecycleBin` is one of the components of `AddressBookData` that is saved in the `addressbool.xml` file for storage. When `AddressBookData` is loaded,
+data for `AddressBook` and `RecycleBin` are both loaded.
 
 ==== Design considerations
 
