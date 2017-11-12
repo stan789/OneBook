@@ -26,7 +26,7 @@ public class ModeCommandTest {
     }
 
     @Test
-    public void execute_Mode_Command() {
+    public void execute_mode_command() {
         assertCommandSuccess(modeCommand, model, ModeCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
