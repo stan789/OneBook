@@ -100,7 +100,7 @@ public class AddressPanel extends UiPart<Region> {
      */
     public void loadDefaultPage() {
         URL defaultPage;
-        if(prefs.getTheme().contains(LIGHT_MODE)) {
+        if (prefs.getTheme().contains(LIGHT_MODE)) {
             defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_LIGHT_PAGE);
         } else {
             defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
@@ -114,7 +114,7 @@ public class AddressPanel extends UiPart<Region> {
 
     public void setDefaultPage(String currentTheme) {
 
-        if(currentTheme.contains(LIGHT_MODE)) {
+        if (currentTheme.contains(LIGHT_MODE)) {
             URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
             loadPage(defaultPage.toExternalForm());
         } else {

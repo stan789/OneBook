@@ -38,8 +38,8 @@ public class MainWindow extends UiPart<Region> {
     private static final String FXML = "MainWindow.fxml";
     private static final int MIN_HEIGHT = 600;
     private static final int MIN_WIDTH = 450;
-    private static final String DARK_MODE= "/view/DarkTheme.css";
-    private static final String LIGHT_MODE="/view/LightTheme.css";
+    private static final String DARK_MODE = "/view/DarkTheme.css";
+    private static final String LIGHT_MODE ="/view/LightTheme.css";
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     private Stage primaryStage;
@@ -172,15 +172,20 @@ public class MainWindow extends UiPart<Region> {
         primaryStage.setTitle(appTitle);
     }
 
-    private void changeHTML() {
+    /**
+     * Changes the Html document after input by user
+     */
+    private void changeHtml() {
         String theme = getCurrentThemeSetting();
         addressPanel.setDefaultPage(theme);
     }
 
-
-    private void changeCSS() {
+    /**
+     * Changes the Css style sheet after input by user
+     */
+    private void changeCss() {
         String theme = getCurrentThemeSetting();
-        if(theme.contains(DARK_MODE)) {
+        if (theme.contains(DARK_MODE)) {
             getRoot().getStylesheets().remove(DARK_MODE);
             getRoot().getStylesheets().add(LIGHT_MODE);
             prefs.setTheme(LIGHT_MODE);
@@ -326,7 +331,7 @@ public class MainWindow extends UiPart<Region> {
 
     @Subscribe
     private void handleChangeModeRequestEvent(ModeChangeRequestEvent event) {
-        changeHTML();
-        changeCSS();
+        changeHtml();
+        changeCss();
     }
 }

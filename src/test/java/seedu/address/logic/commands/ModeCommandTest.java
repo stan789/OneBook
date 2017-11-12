@@ -1,23 +1,32 @@
 package seedu.address.logic.commands;
 
-import static junit.framework.TestCase.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalRecycleBin;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+
 
 public class ModeCommandTest {
 
+    private Model model;
+    private Model expectedModel;
     private ModeCommand modeCommand;
 
     @Before
     public void setUp() {
+        model = new ModelManager(getTypicalAddressBook(), getTypicalRecycleBin(), new UserPrefs());
+        expectedModel = new ModelManager(model.getAddressBook(), model.getRecycleBin(), new UserPrefs());
         modeCommand = new ModeCommand();
     }
 
     @Test
-    public void equals() {
-        //assertTrue(modeCommand.DEFAULT_HTML.equals("LightTheme.css"));
+    public void execute_Mode_Command() {
+        assertCommandSuccess(modeCommand, model, ModeCommand.MESSAGE_SUCCESS, expectedModel);
     }
-
 }
