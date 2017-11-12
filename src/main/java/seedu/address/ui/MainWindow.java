@@ -22,6 +22,7 @@ import seedu.address.commons.events.commands.DisplayBinEvent;
 import seedu.address.commons.events.commands.DisplayListFilteredEvent;
 import seedu.address.commons.events.commands.DisplayListResetEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.ModeChangeRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
@@ -33,18 +34,19 @@ import seedu.address.model.UserPrefs;
  */
 public class MainWindow extends UiPart<Region> {
 
+    public static final String DARK_MODE = "/view/DarkTheme.css";
+    public static final String LIGHT_MODE = "/view/LightTheme.css";
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
     private static final int MIN_HEIGHT = 600;
     private static final int MIN_WIDTH = 450;
-    private static AddressPanel addressPanel;
-    private static Scene scene;
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     private Stage primaryStage;
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private AddressPanel addressPanel;
     private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
@@ -91,22 +93,12 @@ public class MainWindow extends UiPart<Region> {
         setIcon(ICON);
         setWindowMinSize();
         setWindowDefaultSize(prefs);
+        setWindowDefaultTheme(prefs);
         Scene scene = new Scene(getRoot());
         primaryStage.setScene(scene);
 
-        this.scene = scene;
-        scene.getStylesheets().add("view/DarkTheme.css");
-
         setAccelerators();
         registerAsAnEventHandler(this);
-    }
-
-    public static Scene getScene() {
-        return scene;
-    }
-
-    public static AddressPanel getAddressPanel() {
-        return addressPanel;
     }
 
     public Stage getPrimaryStage() {
@@ -152,9 +144,8 @@ public class MainWindow extends UiPart<Region> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        addressPanel = new AddressPanel();
+        addressPanel = new AddressPanel(prefs);
         addressPlaceholder.getChildren().add(addressPanel.getRoot());
-        addressPanel.setDefaultPage();
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
@@ -179,6 +170,30 @@ public class MainWindow extends UiPart<Region> {
 
     private void setTitle(String appTitle) {
         primaryStage.setTitle(appTitle);
+    }
+
+    /**
+     * Changes the Html document after input by user
+     */
+    private void changeHtml() {
+        String theme = getCurrentThemeSetting();
+        addressPanel.setDefaultPage(theme);
+    }
+
+    /**
+     * Changes the Css style sheet after input by user
+     */
+    private void changeCss() {
+        String theme = getCurrentThemeSetting();
+        if (theme.contains(DARK_MODE)) {
+            getRoot().getStylesheets().remove(DARK_MODE);
+            getRoot().getStylesheets().add(LIGHT_MODE);
+            prefs.setTheme(LIGHT_MODE);
+        } else {
+            getRoot().getStylesheets().remove(LIGHT_MODE);
+            getRoot().getStylesheets().add(DARK_MODE);
+            prefs.setTheme(DARK_MODE);
+        }
     }
 
     //@@author frozventus
@@ -207,6 +222,13 @@ public class MainWindow extends UiPart<Region> {
     }
 
     /**
+     * Sets the default theme based on user preferences.
+     * @param prefs
+     */
+    private void setWindowDefaultTheme(UserPrefs prefs) {
+        getRoot().getStylesheets().add(prefs.getTheme());
+    }
+    /**
      * Sets the default size based on user preferences.
      */
     private void setWindowDefaultSize(UserPrefs prefs) {
@@ -231,6 +253,12 @@ public class MainWindow extends UiPart<Region> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    /**
+     * Returns the current theme of the main Window.
+     */
+    String getCurrentThemeSetting() {
+        return getRoot().getStylesheets().get(1);
+    }
     /**
      * Opens the help window.
      */
@@ -299,5 +327,11 @@ public class MainWindow extends UiPart<Region> {
             listName.textProperty().setValue("Bin");
         }
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    }
+
+    @Subscribe
+    private void handleChangeModeRequestEvent(ModeChangeRequestEvent event) {
+        changeHtml();
+        changeCss();
     }
 }

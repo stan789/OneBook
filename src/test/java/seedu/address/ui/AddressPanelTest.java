@@ -2,8 +2,10 @@ package seedu.address.ui;
 
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.ui.AddressPanel.DEFAULT_LIGHT_PAGE;
 import static seedu.address.ui.AddressPanel.DEFAULT_PAGE;
 import static seedu.address.ui.AddressPanel.GOOGLE_SEARCH_URL_PREFIX;
 import static seedu.address.ui.AddressPanel.GOOGLE_SEARCH_URL_SUFFIX;
@@ -18,18 +20,20 @@ import org.junit.Test;
 import guitests.guihandles.AddressPanelHandle;
 import seedu.address.MainApp;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.model.UserPrefs;
 
 public class AddressPanelTest extends GuiUnitTest {
     private PersonPanelSelectionChangedEvent selectionChangedEventStub;
 
     private AddressPanel addressPanel;
     private AddressPanelHandle addressPanelHandle;
+    private UserPrefs prefs;
 
     @Before
     public void setUp() {
         selectionChangedEventStub = new PersonPanelSelectionChangedEvent(new PersonCard(ALICE, 0));
-
-        guiRobot.interact(() -> addressPanel = new AddressPanel());
+        prefs = new UserPrefs();
+        guiRobot.interact(() -> addressPanel = new AddressPanel(prefs));
         uiPartRule.setUiPart(addressPanel);
 
         addressPanelHandle = new AddressPanelHandle(addressPanel.getRoot());
@@ -40,6 +44,10 @@ public class AddressPanelTest extends GuiUnitTest {
         // default web page
         URL expectedDefaultPageUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
         assertEquals(expectedDefaultPageUrl, addressPanelHandle.getLoadedUrl());
+
+        // secondary web page
+        URL expectedDefaultPageUrlSecondary = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_LIGHT_PAGE);
+        assertFalse(expectedDefaultPageUrlSecondary.equals(addressPanelHandle.getLoadedUrl()));
 
         // associated web page of a person
         postNow(selectionChangedEventStub);

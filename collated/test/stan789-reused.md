@@ -1,82 +1,5 @@
 # stan789-reused
-###### /java/systemtests/SortCommandSystemTest.java
-``` java
-    /**
-     * Executes {@code command} and verifies that the command box displays an empty string, the result display
-     * box displays {@code MESSAGE_SUCCESS},
-     * and the model related components equal to {@code expectedModel}.
-     * These verifications are done by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * Also verifies that the status bar remains unchanged, and the command box has the default style class, and the
-     * selected card updated accordingly, depending on {@code cardStatus}.
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     */
-    private void assertCommandSuccess(String command, Model expectedModel) {
-        executeCommand(command);
-        assertApplicationDisplaysExpected("", MESSAGE_SUCCESS, expectedModel);
-        assertSelectedCardUnchanged();
-        assertCommandBoxShowsDefaultStyle();
-        assertStatusBarUnchangedExceptSyncStatus();
-    }
-
-```
-###### /java/systemtests/SortCommandSystemTest.java
-``` java
-    /**
-     * Executes {@code command} and verifies that the command box displays {@code command}, the result display
-     * box displays {@code expectedResultMessage} and the model related components equal to the current model.
-     * These verifications are done by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
-     * error style.
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     */
-    private void assertCommandFailure(String command, String expectedResultMessage, Model expectedModel) {
-        executeCommand(command);
-        assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
-        assertCommandBoxShowsErrorStyle();
-        assertStatusBarUnchanged();
-    }
-}
-```
-###### /java/systemtests/ImportCommandSystemTest.java
-``` java
-    /**
-     * Executes {@code command} and verifies that the command box displays an empty string, the result display
-     * box displays {@code String.format(MESSAGE_SUCCESS, count)},
-     * and the model related components equal to {@code expectedModel}.
-     * These verifications are done by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * Also verifies that the status bar remains unchanged, and the command box has the default style class, and the
-     * selected card updated accordingly, depending on {@code cardStatus}.
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     */
-    private void assertCommandSuccess(String command, Integer count, Model expectedModel) {
-        executeCommand(command);
-        assertApplicationDisplaysExpected("", String.format(MESSAGE_SUCCESS, count), expectedModel);
-        assertSelectedCardUnchanged();
-        assertCommandBoxShowsDefaultStyle();
-        assertStatusBarUnchangedExceptSyncStatus();
-    }
-}
-```
-###### /java/seedu/address/logic/parser/EmailCommandParserTest.java
-``` java
-    @Test
-    public void parse_validArgs_returnsSelectCommand() {
-        assertParseSuccess(parser, "1", new EmailCommand(INDEX_FIRST_PERSON));
-    }
-```
-###### /java/seedu/address/logic/parser/EmailCommandParserTest.java
-``` java
-    @Test
-    public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmailCommand.MESSAGE_USAGE));
-    }
-}
-```
-###### /java/seedu/address/logic/commands/EmailCommandTest.java
+###### \java\seedu\address\logic\commands\EmailCommandTest.java
 ``` java
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -88,7 +11,7 @@
     }
 
 ```
-###### /java/seedu/address/logic/commands/EmailCommandTest.java
+###### \java\seedu\address\logic\commands\EmailCommandTest.java
 ``` java
     @Test
     public void execute_invalidIndexUnfilteredList_failure() {
@@ -98,7 +21,7 @@
     }
 
 ```
-###### /java/seedu/address/logic/commands/EmailCommandTest.java
+###### \java\seedu\address\logic\commands\EmailCommandTest.java
 ``` java
     @Test
     public void execute_validIndexFilteredList_success() {
@@ -108,7 +31,7 @@
     }
 
 ```
-###### /java/seedu/address/logic/commands/EmailCommandTest.java
+###### \java\seedu\address\logic\commands\EmailCommandTest.java
 ``` java
     @Test
     public void execute_invalidIndexFilteredList_failure() {
@@ -122,7 +45,7 @@
     }
 
 ```
-###### /java/seedu/address/logic/commands/EmailCommandTest.java
+###### \java\seedu\address\logic\commands\EmailCommandTest.java
 ``` java
     /**
      * Returns a {@code EmailCommand} with parameters {@code index}.
@@ -146,7 +69,19 @@ class EmailCommandStub extends EmailCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/ImportCommandTest.java
+###### \java\seedu\address\logic\commands\ExportCommandTest.java
+``` java
+    /**
+     * Generates a new {@code ExportCommand} which upon execution, sorts the AddressBook.
+     */
+    private ExportCommand prepareCommand(String fileLocation, String fileName, String extension) {
+        ExportCommand command = new ExportCommand(fileLocation, fileName, extension);
+        command.setData(model, new CommandHistory(), new UndoRedoStack(), false);
+        return command;
+    }
+}
+```
+###### \java\seedu\address\logic\commands\ImportCommandTest.java
 ``` java
     /**
      * Generates a new {@code ImportCommand} which upon execution, sorts the AddressBook.
@@ -158,7 +93,7 @@ class EmailCommandStub extends EmailCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/SortCommandTest.java
+###### \java\seedu\address\logic\commands\SortCommandTest.java
 ``` java
     /**
      * Generates a new {@code SortCommand} which upon execution, sorts the AddressBook.
@@ -181,15 +116,80 @@ class EmailCommandStub extends EmailCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/ExportCommandTest.java
+###### \java\seedu\address\logic\parser\EmailCommandParserTest.java
+``` java
+    @Test
+    public void parse_validArgs_returnsSelectCommand() {
+        assertParseSuccess(parser, "1", new EmailCommand(INDEX_FIRST_PERSON));
+    }
+```
+###### \java\seedu\address\logic\parser\EmailCommandParserTest.java
+``` java
+    @Test
+    public void parse_invalidArgs_throwsParseException() {
+        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmailCommand.MESSAGE_USAGE));
+    }
+}
+```
+###### \java\systemtests\ImportCommandSystemTest.java
 ``` java
     /**
-     * Generates a new {@code ExportCommand} which upon execution, sorts the AddressBook.
+     * Executes {@code command} and verifies that the command box displays an empty string, the result display
+     * box displays {@code String.format(MESSAGE_SUCCESS, count)},
+     * and the model related components equal to {@code expectedModel}.
+     * These verifications are done by
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * Also verifies that the status bar remains unchanged, and the command box has the default style class, and the
+     * selected card updated accordingly, depending on {@code cardStatus}.
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private ExportCommand prepareCommand(String fileLocation, String fileName, String extension) {
-        ExportCommand command = new ExportCommand(fileLocation, fileName, extension);
-        command.setData(model, new CommandHistory(), new UndoRedoStack(), false);
-        return command;
+    private void assertCommandSuccess(String command, Integer count, Model expectedModel) {
+        executeCommand(command);
+        assertApplicationDisplaysExpected("", String.format(MESSAGE_SUCCESS, count), expectedModel);
+        assertSelectedCardUnchanged();
+        assertCommandBoxShowsDefaultStyle();
+        assertStatusBarUnchangedExceptSyncStatus();
+    }
+}
+```
+###### \java\systemtests\SortCommandSystemTest.java
+``` java
+    /**
+     * Executes {@code command} and verifies that the command box displays an empty string, the result display
+     * box displays {@code MESSAGE_SUCCESS},
+     * and the model related components equal to {@code expectedModel}.
+     * These verifications are done by
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * Also verifies that the status bar remains unchanged, and the command box has the default style class, and the
+     * selected card updated accordingly, depending on {@code cardStatus}.
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     */
+    private void assertCommandSuccess(String command, Model expectedModel) {
+        executeCommand(command);
+        assertApplicationDisplaysExpected("", MESSAGE_SUCCESS, expectedModel);
+        assertSelectedCardUnchanged();
+        assertCommandBoxShowsDefaultStyle();
+        assertStatusBarUnchangedExceptSyncStatus();
+    }
+
+```
+###### \java\systemtests\SortCommandSystemTest.java
+``` java
+    /**
+     * Executes {@code command} and verifies that the command box displays {@code command}, the result display
+     * box displays {@code expectedResultMessage} and the model related components equal to the current model.
+     * These verifications are done by
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
+     * error style.
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     */
+    private void assertCommandFailure(String command, String expectedResultMessage, Model expectedModel) {
+        executeCommand(command);
+        assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
+        assertSelectedCardUnchanged();
+        assertCommandBoxShowsErrorStyle();
+        assertStatusBarUnchanged();
     }
 }
 ```
