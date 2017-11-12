@@ -104,6 +104,6 @@ include::../DeveloperGuide.adoc[tag=modechange]
 * Added a organisation field into OneBook (Pull request link:{repoURL}/pull/53[#53])
 * Reported bugs (https://github.com/CS2103AUG2017-T13-B1/main/issues/125[Project LISA #125])
 
-== Project: PowerPointLabs
+== Orbital Project: PayAlarm
 
-{Optionally (not graded), you may include other projects in your portfolio.}
+* Worked on an app with an SMS integrating feature. Complete the project with SQL, HTML, CSS. (https://github.com/darrinloh/payalarm-project[PayAlarm])
