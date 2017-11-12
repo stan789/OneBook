@@ -10,13 +10,24 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
+
     private String addressBookFilePath = "data/addressbook.xml";
     private String recycleBinFilePath = "data/recyclebin.xml";
     private String addressBookName = "MyOneBook";
+    private String theme;
+
+    private static final String DEFAULT_THEME = "DarkTheme.css";
+    private static final String FXML_FOLDER = "/view/";
 
     public UserPrefs() {
         this.setGuiSettings(500, 500, 0, 0);
     }
+
+    public String getTheme() {
+        return theme == null ? (FXML_FOLDER + DEFAULT_THEME) : theme;
+    }
+
+
 
     public GuiSettings getGuiSettings() {
         return guiSettings == null ? new GuiSettings() : guiSettings;

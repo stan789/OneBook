@@ -18,7 +18,9 @@ public class ModeCommand extends Command {
     //@@author darrinloh
     @Override
     public CommandResult execute() {
+
         EventsCenter.getInstance().post(new ModeChangeRequestEvent());
+        model.changeTheme();
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
