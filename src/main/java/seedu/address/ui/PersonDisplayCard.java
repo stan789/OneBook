@@ -103,6 +103,7 @@ public class PersonDisplayCard extends UiPart<Region> {
         loadPersonDetails(event.getNewSelection().person);
     }
 
+    //@@author frozventus
     @Subscribe
     private void handlePersonDeletedEvent(PersonDeletedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
