@@ -1,59 +1,31 @@
 # frozventus-reused
-###### \java\seedu\address\logic\commands\BinDeleteCommandTest.java
+###### /java/seedu/address/logic/parser/BinDeleteCommandParserTest.java
 ``` java
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() throws Exception {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        BinDeleteCommand binDeleteCommand = prepareCommand(outOfBoundIndex);
-
-        assertCommandFailure(binDeleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    public void parse_validArgs_returnsBinDeleteCommand() {
+        assertParseSuccess(parser, "1", new BinDeleteCommand(INDEX_FIRST_PERSON));
     }
 
-```
-###### \java\seedu\address\logic\commands\BinDeleteCommandTest.java
-``` java
     @Test
-    public void equals() {
-        BinDeleteCommand binDeleteFirstCommand = new BinDeleteCommand(INDEX_FIRST_PERSON);
-        BinDeleteCommand binDeleteSecondCommand = new BinDeleteCommand(INDEX_SECOND_PERSON);
-
-        // same object -> returns true
-        assertTrue(binDeleteFirstCommand.equals(binDeleteFirstCommand));
-
-        // same values -> returns true
-        BinDeleteCommand deleteFirstCommandCopy = new BinDeleteCommand(INDEX_FIRST_PERSON);
-        assertTrue(binDeleteFirstCommand.equals(deleteFirstCommandCopy));
-
-        // different types -> returns false
-        assertFalse(binDeleteFirstCommand.equals(1));
-
-        // null -> returns false
-        assertFalse(binDeleteFirstCommand.equals(null));
-
-        // different person -> returns false
-        assertFalse(binDeleteFirstCommand.equals(binDeleteSecondCommand));
-    }
-
-    /**
-     * Returns a {@code BinDeleteCommand} with the parameter {@code index}.
-     */
-    private BinDeleteCommand prepareCommand(Index index) {
-        BinDeleteCommand binDeleteCommand = new BinDeleteCommand(index);
-        binDeleteCommand.setData(model, new CommandHistory(), new UndoRedoStack(), true);
-        return binDeleteCommand;
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show no one.
-     */
-    private void showNoPerson(Model model) {
-        model.updateFilteredPersonList(p -> false);
-
-        assert model.getFilteredPersonList().isEmpty();
+    public void parse_invalidArgs_throwsParseException() {
+        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, BinDeleteCommand.MESSAGE_USAGE));
     }
 }
 ```
-###### \java\seedu\address\logic\commands\RestoreCommandTest.java
+###### /java/seedu/address/logic/parser/RestoreCommandParserTest.java
+``` java
+    @Test
+    public void parse_validArgs_returnsRestoreCommand() {
+        assertParseSuccess(parser, "1", new RestoreCommand(INDEX_FIRST_PERSON));
+    }
+
+    @Test
+    public void parse_invalidArgs_throwsParseException() {
+        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, RestoreCommand.MESSAGE_USAGE));
+    }
+}
+```
+###### /java/seedu/address/logic/commands/RestoreCommandTest.java
 ``` java
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() throws Exception {
@@ -64,7 +36,7 @@
     }
 
 ```
-###### \java\seedu\address\logic\commands\RestoreCommandTest.java
+###### /java/seedu/address/logic/commands/RestoreCommandTest.java
 ``` java
     @Test
     public void equals() {
@@ -107,29 +79,57 @@
     }
 }
 ```
-###### \java\seedu\address\logic\parser\BinDeleteCommandParserTest.java
+###### /java/seedu/address/logic/commands/BinDeleteCommandTest.java
 ``` java
     @Test
-    public void parse_validArgs_returnsBinDeleteCommand() {
-        assertParseSuccess(parser, "1", new BinDeleteCommand(INDEX_FIRST_PERSON));
+    public void execute_invalidIndexUnfilteredList_throwsCommandException() throws Exception {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        BinDeleteCommand binDeleteCommand = prepareCommand(outOfBoundIndex);
+
+        assertCommandFailure(binDeleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
-    @Test
-    public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, BinDeleteCommand.MESSAGE_USAGE));
-    }
-}
 ```
-###### \java\seedu\address\logic\parser\RestoreCommandParserTest.java
+###### /java/seedu/address/logic/commands/BinDeleteCommandTest.java
 ``` java
     @Test
-    public void parse_validArgs_returnsRestoreCommand() {
-        assertParseSuccess(parser, "1", new RestoreCommand(INDEX_FIRST_PERSON));
+    public void equals() {
+        BinDeleteCommand binDeleteFirstCommand = new BinDeleteCommand(INDEX_FIRST_PERSON);
+        BinDeleteCommand binDeleteSecondCommand = new BinDeleteCommand(INDEX_SECOND_PERSON);
+
+        // same object -> returns true
+        assertTrue(binDeleteFirstCommand.equals(binDeleteFirstCommand));
+
+        // same values -> returns true
+        BinDeleteCommand deleteFirstCommandCopy = new BinDeleteCommand(INDEX_FIRST_PERSON);
+        assertTrue(binDeleteFirstCommand.equals(deleteFirstCommandCopy));
+
+        // different types -> returns false
+        assertFalse(binDeleteFirstCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(binDeleteFirstCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(binDeleteFirstCommand.equals(binDeleteSecondCommand));
     }
 
-    @Test
-    public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, RestoreCommand.MESSAGE_USAGE));
+    /**
+     * Returns a {@code BinDeleteCommand} with the parameter {@code index}.
+     */
+    private BinDeleteCommand prepareCommand(Index index) {
+        BinDeleteCommand binDeleteCommand = new BinDeleteCommand(index);
+        binDeleteCommand.setData(model, new CommandHistory(), new UndoRedoStack(), true);
+        return binDeleteCommand;
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show no one.
+     */
+    private void showNoPerson(Model model) {
+        model.updateFilteredPersonList(p -> false);
+
+        assert model.getFilteredPersonList().isEmpty();
     }
 }
 ```

@@ -1,12 +1,12 @@
 # darrinloh
-###### \java\seedu\address\storage\StorageManagerTest.java
+###### /java/seedu/address/storage/StorageManagerTest.java
 ``` java
     @Test
     public void getUserPrefsFilePathTest() {
         assertEquals(getTempFilePath("prefs"), storageManager.getUserPrefsFilePath());
     }
 ```
-###### \java\seedu\address\storage\StorageManagerTest.java
+###### /java/seedu/address/storage/StorageManagerTest.java
 ``` java
 
     @Test
@@ -40,7 +40,7 @@
     }
 
 ```
-###### \java\seedu\address\storage\StorageManagerTest.java
+###### /java/seedu/address/storage/StorageManagerTest.java
 ``` java
     @Test
     public void backupAddressBookUrlTest() {
@@ -49,7 +49,7 @@
         assertEquals(expectedUrl, actualUrl);
     }
 ```
-###### \java\seedu\address\storage\StorageManagerTest.java
+###### /java/seedu/address/storage/StorageManagerTest.java
 ``` java
 
     @Test

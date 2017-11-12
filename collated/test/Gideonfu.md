@@ -1,5 +1,5 @@
 # Gideonfu
-###### \java\seedu\address\logic\parser\ParserUtilTest.java
+###### /java/seedu/address/logic/parser/ParserUtilTest.java
 ``` java
     @Test
     public void parseDeleteIndex_invalidInput_throwsIllegalValueException() throws Exception {
@@ -28,7 +28,22 @@
         assertTrue(Arrays.equals(Index.arrayFromOneBased(indexes), ParserUtil.parseDeleteIndex("1, 2")));
     }
 ```
-###### \java\seedu\address\model\person\ContainsKeywordsPredicateTest.java
+###### /java/seedu/address/model/person/RemarkTest.java
+``` java
+    @Test
+    public void isValidRemark() {
+        // invalid addresses
+        assertFalse(Remark.isValidRemark("")); // empty string
+        assertFalse(Remark.isValidRemark(" ")); // spaces only
+
+        // valid addresses
+        assertTrue(Remark.isValidRemark("owe $10"));
+        assertTrue(Remark.isValidRemark("~")); // one character
+        assertTrue(Remark.isValidRemark("Meet for lunch 21/10 6pm Nex")); // long remark
+    }
+}
+```
+###### /java/seedu/address/model/person/ContainsKeywordsPredicateTest.java
 ``` java
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
@@ -162,21 +177,6 @@
         // Invalid main keyword
         predicate = new ContainsKeywordsPredicate(Collections.singletonList("Alice"), "abc");
         assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
-    }
-}
-```
-###### \java\seedu\address\model\person\RemarkTest.java
-``` java
-    @Test
-    public void isValidRemark() {
-        // invalid addresses
-        assertFalse(Remark.isValidRemark("")); // empty string
-        assertFalse(Remark.isValidRemark(" ")); // spaces only
-
-        // valid addresses
-        assertTrue(Remark.isValidRemark("owe $10"));
-        assertTrue(Remark.isValidRemark("~")); // one character
-        assertTrue(Remark.isValidRemark("Meet for lunch 21/10 6pm Nex")); // long remark
     }
 }
 ```
