@@ -335,18 +335,6 @@ public class Organisation {
 ###### \java\seedu\address\storage\StorageManager.java
 ``` java
 
-    @Override
-    @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
-        try {
-            saveAddressBook(event.data);
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
-        }
-    }
-
-}
 ```
 ###### \java\seedu\address\ui\AddressPanel.java
 ``` java

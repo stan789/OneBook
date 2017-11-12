@@ -33,9 +33,17 @@
                 && this.targetIndex.equals(((EmailCommand) other).targetIndex)); // state check
     }
 
+```
+###### \java\seedu\address\logic\commands\EmailCommand.java
+``` java
     /**
      * redirects user to their desktop's default email application.
+     *
+     * @param email email of the recipient.
+     * @throws CommandException if desktop not supported
+     * @throws IOException if desktop mail application cannot be opened or not found
      */
+
     protected void desktopEmail(String email) throws IOException, URISyntaxException, CommandException {
         if (!Desktop.isDesktopSupported()) {
             throw new CommandException(MESSAGE_NOT_SUPPORTED);
@@ -76,10 +84,10 @@
 ``` java
     @Override
     public CommandResult execute() throws CommandException {
+        ImportAnalysis importAnalysis = new ImportAnalysis();
 
         try {
-
-            count = model.importFile(fileLocation);
+            model.importFile(fileLocation, importAnalysis);
 
         } catch (EmptyFileException e) {
             throw new CommandException(MESSAGE_EMPTY_FILE);
@@ -87,8 +95,15 @@
         } catch (IOException e) {
             throw new CommandException(MESSAGE_FILE_INVALID);
         }
+        String feedbackToUser = String.format(MESSAGE_SUCCESS, importAnalysis.getNumContacts());
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, count));
+        if (importAnalysis.isDuplicateContacts()) {
+            feedbackToUser = feedbackToUser.concat(MESSAGE_DUPLICATE);
+        }
+        if (importAnalysis.isIllegalValue()) {
+            feedbackToUser = feedbackToUser.concat(MESSAGE_ILLEGAL_VALUE);
+        }
+        return new CommandResult(feedbackToUser);
     }
 
 ```
@@ -369,16 +384,18 @@
 ###### \java\seedu\address\model\Model.java
 ``` java
     /**
-     * Updates the filter of the filtered bin list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
+     * sorts the list in the addressbook by alphabetical order.
+     * @throws EmptyAddressBookException if addressbook is empty
      */
     void executeSort(String sortType) throws EmptyAddressBookException;
 
 ```
 ###### \java\seedu\address\model\Model.java
 ``` java
-    /** Returns an integer which is the number of persons that are succcessfully imported*/
-    Integer importFile(Path fileLocation) throws IOException;
+    /** imports a VCard file to OneBook.
+     * @throws IOException if file cannot be read.
+     */
+    void importFile(Path fileLocation, ImportAnalysis importAnalysis) throws IOException;
 
 ```
 ###### \java\seedu\address\model\Model.java
@@ -399,19 +416,19 @@
 ###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
-    public Integer importFile(Path fileLocation) throws IOException {
+    public void importFile(Path fileLocation, ImportAnalysis importAnalysis) throws IOException {
         Integer count = 0;
-        ImportVCardFile importFile = new ImportVCardFile(fileLocation);
+        ImportVCardFile importFile = new ImportVCardFile(fileLocation, importAnalysis);
         ArrayList<Person> person = importFile.getPersonFromFile();
         for (Person p : person) {
             try {
                 addPerson(p);
                 count++;
             } catch (DuplicatePersonException e) {
-                System.out.println("DuplicatePersonException" + p.getName());
+                importAnalysis.setDuplicateContacts(true);
             }
         }
-        return count;
+        importAnalysis.setNumContacts(count);
     }
 
 ```
@@ -870,7 +887,7 @@ public class WrongFormatInFileException extends IOException {
 ``` java
     /**
      * Read vCard file from the directory. Check format in file.
-     * return a list of persons
+     * @throws IOException if not able to read from file
      */
 
     public ArrayList<Person> getPersonFromFile() throws IOException {
@@ -913,6 +930,7 @@ public class WrongFormatInFileException extends IOException {
                 throw new WrongFormatInFileException();
             } else {
                 vCard = new VCard();
+                name = "";
             }
             checkEnd = false;
             checkBegin = true;
@@ -932,38 +950,51 @@ public class WrongFormatInFileException extends IOException {
     private void vCardFilePart(String line) {
         String[] contactArray = line.split(":");
         if (contactArray.length == INDEX_TWO) {
-            if ((line.startsWith(vcf.getPhoneFormat2()) || line.contains(vcf.getPhoneFormat()))) {
-                phoneSection(contactArray[INDEX_ONE]);
+            if ((line.startsWith(vcf.getPhoneFormat2()) || line.startsWith(vcf.getPhoneFormat()))) {
+                phoneSection(contactArray[INDEX_ONE].trim());
             }
-
             if (line.startsWith(vcf.getEmail())) {
-                vCard.setEmail(contactArray[INDEX_ONE]);
+                vCard.setEmail(contactArray[INDEX_ONE].trim());
             }
-
             if (line.startsWith(vcf.getFullName())) {
-                vCard.setName(contactArray[INDEX_ONE]);
+                vCard.setName(contactArray[INDEX_ONE].trim());
             }
-
-            if (line.startsWith(vcf.getAddressFormat1()) || line.contains(vcf.getAddressFormat2())) {
-                addressSection(contactArray[INDEX_ONE]);
+            if (line.startsWith(vcf.getName())) {
+                nameSection(contactArray[INDEX_ONE].trim());
             }
-
+            if (line.startsWith(vcf.getAddressFormat1()) || line.startsWith(vcf.getAddressFormat2())) {
+                addressSection(contactArray[INDEX_ONE].trim());
+            }
             if (line.startsWith(vcf.getBirthday())) {
-                birthdaySection(contactArray[INDEX_ONE]);
+                birthdaySection(contactArray[INDEX_ONE].trim());
             }
-
             if (line.startsWith(vcf.getLabel())) {
-                tagSection(contactArray[INDEX_ONE]);
+                tagSection(contactArray[INDEX_ONE].trim());
             }
-
             if (line.startsWith(vcf.getOrganization())) {
-                vCard.setOrganisation(contactArray[INDEX_ONE]);
+                vCard.setOrganisation(contactArray[INDEX_ONE].trim());
             }
             if (line.startsWith(vcf.getNotes())) {
-                vCard.setRemark(contactArray[INDEX_ONE]);
+                vCard.setRemark(contactArray[INDEX_ONE].trim());
             }
         }
     }
+
+```
+###### \java\seedu\address\storage\ImportVCardFile.java
+``` java
+    /**
+     * change format of VCard name to OneBook phone format
+     */
+    private void nameSection(String contactArray) {
+        String[] nameArray = contactArray.split(";");
+        for (int i = nameArray.length - 1; i >= 0; i--) {
+            if (!nameArray[i].equals("")) {
+                name = name.concat(nameArray[i] + " ");
+            }
+        }
+    }
+
 
 ```
 ###### \java\seedu\address\storage\ImportVCardFile.java
@@ -1044,6 +1075,9 @@ public class WrongFormatInFileException extends IOException {
             } else {
                 checkEnd = true;
                 checkBegin = false;
+                if (vCard.getName().equals("")) {
+                    vCard.setName(name.trim());
+                }
                 Set<Tag> tag = new HashSet<>();
                 for (String string : vCard.getTag()) {
                     tag.add(new Tag(string));
@@ -1054,7 +1088,7 @@ public class WrongFormatInFileException extends IOException {
                         new Remark((vCard.getRemark())), tag));
             }
         } catch (IllegalValueException e) {
-            System.out.println("IllegalValueException" + vCard.getName() + " " + vCard.getPhone());
+            importAnalysis.setIllegalValue(true);
         }
     }
 
