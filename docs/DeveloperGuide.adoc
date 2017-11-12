@@ -203,6 +203,7 @@ The `Model`,
 on the list being displayed. This data can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+// tag::storage[]
 === Storage component
 
 image::StorageClassDiagram.png[width="800"]
@@ -213,7 +214,9 @@ _Figure 2.5.1 : Structure of the Storage Component_
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the `AddressBookData` object of OneBook, which holds both the address book data and recycle bin data, in xml format and read it back.
+* can save a backup copy of the xml data that will be loaded in situations where the main xml data is corrupted.
+// end::storage[]
 
 === Common classes
 
