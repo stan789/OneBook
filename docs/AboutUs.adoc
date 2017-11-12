@@ -16,7 +16,7 @@ image::frozventus.jpg[width="150", align="left"]
 {empty}[https://github.com/frozventus[github]] [<<henryang#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Model
+Responsibilities: UI
 
 '''
 
@@ -29,12 +29,12 @@ Responsibilities: Storage
 
 '''
 
-=== Gideon Fu
+=== Fu Chuanrong Gideon
 image::gideonfu.jpg[width="150", align="left"]
 {empty}[http://github.com/gideonfu[github]] [<<gideonfu#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Model
 
 '''
 
