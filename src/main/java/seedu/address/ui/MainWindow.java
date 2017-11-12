@@ -39,7 +39,7 @@ public class MainWindow extends UiPart<Region> {
     private static final int MIN_HEIGHT = 600;
     private static final int MIN_WIDTH = 450;
     private static final String DARK_MODE = "/view/DarkTheme.css";
-    private static final String LIGHT_MODE ="/view/LightTheme.css";
+    private static final String LIGHT_MODE = "/view/LightTheme.css";
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     private Stage primaryStage;

@@ -9,15 +9,14 @@ import seedu.address.commons.core.GuiSettings;
  */
 public class UserPrefs {
 
+    private static final String DEFAULT_THEME = "/view/DarkTheme.css";
+
     private GuiSettings guiSettings;
 
     private String addressBookFilePath = "data/addressbook.xml";
     private String recycleBinFilePath = "data/recyclebin.xml";
     private String addressBookName = "MyOneBook";
     private String theme;
-
-    private static final String DEFAULT_THEME = "/view/DarkTheme.css";
-
 
     public UserPrefs() {
         this.setGuiSettings(500, 500, 0, 0);
