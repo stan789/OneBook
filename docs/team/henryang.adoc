@@ -35,7 +35,7 @@ The `undo` function is sometimes not suitable for use due to reasons such as:
 * Application has already been closed and restarted, hence clearing the undo/redo stack.
 
 The `restore` command allows users to selectively restore deleted contacts. +
-The `bindelete` command allows users to manage their Recycle Bin to reduce clutter.
+The `bindelete` and `binclear` commands allow users to manage their Recycle Bin to reduce clutter.
 
 ==== Implementation
 
