@@ -275,7 +275,7 @@ Clears all entries from the address book, including the recycle bin +
 Format: `clear`
 
 ****
-* Contacts deleted using this command does not show up in the Recycle Bin.
+* Contacts deleted using this command will not show up in the Recycle Bin.
 ****
 
 // tag::sort[]
