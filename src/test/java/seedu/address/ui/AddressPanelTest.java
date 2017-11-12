@@ -2,8 +2,10 @@ package seedu.address.ui;
 
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.ui.AddressPanel.DEFAULT_LIGHT_PAGE;
 import static seedu.address.ui.AddressPanel.DEFAULT_PAGE;
 import static seedu.address.ui.AddressPanel.GOOGLE_SEARCH_URL_PREFIX;
 import static seedu.address.ui.AddressPanel.GOOGLE_SEARCH_URL_SUFFIX;
@@ -42,6 +44,10 @@ public class AddressPanelTest extends GuiUnitTest {
         // default web page
         URL expectedDefaultPageUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
         assertEquals(expectedDefaultPageUrl, addressPanelHandle.getLoadedUrl());
+
+        // secondary web page
+        URL expectedDefaultPageUrlSecondary = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_LIGHT_PAGE);
+        assertFalse(expectedDefaultPageUrlSecondary.equals(addressPanelHandle.getLoadedUrl()));
 
         // associated web page of a person
         postNow(selectionChangedEventStub);
