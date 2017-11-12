@@ -103,16 +103,16 @@ public class AddressPanel extends UiPart<Region> {
     }
     //@@author darrinloh
 
-    public void setDefaultPage() {
-        Scene scene = MainWindow.getScene();
-        if (scene.getStylesheets().contains(DARK_MODE)) {
-            URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
-            loadPage(defaultPage.toExternalForm());
-        } else {
-            URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_LIGHT_PAGE);
-            loadPage(defaultPage.toExternalForm());
-        }
-    }
+//    public void setDefaultPage() {
+//        Scene scene = MainWindow.getScene();
+//        if (scene.getStylesheets().contains(DARK_MODE)) {
+//            URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+//            loadPage(defaultPage.toExternalForm());
+//        } else {
+//            URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_LIGHT_PAGE);
+//            loadPage(defaultPage.toExternalForm());
+//        }
+//    }
 
     //@@author darrinloh
     /**

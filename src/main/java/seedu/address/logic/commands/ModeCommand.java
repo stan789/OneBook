@@ -19,18 +19,7 @@ public class ModeCommand extends Command {
     //@@author darrinloh
     @Override
     public CommandResult execute() {
-        Scene scene = MainWindow.getScene();
-        AddressPanel addressPanel = MainWindow.getAddressPanel();
-        if (scene.getStylesheets().contains(DARK_MODE)) {
-            scene.getStylesheets().remove(DARK_MODE);
-            scene.getStylesheets().add(LIGHT_MODE);
-            addressPanel.setDefaultPage();
 
-        } else {
-            scene.getStylesheets().remove(LIGHT_MODE);
-            scene.getStylesheets().add(DARK_MODE);
-            addressPanel.setDefaultPage();
-        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
     //@@author

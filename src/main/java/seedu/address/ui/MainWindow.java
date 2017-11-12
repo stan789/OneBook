@@ -37,14 +37,13 @@ public class MainWindow extends UiPart<Region> {
     private static final String FXML = "MainWindow.fxml";
     private static final int MIN_HEIGHT = 600;
     private static final int MIN_WIDTH = 450;
-    private static AddressPanel addressPanel;
-    private static Scene scene;
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     private Stage primaryStage;
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private AddressPanel addressPanel;
     private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
@@ -94,19 +93,8 @@ public class MainWindow extends UiPart<Region> {
         Scene scene = new Scene(getRoot());
         primaryStage.setScene(scene);
 
-        this.scene = scene;
-        scene.getStylesheets().add("view/DarkTheme.css");
-
         setAccelerators();
         registerAsAnEventHandler(this);
-    }
-
-    public static Scene getScene() {
-        return scene;
-    }
-
-    public static AddressPanel getAddressPanel() {
-        return addressPanel;
     }
 
     public Stage getPrimaryStage() {
@@ -154,7 +142,6 @@ public class MainWindow extends UiPart<Region> {
     void fillInnerParts() {
         addressPanel = new AddressPanel();
         addressPlaceholder.getChildren().add(addressPanel.getRoot());
-        addressPanel.setDefaultPage();
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
