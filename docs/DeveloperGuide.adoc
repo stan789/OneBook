@@ -574,11 +574,15 @@ There is no implementation for the backup function. It will happen on every star
 The `mode` function is implemented by `ModeCommand`,
 which will change the background theme by replacing the current CSS and HTML files with new files.
 
+The diagram below shows the sequence of execution when `mode` is executed.
 
-This is done by calling ChangeCss() and ChangeHtml() in `MainWindow`.
+image::modeCommand.png[width="800"]
 
+_Figure 3.13.1 Sequence Diagram for mode operation_
 
-`UserPrefs` will contain the current theme. `MainWindow` will execute getTheme() to obtain the current theme and change it accordingly.
+ModeCommand will invoke a `post(ModeChangeRequestEvent)` method which will be read by `EventsCentre`.
+
+The `MainWindow` will process the request and change the CSS and HTML files accordingly.
 //end::modechange[]
 
 
