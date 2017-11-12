@@ -1,4 +1,33 @@
 # Gideonfu
+###### \java\seedu\address\logic\parser\ParserUtilTest.java
+``` java
+    @Test
+    public void parseDeleteIndex_invalidInput_throwsIllegalValueException() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        ParserUtil.parseDeleteIndex("10 a");
+    }
+
+    @Test
+    public void parseDeleteIndex_outOfRangeInput_throwsIllegalValueException() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        thrown.expectMessage(MESSAGE_INVALID_INDEX);
+        ParserUtil.parseDeleteIndex(Long.toString(Integer.MAX_VALUE + 1));
+    }
+
+    @Test
+    public void parseDeleteIndex_validInput_success() throws Exception {
+        // No whitespaces
+        int[] indexes = new int[] {1};
+        assertTrue(Arrays.equals(Index.arrayFromOneBased(indexes), ParserUtil.parseDeleteIndex("1")));
+
+        // Leading and trailing whitespaces
+        assertTrue(Arrays.equals(Index.arrayFromOneBased(indexes), ParserUtil.parseDeleteIndex("  1  ")));
+
+        // Multiple index input
+        indexes = new int[] {1, 2};
+        assertTrue(Arrays.equals(Index.arrayFromOneBased(indexes), ParserUtil.parseDeleteIndex("1, 2")));
+    }
+```
 ###### \java\seedu\address\model\person\ContainsKeywordsPredicateTest.java
 ``` java
     @Test
