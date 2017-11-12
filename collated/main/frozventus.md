@@ -369,6 +369,58 @@ public class AddressBookData {
     }
 }
 ```
+###### \java\seedu\address\storage\StorageManager.java
+``` java
+    @Override
+    @Subscribe
+    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        try {
+            saveAddressBook(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
+
+}
+```
+###### \java\seedu\address\storage\XmlAddressBookStorage.java
+``` java
+    /**
+     * Similar to {@link #saveAddressBook(AddressBookData)}
+     * @param filePath location of the data. Cannot be null
+     */
+    public void saveAddressBook(AddressBookData addressBook, String filePath)
+            throws IOException {
+        requireNonNull(addressBook);
+        requireNonNull(filePath);
+
+        File file = new File(filePath);
+        FileUtil.createIfMissing(file);
+        XmlFileStorage.saveDataToFile(file, new XmlSerializableAddressBookCombined(addressBook.getAddressBook(),
+                                                                                   addressBook.getRecycleBin()));
+    }
+
+}
+```
+###### \java\seedu\address\storage\XmlFileStorage.java
+``` java
+    /**
+     * Returns address book in the file or an empty address book
+     */
+    public static AddressBookData loadDataFromSaveFile(File file) throws DataConversionException,
+                                                                            FileNotFoundException {
+        try {
+            XmlSerializableAddressBookCombined data =
+                    XmlUtil.getDataFromFile(file, XmlSerializableAddressBookCombined.class);
+            return new AddressBookData(data.getAddressBook(), data.getRecycleBin());
+        } catch (JAXBException e) {
+            throw new DataConversionException(e);
+        }
+    }
+
+}
+```
 ###### \java\seedu\address\storage\XmlSerializableAddressBookCombined.java
 ``` java
 /**
@@ -452,6 +504,33 @@ public class XmlSerializableAddressBookCombined {
         resetPersonDetails();
     }
 }
+```
+###### \java\seedu\address\ui\MainWindow.java
+``` java
+    /**
+     * Fills up all the placeholders of this window.
+     */
+    void fillInnerParts() {
+        addressPanel = new AddressPanel();
+        addressPlaceholder.getChildren().add(addressPanel.getRoot());
+        addressPanel.setDefaultPage();
+
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        ResultDisplay resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(logic);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        personDisplayCard = new PersonDisplayCard();
+        detailsPlaceholder.getChildren().add(personDisplayCard.getRoot());
+    }
+
 ```
 ###### \java\seedu\address\ui\MainWindow.java
 ``` java
@@ -584,6 +663,15 @@ public class XmlSerializableAddressBookCombined {
         });
     }
 
+```
+###### \java\seedu\address\ui\PersonDisplayCard.java
+``` java
+    @Subscribe
+    private void handlePersonDeletedEvent(PersonDeletedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        resetPersonDetails();
+    }
+}
 ```
 ###### \resources\view\AddressPanel.fxml
 ``` fxml
