@@ -97,9 +97,6 @@ public class MainWindow extends UiPart<Region> {
         this.scene = scene;
         scene.getStylesheets().add("view/DarkTheme.css");
 
-        AddressPanel addressPanel = new AddressPanel();
-        this.addressPanel = addressPanel;
-
         setAccelerators();
         registerAsAnEventHandler(this);
     }
@@ -150,6 +147,7 @@ public class MainWindow extends UiPart<Region> {
         });
     }
 
+    //@@author frozventus
     /**
      * Fills up all the placeholders of this window.
      */
@@ -174,6 +172,7 @@ public class MainWindow extends UiPart<Region> {
         detailsPlaceholder.getChildren().add(personDisplayCard.getRoot());
     }
 
+    //@@author
     void hide() {
         primaryStage.hide();
     }

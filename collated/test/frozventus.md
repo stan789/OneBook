@@ -344,7 +344,7 @@ public class BinClearCommandSystemTest extends AddressBookSystemTest {
 ```
 ###### \java\systemtests\BinDeleteCommandSystemTest.java
 ``` java
-public class BinDeleteCommandSystemTest extends AddressBookSystemTest{
+public class BinDeleteCommandSystemTest extends AddressBookSystemTest {
 
     private static final String MESSAGE_INVALID_BIN_DELETE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, BinDeleteCommand.MESSAGE_USAGE);
@@ -461,8 +461,7 @@ public class BinDeleteCommandSystemTest extends AddressBookSystemTest{
      * Deletes the {@code ReadOnlyPerson} at the specified {@code index} in {@code model}'s address book.
      * @return the removed person
      */
-    private ReadOnlyPerson binDeletePerson (Model model, Index index)
-    {
+    private ReadOnlyPerson binDeletePerson (Model model, Index index) {
         ReadOnlyPerson targetPerson = getPersonFromBin(model, index);
         try {
             model.deleteFromBin(targetPerson);
@@ -561,7 +560,7 @@ public class BinDeleteCommandSystemTest extends AddressBookSystemTest{
 ```
 ###### \java\systemtests\RestoreCommandSystemTest.java
 ``` java
-public class RestoreCommandSystemTest extends AddressBookSystemTest{
+public class RestoreCommandSystemTest extends AddressBookSystemTest {
 
     private static final String MESSAGE_INVALID_RESTORE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, RestoreCommand.MESSAGE_USAGE);
@@ -602,7 +601,7 @@ public class RestoreCommandSystemTest extends AddressBookSystemTest{
         restorePerson(modelBeforeRestoringLast, lastPersonIndex);
         assertCommandSuccess(command, modelBeforeRestoringLast, expectedResultMessage);
 
-        /* ------------------ Performing restore operation while a filtered list is being shown ---------------------- */
+        /* ----------------- Performing restore operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered bin list, delete index within bounds of recycle bin and bin list -> deleted */
         showPersonsInBinWithName(KEYWORD_MATCHING_MEIER);
@@ -622,7 +621,7 @@ public class RestoreCommandSystemTest extends AddressBookSystemTest{
         executeCommand(UndoCommand.COMMAND_WORD);
 
 
-        /* --------------------- Performing restore operation while a person card is selected ------------------------ */
+        /* -------------------- Performing restore operation while a person card is selected ------------------------ */
 
         /* Case: restore the selected person -> person list panel selects the person before restoring the person */
         showAllPersonsInBin();
@@ -635,7 +634,7 @@ public class RestoreCommandSystemTest extends AddressBookSystemTest{
         expectedResultMessage = MESSAGE_RESTORE_PERSON_SUCCESS + restoredPerson;
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
-        /* --------------------------------- Performing invalid restore operation ------------------------------------ */
+        /* -------------------------------- Performing invalid restore operation ------------------------------------ */
 
         /* Case: invalid index (0) -> rejected */
         command = RestoreCommand.COMMAND_WORD + " 0";
@@ -679,8 +678,7 @@ public class RestoreCommandSystemTest extends AddressBookSystemTest{
      * Restores the {@code ReadOnlyPerson} at the specified {@code index} in {@code model}'s address book.
      * @return the removed person
      */
-    private ReadOnlyPerson restorePerson(Model model, Index index)
-    {
+    private ReadOnlyPerson restorePerson(Model model, Index index) {
         ReadOnlyPerson targetPerson = getPersonFromBin(model, index);
         try {
             model.restorePerson(targetPerson);

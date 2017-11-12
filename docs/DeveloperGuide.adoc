@@ -146,6 +146,7 @@ Note how the event is propagated through the `EventsCenter` to the `Storage` and
 
 The sections below give more details of each component.
 
+// tag::ui[]
 === UI component
 
 image::UiClassDiagram.png[width="800"]
@@ -153,15 +154,18 @@ _Figure 2.2.1 : Structure of the UI Component_
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `PersonDisplayCard`, `StatusBarFooter`, `AddressPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+
+The color scheme of the `UI` component is determined using the css files `DarkTheme.css` and `LightTheme.css`.
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
+// end::ui[]
 
 === Logic component
 
@@ -194,10 +198,12 @@ _Figure 2.4.1 : Structure of the Model Component_
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Address Book data and Recycle Bin data.
+* exposes an unmodifiable `ObservableList<ReadOnlyPerson>` that is derived between the Address Book data and the Recycle Bin data depending
+on the list being displayed. This data can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+// tag::storage[]
 === Storage component
 
 image::StorageClassDiagram.png[width="800"]
@@ -208,7 +214,9 @@ _Figure 2.5.1 : Structure of the Storage Component_
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the `AddressBookData` object of OneBook, which holds both the address book data and recycle bin data, in xml format and read it back.
+* can save a backup copy of the xml data that will be loaded in situations where the main xml data is corrupted.
+// end::storage[]
 
 === Common classes
 
@@ -217,23 +225,6 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
-
-// tag::ui[]
-=== User Interface
-
-The User Interface is implemented using JavaFx. The Ui consists of a `MainWindow` which holds `StackWindow` fields.
-Each of the `StackWindow` is to be filled with the Ui components as listed below.
-
-*Ui components:* +
-
-* `CommandBox` - Input field
-* `PersonListPanel` - Display list of Person
-* `ResultDisplay` - Display response of command
-* `PersonDetailsCard` - Display Details of Person
-* `AddressPanel` - Display Address and shows map of address
-
-The Ui also makes use of `DarkTheme,css` and `LightTheme.css` file to set the color scheme.
-// end::ui[]
 
 // tag::undoredo[]
 === Undo/Redo mechanism
@@ -508,27 +499,28 @@ Users will key in email index where index refers to the index of the person list
 
 // tag::bin[]
 === Recycle bin
-The recycle bin is implemented by having address book store the list of person deleted using a separate list from the main address book list. +
+The recycle bin is implemented by having OneBook store the list of person deleted using a separate list from the main address book list. +
+This list is implemented via extending `AddressBook` class.
 
 ==== Design considerations
 
 **Aspect:** Implementation of `RecycleBin` +
-**Alternative 1 (current choice):** Add a new type of list `RecycleBinList` extending from `AddressBook` +
-**Pros:** We will be able to store additional information in the list such as deletion date. Existing methods for `AddressBook` can still be used. +
+**Alternative 1 (current choice):** Add a new type of list `RecycleBin` extending from `AddressBook` +
+**Pros:** We will be able to store additional information in the list. Existing methods for `AddressBook` can still be used. +
 **Cons:** Increases workload as a new class is added. Testing of newly introduced class is also required. +
-**Alternative 2:** Just reuse `AddressBook` to store a separate list for `recycleBin` +
+**Alternative 2:** Just reuse `AddressBook` to store a separate list for `RecycleBin` +
 **Pros:** Does not require alot of code changes. +
-**Cons:** Unable to add additional fields to `recycleBin` entry. Additional features such as automatic removal of entry from list cannot be implemented without changing existing code in `AddressBook`. +
+**Cons:** Unable to add additional fields to `RecycleBin` entry. Increases coupling between `RecycleBin` and `AddressBook` which is undesired. +
 
 ---
 
 **Aspect:** Implementation of commands for `RecycleBin` +
 **Alternative 1 (current choice):** Add a new group of commands specifically for `RecycleBin` usage with `bin` as the first part of each command. +
 **Pros:** Less mixup in command purpose. Commands will look more organized. Existing command naming can be reused. +
-**Cons:** A new parser will have to added that determines the command is for `RecycleBin` before command is to be parsed again to determine usage. +
-**Alternative 2:** Add a new command for each feature of `RecycleBin` usage. +
-**Pros:** Additional parsing of command is unnecessary. +
-**Cons:** Commands will be easily mixed up. Purpose of command will be unintuitive, `clear` may mean to clear recycle or to clear address book. A separate command name for clearing recycle bin need to be thought of (clear can no longer be used). +
+**Cons:** A new parser will have to added for each command that determines the command is for `RecycleBin`. +
+**Alternative 2:** Add a new command using unused command words for each feature of `RecycleBin` usage. +
+**Pros:** Commands will not have `bin` in front of each of them, making them less repetitive.. +
+**Cons:** Commands will be easily mixed up. Purpose of command will be unintuitive, `clear` may mean to clear recycle bin or to clear address book. A separate command name for clearing recycle bin need to be thought of (clear can no longer be used). +
 // end::bin[]
 
 //tag::backup[]
