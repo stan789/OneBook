@@ -1,4 +1,17 @@
 # Gideonfu
+###### /java/seedu/address/commons/core/index/Index.java
+``` java
+    /**
+     * Creates a new {@code Index[]} using a one-based index.
+     */
+    public static Index[] arrayFromOneBased(int[] oneBasedIndex) {
+        Index[] arrayIndex = new Index[oneBasedIndex.length];
+        for (int i = 0; i < oneBasedIndex.length; i++) {
+            arrayIndex[i] = new Index(oneBasedIndex[i] - 1);
+        }
+        return arrayIndex;
+    }
+```
 ###### /java/seedu/address/logic/parser/FindCommandParser.java
 ``` java
     /**
