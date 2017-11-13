@@ -70,3 +70,20 @@
 
 }
 ```
+###### \java\seedu\address\ui\AddressPanel.java
+``` java
+    /**
+     * Loads a default HTML file with a background that matches the general theme.
+     */
+    public void loadDefaultPage() {
+        URL defaultPage;
+        if (prefs.getTheme().contains(LIGHT_MODE)) {
+            defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_LIGHT_PAGE);
+        } else {
+            defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+        }
+
+        loadPage(defaultPage.toExternalForm());
+    }
+
+```

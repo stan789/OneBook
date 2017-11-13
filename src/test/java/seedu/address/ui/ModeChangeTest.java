@@ -15,6 +15,7 @@ public class ModeChangeTest {
     public ModeChangeTest() {
     }
 
+    //@@author darrinloh
     @Before
     public void setUp() {
         prefs = new UserPrefs();

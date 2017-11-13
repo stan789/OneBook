@@ -20,7 +20,7 @@ Responsibilities: UI
 
 '''
 
-=== Darrin Loh
+=== Darrin Loh Kay Lok
 image::darrinloh.jpg[width="150", align="left"]
 {empty}[http://github.com/darrinloh[github]] [<<darrinloh#, portfolio>>]
 

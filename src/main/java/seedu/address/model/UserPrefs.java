@@ -22,6 +22,7 @@ public class UserPrefs {
         this.setGuiSettings(500, 500, 0, 0);
     }
 
+    //@@author darrinloh
     public String getTheme() {
         return theme == null ? DEFAULT_THEME : theme;
     }
@@ -33,6 +34,7 @@ public class UserPrefs {
     public void setTheme(String theme) {
         this.theme = theme;
     }
+    //@@author
 
     public GuiSettings getGuiSettings() {
         return guiSettings == null ? new GuiSettings() : guiSettings;

@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Region> {
     public static final String LIGHT_MODE = "/view/LightTheme.css";
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
+    private static final int CURRENT_THEME = 1;
     private static final int MIN_HEIGHT = 600;
     private static final int MIN_WIDTH = 450;
     private final Logger logger = LogsCenter.getLogger(this.getClass());
@@ -172,6 +173,7 @@ public class MainWindow extends UiPart<Region> {
         primaryStage.setTitle(appTitle);
     }
 
+    //@@author darrinloh
     /**
      * Changes the Html document after input by user
      */
@@ -195,6 +197,7 @@ public class MainWindow extends UiPart<Region> {
             prefs.setTheme(DARK_MODE);
         }
     }
+    //@@author
 
     //@@author frozventus
     private void setListDisplay() {
@@ -253,12 +256,16 @@ public class MainWindow extends UiPart<Region> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    //@@author darrinloh
     /**
      * Returns the current theme of the main Window.
      */
     String getCurrentThemeSetting() {
-        return getRoot().getStylesheets().get(1);
+        return getRoot().getStylesheets().get(CURRENT_THEME);
     }
+    //@@author
+
+
     /**
      * Opens the help window.
      */
@@ -329,6 +336,7 @@ public class MainWindow extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
 
+    //@@author darrinloh
     @Subscribe
     private void handleChangeModeRequestEvent(ModeChangeRequestEvent event) {
         changeHtml();

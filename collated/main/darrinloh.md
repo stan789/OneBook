@@ -174,14 +174,6 @@ public class ModeChangeRequestEvent extends BaseEvent {
     }
 }
 ```
-###### \java\seedu\address\model\ModelManager.java
-``` java
-    @Override
-    public void changeTheme() {
-
-    }
-
-```
 ###### \java\seedu\address\model\person\Organisation.java
 ``` java
 public class Organisation {
@@ -245,6 +237,20 @@ public class Organisation {
 ###### \java\seedu\address\model\person\Organisation.java
 ``` java
 
+```
+###### \java\seedu\address\model\UserPrefs.java
+``` java
+    public String getTheme() {
+        return theme == null ? DEFAULT_THEME : theme;
+    }
+
+    public void updateLastUsedThemeSetting(String theme) {
+        this.theme = theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
 ```
 ###### \java\seedu\address\storage\StorageManager.java
 ``` java
@@ -355,9 +361,10 @@ public class Organisation {
 ```
 ###### \java\seedu\address\ui\AddressPanel.java
 ``` java
-
-
-
+    /**
+     * Replaces the current theme with another theme
+     * @param currentTheme obtains the current theme
+     */
     public void setDefaultPage(String currentTheme) {
 
         if (currentTheme.contains(LIGHT_MODE)) {
@@ -369,4 +376,58 @@ public class Organisation {
         }
     }
 
+```
+###### \java\seedu\address\ui\MainWindow.java
+``` java
+    /**
+     * Changes the Html document after input by user
+     */
+    private void changeHtml() {
+        String theme = getCurrentThemeSetting();
+        addressPanel.setDefaultPage(theme);
+    }
+
+    /**
+     * Changes the Css style sheet after input by user
+     */
+    private void changeCss() {
+        String theme = getCurrentThemeSetting();
+        if (theme.contains(DARK_MODE)) {
+            getRoot().getStylesheets().remove(DARK_MODE);
+            getRoot().getStylesheets().add(LIGHT_MODE);
+            prefs.setTheme(LIGHT_MODE);
+        } else {
+            getRoot().getStylesheets().remove(LIGHT_MODE);
+            getRoot().getStylesheets().add(DARK_MODE);
+            prefs.setTheme(DARK_MODE);
+        }
+    }
+```
+###### \java\seedu\address\ui\MainWindow.java
+``` java
+    /**
+     * Returns the current theme of the main Window.
+     */
+    String getCurrentThemeSetting() {
+        return getRoot().getStylesheets().get(CURRENT_THEME);
+    }
+```
+###### \java\seedu\address\ui\MainWindow.java
+``` java
+    @Subscribe
+    private void handleChangeModeRequestEvent(ModeChangeRequestEvent event) {
+        changeHtml();
+        changeCss();
+    }
+}
+```
+###### \java\seedu\address\ui\UiManager.java
+``` java
+    @Override
+    public void stop() {
+        prefs.updateLastUsedThemeSetting(mainWindow.getCurrentThemeSetting());
+        prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
+        mainWindow.hide();
+        mainWindow.releaseResources();
+    }
 ```

@@ -63,6 +63,7 @@ public class UiManager extends ComponentManager implements Ui {
         }
     }
 
+    //@@author darrinloh
     @Override
     public void stop() {
         prefs.updateLastUsedThemeSetting(mainWindow.getCurrentThemeSetting());
@@ -70,6 +71,7 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.hide();
         mainWindow.releaseResources();
     }
+    //@@author
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
         final String content = details + ":\n" + cause.toString();
