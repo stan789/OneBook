@@ -1,9 +1,13 @@
-== Loading the SampleData.xml file: +
-1. Locate the file directory of your OneBook.jar. +
-2. Copy the SampleData.xml file to the data folder in the same directory as the OneBook.jar.
-3. Rename SampleData.xml to addressbook.xml.
-4. Run the OneBook.jar application.
+= Test Script for Manual Testing
 
+== Loading the SampleData.xml file
+1. Locate the file directory of your OneBook.jar.
+2. Create a folder named "data" in the same directory as the OneBook.jar.
+3. Copy the SampleData.xml file to the data folder.
+4. Rename SampleData.xml to addressbook.xml.
+5. Run the OneBook.jar application.
+
+== Test Script
 [width="100%",cols="3*",options="header",]
 |=======================================================================
 |Function |Command |Expected Output
