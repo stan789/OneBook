@@ -310,6 +310,7 @@ Format: `import [file directory]`
 * Imports a VCard file from a valid directory.
 * If format in the file follows VCard format, it will import contacts to OneBook.
 * Notify the number of contacts that are succesfully imported.
+* Notify if there are duplicated contacts or if the contacts in the file have information that has invalid format.
 ****
 
 Examples:
@@ -441,11 +442,6 @@ If the application checks that the main data file is corrupted, it will load the
 If the backup file does not exist or is corrupted too, OneBook will start with a sample AddressBook data.
 
 //end::backup[]
-
-=== Remove all entry in recycle bin : `bin clear` [yellow]#*Coming in v2.0#
-
-Clears the recycle bin. +
-Format: `binclear`
 
 === Import from CSV(.csv) files to OneBook : `import` [yellow]#*Coming in v2.0#
 

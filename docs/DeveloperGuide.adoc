@@ -462,7 +462,7 @@ When ImportCommand is executed, it will call importFile() in Model as shown in t
 image::ImportDiagram.png[width="800"]
 _Figure 3.8.1 : Sequence Diagram for import operation_
 
-The Model Manager will then call getPersonFromFile() in ImportVCardFile. It will return an ArrayList of Person which will be added to OneBook using addPerson() in Model Manager.
+The Model Manager will then call getPersonFromFile() in ImportVCardFile. It will return an ArrayList of Person which will be added to OneBook using addPerson() in Model Manager. There is an importAnalysis object to track the number of contacts that are successfully imported from the file as well as track if there are duplicated contacts or information in contacts with invalid format.
 
 ==== Design considerations
 **Aspect:** Which file formats to allow to import. +
