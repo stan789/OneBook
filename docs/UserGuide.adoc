@@ -325,7 +325,11 @@ Examples:
 
 Create a VCard file or CSV File and export from OneBook to the file directory +
 Format: `export [file directory(including filename and file extension)]`
-
+[NOTE]
+====
+Export to VCard file if you intend to import into another application which uses the contact details. +
+Export to CSV file for easy reference to find contacts using Microsoft Excel.
+====
 ****
 * Exports a VCard file to a valid directory.
 * The created file must end with VCard extension(.vcf) or CSV file(.csv).
